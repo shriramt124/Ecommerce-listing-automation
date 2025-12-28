@@ -1,0 +1,308 @@
+================================================================================
+         ULTIMATE ALGORITHM V2: CONCEPT-BASED OPTIMIZATION WITH IMPLICATION
+================================================================================
+
+       FIXING THE "LAVENDER FRAGRANCE + SCENTED" PROBLEM
+                         ==================================================
+
+PROBLEM STATEMENT:
+------------------
+Input:  "Shalimar (Lavender Fragrance) Scented Garbage Bags | Medium..."
+Issue:  "(Lavender Fragrance)" is already there, so "Scented" is REDUNDANT
+        because FRAGRANCE IMPLIES SCENTED.
+
+Current algorithm FAILED because:
+1. It treated "Lavender Fragrance" and "Scented" as SEPARATE concepts
+2. It didn't have IMPLICATION RULES that say: FRAGRANCE → SCENTED
+3. It only lowered the value of "Scented" but didn't REMOVE it
+
+================================================================================
+                              CORE INSIGHT
+================================================================================
+
+The title should be CONCEPTS, not TOKENS.
+
+Instead of parsing: [Shalimar] [Premium] [(Lavender Fragrance)] [Scented] [Garbage Bags]...
+
+Parse as CONCEPTS:
+- BRAND(Shalimar)
+- QUALITY_MARKER(Premium) → OPTIONAL, low value
+- FRAGRANCE(Lavender) → implies SCENTED, so SCENT becomes redundant
+- PRODUCT(Garbage Bags)
+- SIZE(Medium)
+- COLOR(Black)
+- COUNT(120 Bags, 30x4 Rolls)
+- FEATURE(Perforated Box)
+- FEATURE(Easy Dispensing)
+- SYNONYM(Dustbin Bag, Trash Bag) → only 1 allowed
+
+================================================================================
+                     UPDATED ALGORITHM: KEY IMPROVEMENTS
+================================================================================
+
+## 1. CONCEPT EXTRACTION (Not Token Parsing)
+
+OLD: Split by separators → classify each segment
+NEW: Extract CONCEPTS with their full context
+
+Example:
+  "(Lavender Fragrance) Scented" → FRAGRANCE(Lavender, surface_form="Lavender Fragrance")
+  We recognize that "Scented" is COVERED by the FRAGRANCE concept.
+
+## 2. IMPLICATION GRAPH (The Missing Piece!)
+
+Define rules that say "Concept A implies Concept B":
+
+IMPLICATION_RULES = {
+    # If FRAGRANCE exists, SCENT is redundant (fragrance implies scented)
+    'FRAGRANCE': ['SCENT', 'SCENTED'],
+    
+    # If specific color exists, generic "Color" is redundant
+    'COLOR(specific)': ['COLOR(generic)'],
+    
+    # If SIZE exists with dimension, don't repeat size word
+    'DIMENSION(with size)': ['SIZE(repeated)'],
+    
+    # If COUNT with detail exists, don't repeat count
+    'COUNT(detailed)': ['COUNT(simple)'],
+}
+
+When we see FRAGRANCE(Lavender), we automatically REMOVE or SKIP anything tagged as SCENT.
+
+## 3. CONCEPT PRIORITY TIERS
+
+Tier-0 (LOCKED, NEVER REMOVE):
+  - BRAND
+  - PRODUCT (main product name)
+  
+Tier-1 (LOCKED, RARELY REMOVE):
+  - SIZE (truth)
+  - COLOR (truth)
+  - COUNT (truth)
+  
+Tier-2 (IMPORTANT, CAN EVICT IF NEEDED):
+  - DIMENSION
+  - FRAGRANCE
+  - MATERIAL
+  - KEY FEATURES (max 2-3)
+  
+Tier-3 (OPTIONAL, FIRST TO EVICT):
+  - SYNONYMS (max 1)
+  - USE_CASE
+  - QUALITY_MARKER ("Premium")
+  - REDUNDANT CONCEPTS (like "Scented" when Fragrance exists)
+
+## 4. REDUNDANCY DETECTION (Before Any Processing)
+
+BEFORE doing anything else, scan the parsed concepts:
+
+```
+for each concept A:
+    for each concept B where B comes after A:
+        if A.implies(B):
+            mark B as REDUNDANT
+            B.tier = Tier-3  # Make it evictable
+            B.value = 0      # No SEO value
+```
+
+Example:
+  - FRAGRANCE(Lavender) found
+  - Scan remaining: found SCENT(Scented)
+  - FRAGRANCE implies SCENT → mark SCENT as REDUNDANT
+  - REDUNDANT concepts are REMOVED before zone building
+
+## 5. SURFACE FORM AWARENESS
+
+The algorithm must understand that:
+  "(Lavender Fragrance)" is ONE concept with surface_form in parentheses
+  "Scented" is a SEPARATE concept that becomes redundant
+
+So we need to parse SMARTLY:
+  - Parentheses content = ONE unit (usually a specific attribute)
+  - Words outside = check if they're covered by parentheses content
+
+## 6. DEDUPLICATION TYPES
+
+Type A: SEMANTIC DUPLICATES (same meaning, different words)
+  - "Garbage Bags" and "Dustbin Bag" → same semantic group → keep only 1
+
+Type B: IMPLICATION DUPLICATES (one implies the other)
+  - "Lavender Fragrance" implies "Scented" → remove "Scented"
+  - "30x4 Rolls" implies "120 Bags" → might remove "120 Bags" (or keep both if space)
+
+Type C: WORD-LEVEL DUPLICATES (same word repeated)
+  - "Garbage" appears in "Garbage Bags" and "black garbage bag" → don't repeat
+
+Type D: MORPHOLOGICAL DUPLICATES (singular/plural)
+  - "Bag" and "Bags" → same thing → keep one form
+
+## 7. ZONE BUILDING (After Redundancy Removal)
+
+Only AFTER removing redundant concepts, build zones:
+
+Zone A (first 40%, ~80 chars):
+  - BRAND + PRODUCT + SIZE + COLOR + COUNT
+  - These are Tier-0 and Tier-1, MUST appear early
+  
+Zone B (next 40%, ~80 chars):
+  - DIMENSION
+  - FRAGRANCE (if exists, no need for SCENT)
+  - KEY FEATURES (max 2)
+  
+Zone C (last 20%, ~40 chars):
+  - SYNONYM (only 1)
+  - USE_CASE
+  - Anything left
+
+## 8. SPECIFIC FIX FOR "LAVENDER FRAGRANCE + SCENTED"
+
+BEFORE:
+  Concept list: [BRAND(Shalimar), QUALITY(Premium), FRAGRANCE(Lavender), SCENT(Scented), PRODUCT(Garbage Bags), ...]
+
+AFTER IMPLICATION CHECK:
+  FRAGRANCE(Lavender) exists → SCENT(Scented) is redundant → REMOVE IT
+  
+  New concept list: [BRAND(Shalimar), PRODUCT(Garbage Bags), FRAGRANCE(Lavender), ...]
+  
+  Also: QUALITY(Premium) is vague → low value → evict if needed
+
+RESULT:
+  "Shalimar Garbage Bags Medium (Black) | 120 Bags (30x4 Rolls) | 19x21 Inches | (Lavender Fragrance) | Perforated Box for Easy Dispensing | Dustbin Bag"
+
+  Notice: NO "Scented" because Lavender Fragrance implies it!
+          NO "Premium" because it's vague and low value
+
+================================================================================
+                          COMPLETE ALGORITHM FLOW
+================================================================================
+
+STEP 1: PARSE TO CONCEPTS
+  - Extract concepts with type, truth_value, surface_form
+  - Handle parentheses as single units
+  - Handle multi-word phrases (Heavy Duty, Easy Dispensing)
+
+STEP 2: APPLY TRUTH CONSTRAINTS
+  - For each concept, check against truth attributes
+  - If conflict (e.g., SIZE=Large but truth=Medium), use truth
+  - Lock truth-critical concepts (SIZE, COLOR, COUNT)
+
+STEP 3: APPLY IMPLICATION RULES
+  - Build implication graph
+  - For each concept, check if it's implied by another concept already present
+  - Mark implied concepts as REDUNDANT (tier=3, value=0)
+
+STEP 4: APPLY SEMANTIC GROUPING
+  - Group synonyms (garbage/dustbin/trash bag)
+  - Keep only ONE per group (highest value)
+  - Mark others as REDUNDANT
+
+STEP 5: APPLY CAPS
+  - Max 1 synonym (from each semantic group)
+  - Max 2-3 features
+  - Remove excess by value (lowest value first)
+
+STEP 6: REMOVE ALL REDUNDANT CONCEPTS
+  - Actually remove (not just mark) concepts with tier=3 and value≤0
+  - This is where "Scented" gets deleted
+
+STEP 7: BUILD ZONES
+  - Zone A: truth-critical (BRAND, PRODUCT, SIZE, COLOR, COUNT)
+  - Zone B: secondary (DIMENSION, FRAGRANCE, FEATURES)
+  - Zone C: tertiary (SYNONYM, USE_CASE)
+
+STEP 8: SLOT PLACEMENT
+  - Assign concepts to slots within zones
+  - Order by: priority_tier, then value, then original_position
+
+STEP 9: KNAPSACK EVICTION
+  - Calculate total characters
+  - If over 200, evict lowest value-per-char from Zone C first, then B
+  - Never evict Zone A (truth-critical)
+
+STEP 10: RENDER
+  - Reconstruct title with proper separators
+  - Apply Title Case
+  - Preserve parentheses style from original
+
+================================================================================
+                          EXPECTED OUTPUT (DRY RUN)
+================================================================================
+
+INPUT:
+"Shalimar Premium (Lavender Fragrance) Scented Garbage Bags | Medium 19 X 21 Inches | 
+120 Bags (30 Bags X 4 Rolls) | Dustbin Bag/Trash Bag | (Black) - Perforated Box for Easy Dispensing"
+
+Step 1 - CONCEPTS PARSED:
+  1. BRAND(Shalimar) [locked]
+  2. QUALITY_MARKER(Premium) [tier-3, value=5]
+  3. FRAGRANCE(Lavender, surface="Lavender Fragrance") [tier-2]
+  4. SCENT(Scented) [tier-2]
+  5. PRODUCT(Garbage Bags) [locked]
+  6. SIZE(Medium) [locked]
+  7. DIMENSION(19x21 Inches) [tier-2]
+  8. COUNT(120 Bags, detail=30x4 Rolls) [locked]
+  9. SYNONYM(Dustbin Bag) [tier-3]
+  10. SYNONYM(Trash Bag) [tier-3]
+  11. COLOR(Black) [locked]
+  12. FEATURE(Perforated Box) [tier-2]
+  13. FEATURE(Easy Dispensing) [tier-2]
+
+Step 3 - IMPLICATION RULES APPLIED:
+  - FRAGRANCE(Lavender) EXISTS
+  - Check: does FRAGRANCE imply SCENT? YES!
+  - Mark SCENT(Scented) as REDUNDANT → tier=3, value=0
+
+Step 4 - SEMANTIC GROUPING:
+  - SYNONYM(Dustbin Bag) and SYNONYM(Trash Bag) are same group
+  - Keep only 1 (higher value or first one) → keep Dustbin Bag
+  - Mark Trash Bag as REDUNDANT
+
+Step 5 - CAPS:
+  - Max synonyms = 1 → already handled
+  - Max features = 2 → Perforated Box, Easy Dispensing → OK
+  - Quality markers = remove if low value → remove Premium
+
+Step 6 - REMOVE REDUNDANT:
+  REMOVED: Scented (implied by Fragrance)
+  REMOVED: Trash Bag (synonym duplicate)
+  REMOVED: Premium (low value quality marker)
+
+REMAINING CONCEPTS:
+  1. BRAND(Shalimar) [locked]
+  2. PRODUCT(Garbage Bags) [locked]
+  3. FRAGRANCE(Lavender) [tier-2]
+  4. SIZE(Medium) [locked]
+  5. DIMENSION(19x21 Inches) [tier-2]
+  6. COUNT(120 Bags, 30x4 Rolls) [locked]
+  7. COLOR(Black) [locked]
+  8. FEATURE(Perforated Box) [tier-2]
+  9. FEATURE(Easy Dispensing) [tier-2]
+  10. SYNONYM(Dustbin Bag) [tier-3]
+
+Step 7 - ZONES:
+  Zone A: BRAND, PRODUCT, SIZE, COLOR, COUNT
+  Zone B: FRAGRANCE, DIMENSION, FEATURE, FEATURE
+  Zone C: SYNONYM
+
+Step 10 - RENDER:
+  "Shalimar Garbage Bags Medium (Black) | 120 Bags (30x4 Rolls) | 19x21 Inches | 
+   (Lavender Fragrance) - Perforated Box for Easy Dispensing | Dustbin Bag"
+
+CHARACTER COUNT: ~175 chars ✅
+
+================================================================================
+                          KEY DIFFERENCES FROM V1
+================================================================================
+
+| V1 (Current)                      | V2 (Updated)                         |
+|-----------------------------------|--------------------------------------|
+| Token-based parsing               | Concept-based parsing                |
+| No implication rules              | FRAGRANCE→SCENT implication          |
+| Marked redundant but kept         | REMOVES redundant concepts           |
+| "Scented" stays with low value    | "Scented" is DELETED                 |
+| Zone building on all tokens       | Zone building AFTER removal          |
+| No quality marker handling        | Removes vague "Premium"              |
+
+================================================================================
+                              END OF ALGORITHM V2
+================================================================================

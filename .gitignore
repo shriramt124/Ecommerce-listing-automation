@@ -1,0 +1,308 @@
+# =============================================================================
+# AGENTIC STRATEGY 2: GITIGNORE
+# Comprehensive ignore rules for AI-Powered Title Optimizer
+# =============================================================================
+
+# =============================================================================
+# PYTHON
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+#  Usually these files are written by a python script from a template
+#  before PyInstaller builds the exe, so as to inject date/other infos into it.
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# =============================================================================
+# ENVIRONMENT & CONFIGURATION
+# =============================================================================
+
+# Environment variables (can contain sensitive data)
+.env
+.env.local
+.env.*.local
+
+# Configuration files with potential secrets
+config.ini
+secrets.json
+credentials.json
+
+# =============================================================================
+# AI/ML & DATA FILES
+# =============================================================================
+
+# Large model files and indexes (comment out if you want to track these)
+st_keywords_index/*.npz
+st_keywords_index/keywords_index.npz
+
+# ChromaDB vector databases
+chroma_*.db
+chroma_keywords_db/
+*.chroma/
+
+# Model cache directories
+.sentence_transformers/
+transformers_cache/
+models/
+
+# Large data files
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+*.joblib
+
+# =============================================================================
+# DEVELOPMENT & DEBUGGING
+# =============================================================================
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
+#   However, in case of collaboration, if having platform-specific dependencies or dependencies
+#   having no cross-platform support, pipenv may install dependencies that don't work, or not
+#   install all needed dependencies.
+Pipfile.lock
+
+# PEP 582; used by e.g. github.com/David-OConnor/pyflow
+__pypackages__/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# =============================================================================
+# IDE & EDITORS
+# =============================================================================
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# OPERATING SYSTEM
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# =============================================================================
+# LOGS & TEMPORARY FILES
+# =============================================================================
+
+# Logs
+*.log
+logs/
+log/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
+
+# =============================================================================
+# BENCHMARKS & PERFORMANCE
+# =============================================================================
+
+# Performance benchmarks
+benchmark_results/
+perf_results/
+*.bench
+
+# Memory dumps
+*.dump
+*.hprof
+
+# =============================================================================
+# CUSTOM PROJECT SPECIFIC
+# =============================================================================
+
+# Large keyword research files (exceeds GitHub's 100MB limit)
+*.csv
+data\ \(12\).xlsx
+KeywordResearch_*.csv
+*.xlsx
+
+# Backup files
+*.bak
+*.backup
+backup_*
+
+# Custom test outputs
+test_results/
+optimization_results/
+output/
+
+# Development datasets (if you have test data)
+test_data/
+sample_data/
+demo_data/
+
+# =============================================================================
+# DOCKER & CONTAINERS
+# =============================================================================
+
+# Docker
+.dockerignore
+Dockerfile.prod
+docker-compose.override.yml
+
+# =============================================================================
+# CLOUD & DEPLOYMENT
+# =============================================================================
+
+# AWS
+.aws/
+
+# GCP
+.gcp/
+
+# Heroku
+.heroku/
+
+# =============================================================================
+# MISCELLANEOUS
+# =============================================================================
+
+# Backup files from various tools
+*.orig
+*.rej
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+
+# =============================================================================
+# PROJECT SPECIFIC EXCEPTIONS (files you DO want to track)
+# =============================================================================
+
+# Keep the environment template (create .env.example if needed)
+# .env.example
+
+# Keep sample data files (uncomment if you want to include sample data)
+# sample_data/
+# examples/
