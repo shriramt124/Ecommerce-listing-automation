@@ -1,0 +1,266 @@
+{
+  "queries": [
+    "Dustbin Bag 19 X 21 Inches",
+    "Dustbin Bag 120 Bags 30 Bags x 4",
+    "Trash Bag 19 X 21 Inches",
+    "Trash Bag 120 Bags 30 Bags x 4",
+    "lavender scented garbage bags",
+    "lavender scented garbage bags Dustbin Bag",
+    "lavender scented garbage bags Trash Bag",
+    "19x21 trash bags",
+    "19x21 trash bags Dustbin Bag",
+    "19x21 trash bags Trash Bag",
+    "perforated garbage bags",
+    "perforated garbage bags Dustbin Bag",
+    "perforated garbage bags Trash Bag",
+    "medium garbage bags",
+    "garbage bags medium",
+    "garbage bags medium size",
+    "medium size garbage bags",
+    "medium trash bags",
+    "trash bags medium",
+    "trash bags medium size",
+    "medium size trash bags"
+  ],
+  "top_preview": [
+    {
+      "keyword": "garbage bags medium size",
+      "score": 0.4166666567325592,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "garbage bags medium",
+      "score": 0.004155969247221947,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "medium trash bags",
+        "trash bags medium"
+      ]
+    },
+    {
+      "keyword": "medium size garbage bags",
+      "score": 0.0021880806889384985,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "medium garbage bags",
+      "score": 0.001736168866045773,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium"
+      ]
+    },
+    {
+      "keyword": "medium size trash bags",
+      "score": 0.0015451936051249504,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "trash bags medium size",
+      "score": 0.005777294747531414,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0,
+      "hit_queries": [
+        "medium trash bags",
+        "trash bags medium",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "trash bags medium",
+      "score": 0.0016236385563388467,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0,
+      "hit_queries": [
+        "garbage bags medium",
+        "medium trash bags",
+        "trash bags medium"
+      ]
+    },
+    {
+      "keyword": "medium trash bags",
+      "score": 0.001563483034260571,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 1.0,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "medium trash bags",
+        "trash bags medium",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "garbage bags medium sizell",
+      "score": 0.0015147387748584151,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9908322095870972,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "garbage bags medium size with",
+      "score": 0.0015196171589195728,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9889321327209473,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "medium sized trash bags",
+      "score": 0.0015143121127039194,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9848819971084595,
+      "hit_queries": [
+        "medium size garbage bags",
+        "medium trash bags",
+        "trash bags medium",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "medium sized garbage bags",
+      "score": 0.001515594543889165,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9842023849487305,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "medium trash bags",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "garbage bags size medium",
+      "score": 0.001681462861597538,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9791175127029419,
+      "hit_queries": [
+        "garbage bags medium",
+        "garbage bags medium size",
+        "medium size garbage bags",
+        "trash bags medium size",
+        "medium size trash bags"
+      ]
+    },
+    {
+      "keyword": "garbage scented bags lavender",
+      "score": 0.0015147387748584151,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9786558151245117,
+      "hit_queries": [
+        "lavender scented garbage bags",
+        "lavender scented garbage bags Dustbin Bag",
+        "lavender scented garbage bags Trash Bag"
+      ]
+    },
+    {
+      "keyword": "medium garbage bags whitw",
+      "score": 0.0015187630197033286,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "KeywordResearch_Home_Home_Storage_&_Organization_Waste_&_Recycling_30_22-12-2025_17-27-42.csv",
+      "source_format": "keywordresearch_csv",
+      "similarity": 0.9780449271202087,
+      "hit_queries": [
+        "medium garbage bags",
+        "garbage bags medium",
+        "medium trash bags",
+        "trash bags medium"
+      ]
+    }
+  ]
+}

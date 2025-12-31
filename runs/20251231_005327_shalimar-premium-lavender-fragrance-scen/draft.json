@@ -1,0 +1,12 @@
+{
+  "full_title": "Shalimar Garbage Bags, Medium 19 X 21 Inches, 120 Bags (30 Bags X 4 Rolls), Black, Garbage Bags Medium Size with Perforated Box for Easy Dispensing, Lavender Fragrance Scented Trash Bags",
+  "char_count": 186,
+  "zone_a": "Shalimar Garbage Bags, Medium 19 X 21 Inches, 120 Bags (30 Bags X 4 Rolls), Black",
+  "zone_b": "Garbage Bags Medium Size with Perforated Box for Easy Dispensing",
+  "zone_c": "Lavender Fragrance Scented Trash Bags",
+  "reasoning": {
+    "zone_a_rationale": "Starts with the brand 'Shalimar' and product type 'Garbage Bags', followed by the exact locked facts for size ('Medium'), dimension ('19 X 21 Inches'), and pack count ('120 Bags (30 Bags X 4 Rolls)'), and includes the color 'Black' from the original title.",
+    "zone_b_rationale": "Uses the highest-scoring approved keyword 'Garbage Bags Medium Size' (score: 0.4167) as a complete phrase. It avoids repeating specs from Zone A and adds the key feature 'Perforated Box for Easy Dispensing' from the original title, which is a high-value search concept.",
+    "zone_c_rationale": "Contains the specific scent descriptor 'Lavender Fragrance' and the synonym 'Trash Bags' from the original title, along with the word 'Scented' to reinforce the product's key differentiator without repeating words from the previous zones."
+  }
+}

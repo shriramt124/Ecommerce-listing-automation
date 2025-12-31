@@ -1,0 +1,88 @@
+{
+  "concepts": [
+    {
+      "text": "Lavender Fragrance",
+      "type": "fragrance",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Black",
+      "type": "color",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Premium",
+      "type": "quality",
+      "locked": false,
+      "ai_evaluation": {
+        "keep": true,
+        "value_score": 0.7,
+        "position": "zone_a",
+        "reason": "‘Premium’ aligns with the ‘home_storage’ category and is a common search term. It indicates a higher quality product, justifying its inclusion."
+      },
+      "keep": true
+    },
+    {
+      "text": "Scented",
+      "type": "scent",
+      "locked": false,
+      "ai_evaluation": {
+        "keep": true,
+        "value_score": 0.9,
+        "position": "zone_a",
+        "reason": "‘Scented’ is a mandatory search term for fragrance products and should always be included. It’s a top search term even with ‘Lavender Fragrance’ present."
+      },
+      "keep": true
+    },
+    {
+      "text": "Shalimar    Garbage Bags",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Medium",
+      "type": "size",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "19 X 21 Inches",
+      "type": "dimension",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "120 Bags (30 Bags X 4 Rolls)",
+      "type": "count",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Dustbin Bag",
+      "type": "synonym",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Trash Bag",
+      "type": "synonym",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Perforated Box",
+      "type": "feature",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Easy Dispensing",
+      "type": "feature",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

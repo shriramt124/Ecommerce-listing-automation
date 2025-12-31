@@ -23,6 +23,7 @@ os.environ.setdefault('ADKRUX_USE_AI', 'true')
 
 from agentic_optimizer import create_agentic_optimizer
 from token_types import SIZES, COLORS, FRAGRANCE_WORDS
+from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object
 
 
 def extract_truth_with_ai(title: str, optimizer) -> dict:
@@ -34,14 +35,20 @@ def extract_truth_with_ai(title: str, optimizer) -> dict:
 
 PRODUCT TITLE: "{title}"
 
-TASK: Extract ALL factual attributes you can find. Be precise.
+TASK: Extract ALL factual attributes you can find. Be precise and specific.
+
+IMPORTANT INSTRUCTIONS:
+1. For "product": Identify the SPECIFIC product type from the title (e.g., "Garbage Bags", "Dustbin Bags", "Phone Case", "Brake Pads"). NEVER use generic words like "Product", "Item", or "Thing".
+2. For "color": Look for colors even if they're in parentheses like "(Black)" or "(White)".
+3. For "brand": Extract the brand name if it appears at the start.
+4. Be specific and literal - extract what you actually see in the title.
 
 Respond ONLY with valid JSON:
 {{
-    "brand": "brand name if present, empty string if not",
-    "product": "core product type (e.g., 'Garbage Bags', 'Shock Absorber', 'Dustbin')",
+    "brand": "exact brand name if present, otherwise empty string",
+    "product": "SPECIFIC product type (e.g. 'Garbage Bags', 'Phone Case', 'Handlebar'), NOT 'Product' or 'Item'",
     "size": "size if mentioned (Small/Medium/Large/XL/Universal/Mini etc.)",
-    "color": "color if mentioned",
+    "color": "color if mentioned anywhere in title (check parentheses too)",
     "count": "quantity if mentioned (e.g., '120 Bags', 'Pack of 2')",
     "dimension": "dimensions if mentioned (e.g., '19 x 21 Inches')",
     "material": "material if mentioned (e.g., 'Plastic', 'Aluminium')",
@@ -66,9 +73,19 @@ JSON:"""
         return ''
 
     try:
-        response = optimizer._call_ollama(prompt, temperature=0.1, max_tokens=400)
+        # Prefer the pipeline's shared LLM instance if available.
+        llm = getattr(optimizer, 'llm', None)
+        if not isinstance(llm, OllamaLLM):
+            llm = OllamaLLM(
+                OllamaConfig(
+                    model=os.getenv('ADKRUX_OLLAMA_MODEL', 'deepseek-v3.1:671b-cloud'),
+                    base_url=os.getenv('ADKRUX_OLLAMA_URL', 'http://localhost:11434'),
+                )
+            )
+
+        response = llm.generate(prompt, temperature=0.2, max_tokens=400)
         if response:
-            result = optimizer._parse_json_response(response)
+            result = extract_json_object(response)
             if result:
                 # Clean up empty values
                 truth = {k: v for k, v in result.items() if v and v != [] and v != ""}
@@ -219,6 +236,24 @@ def get_sample_title() -> str:
 
 
 def main():
+    """Main entry point - supports both interactive and command-line modes."""
+    import sys
+    
+    # Check if title provided via command line
+    if len(sys.argv) > 1:
+        # Command-line mode: python3 main.py "Your Title Here"
+        title = sys.argv[1]
+        print(f"Optimizing: {title}")
+        
+        # Minimal truth (AI will extract from title)
+        truth = {'product': 'Product'}
+        
+        optimizer = create_agentic_optimizer()
+        optimized, _ = optimizer.optimize(title, truth)
+        print(f"\nResult: {optimized}")
+        return optimized
+    
+    # Interactive mode
     print("=" * 70)
     print("  AGENTIC STRATEGY 2: AI-POWERED TITLE OPTIMIZER")
     print("  (Using Ollama LLM for intelligent optimization)")

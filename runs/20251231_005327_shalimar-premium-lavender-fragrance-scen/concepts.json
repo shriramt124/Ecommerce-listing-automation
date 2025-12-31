@@ -1,0 +1,64 @@
+{
+  "concepts": [
+    {
+      "text": "Lavender Fragrance",
+      "type": "fragrance",
+      "locked": false
+    },
+    {
+      "text": "Black",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Premium",
+      "type": "quality",
+      "locked": false
+    },
+    {
+      "text": "Scented",
+      "type": "scent",
+      "locked": false
+    },
+    {
+      "text": "Shalimar    Garbage Bags",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Medium",
+      "type": "size",
+      "locked": true
+    },
+    {
+      "text": "19 X 21 Inches",
+      "type": "dimension",
+      "locked": false
+    },
+    {
+      "text": "120 Bags (30 Bags X 4 Rolls)",
+      "type": "count",
+      "locked": true
+    },
+    {
+      "text": "Dustbin Bag",
+      "type": "synonym",
+      "locked": false
+    },
+    {
+      "text": "Trash Bag",
+      "type": "synonym",
+      "locked": false
+    },
+    {
+      "text": "Perforated Box",
+      "type": "feature",
+      "locked": false
+    },
+    {
+      "text": "Easy Dispensing",
+      "type": "feature",
+      "locked": false
+    }
+  ]
+}

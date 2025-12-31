@@ -1,0 +1,172 @@
+@startuml AdKrux Multi-Agent Title Optimization Architecture
+
+!define AGENT_COLOR #LightBlue
+!define DATA_COLOR #LightGreen
+!define PROCESS_COLOR #LightYellow
+!define STORAGE_COLOR #LightCoral
+
+skinparam componentStyle rectangle
+skinparam backgroundColor white
+skinparam defaultFontSize 11
+
+title AdKrux Multi-Agent Title Optimization Pipeline\nAgentic Architecture with DeepSeek LLM
+
+' External Systems
+database "ChromaDB\nVector Store" as ChromaDB STORAGE_COLOR {
+  [153,459 Keywords]
+  [SentenceTransformer\nEmbeddings]
+}
+
+cloud "Ollama LLM" as Ollama {
+  [DeepSeek-v3.1\n671b-cloud]
+}
+
+' Input/Output
+rectangle "Input" as Input DATA_COLOR {
+  [Original Title]
+  [Product Truth\n(brand, product, size, etc.)]
+}
+
+rectangle "Output" as Output DATA_COLOR {
+  [Optimized Title\n180-200 chars]
+  [Zone Structure\n40/40/20]
+  [Validation Report]
+}
+
+' Main Pipeline
+package "AgenticOptimizationPipeline" {
+  
+  ' Agent 1: Category Detector
+  component "CategoryDetectorAgent" as CategoryAgent AGENT_COLOR {
+    [**PROMPT:**\nAnalyze product and identify:\n- category/subcategory\n- key attributes\n- search priorities\n- color importance]
+    [**OUTPUT:**\ncategory: home_storage\nsubcategory: garbage_bags\nkey_attributes: [scented, size]\nsearch_priorities: keywords]
+  }
+  
+  ' Agent 2: Concept Evaluator
+  component "ConceptEvaluatorAgent" as ConceptAgent AGENT_COLOR {
+    [**PROMPT:**\nEvaluate subjective terms:\n- "premium", "quality"\n- Keep if adds value\n- Reject if generic filler]
+    [**OUTPUT:**\nkeep: true/false\nreason: explanation]
+  }
+  
+  ' Agent 3: Query Planner
+  component "QueryPlannerAgent" as QueryAgent AGENT_COLOR {
+    [**PROMPT:**\nGenerate search queries for\nvector retrieval based on:\n- product type\n- key attributes\n- category priorities]
+    [**OUTPUT:**\nqueries: [\n  "garbage bags medium",\n  "scented trash bags",\n  etc.\n]]
+  }
+  
+  ' Vector Retrieval Process
+  component "Vector Retrieval" as VectorRetrieval PROCESS_COLOR {
+    [1. Execute queries against ChromaDB\n2. Merge results by keyword\n3. Rank by similarity + score\n4. Return top 60 candidates]
+  }
+  
+  ' Agent 4: Keyword Selector
+  component "KeywordSelectorAgent" as SelectorAgent AGENT_COLOR {
+    [**PROMPT:**\nSelect TOP 10 keywords:\n1. Prioritize HIGH VOLUME (score)\n2. Accept COMPLETE phrases\n3. Allow overlap with title\n4. Classify zone: ZONE_B/ZONE_C\n**FALLBACK:**\nAuto-select top 10 if empty]
+    [**OUTPUT:**\nselected_keywords: [\n  {keyword, zone, score, reason}\n]]
+  }
+  
+  ' Agent 5: Title Composer
+  component "TitleComposerAgent" as ComposerAgent AGENT_COLOR {
+    [**PROMPT:**\nCompose title with zones:\n**ZONE A (40%):**\n- Brand + Product + ALL Specs\n- Size, dimension, count, color\n- Use locked facts ONCE only\n**ZONE B (40%):**\n- High-volume search phrases\n- NO repetition of Zone A specs\n- Complete phrases from keywords\n**ZONE C (20%):**\n- Fragrance/flavor (exact names)\n- Style descriptors\n**RULES:**\n- NO hallucination\n- NO spec repetition\n- Flow naturally with commas]
+    [**OUTPUT:**\nfull_title: composed title\nzone_a, zone_b, zone_c\nreasoning: rationale]
+  }
+  
+  ' Post-Processing
+  component "Post-Processing" as PostProcess PROCESS_COLOR {
+    [1. Enforce locked substrings\n2. Fix spacing (Inch es → Inches)\n3. Remove duplicate pack counts\n4. Validate title]
+  }
+  
+  ' Agent 6: Title Extender (Optional)
+  component "TitleExtenderAgent" as ExtenderAgent AGENT_COLOR {
+    [**PROMPT:**\nIf title < 170 chars:\n- Add remaining keywords\n- Target 190 chars\n- Maintain natural flow]
+    [**OUTPUT:**\nextended_title: longer version]
+  }
+  
+  ' Validator
+  component "Validator" as Validator PROCESS_COLOR {
+    [Check:\n- Length 180-200 chars\n- Brand present\n- Product present\n- No banned terms\n- Policy compliance]
+  }
+  
+}
+
+' Data Flow
+Input --> CategoryAgent : base_title +\ntruth
+CategoryAgent --> ConceptAgent : category_info
+ConceptAgent --> QueryAgent : evaluated_concepts
+QueryAgent --> VectorRetrieval : search_queries
+VectorRetrieval --> ChromaDB : execute queries
+ChromaDB --> VectorRetrieval : keyword candidates
+VectorRetrieval --> SelectorAgent : top 60 candidates
+SelectorAgent --> Ollama : LLM selection\n(with fallback)
+Ollama --> SelectorAgent : selected keywords
+SelectorAgent --> ComposerAgent : selected_keywords +\nall context
+ComposerAgent --> Ollama : LLM composition
+Ollama --> ComposerAgent : draft title with zones
+ComposerAgent --> PostProcess : full_title
+PostProcess --> ExtenderAgent : if < 170 chars
+ExtenderAgent -[#blue,dashed]-> Ollama : LLM extend
+Ollama -[#blue,dashed]-> ExtenderAgent : extended
+ExtenderAgent --> Validator : final title
+PostProcess --> Validator : final title
+Validator --> Output : optimized_title +\nreport
+
+' Agent Communication
+CategoryAgent -[#gray,dotted]-> Ollama : API call
+ConceptAgent -[#gray,dotted]-> Ollama : API call
+QueryAgent -[#gray,dotted]-> Ollama : API call
+
+' Logger (side effect)
+package "RunLogger" {
+  folder "runs/" as Runs {
+    file "truth_locked.json"
+    file "concepts.json"
+    file "category.json"
+    file "retrieval.json"
+    file "selected_keywords.json"
+    file "draft.json"
+    file "final.json"
+  }
+}
+
+CategoryAgent -[#green,dotted]-> Runs : log category
+ConceptAgent -[#green,dotted]-> Runs : log concepts
+VectorRetrieval -[#green,dotted]-> Runs : log retrieval
+SelectorAgent -[#green,dotted]-> Runs : log keywords
+ComposerAgent -[#green,dotted]-> Runs : log draft
+Validator -[#green,dotted]-> Runs : log final
+
+note right of ChromaDB
+  **Vector Database**
+  - 153,459 keywords
+  - SentenceTransformer embeddings
+  - Similarity search with scores
+  - Multiple CSV sources
+end note
+
+note right of Ollama
+  **LLM Configuration**
+  - Model: deepseek-v3.1:671b-cloud
+  - Progressive temperature: 0.2→0.5
+  - Retries: 3-4 attempts
+  - JSON-structured outputs
+end note
+
+note bottom of ComposerAgent
+  **Anti-Hallucination Strategy**
+  1. NEVER invent words not in original/keywords
+  2. NEVER change descriptors (Lavender ≠ Fresh)
+  3. Use EXACT names from source
+  4. NO assumption of features
+  5. Fallback to original if AI fails
+end note
+
+note bottom of SelectorAgent
+  **Auto-Fallback Logic**
+  If AI returns empty keywords:
+  - Auto-select top 10 by score
+  - Default zone: ZONE_B (search phrases)
+  - Zone C for fragrance/style terms
+  - Ensures pipeline always proceeds
+end note
+
+@enduml
