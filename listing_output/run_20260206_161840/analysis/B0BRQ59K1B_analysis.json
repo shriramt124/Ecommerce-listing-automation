@@ -1,0 +1,51 @@
+{
+  "asin": "B0BRQ59K1B",
+  "original_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "optimized_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "country": "UK",
+  "la_cat": "Dumbbells",
+  "image_analysis": {
+    "brand": "KAKSS",
+    "product_type": "Neoprene Dumbbells",
+    "product_name": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each",
+    "colors": [
+      "Pink",
+      "White"
+    ],
+    "size": "1 KG each",
+    "quantity": "2",
+    "material": "Cast iron with neoprene coating",
+    "key_features": [
+      "Anti-slip neoprene coating",
+      "Hexagonal shape prevents rolling",
+      "Cast iron construction",
+      "Printed weight number for easy identification",
+      "1 KG weight per dumbbell"
+    ],
+    "usage": "Home gym, fitness training, resistance training, exercise classes",
+    "target_audience": "Home fitness enthusiasts, beginners, rehabilitation patients",
+    "ai_description": "Two bright pink KAKSS dumbbells rest on a white surface. They feature a smooth neoprene coating for grip. The ends are hexagonal to stop rolling and clearly display '1 KG' and the brand name in white text. Perfect for adding resistance to home workouts.",
+    "comparison_points": [
+      {
+        "our_benefit": "Hexagonal shape prevents rolling",
+        "competitor_issue": "Round weights roll away easily"
+      },
+      {
+        "our_benefit": "Neoprene coating for non-slip grip",
+        "competitor_issue": "Slippery plastic or bare metal surface"
+      },
+      {
+        "our_benefit": "Solid cast iron core",
+        "competitor_issue": "Sand-filled plastic shells that leak"
+      },
+      {
+        "our_benefit": "High-contrast printed weight text",
+        "competitor_issue": "Hard-to-read embossed markings"
+      }
+    ],
+    "confidence": "high",
+    "status": "SUCCESS",
+    "images_analyzed": 1
+  },
+  "timestamp": "2026-02-06T16:21:30.178541"
+}

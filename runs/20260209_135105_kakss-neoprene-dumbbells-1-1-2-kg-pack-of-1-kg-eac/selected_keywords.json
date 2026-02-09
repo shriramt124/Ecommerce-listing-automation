@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (score: 448037), complete phrase, directly relevant to product"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (score: 143389), complete phrase, includes 'weights' which matches product description"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High search volume (score: 52761), complete phrase, direct product category match"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Good search volume (score: 7300), includes 'neoprene' material which matches product, complete phrase"
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Good search volume (score: 5029), specific weight matches product (2kg total), complete phrase"
+    },
+    {
+      "keyword": "2 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3486.0,
+      "reason": "Good search volume (score: 3486), specific weight and 'pair' terminology matches product description"
+    },
+    {
+      "keyword": "pink dumbbells set",
+      "zone": "ZONE_C",
+      "score": 1887.0,
+      "reason": "Good search volume (score: 1887), includes color 'pink' which matches product, high similarity (0.92)"
+    },
+    {
+      "keyword": "dumbbells 2kg",
+      "zone": "ZONE_B",
+      "score": 2629.0,
+      "reason": "Good search volume (score: 2629), alternative phrasing for weight specification"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Good search volume (score: 6110), includes 'hand weights' terminology from product description"
+    },
+    {
+      "keyword": "1kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 1889.0,
+      "reason": "Reasonable search volume (score: 1889), matches individual dumbbell weight in the set"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Reasonable search volume (score: 3700), matches 'home gym' use case mentioned in title"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "Reasonable search volume (score: 14771), though product is fixed weight, term has high search volume"
+    },
+    {
+      "keyword": "exercise",
+      "zone": "ZONE_B",
+      "score": 1822.0,
+      "reason": "Reasonable search volume (score: 1822), broad fitness category term relevant to product use"
+    },
+    {
+      "keyword": "dumbbell neoprene set",
+      "zone": "ZONE_B",
+      "score": 2011.0,
+      "reason": "Lower search volume (score: 2011) but includes key material specification 'neoprene'"
+    },
+    {
+      "keyword": "3 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3336.0,
+      "reason": "Similar weight category (score: 3336), relevant for customers considering weight progression"
+    }
+  ]
+}

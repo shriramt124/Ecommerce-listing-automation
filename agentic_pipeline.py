@@ -18,7 +18,8 @@ from agentic_agents import (
     TitleComposerAgent,
     TitleExtenderAgent,
 )
-from agentic_llm import OllamaConfig, OllamaLLM
+from gemini_llm import GeminiConfig, GeminiLLM
+from agentic_llm import OpenAIConfig, OpenAILLM
 from agentic_runlog import RunLogger
 from keyword_db import KeywordDB
 from parser import parser
@@ -54,9 +55,17 @@ def extract_locked_truth_from_title(base_title: str) -> Dict[str, str]:
             locked["count_exact"] = _normalize_pack_string(m.group(1))
             break
 
-    dim = re.search(r"(\b\d+\s*[xX×]\s*\d+\s*(?:inches?|inch|cm|mm)?\b)", t, flags=re.IGNORECASE)
+    dim = re.search(r"(\b\d+\s*[xX×]\s*\d+\s*(?:inches?|inch|cm|mm|feet?|ft)?\b)", t, flags=re.IGNORECASE)
     if dim:
-        locked["dimension_exact"] = re.sub(r"\s+", " ", dim.group(1)).strip()
+        dim_str = re.sub(r"\s+", " ", dim.group(1)).strip()
+        # Convert to short form units
+        dim_str = re.sub(r"\s*Inches\b", " in", dim_str, flags=re.IGNORECASE)
+        dim_str = re.sub(r"\s*Inch\b", " in", dim_str, flags=re.IGNORECASE)
+        dim_str = re.sub(r"\s*Feet\b", " ft", dim_str, flags=re.IGNORECASE)
+        dim_str = re.sub(r"\s*Foot\b", " ft", dim_str, flags=re.IGNORECASE)
+        dim_str = re.sub(r"\s*Centimeters\b", " cm", dim_str, flags=re.IGNORECASE)
+        dim_str = re.sub(r"\s*Millimeters\b", " mm", dim_str, flags=re.IGNORECASE)
+        locked["dimension_exact"] = dim_str.strip()
 
     return locked
 
@@ -68,38 +77,71 @@ def enforce_locked_substrings(title: str, locked: Dict[str, str]) -> str:
     out = re.sub(r"\bBag\s*s\b", "Bags", out, flags=re.IGNORECASE)
 
     pack = locked.get("count_exact")
-    if pack and pack not in out:
-        total_m = re.search(r"\b(\d+)\s*Bags\b", pack, flags=re.IGNORECASE)
-        total = total_m.group(1) if total_m else None
-        if total:
+    if pack:
+        # Remove duplicate pack patterns - look for the pack string appearing twice
+        # Pattern: "120 Bags (30 Bags x 4 Rolls) (30 Bags x 4 Rolls)" or similar
+        # Extract the parenthetical part
+        paren_match = re.search(r"\(([^)]+)\)", pack)
+        if paren_match:
+            paren_part = paren_match.group(1)
+            # Escape for regex
+            paren_escaped = re.escape(paren_part)
+            # Remove duplicate parenthetical: (XXX) (XXX) -> (XXX)
             out = re.sub(
-                rf"\b{re.escape(total)}\s*bags?\b\s*(?:,|-)\s*\d+\s*rolls?\b",
-                pack,
+                rf"\(({paren_escaped})\)\s*\(\1\)",
+                rf"(\1)",
                 out,
-                flags=re.IGNORECASE,
-                count=1,
+                flags=re.IGNORECASE
             )
-            if pack not in out:
+            # Also handle case variations: (30 Bags x 4 Rolls) (30 Bags X 4 Rolls)
+            out = re.sub(
+                rf"\(\d+\s*Bags\s*[xX×]\s*\d+\s*Rolls\)\s*\(\d+\s*Bags\s*[xX×]\s*\d+\s*Rolls\)",
+                lambda m: m.group(0).split(')')[0] + ')',
+                out,
+                flags=re.IGNORECASE
+            )
+        
+        # Now ensure the locked pack string appears correctly
+        if pack not in out:
+            total_m = re.search(r"\b(\d+)\s*Bags\b", pack, flags=re.IGNORECASE)
+            total = total_m.group(1) if total_m else None
+            if total:
                 out = re.sub(
-                    rf"\b{re.escape(total)}\s*bags?\b",
+                    rf"\b{re.escape(total)}\s*bags?\b\s*(?:,|-)\s*\d+\s*rolls?\b",
                     pack,
                     out,
                     flags=re.IGNORECASE,
                     count=1,
                 )
+                if pack not in out:
+                    out = re.sub(
+                        rf"\b{re.escape(total)}\s*bags?\b",
+                        pack,
+                        out,
+                        flags=re.IGNORECASE,
+                        count=1,
+                    )
 
     dim = locked.get("dimension_exact")
     if dim and dim not in out:
         out = re.sub(
-            r"\b\d+\s*[xX×]\s*\d+\s*(?:in\s*ch\s*es?|inches?|inch|cm|mm)?\b",
+            r"\b\d+\s*[xX×]\s*\d+\s*(?:in\s*ch\s*es?|inches?|inch|cm|mm|feet?|ft)?\b",
             dim,
             out,
             flags=re.IGNORECASE,
             count=1,
         )
 
+    # Final cleanup: convert any remaining long-form units to abbreviations
+    out = re.sub(r"\s*Inches\b", " in", out, flags=re.IGNORECASE)
+    out = re.sub(r"\s*Inch\b", " in", out, flags=re.IGNORECASE)
+    out = re.sub(r"\s*Feet\b", " ft", out, flags=re.IGNORECASE)
+    out = re.sub(r"\s*Foot\b", " ft", out, flags=re.IGNORECASE)
+    out = re.sub(r"\s*Centimeters\b", " cm", out, flags=re.IGNORECASE)
+    out = re.sub(r"\s*Millimeters\b", " mm", out, flags=re.IGNORECASE)
+    
     out = re.sub(r"\s+", " ", out).strip()
-    out = re.sub(r"\b(Inches|Inch|cm|mm)(?=[A-Za-z0-9])", r"\1 ", out, flags=re.IGNORECASE)
+    out = re.sub(r"\b(in|ft|cm|mm)(?=[A-Za-z0-9])", r"\1 ", out)
     out = re.sub(r"\s+,", ",", out)
     return out
 
@@ -308,15 +350,14 @@ def validate_title(title: str, truth: Dict[str, Any]) -> Dict[str, Any]:
 class AgenticOptimizationPipeline:
     def __init__(self):
         self.enabled = os.getenv("ADKRUX_USE_AI", "true").lower() == "true"
-        self.model = os.getenv("ADKRUX_OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
-        self.base_url = os.getenv("ADKRUX_OLLAMA_URL", "http://localhost:11434")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.1")
 
         self.vector_debug = os.getenv("ADKRUX_VECTOR_DEBUG", "true").lower() == "true"
         self.ai_vector_rounds = int(os.getenv("ADKRUX_AI_VECTOR_ROUNDS", "1"))
         self.vector_limit_per_query = int(os.getenv("ADKRUX_VECTOR_LIMIT_PER_QUERY", "25"))
         self.vector_max_candidates = int(os.getenv("ADKRUX_VECTOR_MAX_CANDIDATES", "60"))
 
-        self.llm = OllamaLLM(OllamaConfig(model=self.model, base_url=self.base_url))
+        self.llm = OpenAILLM(OpenAIConfig(model=self.openai_model))
         self.keyword_db = KeywordDB()
 
         self.category_agent = CategoryDetectorAgent(self.llm)
@@ -329,6 +370,7 @@ class AgenticOptimizationPipeline:
         self.logger = RunLogger(root_dir=os.path.join(os.path.dirname(__file__), "runs"))
 
         if self.enabled and not self.llm.test_connection():
+            print("⚠️  OpenAI connection failed — AI agents will be disabled.")
             self.enabled = False
 
     def _retrieve_keywords(
@@ -401,7 +443,12 @@ class AgenticOptimizationPipeline:
 
         return candidates, report
 
-    def optimize(self, base_title: str, truth: Dict[str, Any]) -> Tuple[str, Dict[str, Any]]:
+    def optimize(self, base_title: str, truth: Dict[str, Any], pre_filtered_keywords: List[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
+        """Optimize title using 6-agent pipeline.
+        
+        If pre_filtered_keywords are provided (from master_pipeline with volume-based ranking),
+        use those instead of doing our own vector retrieval.
+        """
         report: Dict[str, Any] = {
             "original_title": base_title,
             "original_length": len(base_title or ""),
@@ -412,7 +459,7 @@ class AgenticOptimizationPipeline:
         if not self.enabled:
             return base_title, report
 
-        self.logger.start(base_title)
+        self.logger.init_run(base_title)
 
         truth = dict(truth or {})
         truth["_locked"] = extract_locked_truth_from_title(base_title)
@@ -423,7 +470,7 @@ class AgenticOptimizationPipeline:
         if locked_dim and not truth.get("dimension"):
             truth["dimension"] = locked_dim
 
-        self.logger.write_json("truth_locked", truth)
+        self.logger.log("truth_locked", truth)
 
         tokens = parser.parse_title(base_title, truth)
         concepts: List[Dict[str, Any]] = []
@@ -432,12 +479,12 @@ class AgenticOptimizationPipeline:
                 concepts.append({"text": t.text, "type": t.token_type.value, "locked": t.locked})
 
         report["steps"].append(f"Parsed {len(concepts)} concepts")
-        self.logger.write_json("concepts", {"concepts": concepts})
+        self.logger.log("concepts", {"concepts": concepts})
 
         category_info = self.category_agent.run(base_title, truth)
         report["agents_used"].append("CategoryDetector")
         report["category"] = category_info
-        self.logger.write_json("category", category_info)
+        self.logger.log("category", category_info)
 
         needs_eval = ["premium", "scented", "deluxe", "superior", "quality"]
         evaluated: List[Dict[str, Any]] = []
@@ -465,15 +512,21 @@ class AgenticOptimizationPipeline:
 
         report["agents_used"].append("ConceptEvaluator")
         report["steps"].append(f"Kept {len(evaluated)} concepts")
-        self.logger.write_json("concepts_kept", {"concepts": evaluated})
+        self.logger.log("concepts_kept", {"concepts": evaluated})
 
-        candidates, retrieval_report = self._retrieve_keywords(base_title, truth, category_info, concepts=evaluated)
-        report["steps"].append(f"Retrieved {len(candidates)} keyword candidates")
-        report["vector_retrieval"] = {
-            "queries": (retrieval_report.get("queries") or [])[:30],
-            "top_preview": candidates[:15],
-        }
-        self.logger.write_json("retrieval", report["vector_retrieval"])
+        # Use pre-filtered keywords if provided (from master_pipeline with volume ranking)
+        if pre_filtered_keywords:
+            candidates = pre_filtered_keywords
+            report["steps"].append(f"Using {len(candidates)} pre-filtered keyword candidates (volume-ranked)")
+            report["vector_retrieval"] = {"source": "master_pipeline_pre_filtered", "count": len(candidates)}
+        else:
+            candidates, retrieval_report = self._retrieve_keywords(base_title, truth, category_info, concepts=evaluated)
+            report["steps"].append(f"Retrieved {len(candidates)} keyword candidates")
+            report["vector_retrieval"] = {
+                "queries": (retrieval_report.get("queries") or [])[:30],
+                "top_preview": candidates[:15],
+            }
+        self.logger.log("retrieval", report["vector_retrieval"])
 
         existing_texts = [str(c.get("text", "")).lower() for c in evaluated]
         selected = self.selector_agent.run(
@@ -487,7 +540,7 @@ class AgenticOptimizationPipeline:
         )
         report["agents_used"].append("KeywordSelector")
         report["selected_keywords"] = selected
-        self.logger.write_json("selected_keywords", {"selected_keywords": selected})
+        self.logger.log("selected_keywords", {"selected_keywords": selected})
 
         draft = self.composer_agent.run(
             original_title=base_title,
@@ -497,7 +550,7 @@ class AgenticOptimizationPipeline:
             category_info=category_info,
         )
         report["agents_used"].append("TitleComposer")
-        self.logger.write_json("draft", draft)
+        self.logger.log("draft", draft)
 
         optimized = str(draft.get("full_title", base_title) or base_title).strip()
         optimized = enforce_locked_substrings(optimized, truth.get("_locked", {}) or {})
@@ -522,6 +575,6 @@ class AgenticOptimizationPipeline:
 
         report["optimized_title"] = optimized
         report["final_length"] = len(optimized)
-        self.logger.write_json("final", report)
+        self.logger.log("final", report)
 
         return optimized, report

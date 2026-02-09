@@ -23,7 +23,7 @@ os.environ.setdefault('ADKRUX_USE_AI', 'true')
 
 from agentic_optimizer import create_agentic_optimizer
 from token_types import SIZES, COLORS, FRAGRANCE_WORDS
-from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object
+from agentic_llm import OpenAIConfig, OpenAILLM, extract_json_object
 
 
 def extract_truth_with_ai(title: str, optimizer) -> dict:
@@ -75,11 +75,10 @@ JSON:"""
     try:
         # Prefer the pipeline's shared LLM instance if available.
         llm = getattr(optimizer, 'llm', None)
-        if not isinstance(llm, OllamaLLM):
-            llm = OllamaLLM(
-                OllamaConfig(
-                    model=os.getenv('ADKRUX_OLLAMA_MODEL', 'deepseek-v3.1:671b-cloud'),
-                    base_url=os.getenv('ADKRUX_OLLAMA_URL', 'http://localhost:11434'),
+        if not isinstance(llm, OpenAILLM):
+            llm = OpenAILLM(
+                OpenAIConfig(
+                    model=os.getenv('OPENAI_MODEL', 'gpt-5.1'),
                 )
             )
 

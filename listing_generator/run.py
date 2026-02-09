@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+"""
+LISTING GENERATOR — CLI ENTRY POINT
+====================================
+
+Usage:
+    # Basic run (title + content only):
+    python3 listing_generator/run.py --client input/lqs-GMR_AE.xlsx
+
+    # With browse-node keyword ingestion:
+    python3 listing_generator/run.py \\
+        --client input/lqs-Kakks_uk.xlsx \\
+        --browse-nodes input/Browse_Node_UK/ \\
+        --ingest-keywords
+
+    # Full run with image generation:
+    python3 listing_generator/run.py \\
+        --client input/lqs-GMR_AE.xlsx \\
+        --browse-nodes input/Browse_Node_AE/ \\
+        --generate-images \\
+        --output output/gmr_ae_listing.xlsx
+
+    # Override Gemini model:
+    python3 listing_generator/run.py \\
+        --client input/lqs-GMR_AE.xlsx \\
+        --gemini-model gemini-2.5-flash
+"""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+
+# Ensure parent directory is importable
+_PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _PARENT_DIR not in sys.path:
+    sys.path.insert(0, _PARENT_DIR)
+
+# Load .env from the project root
+from dotenv import load_dotenv
+load_dotenv(os.path.join(_PARENT_DIR, ".env"))
+
+from listing_generator.master_pipeline import ListingPipeline
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Amazon Listing Generator — generate optimized titles, "
+                    "bullet points, descriptions, search terms, and images.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s --client input/lqs-GMR_AE.xlsx
+  %(prog)s --client input/lqs-Kakks_uk.xlsx --browse-nodes input/Browse_Node_UK/ --ingest-keywords
+  %(prog)s --client input/lqs-GMR_AE.xlsx --generate-images --output output/results.xlsx
+        """,
+    )
+
+    parser.add_argument(
+        "--client",
+        required=True,
+        help="Path to client Excel file (lqs-GMR_AE.xlsx, lqs-Kakks_uk.xlsx, etc.)",
+    )
+    parser.add_argument(
+        "--browse-nodes",
+        default=None,
+        help="Path to browse-node keyword CSV directory",
+    )
+    parser.add_argument(
+        "--output",
+        default=None,
+        help="Output directory (default: listing_output/run_YYYYMMDD_HHMMSS/)",
+    )
+    parser.add_argument(
+        "--ingest-keywords",
+        action="store_true",
+        help="Ingest browse-node keyword CSVs into vector DB before running",
+    )
+    parser.add_argument(
+        "--generate-images",
+        action="store_true",
+        help="Generate product images (main, lifestyle, why-choose-us) via Gemini AI",
+    )
+    parser.add_argument(
+        "--gemini-key",
+        default=None,
+        help="Gemini API key override (default: from GEMINI_API_KEY env var)",
+    )
+    parser.add_argument(
+        "--gemini-model",
+        default=None,
+        help="Gemini model override (default: from GEMINI_TEXT_MODEL env var)",
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        help="Process only the first N products from the Excel file",
+    )
+
+    args = parser.parse_args()
+
+    # Validate inputs
+    if not os.path.exists(args.client):
+        print(f"❌ Client Excel not found: {args.client}")
+        sys.exit(1)
+
+    if args.browse_nodes and not os.path.exists(args.browse_nodes):
+        print(f"❌ Browse-node directory not found: {args.browse_nodes}")
+        sys.exit(1)
+
+    if args.ingest_keywords and not args.browse_nodes:
+        print("❌ --ingest-keywords requires --browse-nodes")
+        sys.exit(1)
+
+    # Run pipeline
+    pipeline = ListingPipeline(
+        client_excel=args.client,
+        browse_node_dir=args.browse_nodes,
+        output_dir=args.output,
+        generate_images=args.generate_images,
+        ingest_keywords=args.ingest_keywords,
+        gemini_api_key=args.gemini_key,
+        gemini_model=args.gemini_model,
+        limit=args.limit,
+    )
+
+    output_path = pipeline.run()
+
+    if output_path:
+        print(f"\n✅ Done! Output at: {output_path}")
+    else:
+        print("\n❌ Pipeline completed with errors.")
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()

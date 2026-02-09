@@ -34,7 +34,8 @@ INDEX_PATH = os.path.join(INDEX_DIR, "keywords_index.npz")
 class _IndexData:
     embeddings: np.ndarray  # (N, D), float32, L2-normalized
     keywords: np.ndarray  # (N,), str
-    scores: np.ndarray  # (N,), float32
+    scores: np.ndarray  # (N,), float32  (= search volume)
+    ranks: np.ndarray  # (N,), int32  (1 = highest volume)
     ad_units: np.ndarray  # (N,), float32
     ad_conv: np.ndarray  # (N,), float32
     dataset_ids: np.ndarray  # (N,), str
@@ -55,10 +56,20 @@ class KeywordDB:
             return
 
         data = np.load(INDEX_PATH, allow_pickle=False)
+        # ranks may not exist in older indexes — compute on the fly if missing
+        scores_arr = np.asarray(data["scores"], dtype=np.float32)
+        if "ranks" in data:
+            ranks_arr = np.asarray(data["ranks"], dtype=np.int32)
+        else:
+            order = np.argsort(-scores_arr)
+            ranks_arr = np.zeros(len(scores_arr), dtype=np.int32)
+            for pos, idx in enumerate(order):
+                ranks_arr[idx] = pos + 1
         self.index = _IndexData(
             embeddings=np.asarray(data["embeddings"], dtype=np.float32),
             keywords=np.asarray(data["keywords"], dtype=str),
-            scores=np.asarray(data["scores"], dtype=np.float32),
+            scores=scores_arr,
+            ranks=ranks_arr,
             ad_units=np.asarray(data["ad_units"], dtype=np.float32),
             ad_conv=np.asarray(data["ad_conv"], dtype=np.float32),
             dataset_ids=np.asarray(data["dataset_ids"], dtype=str),
@@ -78,9 +89,10 @@ class KeywordDB:
             return []
 
         out: List[Dict] = []
-        for kw, sc, au, ac, ds, sf in zip(
+        for kw, sc, rk, au, ac, ds, sf in zip(
             self.index.keywords,
             self.index.scores,
+            self.index.ranks,
             self.index.ad_units,
             self.index.ad_conv,
             self.index.dataset_ids,
@@ -90,6 +102,7 @@ class KeywordDB:
                 {
                     "keyword": str(kw),
                     "score": float(sc),
+                    "rank": int(rk),
                     "ad_units": float(au),
                     "ad_conv": float(ac),
                     "dataset_id": str(ds) if ds is not None else None,
@@ -124,6 +137,7 @@ class KeywordDB:
             emb = self.index.embeddings[mask]
             keywords = self.index.keywords[mask]
             scores = self.index.scores[mask]
+            ranks = self.index.ranks[mask]
             ad_units = self.index.ad_units[mask]
             ad_conv = self.index.ad_conv[mask]
             dataset_ids = self.index.dataset_ids[mask]
@@ -132,6 +146,7 @@ class KeywordDB:
             emb = self.index.embeddings
             keywords = self.index.keywords
             scores = self.index.scores
+            ranks = self.index.ranks
             ad_units = self.index.ad_units
             ad_conv = self.index.ad_conv
             dataset_ids = self.index.dataset_ids
@@ -142,17 +157,25 @@ class KeywordDB:
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
             sims = emb @ query_emb  # (N,)
 
-        n = int(min(max(limit, 1), sims.shape[0]))
+        # Retrieve more than limit to account for duplicates
+        n_fetch = int(min(max(limit * 5, 50), sims.shape[0]))
         # argpartition for speed, then exact sort
-        idx = np.argpartition(-sims, n - 1)[:n]
+        idx = np.argpartition(-sims, n_fetch - 1)[:n_fetch]
         idx = idx[np.argsort(-sims[idx])]
 
+        # Deduplicate: keep the highest-similarity entry for each unique keyword
         results: List[Dict] = []
+        seen_keywords: set = set()
         for i in idx.tolist():
+            kw = str(keywords[i]).strip().lower()
+            if kw in seen_keywords:
+                continue
+            seen_keywords.add(kw)
             results.append(
                 {
                     "keyword": str(keywords[i]),
                     "score": float(scores[i]),
+                    "rank": int(ranks[i]),
                     "ad_units": float(ad_units[i]),
                     "ad_conv": float(ad_conv[i]),
                     "dataset_id": str(dataset_ids[i]) if dataset_ids[i] is not None else None,
@@ -160,6 +183,8 @@ class KeywordDB:
                     "similarity": float(sims[i]),
                 }
             )
+            if len(results) >= limit:
+                break
 
         return results
 
@@ -172,7 +197,7 @@ if __name__ == "__main__":
         print(f"  - {ds}")
 
     print("\n--- Query Test ---")
-    top = db.get_top_keywords("shalimar garbage bags medium 19 x 21 inches", limit=5)
+    top = db.get_top_keywords("neoprene dumbbells set home gym", limit=5)
     for i, kw in enumerate(top, 1):
         sim = kw.get("similarity", 0.0)
-        print(f"  {i}. '{kw['keyword']}' | sim={sim:.3f} | score={kw['score']:.4f} | ds={kw.get('dataset_id')}")
+        print(f"  {i}. '{kw['keyword']}' | rank={kw['rank']} | sim={sim:.3f} | vol={kw['score']:,.0f}")

@@ -1,21 +1,83 @@
-"""Lightweight Ollama client + JSON extraction helpers.
+"""Lightweight LLM clients + JSON extraction helpers.
 
-Kept dependency-free (stdlib + requests) so it works in minimal environments.
+Supports OpenAI (GPT-5.1) as primary and Ollama as fallback.
+Kept dependency-light so it works in minimal environments.
 """
 
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+import os
+from dataclasses import dataclass, field
 from typing import Any, Dict, Optional
 
 import requests
 
+# ---------------------------------------------------------------------------
+#  OpenAI GPT-5.1 Client (primary)
+# ---------------------------------------------------------------------------
+
+@dataclass
+class OpenAIConfig:
+    api_key: str = ""
+    model: str = "gpt-5.1"
+    timeout_s: int = 120
+    reasoning_effort: str = "none"   # disable thinking
+
+
+class OpenAILLM:
+    """OpenAI chat-completions client matching the .generate() interface."""
+
+    def __init__(self, config: OpenAIConfig | None = None):
+        if config is None:
+            config = OpenAIConfig()
+        self.config = config
+        if not self.config.api_key:
+            self.config.api_key = os.getenv("OPENAI_API_KEY", "")
+        if not self.config.api_key:
+            raise RuntimeError("OPENAI_API_KEY is required. Set it in .env or pass it explicitly.")
+
+        from openai import OpenAI
+        self._client = OpenAI(api_key=self.config.api_key, timeout=self.config.timeout_s)
+
+    def test_connection(self) -> bool:
+        try:
+            resp = self._client.chat.completions.create(
+                model=self.config.model,
+                messages=[{"role": "user", "content": "Say OK"}],
+                max_completion_tokens=50,
+                reasoning_effort=self.config.reasoning_effort,
+            )
+            return bool(resp.choices and resp.choices[0].message.content)
+        except Exception as e:
+            print(f"⚠️  OpenAI connection test failed: {e}")
+            return False
+
+    def generate(self, prompt: str, *, temperature: float = 0.1, max_tokens: int = 500) -> Optional[str]:
+        try:
+            resp = self._client.chat.completions.create(
+                model=self.config.model,
+                messages=[{"role": "user", "content": prompt}],
+                max_completion_tokens=max_tokens,
+                temperature=temperature,
+                reasoning_effort=self.config.reasoning_effort,
+            )
+            if resp.choices and resp.choices[0].message.content:
+                return resp.choices[0].message.content.strip()
+            return None
+        except Exception as e:
+            print(f"⚠️  OpenAI generate error: {e}")
+            return None
+
+
+# ---------------------------------------------------------------------------
+#  Ollama Client (fallback)
+# ---------------------------------------------------------------------------
 
 @dataclass
 class OllamaConfig:
-    model: str
-    base_url: str
+    model: str = "deepseek-v3.1:671b-cloud"
+    base_url: str = "http://localhost:11434"
     timeout_s: int = 120
 
 

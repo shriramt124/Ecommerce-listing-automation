@@ -10,7 +10,8 @@ import re
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
-from agentic_llm import OllamaLLM, extract_json_object
+from gemini_llm import GeminiLLM, extract_json_object
+from agentic_llm import OpenAILLM
 from agentic_validators import (
     validate_category_info,
     validate_concept_eval,
@@ -29,7 +30,7 @@ class AgentResult:
 
 
 class BaseJsonAgent:
-    def __init__(self, llm: OllamaLLM, *, name: str):
+    def __init__(self, llm, *, name: str):
         self.llm = llm
         self.name = name
 
@@ -76,7 +77,7 @@ class BaseJsonAgent:
 
 
 class CategoryDetectorAgent(BaseJsonAgent):
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         super().__init__(llm, name="CategoryDetector")
 
     def run(self, title: str, truth: Dict[str, Any]) -> Dict[str, Any]:
@@ -122,7 +123,7 @@ JSON:"""
         res = self._run_json(
             prompt,
             temperature=0.2,
-            max_tokens=300,
+            max_tokens=2000,
             validator=validate_category_info,
             retries=3,
         )
@@ -144,7 +145,7 @@ JSON:"""
         fallback_res = self._run_json(
             fallback_prompt,
             temperature=0.3,
-            max_tokens=150,
+            max_tokens=2000,
             validator=validate_category_info,
             retries=2,
         )
@@ -190,7 +191,7 @@ JSON:"""
 
 
 class ConceptEvaluatorAgent(BaseJsonAgent):
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         super().__init__(llm, name="ConceptEvaluator")
 
     def run(self, *, concept: str, concept_type: str, context: Dict[str, Any]) -> Dict[str, Any]:
@@ -225,7 +226,7 @@ JSON:"""
         res = self._run_json(
             prompt,
             temperature=0.1,
-            max_tokens=220,
+            max_tokens=2000,
             validator=validate_concept_eval,
             retries=2,
         )
@@ -237,7 +238,7 @@ JSON:"""
 
 
 class QueryPlannerAgent(BaseJsonAgent):
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         super().__init__(llm, name="QueryPlanner")
         
         # Universal product synonyms dictionary
@@ -644,7 +645,7 @@ JSON:"""
         res = self._run_json(
             prompt,
             temperature=0.3,
-            max_tokens=200,
+            max_tokens=2000,
             validator=validate_query_suggestions,
             retries=1,
         )
@@ -704,7 +705,7 @@ JSON:"""
         
 
 class KeywordSelectorAgent(BaseJsonAgent):
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         super().__init__(llm, name="KeywordSelector")
 
         
@@ -782,7 +783,7 @@ JSON:"""
         res = self._run_json(
             prompt,
             temperature=0.1,
-            max_tokens=450,
+            max_tokens=2000,
             validator=validate_keyword_selection,
             retries=2,
         )
@@ -838,7 +839,7 @@ JSON:"""
 
 
 class TitleComposerAgent(BaseJsonAgent):
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         super().__init__(llm, name="TitleComposer")
 
     def run(
@@ -850,127 +851,126 @@ class TitleComposerAgent(BaseJsonAgent):
         selected_keywords: List[Dict[str, Any]],
         category_info: Dict[str, Any],
     ) -> Dict[str, Any]:
-        concept_list = [f"- {c.get('text','')} ({c.get('type','unknown')})" for c in concepts]
-        # Format keywords with zone hints AND score for volume-driven decisions
-        keyword_list = [
-            f"- {k.get('keyword','')} [{k.get('zone', 'ZONE_B')}] (score: {k.get('score', 0)})"
-            for k in selected_keywords
-        ]
-        
-        # Create TOP keywords list sorted by score
-        top_keywords_text = ""
-        if selected_keywords:
-            sorted_kw = sorted(selected_keywords, key=lambda x: float(x.get('score', 0) or 0), reverse=True)
-            top_3 = sorted_kw[:3]
-            top_keywords_text = "\n".join([
-                f"  #{i+1}: \"{kw.get('keyword', '')}\" (score: {kw.get('score', 0):.4f})"
-                for i, kw in enumerate(top_3)
-            ])
-        else:
-            top_keywords_text = "  (none - use original title concepts only)"
 
-        brand = str(truth.get("brand", "") or "").strip()
-        if brand in {"N/A", "Unknown"}:
-            brand = ""
-
-        locked = truth.get("_locked", {}) or {}
-        locked_count = str(locked.get("count_exact", "") or "")
-        locked_dimension = str(locked.get("dimension_exact", "") or "")
-
-        has_scented = bool(truth.get("fragrance")) or any(
-            "scented" in str(c.get("text", "")).lower() for c in concepts
+        # --- Build keyword list sorted by search volume (highest first) ---
+        sorted_kw = sorted(
+            selected_keywords,
+            key=lambda x: float(x.get('score', 0) or 0),
+            reverse=True,
         )
 
-        prompt = f"""You are an expert Amazon title optimization AI.
+        keyword_lines = []
+        for i, kw in enumerate(sorted_kw[:15], 1):
+            keyword_lines.append(
+                f"  {i}. \"{kw.get('keyword','')}\" (search volume: {float(kw.get('score',0)):,.0f})"
+            )
+        keyword_text = "\n".join(keyword_lines) if keyword_lines else "  (none)"
 
-ORIGINAL TITLE (reference):
-\"{original_title}\"
+        # --- Brand ---
+        brand = str(truth.get("brand", "") or "").strip()
+        if brand in {"N/A", "Unknown", ""}:
+            brand = ""
+        brand_upper = brand.upper() if brand else ""
 
-PRODUCT INFORMATION (from original):
-- Brand: {brand if brand else '(No brand)'}
-- Product Type: {truth.get('product', 'Unknown Product')}
-- Size: {truth.get('size', '')}
-- Color: {truth.get('color', '')}
-- Count/Quantity: {truth.get('count', '')}
-- Dimensions: {truth.get('dimension', '')}
-- Material: {truth.get('material', '')}
-- Features: {truth.get('features', [])}
+        # --- Product features from image analysis ---
+        material = str(truth.get("material", "") or "").strip()
+        key_features = truth.get("key_features") or []
+        ai_description = str(truth.get("ai_description", "") or "").strip()
 
-LOCKED FACTS (copy EXACTLY, do not rewrite):
-- Pack string: \"{locked_count}\"
-- Dimension: \"{locked_dimension}\"
+        # Pass raw features + AI description to the LLM — it can identify
+        # title-worthy features for ANY product category (generic approach)
+        features_text = ", ".join(key_features) if key_features else "(none)"
+        ai_desc_text = ai_description if ai_description else "(none)"
 
-IS SCENTED/FRAGRANCE PRODUCT: {has_scented}
+        # --- Clean weight/quantity for the prompt ---
+        size = str(truth.get("size", "") or "").strip()
+        count = str(truth.get("count", "") or "").strip()
+        color = str(truth.get("color", "") or "").strip()
 
-CATEGORY: {category_info.get('category', 'general')} / {category_info.get('subcategory', 'unknown')}
-TOP SEARCH TERMS: {category_info.get('search_priorities', [])}
+        prompt = f"""You are a senior Amazon listing copywriter. Write a title that reads like a 
+NATURAL PRODUCT DESCRIPTION while embedding high-volume search keywords seamlessly.
 
-CONCEPTS FROM ORIGINAL TITLE (you may reuse/reorder):
-{chr(10).join(concept_list)}
+═══════════════════════════════════════════════════
+ORIGINAL TITLE:
+"{original_title}"
+═══════════════════════════════════════════════════
 
-APPROVED KEYWORDS (with zone hints from retrieval):
-{chr(10).join(keyword_list) if keyword_list else '- (none)'}
+VERIFIED PRODUCT FACTS (from image analysis — use ALL of these):
+  Brand: {brand_upper if brand_upper else '(none)'}
+  Product Type: {truth.get('product', '')}
+  Material: {material}
+  Size/Weight: {size}
+  Quantity: {count}
+  Color: {color}
+  Key Features (from images): {features_text}
+  AI Description: {ai_desc_text}
 
-⭐ TOP KEYWORDS BY SEARCH VOLUME (MUST INCLUDE THESE IN TITLE):
-{top_keywords_text}
+CATEGORY: {category_info.get('category', '')} / {category_info.get('subcategory', '')}
 
-TASK: Produce a single optimized title using ZONE-BASED COMPOSITION.
+HIGH-VOLUME SEARCH KEYWORDS (ranked by search volume — weave as many as possible):
+{keyword_text}
 
-CRITICAL ANTI-HALLUCINATION RULES (VIOLATION = FAILURE):
-1. NEVER invent words not in ORIGINAL TITLE or APPROVED KEYWORDS
-2. NEVER change specific descriptors (e.g., "Lavender" → "Fresh", "Steel" → "Metal")
-3. NEVER assume features not explicitly stated
-4. If APPROVED KEYWORDS is empty, restructure ORIGINAL TITLE only
+═══════════════════════════════════════════════════
+HOW TO WRITE AN EXPERT AMAZON TITLE:
+═══════════════════════════════════════════════════
 
-ZONE-BASED COMPOSITION STRATEGY:
-Think of zones as logical sections that flow naturally with commas:
+The title must read as ONE flowing product description, NOT a keyword dump.
+Keywords are woven INTO the description — every phrase serves double duty as
+both readable text AND a search keyword.
 
-ZONE A (~40% chars): PURE PRODUCT INFORMATION (specs only, no keywords)
-  * Brand + Product Type + Size + Dimension + Quantity + Color
-  * Use LOCKED FACTS exactly ONCE (never repeat pack count or dimension)
-  * Example: "Shalimar Garbage Bags, Medium 19 X 21 Inches, 120 Bags (30 Bags x 4 Rolls), Black"
+STRATEGY: Look at the search keywords above. The words that appear in the
+HIGHEST volume keywords should appear in your title. If the top keywords
+contain "for women" or "for men", use those words. If they contain
+"home gym equipment", use that phrase. Let the keyword data DRIVE which
+words you pick for each part of the title.
 
-ZONE B (~40% chars): HIGH-VOLUME SEARCH PHRASES (keywords, no spec repetition)
-  * Insert TOP search keywords from APPROVED KEYWORDS
-  * Include COMPLETE phrases from top keywords
-  * Combine naturally: "Black Garbage Bags Medium Size with Perforated Box for Easy Dispensing"
-  * DO NOT repeat specs already in Zone A
-  * If Zone A has "Medium" and "120 Bags", Zone B should NOT repeat these
-  * Add descriptive words like "Premium", "Heavy Duty" product relevant if in original or keywords do not assume features not stated
+PATTERN:  Brand + Material + ProductType + WeightSpec + Color + DistinguishingFeature 
+          + "with" FeaturePhrase + Material/Type + "for" UsagePhrase
 
-ZONE C (~20% chars): DESCRIPTORS (fragrance/style details)
-  * Exact fragrance names: "Lavender Fragrance" or "with Lavender Fragrance"
-  * Secondary keywords: "Scented Trash Bags"
-  * Combine with "with" or commas naturally
+EXPERT EXAMPLES (study these patterns):
 
-NATURAL FLOW EXAMPLE:
-✅ GOOD: "Brand Product, Size, Quantity, Color, Search Phrase with Feature, Descriptor"
-"Shalimar Garbage Bags, Medium 19 X 21 Inches, 120 Bags (30x4), Black, Garbage Bags Medium Size with Perforated Box, Lavender Fragrance"
+  Original: "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink"
+  Expert:   "KAKSS Neoprene Dumbbells Set, 1kg Pair (2 x 1kg), Pink Hex Dumbbells with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training for women"
 
-❌ BAD: "Brand Product Medium 19x21, 120 Bags (30x4) (30x4), Medium Garbage Bags..."
-(Repeats pack count, repeats "Medium")
+  Original: "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Purple"  
+  Expert:   "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Purple Hex Dumbbells for women with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training"
 
-STRICT COMPOSITION RULES:
-1. Each spec appears EXACTLY ONCE (no "120 Bags (30x4) (30x4)")
-2. LOCKED FACTS copied exactly, used ONCE only
-3. Flow with commas, NOT pipes (|)
-4. Combine naturally - don't fragment
-5. Brand appears ONCE at start
-6. ONLY words from ORIGINAL TITLE or APPROVED KEYWORDS
-7. Target 180-200 chars
+  Original: "Kakss Half Coating Neoprene Kettlebell (Pink, 5 KG)"
+  Expert:   "KAKSS Cast Iron Kettlebell 5kg, Pink Half Neoprene Coated Kettlebells with Wide Grip Handle, Strength Training Weights for Home Gym Equipment and Fitness Workout for men and women"
 
-ZONE INTEGRATION:
-Don't create rigid barriers. Flow zones together:
-"[Zone A: specs], [Zone B: keywords with features], [Zone C: descriptors]"
+NOTICE THE PATTERNS:
+  ✅ Brand is UPPERCASE
+  ✅ Weight is clean: "1kg Pair (2 x 1kg)" NOT "1+1=2 KG Pack of 1 KG Each"
+  ✅ Features from the product are woven in: "Hex Dumbbells", "Cast Iron", "Anti-Slip Coated Grip"
+  ✅ Keywords embedded naturally: "Dumbbells Set", "Hand Weights", "Home Gym Equipment", "Fitness Training"
+  ✅ Flows as readable English — a human would write this on packaging
+  ✅ "with" and "for" connect features and use cases naturally
+
+WEIGHT/QUANTITY FORMATTING:
+  ✅ "1kg Pair (2 x 1kg)" — clean, compact
+  ✅ "5kg" — simple weight
+  ✅ "Pack of 3 (10kg Each)" — clear multi-pack
+  ❌ "1+1=2 KG Pack of 1 KG Each" — ugly, confusing
+  ❌ "1 KG each (total 2 KG)" — verbose
+
+RULES:
+1. Brand in UPPERCASE at the start
+2. Rewrite weight/quantity into CLEAN format (see above)
+3. EXTRACT title-worthy features from the Key Features and AI Description above
+   (material, shape, grip type, finish, coating, mechanism — whatever is relevant)
+4. WEAVE search keywords naturally — do NOT paste them as a comma-separated list
+5. Every phrase must read as natural English
+6. Use "with" and "for" to connect features and use cases
+7. ONLY use words from: Original Title, Verified Facts, or Search Keywords list
+8. DO NOT invent features not listed above
+9. Target 180-200 characters
+10. No pipes (|), use commas for natural flow
 
 Output ONLY valid JSON:
 {{
-  "full_title": "...",
+  "full_title": "THE OPTIMIZED TITLE HERE",
   "char_count": 0,
-  "zone_a": "first ~40% of title",
-  "zone_b": "middle ~40% of title",
-  "zone_c": "final ~20% of title",
-  "reasoning": {{"zone_a_rationale": "...", "zone_b_rationale": "...", "zone_c_rationale": "..."}}
+  "reasoning": "brief explanation of keyword integration strategy"
 }}
 
 JSON:"""
@@ -978,26 +978,30 @@ JSON:"""
         res = self._run_json(
             prompt,
             temperature=0.3,
-            max_tokens=1000,
+            max_tokens=2000,
             validator=validate_title_draft,
             retries=4,
         )
 
         if not res.ok:
-            # Fallback: return original title if AI completely fails
             print(f"   [WARNING] TitleComposer failed after retries. Errors: {res.errors}")
             return {"full_title": original_title, "error": "AI failed", "char_count": len(original_title)}
 
         title = str(res.value.get("full_title", "") or "").strip()
         title = title.replace(" | ", ", ").replace("|", ",")
         title = re.sub(r"\s+", " ", title).strip()
+
+        # Ensure brand is uppercase in title
+        if brand and brand_upper and title.startswith(brand):
+            title = brand_upper + title[len(brand):]
+
         res.value["full_title"] = title
         res.value["char_count"] = len(title)
         return res.value
 
 
 class TitleExtenderAgent:
-    def __init__(self, llm: OllamaLLM):
+    def __init__(self, llm: GeminiLLM):
         self.llm = llm
 
     def run(
@@ -1014,38 +1018,56 @@ class TitleExtenderAgent:
 
         chars_to_add = target_length - len(title)
 
-        category = category_info.get("category", "general")
-        search_priorities = category_info.get("search_priorities", [])
-        key_attributes = category_info.get("key_attributes", [])
-        product = truth.get("product", "")
-        brand = truth.get("brand", "")
-        kw_list = [kw.get("keyword", "") for kw in selected_keywords[:5]]
+        # Sort keywords by volume, pick ones NOT already in title
+        title_lower = title.lower()
+        unused_kw = []
+        for kw in sorted(selected_keywords, key=lambda x: float(x.get('score', 0) or 0), reverse=True):
+            k = str(kw.get("keyword", "")).strip()
+            if k and k.lower() not in title_lower:
+                # Check if it's not just a substring of something already there
+                words = k.lower().split()
+                if not all(w in title_lower for w in words):
+                    unused_kw.append(k)
 
-        prompt = f"""TASK: Add ~{chars_to_add} more characters to this Amazon product title.
+        kw_text = "\n".join(f"  - {k}" for k in unused_kw[:8]) if unused_kw else "  (all used)"
 
-PRODUCT CATEGORY: {category}
-PRODUCT TYPE: {product}
-BRAND: {brand}
+        # Features not in title yet
+        key_features = truth.get("key_features") or []
+        material = str(truth.get("material", "") or "")
+        feature_hints = []
+        for feat in key_features[:5]:
+            # Extract short feature phrases
+            feat_lower = feat.lower()
+            for phrase in ["hexagonal", "hex", "anti-slip", "non-slip", "cast iron",
+                           "neoprene", "ergonomic", "non-toxic", "wide grip"]:
+                if phrase in feat_lower and phrase not in title_lower:
+                    feature_hints.append(phrase.title())
+        if material and material.lower() not in title_lower:
+            feature_hints.append(material)
+
+        prompt = f"""TASK: Extend this Amazon title by ~{chars_to_add} characters to reach {target_length} chars.
 
 CURRENT TITLE ({len(title)} chars):
-{title}
+"{title}"
 
-ATTRIBUTES FROM ORIGINAL TITLE:
-{', '.join(key_attributes) if key_attributes else 'see title above'}
+UNUSED HIGH-VOLUME KEYWORDS (add these naturally):
+{kw_text}
 
-APPROVED KEYWORDS (optional):
-{kw_list}
+PRODUCT FEATURES NOT YET IN TITLE:
+{', '.join(feature_hints) if feature_hints else '(all covered)'}
 
-STRICT RULES:
-1. ONLY add synonyms/rephrasings of what's already in the title OR items from APPROVED KEYWORDS.
-2. DO NOT invent features (no "Heavy Duty" etc unless already present).
-3. DO NOT add compatibility not mentioned.
-4. DO NOT repeat brand.
-5. NO pipes.
+RULES:
+1. APPEND to the end of the current title using commas and natural connectors
+2. Weave in unused keywords and features naturally — NOT as a keyword dump
+3. Use "with", "for", "and" to connect phrases naturally
+4. Do NOT repeat anything already in the title
+5. Do NOT repeat brand name
+6. Do NOT invent features — only use words from the lists above
+7. Output ONLY the complete extended title (one line, no quotes)
 
-Output ONLY the extended title (one line):"""
+Extended title:"""
 
-        raw = self.llm.generate(prompt, temperature=0.25, max_tokens=260)
+        raw = self.llm.generate(prompt, temperature=0.25, max_tokens=2000)
         if not raw:
             return title
 

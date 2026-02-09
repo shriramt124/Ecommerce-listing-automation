@@ -75,6 +75,61 @@ def _iter_records_from_excel(path: str) -> Iterator[Tuple[str, Dict]]:
         }
 
 
+def _detect_csv_skiprows(path: str) -> int:
+    """Auto-detect how many metadata rows to skip in a CSV.
+
+    SQP brand exports have metadata lines before the real header.
+    Helium10 seed-keyword CSVs start with the header on row 0.
+    We look for the first row that contains 'Keyword Phrase'.
+    """
+    with open(path, 'r', encoding='utf-8', errors='replace') as f:
+        for i, line in enumerate(f):
+            if 'Keyword Phrase' in line:
+                return i
+            if i > 10:
+                break
+    return 0
+
+
+def _iter_records_from_browsenode_csv(path: str) -> Iterator[Tuple[str, Dict]]:
+    """Parse Browse Node UK CSVs (Helium10 Cerebro / SQP brand).
+
+    All files must have 'Keyword Phrase' and 'Search Volume' columns.
+    Search Volume may be a quoted string with commas like '"38,542"'.
+    SQP brand CSVs have metadata header rows that are auto-skipped.
+
+    score = Search Volume (float).
+    """
+    skiprows = _detect_csv_skiprows(path)
+    df = pd.read_csv(path, skiprows=skiprows)
+
+    if 'Keyword Phrase' not in df.columns or 'Search Volume' not in df.columns:
+        raise ValueError(
+            f"CSV missing required columns. Expected 'Keyword Phrase' + 'Search Volume'.\n"
+            f"Found: {df.columns.tolist()}"
+        )
+
+    for _, row in df.iterrows():
+        keyword = str(row.get('Keyword Phrase', '')).strip()
+        if not keyword:
+            continue
+
+        search_volume = _parse_numeric(row.get('Search Volume'))
+        if search_volume <= 0:
+            continue
+
+        keyword_sales = _parse_numeric(row.get('Keyword Sales', 0))
+
+        yield keyword, {
+            'keyword': keyword,
+            'score': float(search_volume),
+            'search_volume': float(search_volume),
+            'ad_units': float(keyword_sales),
+            'ad_conv': 0.0,
+            'source_format': 'browsenode_csv',
+        }
+
+
 def _iter_records_from_keywordresearch_csv(path: str, chunksize: int = 5000) -> Iterator[Tuple[str, Dict]]:
     # Chunked to support very large CSVs (100MB+)
     for chunk in pd.read_csv(path, chunksize=chunksize):
@@ -91,15 +146,11 @@ def _iter_records_from_keywordresearch_csv(path: str, chunksize: int = 5000) -> 
                 'score': float(row.get('score', 0.0) or 0.0),
                 'source_format': 'keywordresearch_csv',
             }
-            # Keep a few useful fields if present (all optional)
             for col in [
                 'Search Volume Rank', 'Clicks Rank', 'Add to Carts Rank', 'Purchases Rank', 'Sales Rank',
-                'Suggested bid range', 'Top sub-category',
-                'Organic Coverage Score', 'Advertising Coverage Score'
             ]:
                 if col in row.index and pd.notna(row[col]):
                     val = row[col]
-                    # ensure JSON-serializable primitives
                     if isinstance(val, (int, float, str, bool)):
                         meta[col] = val
                     else:
@@ -107,11 +158,82 @@ def _iter_records_from_keywordresearch_csv(path: str, chunksize: int = 5000) -> 
             yield keyword, meta
 
 
+def _is_browsenode_csv(path: str) -> bool:
+    """Check whether a CSV has 'Keyword Phrase' in its first 10 lines."""
+    try:
+        with open(path, 'r', encoding='utf-8', errors='replace') as f:
+            for i, line in enumerate(f):
+                if 'Keyword Phrase' in line:
+                    return True
+                if i > 10:
+                    break
+    except Exception:
+        pass
+    return False
+
+
 def _iter_records(path: str) -> Iterator[Tuple[str, Dict]]:
     lower_path = path.lower()
+
     if lower_path.endswith('.csv'):
+        if _is_browsenode_csv(path):
+            return _iter_records_from_browsenode_csv(path)
         return _iter_records_from_keywordresearch_csv(path)
+
+    # Check if it's a Browse Node / Magnet xlsx (has 'Keyword Phrase' + 'Search Volume')
+    try:
+        test_df = pd.read_excel(path, nrows=1)
+        if 'Keyword Phrase' in test_df.columns and 'Search Volume' in test_df.columns:
+            return _iter_records_from_browsenode_xlsx(path)
+    except Exception:
+        pass
+
     return _iter_records_from_excel(path)
+
+
+def _parse_numeric(val) -> float:
+    """Parse a value that may be a string with commas like '1,779' or '>7,000'."""
+    if pd.isna(val):
+        return 0.0
+    s = str(val).strip().replace(',', '').replace('>', '').replace('<', '').replace('-', '0')
+    try:
+        return float(s)
+    except ValueError:
+        return 0.0
+
+
+def _iter_records_from_browsenode_xlsx(path: str) -> Iterator[Tuple[str, Dict]]:
+    """Parse Helium10 Magnet / Browse Node xlsx exports.
+
+    Columns expected: Keyword Phrase, Search Volume, Keyword Sales,
+                      Magnet IQ Score, Competing Products, CPR, etc.
+
+    Only yields keywords with Search Volume > 0.
+    Score = Search Volume (higher volume = more important keyword).
+    """
+    df = pd.read_excel(path)
+
+    for _, row in df.iterrows():
+        keyword = str(row.get('Keyword Phrase', '')).strip()
+        if not keyword:
+            continue
+
+        search_volume = _parse_numeric(row.get('Search Volume'))
+
+        # Skip keywords with zero search volume
+        if search_volume <= 0:
+            continue
+
+        keyword_sales = _parse_numeric(row.get('Keyword Sales'))
+        magnet_iq = _parse_numeric(row.get('Magnet IQ Score'))
+
+        yield keyword, {
+            'keyword': keyword,
+            'score': float(search_volume),  # Use search volume as the score
+            'ad_units': float(keyword_sales),
+            'ad_conv': float(magnet_iq),
+            'source_format': 'browsenode_xlsx',
+        }
 
 
 def ingest_keywords(paths: List[str], reset: bool = False):
@@ -231,7 +353,39 @@ def ingest_keywords(paths: List[str], reset: bool = False):
 
         flush_embed_batch()
     
-    print(f"\n[3/3] Writing index to disk...")
+    print(f"\n[3/4] Deduplicating across files (keeping higher search volume)...")
+
+    # Cross-file dedup: for each unique keyword (case-insensitive),
+    # keep only the entry with the highest score (= search volume).
+    best: Dict[str, int] = {}  # lowercase_keyword -> index in lists
+    for i, kw in enumerate(keywords):
+        key = kw.strip().lower()
+        if key not in best:
+            best[key] = i
+        else:
+            if scores[i] > scores[best[key]]:
+                best[key] = i
+
+    keep_indices = sorted(best.values())
+    n_before = len(keywords)
+    keywords = [keywords[i] for i in keep_indices]
+    embeddings = [embeddings[i] for i in keep_indices]
+    scores = [scores[i] for i in keep_indices]
+    ad_units = [ad_units[i] for i in keep_indices]
+    ad_conv = [ad_conv[i] for i in keep_indices]
+    dataset_ids = [dataset_ids[i] for i in keep_indices]
+    source_formats = [source_formats[i] for i in keep_indices]
+    n_deduped = n_before - len(keywords)
+    print(f"      -> Removed {n_deduped} duplicates, kept {len(keywords)} unique keywords")
+
+    print(f"\n[4/4] Assigning ranks by Search Volume (high -> low) and writing index...")
+
+    # Rank: sort by score (search volume) descending. Rank 1 = highest.
+    score_arr = np.asarray(scores, dtype=np.float32)
+    rank_order = np.argsort(-score_arr)  # descending
+    ranks = np.zeros(len(scores), dtype=np.int32)
+    for position, idx in enumerate(rank_order):
+        ranks[idx] = position + 1  # 1-based rank
 
     # Stack embeddings into a matrix
     if embeddings:
@@ -243,15 +397,22 @@ def ingest_keywords(paths: List[str], reset: bool = False):
         INDEX_PATH,
         embeddings=emb_matrix,
         keywords=np.asarray(keywords, dtype=str),
-        scores=np.asarray(scores, dtype=np.float32),
+        scores=score_arr,
+        ranks=ranks,
         ad_units=np.asarray(ad_units, dtype=np.float32),
         ad_conv=np.asarray(ad_conv, dtype=np.float32),
         dataset_ids=np.asarray(dataset_ids, dtype=str),
         source_formats=np.asarray(source_formats, dtype=str),
     )
 
+    # Print top 20 by rank
+    top20 = rank_order[:20]
+    print(f"\n  Top 20 keywords by Search Volume:")
+    for pos, idx in enumerate(top20, 1):
+        print(f"    Rank {pos:>4}: {keywords[idx]:<45} vol={scores[idx]:,.0f}")
+
     print(f"\n" + "=" * 60)
-    print(f"  SUCCESS: Added {total_added} keywords to ST index")
+    print(f"  SUCCESS: {len(keywords)} unique keywords indexed with ranks")
     print(f"  Index path: {INDEX_PATH}")
     print("=" * 60)
     
@@ -264,13 +425,14 @@ def test_query():
     from keyword_db import KeywordDB
 
     db = KeywordDB()
-    test_q = "garbage bags medium black"
+    test_q = "neoprene dumbbells set home gym"
     results = db.get_top_keywords(test_q, limit=5)
     print(f"Query: '{test_q}'")
     print("Top 5 matching keywords:")
     for i, r in enumerate(results, 1):
+        rank = r.get('rank', '?')
         print(
-            f"  {i}. '{r['keyword']}' | sim={r.get('similarity', 0.0):.3f} | score={float(r.get('score', 0.0) or 0.0):.4f} | ds={r.get('dataset_id')}"
+            f"  {i}. '{r['keyword']}' | rank={rank} | sim={r.get('similarity', 0.0):.3f} | vol={float(r.get('score', 0.0) or 0.0):,.0f}"
         )
     return results
 

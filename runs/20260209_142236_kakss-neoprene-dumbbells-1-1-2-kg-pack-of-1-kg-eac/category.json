@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg:1",
+    "material:neoprene_coated",
+    "set_includes:pair",
+    "intended_use:home_gym_fitness_training",
+    "grip_type:anti_slip"
+  ],
+  "search_priorities": [
+    "1 kg neoprene dumbbells pair",
+    "pink dumbbells for home workout",
+    "1kg hand weights set for women"
+  ],
+  "color_important": true
+}

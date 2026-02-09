@@ -1,0 +1,152 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "original_length": 120,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1019 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "total_weight_kg",
+      "coating_material_neoprene",
+      "grip_type_anti_slip",
+      "set_size_pair_or_single",
+      "color"
+    ],
+    "search_priorities": [
+      "1kg neoprene dumbbells",
+      "pink dumbbells set 2kg",
+      "home gym hand weights 1kg pair"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1019
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Very high search volume phrase directly matching product type; strong core query for shoppers looking for pairs/sets of dumbbells."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Highest-relevance generic product term with very high volume; essential for broad discovery even if also covered by longer phrases."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining both 'weights' and 'dumbbells set', capturing additional relevant searches."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women, matching pink neoprene hand weights use case; strong gender-specific intent."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Popular variant of 'dumbbells set'; keeps coverage for users searching singular+set phrasing."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume, clear intent phrase for female home fitness users; aligns with light neoprene dumbbells positioning."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with strong volume; helps match shorter, generic searches and long-tail variations."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good-volume generic phrase for sets of weights; relevant to a 1+1 dumbbell pack and broadens reach beyond strict dumbbell terms."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term; important for broad category coverage and to capture non-specific weight searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Another common phrasing variant with solid volume; complements 'weights set' and 'dumbbells set' for query coverage."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Strong intent phrase combining 'hand weights' and 'for women'; highly aligned with neoprene coated 1 kg dumbbells."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant, good-volume phrase for home and gym strength equipment; broadens exposure within fitness category."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling variant of 'dumbbell set' with notable volume; helps capture misspelled search traffic."
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "High-volume category-level term; appropriate for sports/fitness and helps surface product in broader equipment searches."
+    },
+    {
+      "keyword": "womens weights",
+      "zone": "ZONE_B",
+      "score": 8208.0,
+      "reason": "Relevant gender-specific phrase with decent volume; reinforces targeting for female users looking for lighter weights."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Cast Iron Dumbbells, 1kg Pair (2 x 1kg), Pink, dumbbells set, weights dumbbells set, gym weights, hand weights for women, womens weights, home gym equipment",
+    "char_count": 171,
+    "zone_a": "KAKSS Neoprene Cast Iron Dumbbells, 1kg Pair (2 x 1kg), Pink",
+    "zone_b": "dumbbells set, weights dumbbells set, gym weights, hand weights for women, womens weights, home gym equipment",
+    "zone_c": "",
+    "reasoning": {
+      "zone_a_rationale": "Starts with brand (KAKSS), includes both materials (Neoprene Cast Iron) directly with product type (Dumbbells), then clearly states size and quantity in required format (1kg Pair (2 x 1kg)) and the color (Pink). This covers core identity and specs in one place.",
+      "zone_b_rationale": "Stacks the highest-volume approved search phrases: 'dumbbells set' and 'weights dumbbells set', then adds other relevant approved keywords like 'gym weights', 'hand weights for women', 'womens weights', and 'home gym equipment' to improve discoverability without repeating specs.",
+      "zone_c_rationale": "No additional variant details (like special style or pattern) are provided beyond core attributes already in Zone A, so Zone C is left empty to avoid repetition or fabrication."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 1 KG each dumbbell",
+      "Missing color: pink, white"
+    ],
+    "char_count": 171
+  },
+  "optimized_title": "KAKSS Neoprene Cast Iron Dumbbells, 1kg Pair (2 x 1kg), Pink, dumbbells set, weights dumbbells set, gym weights, hand weights for women, womens weights, home gym equipment",
+  "final_length": 171
+}

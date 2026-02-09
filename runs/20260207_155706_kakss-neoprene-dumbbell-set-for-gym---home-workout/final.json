@@ -1,0 +1,151 @@
+{
+  "original_title": "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Purple",
+  "original_length": 83,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 100 pre-filtered keyword candidates (volume-ranked) — skipped QueryPlanner"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_4kg",
+      "material_neoprene_coated",
+      "set_includes_2_dumbbells",
+      "intended_use_home_and_gym_workouts",
+      "color_purple"
+    ],
+    "search_priorities": [
+      "4kg neoprene dumbbells set",
+      "purple dumbbells 4kg pair",
+      "4 kg dumbbell set for home workout"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 100
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Very high search volume multi-word phrase directly matching product type and purchase intent."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core generic product term with high search volume; essential for broad discovery."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume phrase variant of main product type; captures additional search traffic."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Singular core product keyword with strong volume; supports generic searches."
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High-volume size-specific phrase matching actual 4kg pair; strong purchase intent."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High-volume weight-specific phrase; relevant variant for shoppers comparing sizes."
+    },
+    {
+      "keyword": "5 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 6404.0,
+      "reason": "Good-volume size phrase; helps capture adjacent weight searches in same product line."
+    },
+    {
+      "keyword": "3 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3336.0,
+      "reason": "Relevant multi-word size phrase; aligns with typical home workout weight ranges."
+    },
+    {
+      "keyword": "2 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3486.0,
+      "reason": "Common spacing variant of 2kg query; preserves full phrase for search coverage."
+    },
+    {
+      "keyword": "4 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 2651.0,
+      "reason": "Spaced variant of 4kg phrase; directly matches product weight and intent."
+    },
+    {
+      "keyword": "amazon dumbbells",
+      "zone": "ZONE_B",
+      "score": 3228.0,
+      "reason": "Decent-volume phrase some users type; includes core product term."
+    },
+    {
+      "keyword": "dumbbells amazon",
+      "zone": "ZONE_B",
+      "score": 1553.0,
+      "reason": "Order-variant of marketplace-oriented search; still contains main product term."
+    },
+    {
+      "keyword": "gym dumbbells",
+      "zone": "ZONE_B",
+      "score": 424.0,
+      "reason": "Use-case phrase targeting gym-focused buyers; relevant to product usage."
+    },
+    {
+      "keyword": "gym dumbbell",
+      "zone": "ZONE_B",
+      "score": 1568.0,
+      "reason": "Singular variant of gym use-case phrase; supports additional query patterns."
+    },
+    {
+      "keyword": "workout",
+      "zone": "ZONE_C",
+      "score": 2020.0,
+      "reason": "Context/use-case descriptor that reinforces fitness application in searches."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbell Set, 4 kg Dumbbell Pack of 2, Purple, dumbbells set for gym dumbbells and home workout, dumbbells amazon purple dumbbells 4kg pair",
+    "char_count": 154,
+    "zone_a": "KAKSS Neoprene Dumbbell Set, 4 kg Dumbbell Pack of 2, Purple",
+    "zone_b": "dumbbells set for gym dumbbells and home workout, dumbbells amazon",
+    "zone_c": "purple dumbbells 4kg pair",
+    "reasoning": {
+      "zone_a_rationale": "Starts with brand and clear product identity: 'KAKSS Neoprene Dumbbell Set' plus key specs (4 kg, Pack of 2, Purple) in one concise segment, matching the original product information without adding new features.",
+      "zone_b_rationale": "Uses the highest-volume search phrases: 'dumbbells set', 'gym dumbbells', 'home workout', and 'dumbbells amazon' to capture broad search intent while avoiding repetition of specs already in Zone A.",
+      "zone_c_rationale": "Adds specific variant/search detail 'purple dumbbells 4kg pair' to reinforce color and weight as a searched phrase, without re-stating pack count or introducing new attributes."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 4 kg each"
+    ],
+    "char_count": 179
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbell Set, 4 kg dumbbell pack of 2, purple, 2kg dumbbells pair, 3 kg dumbbells pair, 5 kg dumbbells pair, 2 kg dumbbells pair, for gym and home workout dumbbells",
+  "final_length": 179
+}

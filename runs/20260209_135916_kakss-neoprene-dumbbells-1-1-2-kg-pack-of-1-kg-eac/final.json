@@ -1,0 +1,153 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "original_length": 120,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 60 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "total_weight_kg",
+      "coating_material_neoprene",
+      "grip_type_anti_slip",
+      "set_includes_pair",
+      "color"
+    ],
+    "search_priorities": [
+      "1 kg neoprene dumbbells pair",
+      "pink dumbbells 1kg each",
+      "home gym hand weights 2kg set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 60
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume, core product phrase closely matching dumbbells category"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Strong volume multi-word phrase capturing both weights and dumbbells"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-intent generic phrase for this product type"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad high-volume term for weight training equipment"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Close variant of weights set, maintains broad search coverage"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High-volume dumbbells phrase; relevant for shoppers even if this specific SKU is fixed-weight"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad, high-volume sports/fitness discovery term"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant phrase combining material and product type"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Common alternative term for dumbbells, multi-word phrase"
+    },
+    {
+      "keyword": "weight sets",
+      "zone": "ZONE_B",
+      "score": 5665.0,
+      "reason": "Plural variant capturing additional broad traffic"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase with solid volume"
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Highly relevant size-specific phrase matching 2 kg total weight"
+    },
+    {
+      "keyword": "2 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3486.0,
+      "reason": "Complete phrase including weight and pair specification"
+    },
+    {
+      "keyword": "3 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3336.0,
+      "reason": "Weight-variant phrase that can still attract relevant dumbbell shoppers"
+    },
+    {
+      "keyword": "dumbbells 2kg",
+      "zone": "ZONE_B",
+      "score": 2629.0,
+      "reason": "Order-variant of the 2 kg size phrase, maintaining strong relevance"
+    }
+  ],
+  "title_result": {
+    "full_title": "Kakss Neoprene Dumbbells Set, 1+1=2 KG Pack of 1 KG Each, Pink, weights dumbbells set, dumbbell set for home gym equipment and fitness training, hand weights set variant",
+    "char_count": 169,
+    "zone_a": "Kakss Neoprene Dumbbells Set, 1+1=2 KG Pack of 1 KG Each, Pink",
+    "zone_b": "weights dumbbells set, dumbbell set for home gym equipment and fitness training",
+    "zone_c": "hand weights set variant",
+    "reasoning": {
+      "zone_a_rationale": "Starts with brand and core product identity: 'Kakss Neoprene Dumbbells Set' plus exact size '1+1=2 KG Pack of 1 KG Each' and color 'Pink', matching original facts and using the required pack string exactly once.",
+      "zone_b_rationale": "Includes the three mandatory high-volume phrases: 'dumbbells set' (as part of 'Neoprene Dumbbells Set'), 'weights dumbbells set', and 'dumbbell set', and adds use case 'for home gym equipment and fitness training' using only original wording.",
+      "zone_c_rationale": "Adds non-core variant-style wording 'hand weights set variant' to echo the original 'Hand Weights' phrasing without repeating specs, keeping it as a softer descriptor at the end."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 1 KG each (total 2 KG)",
+      "Missing color: pink, white"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "Kakss Neoprene Dumbbells Set, 1+1=2 KG Pack of 1 KG Each, Pink, weights dumbbells set, dumbbell set for home gym equipment and fitness training, hand weights set variant, weights set for exercise",
+  "final_length": 195
+}
