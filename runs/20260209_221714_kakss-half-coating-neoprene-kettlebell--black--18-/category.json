@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "durability",
+    "grip"
+  ],
+  "search_priorities": [
+    "18kg kettlebell",
+    "neoprene kettlebell",
+    "kakss kettlebell"
+  ],
+  "color_important": false
+}

@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Very high search volume phrase directly matching product type (weights + dumbbells + set); core discovery term."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume, concise generic term for the product; essential for broad search coverage."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "High-volume generic weights phrase that captures broader traffic for weight sets including dumbbells."
+    },
+    {
+      "keyword": "barbell weights set",
+      "zone": "ZONE_B",
+      "score": 29713.0,
+      "reason": "High volume and related to weights sets; can capture adjacent traffic from users searching general weight sets, even if not a perfect spec match."
+    },
+    {
+      "keyword": "adjustable dumbbells set",
+      "zone": "ZONE_B",
+      "score": 15106.0,
+      "reason": "Strong multi-word phrase around dumbbells sets; overlaps with core product type and captures users looking for sets, even if not fully adjustable."
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High-volume dumbbell phrase; helps capture broad dumbbell traffic despite product being fixed-weight."
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "High-volume, broad sports/fitness category term; relevant for discovery as part of home/gym equipment."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Highly relevant multi-word phrase matching use case (home gym weights); strong intent for this product type."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Good-volume phrase describing neoprene dumbbells as hand weights in a set; aligns with product."
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "Broad but relevant phrase capturing home workout shoppers; fits sports/fitness category and home use case."
+    },
+    {
+      "keyword": "dumbbell rack set with weights",
+      "zone": "ZONE_B",
+      "score": 5104.0,
+      "reason": "Highly specific, high-intent phrase exactly matching product (dumbbells + rack + weights)."
+    },
+    {
+      "keyword": "dumbbell set with rack",
+      "zone": "ZONE_B",
+      "score": 4138.0,
+      "reason": "Strong, specific multi-word phrase directly describing the product configuration (set + rack)."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Relevant, good-volume phrase for buyers building a home gym; fits category and use case."
+    },
+    {
+      "keyword": "hand weights",
+      "zone": "ZONE_B",
+      "score": 1727.0,
+      "reason": "Common alternative term for dumbbells; captures additional search traffic for the same product type."
+    },
+    {
+      "keyword": "dumbbell neoprene set",
+      "zone": "ZONE_B",
+      "score": 2011.0,
+      "reason": "Highly relevant phrase combining product type and key material (neoprene) as a complete search term."
+    }
+  ]
+}

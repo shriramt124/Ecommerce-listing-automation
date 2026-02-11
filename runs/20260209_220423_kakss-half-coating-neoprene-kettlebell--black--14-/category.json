@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_comfort"
+  ],
+  "search_priorities": [
+    "14kg kettlebell",
+    "neoprene kettlebell",
+    "half coating kettlebell"
+  ],
+  "color_important": false
+}

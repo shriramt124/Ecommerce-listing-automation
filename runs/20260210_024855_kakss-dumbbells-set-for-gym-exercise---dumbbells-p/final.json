@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Dumbbells Set For Gym Exercise - Dumbbells Pair With Cast Iron Vinyl Coating , Comfortable Grip , Hexagonal shape For Home Exercise | Pair Of 1 kg ( 0.5+0.5 Kg ) | ( Proudly Made in India )",
+  "original_length": 195,
+  "steps": [
+    "Parsed 5 concepts",
+    "Kept 5 concepts",
+    "Using 1798 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell",
+      "material_construction",
+      "grip_comfort"
+    ],
+    "search_priorities": [
+      "1kg dumbbells",
+      "hexagonal dumbbells",
+      "vinyl coated dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1798
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037) - core product term with high search volume"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402) - essential product name"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389) - combines weights and dumbbells for broader search"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089) - targets specific demographic with high volume"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High score (59794) - common misspelling with significant search volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High score (52761) - alternative phrasing for dumbbell sets"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162) - targets women's fitness market"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41200) - singular form with substantial volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878) - broader weight category term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386) - general fitness equipment category"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339) - alternative phrasing for weight sets"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) - specific use case targeting women"
+    },
+    {
+      "keyword": "dumbell",
+      "zone": "ZONE_B",
+      "score": 20125.0,
+      "reason": "Good score (20125) - common misspelling variant"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - gym-specific search term"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good score (11970) - misspelled version of dumbbell set"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Dumbbells Set, 1kg Pair (2 x 0.5kg), Pink Hex Hand Weights with Vinyl Coating for a Comfortable Grip, Non-Toxic & Washable Weights for Home Gym Exercise for Women and Men",
+    "char_count": 186,
+    "reasoning": {
+      "keyword_integration": "Strategically embedded the highest-volume keywords ('dumbbells set', 'dumbbells', 'weights for women', 'hand weights for women', 'weights', 'gym weights') by weaving them into a natural product description. The title highlights key features (hexagonal shape, vinyl coating, non-toxic) and targets the primary use case (home gym) for both genders as indicated by the keyword data."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 0.5 kg, 1 kg, 1.5 kg, 3 kg, 4 kg, 5 kg",
+      "Missing color: pink, white, yellow, orange, green, red, purple, blue, dark grey"
+    ],
+    "char_count": 186
+  },
+  "optimized_title": "KAKSS Cast Iron Dumbbells Set, 1kg Pair (2 x 0.5kg), Pink Hex Hand Weights with Vinyl Coating for a Comfortable Grip, Non-Toxic & Washable Weights for Home Gym Exercise for Women and Men",
+  "final_length": 186
+}

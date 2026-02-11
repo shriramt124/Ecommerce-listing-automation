@@ -1,0 +1,144 @@
+{
+  "original_title": "KAKSS Neoprene Coated Dumbbells for gym exercise (Made in India) 1 Pair (7 + 7 = 14 KG)",
+  "original_length": 87,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1799 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_type"
+    ],
+    "search_priorities": [
+      "7kg dumbbells",
+      "neoprene coated dumbbells",
+      "rubber dumbbells pair"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1799
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402), core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089), targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High score (59794), common misspelling with good volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52761), complete product phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162), targets specific audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core product term with good score (41200)"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878), alternative search term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386), broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339), alternative phrasing"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210), specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682), usage context"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good score (11970), misspelling variant"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (918 similarity), specific to product feature"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 7kg Pair (2 x 7kg), Color Coded Hex Hand Weights with Cast Iron Core for Home Gym Equipment and Strength Training for Women and Men",
+    "char_count": 161,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords 'dumbbells set', 'dumbbells', 'weights', 'hand weights for women', and 'gym weights' by weaving them into natural phrases like 'Neoprene Dumbbells Set' and 'Color Coded Hex Hand Weights'. Added 'for Women and Men' to capture gender-specific searches while maintaining a natural flow."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white, red, blue, green, black"
+    ],
+    "char_count": 193
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 7kg Pair (2 x 7kg), Color Coded Hex Hand Weights with Cast Iron Core for Home Gym Equipment and Strength Training for Women and Men, a versatile neoprene and vinyl",
+  "final_length": 193
+}

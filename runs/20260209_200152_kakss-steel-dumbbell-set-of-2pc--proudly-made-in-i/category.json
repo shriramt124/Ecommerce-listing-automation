@@ -1,0 +1,18 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg",
+    "total_set_weight_kg",
+    "material_steel",
+    "set_quantity_pair",
+    "dumbbell_type_fixed_weight",
+    "brand"
+  ],
+  "search_priorities": [
+    "4 kg dumbbells pair",
+    "8 kg dumbbell set steel",
+    "chrome steel dumbbells 4kg x 2"
+  ],
+  "color_important": false
+}

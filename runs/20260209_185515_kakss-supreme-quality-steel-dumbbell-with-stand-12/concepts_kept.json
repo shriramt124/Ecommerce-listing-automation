@@ -1,0 +1,16 @@
+{
+  "concepts": [
+    {
+      "text": "Steel",
+      "type": "material",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "KAKSS Supreme   Dumbbell With Stand 12kg(1.5kg+2kg+2.5kg Pair)",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

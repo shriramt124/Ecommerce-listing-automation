@@ -1,0 +1,19 @@
+{
+  "concepts": [
+    {
+      "text": "Quality",
+      "type": "quality",
+      "locked": false
+    },
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Supreme  Neoprene Dumbbell With Stand 19Kg(2.5kg+3kg+4kg N Pair)",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

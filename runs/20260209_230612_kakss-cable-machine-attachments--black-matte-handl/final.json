@@ -1,0 +1,143 @@
+{
+  "original_title": "KAKSS Cable Machine Attachments. Black Matte Handles with Universal Attachment for Cable Machines. Pull Down, Press Down, Row, Triceps, Biceps & Lats. Available in 8 Varieties. (Lat Bar Narrow)",
+  "original_length": 193,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1246 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "strength_training_equipment_accessories",
+    "key_attributes": [
+      "compatibility (universal attachment)",
+      "handle_type (narrow lat bar)",
+      "material/durability"
+    ],
+    "search_priorities": [
+      "narrow lat pulldown bar",
+      "cable machine attachments",
+      "lat bar for cable machine"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1246
+  },
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest score (10854) and directly relevant to cable machine attachments"
+    },
+    {
+      "keyword": "gym",
+      "zone": "ZONE_B",
+      "score": 10650.0,
+      "reason": "Second highest score (10650) with strong relevance and hit queries including 'lat bar'"
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "High score (5996) with excellent relevance to home fitness users"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High similarity (0.662) and good score (3700) targeting home gym market"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good score (3299) and high similarity (0.585) with hit queries including 'lat pulldown bar'"
+    },
+    {
+      "keyword": "home gym",
+      "zone": "ZONE_B",
+      "score": 3138.0,
+      "reason": "Highest similarity score (0.686) with good search volume (3138)"
+    },
+    {
+      "keyword": "fitness",
+      "zone": "ZONE_B",
+      "score": 3180.0,
+      "reason": "Good search volume (3180) and relevant to the sports_fitness category"
+    },
+    {
+      "keyword": "dumbbell sets for men",
+      "zone": "ZONE_B",
+      "score": 2884.0,
+      "reason": "Decent score (2884) and targets complementary gym equipment users"
+    },
+    {
+      "keyword": "neoprene dumbbells",
+      "zone": "ZONE_B",
+      "score": 2791.0,
+      "reason": "Good score (2791) and targets fitness equipment buyers"
+    },
+    {
+      "keyword": "weights set for women",
+      "zone": "ZONE_B",
+      "score": 2377.0,
+      "reason": "Targets specific demographic with decent search volume (2377)"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "High score (3308) despite lower similarity - targets strength training audience"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good score (3263) targeting kettlebell users who need cable attachments"
+    },
+    {
+      "keyword": "amazon dumbbells",
+      "zone": "ZONE_B",
+      "score": 3228.0,
+      "reason": "Decent score (3228) with platform-specific search intent"
+    },
+    {
+      "keyword": "18kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3072.0,
+      "reason": "Good score (3072) targeting complementary fitness equipment buyers"
+    },
+    {
+      "keyword": "kettlebell 24kg",
+      "zone": "ZONE_B",
+      "score": 2864.0,
+      "reason": "Decent score (2864) targeting strength training equipment users"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Narrow Lat Pulldown Bar, Steel Cable Machine Attachment with Black Matte Powder Coat Finish & Universal Shackle, for Home Gym Equipment, Strength Training for Biceps, Triceps, Lats and Rows",
+    "char_count": 195,
+    "reasoning": {
+      "keyword_integration": "Integrated 'home gym equipment' (3,700 searches) and 'gym equipment' (10,854 searches) as a core use case. Wove in 'fitness' (3,180 searches) context through 'strength training'. Focused on high-volume category terms like 'barbell' and 'dumbbell' by specifying the product type as a 'lat pulldown bar' and 'cable machine attachment', which are the specific, relevant product categories for this item."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, silver"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "KAKSS Narrow Lat Pulldown Bar, Steel Cable Machine Attachment with Black Matte Powder Coat Finish & Universal Shackle, for Home Gym Equipment, Strength Training for Biceps, Triceps, Lats and Rows",
+  "final_length": 195
+}

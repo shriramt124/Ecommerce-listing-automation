@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "strength_training_cable_machine_attachments",
+  "key_attributes": [
+    "attachment_type (e.g., anchor bar / straight bar / handle style)",
+    "compatibility_with_cable_machines (universal_attachment)",
+    "material_and_durability",
+    "handle_finish_and_grip (black_matte, non-slip)",
+    "intended_exercises (lat_pulldown, tricep_pressdown, rows, biceps)"
+  ],
+  "search_priorities": [
+    "cable machine attachments",
+    "cable attachment anchor bar",
+    "lat pulldown cable handle"
+  ],
+  "color_important": false
+}

@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "handle_design"
+  ],
+  "search_priorities": [
+    "4kg kettlebell",
+    "cast iron kettlebell",
+    "home gym kettlebell"
+  ],
+  "color_important": false
+}

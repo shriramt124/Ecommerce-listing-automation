@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Cast Iron KettleBell For Strength and Conditioning",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Fitness",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Cross Training Assorted Colour Kettle Bell for Home Gym (10 KG)",
+      "type": "use_case",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

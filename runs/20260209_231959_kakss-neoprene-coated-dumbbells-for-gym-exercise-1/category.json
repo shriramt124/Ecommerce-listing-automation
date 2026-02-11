@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material_coating",
+    "pair_count"
+  ],
+  "search_priorities": [
+    "neoprene coated dumbbells",
+    "rubber dumbbells 10kg",
+    "gym dumbbells pair"
+  ],
+  "color_important": true
+}

@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Highest search volume phrase directly matching product type and use"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume core product phrase customers commonly search"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad high-volume term relevant to dumbbells as free weights"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Strong volume size-specific phrase matching 2 kg pair offering"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High-volume generic gym term relevant to dumbbells"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High-volume dumbbell phrase; included for traffic despite product not being adjustable"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad but relevant category phrase for discovery in sports & fitness"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Good-volume niche phrase targeting a key buyer segment"
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "High-volume weight variant phrase; helps capture broader dumbbell searches"
+    },
+    {
+      "keyword": "dumbbells 5kg",
+      "zone": "ZONE_B",
+      "score": 6937.0,
+      "reason": "Variant ordering of a strong volume size phrase for additional coverage"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Relevant alternative way users search for dumbbells"
+    },
+    {
+      "keyword": "2.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 5465.0,
+      "reason": "Good-volume size phrase; supports cross-weight discovery within dumbbells"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase with solid volume"
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Highly relevant size-specific phrase exactly matching product weight"
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Use-case phrase combining exercise intent with weights for broader reach"
+    }
+  ]
+}

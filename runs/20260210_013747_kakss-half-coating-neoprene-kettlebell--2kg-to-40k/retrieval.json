@@ -1,0 +1,236 @@
+{
+  "queries": [
+    "neoprene kettlebell",
+    "Kakss neoprene kettlebell",
+    "half coating kettlebell",
+    "Kakss half coating kettlebell",
+    "rubber coated kettlebell",
+    "Kakss rubber coated kettlebell",
+    "fitness gear",
+    "exercise equipment",
+    "athletic items",
+    "kettlebell workout",
+    "strength training equipment",
+    "home gym weights",
+    "cast iron kettlebell",
+    "fitness kettlebell"
+  ],
+  "top_preview": [
+    {
+      "keyword": "kettlebell workout",
+      "score": 430.0,
+      "rank": 393,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 1.000000238418579,
+      "hit_queries": [
+        "kettlebell workout",
+        "fitness kettlebell"
+      ]
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "score": 5045.0,
+      "rank": 71,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "half coating kettlebell",
+        "rubber coated kettlebell",
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "strength training equipment",
+      "score": 1187.0,
+      "rank": 215,
+      "ad_units": 23.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 1.0000001192092896,
+      "hit_queries": [
+        "athletic items",
+        "strength training equipment"
+      ]
+    },
+    {
+      "keyword": "exercise equipment",
+      "score": 1448.0,
+      "rank": 185,
+      "ad_units": 41.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 1.0,
+      "hit_queries": [
+        "fitness gear",
+        "exercise equipment",
+        "athletic items",
+        "strength training equipment"
+      ]
+    },
+    {
+      "keyword": "home gym weights",
+      "score": 78.0,
+      "rank": 964,
+      "ad_units": 1.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 1.0,
+      "hit_queries": [
+        "home gym weights"
+      ]
+    },
+    {
+      "keyword": "cast-iron kettlebell",
+      "score": 82.0,
+      "rank": 936,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9809081554412842,
+      "hit_queries": [
+        "neoprene kettlebell",
+        "half coating kettlebell",
+        "rubber coated kettlebell",
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "kettlebells workout",
+      "score": 8.0,
+      "rank": 1892,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9805011749267578,
+      "hit_queries": [
+        "kettlebell workout",
+        "fitness kettlebell"
+      ]
+    },
+    {
+      "keyword": "cast iron kettlebells",
+      "score": 275.0,
+      "rank": 490,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9761862754821777,
+      "hit_queries": [
+        "half coating kettlebell",
+        "Kakss half coating kettlebell",
+        "rubber coated kettlebell",
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "kettlebell cast iron",
+      "score": 818.0,
+      "rank": 263,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.968749463558197,
+      "hit_queries": [
+        "half coating kettlebell",
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "gym weights for home",
+      "score": 6734.0,
+      "rank": 56,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.963375449180603,
+      "hit_queries": [
+        "home gym weights"
+      ]
+    },
+    {
+      "keyword": "kettlebells cast iron",
+      "score": 272.0,
+      "rank": 491,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9626809358596802,
+      "hit_queries": [
+        "half coating kettlebell",
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "strength training gym equipment",
+      "score": 65.0,
+      "rank": 1065,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9510375261306763,
+      "hit_queries": [
+        "fitness gear",
+        "exercise equipment",
+        "athletic items",
+        "strength training equipment"
+      ]
+    },
+    {
+      "keyword": "gym kettlebell",
+      "score": 61.0,
+      "rank": 1090,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9468332529067993,
+      "hit_queries": [
+        "neoprene kettlebell",
+        "kettlebell workout",
+        "fitness kettlebell"
+      ]
+    },
+    {
+      "keyword": "cast iron set kettlebells",
+      "score": 3.0,
+      "rank": 1988,
+      "ad_units": 0.0,
+      "ad_conv": 0.0,
+      "dataset_id": "SQP_brand.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9424728751182556,
+      "hit_queries": [
+        "cast iron kettlebell"
+      ]
+    },
+    {
+      "keyword": "home gym set weights",
+      "score": 134.0,
+      "rank": 732,
+      "ad_units": 4.0,
+      "ad_conv": 0.0,
+      "dataset_id": "seed_keyword-DUMBBEL.csv",
+      "source_format": "browsenode_csv",
+      "similarity": 0.9421590566635132,
+      "hit_queries": [
+        "home gym weights"
+      ]
+    }
+  ]
+}

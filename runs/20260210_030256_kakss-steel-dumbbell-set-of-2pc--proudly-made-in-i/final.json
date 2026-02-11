@@ -1,0 +1,145 @@
+{
+  "original_title": "KAKSS Steel Dumbbell Set Of 2pc (Proudly Made In India) (4kg(2kg*2pc))",
+  "original_length": 70,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1752 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "2kg dumbbells",
+      "4kg dumbbell set",
+      "small dumbbells for women"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1752
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (score: 448037) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "High search volume (score: 215402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (score: 143389) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (score: 94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good search volume (score: 52761) - complete phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume (score: 48162) - targets specific audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (score: 41200) - core product term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (score: 36878) - complete phrase"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (score: 30386) - broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (score: 30339) - complete phrase"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High relevance (score: 22586) - matches product specs exactly"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High relevance (score: 21664) - matches total weight"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (score: 20210) - specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (score: 16682) - usage context"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good search volume (score: 11970) - common misspelling coverage"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Chrome Steel Dumbbells Set, 4kg Pair (2 x 2kg), Silver Hand Weights with Anti-Slip Rubber Grip, Compact Fitness Weights for Home Gym Workouts for Women and Men",
+    "char_count": 165,
+    "reasoning": {
+      "keyword_integration": "Embedded top keywords 'dumbbells set', 'dumbbells', 'weights', 'hand weights', 'home gym', 'for women', 'for men' naturally into descriptive phrases. Used product-specific features like 'chrome steel', 'anti-slip rubber grip', and 'compact' to create flowing description."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 4kg (2kg*2pc)",
+      "Missing color: silver, black"
+    ],
+    "char_count": 179
+  },
+  "optimized_title": "KAKSS Chrome Steel Dumbbells Set, 4kg Pair (2 x 2kg), Silver Hand Weights with Anti-Slip Rubber Grip, Compact Fitness Weights for Home Gym Workouts for Women and Men, dumbbell set",
+  "final_length": 179
+}

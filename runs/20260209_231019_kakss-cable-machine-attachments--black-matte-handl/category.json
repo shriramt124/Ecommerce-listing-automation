@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "fitness_equipment_accessories",
+  "key_attributes": [
+    "attachment_type",
+    "compatibility",
+    "material"
+  ],
+  "search_priorities": [
+    "lat pulldown bar",
+    "cable machine attachments",
+    "wide lat bar"
+  ],
+  "color_important": false
+}

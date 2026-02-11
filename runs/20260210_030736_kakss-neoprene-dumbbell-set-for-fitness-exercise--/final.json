@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Neoprene Dumbbell Set for Fitness Exercise (Made with pride in India) (Red Pair 5kg)",
+  "original_length": 90,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1858 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "sold_as_pair"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "5kg dumbbell pair",
+      "rubber coated dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1858
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest volume (215402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143389) - complete phrase with additional context"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Good volume (94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High volume (59794) - common misspelling coverage"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (52761) - standard search term"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good volume (48162) - targets female fitness market"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High relevance (46660) - matches product weight specification"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good volume (41200) - singular form coverage"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (36878) - alternative search phrasing"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good volume (30386) - broader fitness term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (30339) - alternative phrasing"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20210) - specific use case targeting"
+    },
+    {
+      "keyword": "dumbell",
+      "zone": "ZONE_B",
+      "score": 20125.0,
+      "reason": "Good volume (20125) - common misspelling"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good volume (16682) - gym-specific context"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Dumbbells Set, 5kg Pair (2 x 5kg), Red Hex Dumbbells with Vinyl Coated Non-Slip Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training for Women and Men",
+    "char_count": 176,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords 'dumbbells set', 'dumbbells', 'weights dumbbells set', 'dumbbells set women', 'weights for women', '5kg dumbbells pair', 'hand weights for women', and 'gym weights' by weaving them into natural phrases like 'Dumbbells Set', 'Hex Dumbbells', 'Cast Iron Hand Weights', 'Home Gym Equipment', and specifying 'for Women and Men' to cover both high-volume search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 0.5 KG, 1 KG, 1.5 KG, 2 KG, 3 KG, 5 KG",
+      "Missing color: pink, red, blue, green, purple, teal, black"
+    ],
+    "char_count": 176
+  },
+  "optimized_title": "KAKSS Dumbbells Set, 5kg Pair (2 x 5kg), Red Hex Dumbbells with Vinyl Coated Non-Slip Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training for Women and Men",
+  "final_length": 176
+}

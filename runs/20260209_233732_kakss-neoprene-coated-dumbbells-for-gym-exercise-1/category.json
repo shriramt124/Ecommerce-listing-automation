@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_type"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "2kg dumbbells",
+    "coated dumbbells set"
+  ],
+  "color_important": true
+}

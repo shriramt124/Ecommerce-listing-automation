@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Half Coating Neoprene Kettlebell (Proudly Made in India) (SEA GREEN, 4Kg)",
+  "original_length": 79,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1690 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_comfort"
+    ],
+    "search_priorities": [
+      "4kg kettlebell",
+      "beginner kettlebell",
+      "neoprene coated kettlebell"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1690
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Highest score (48162) - targets specific demographic with high search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "High score (36878) - broad category term with strong search volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High score (30386) - fundamental category term with excellent search volume"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "High score (30339) - alternative phrasing for weight sets with strong performance"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) - plural form of product with excellent search volume"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "High score (26188) - core product term with strong search volume"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) - alternative spelling with strong performance"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) - specific use case targeting women demographic"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - gym-specific weight category with strong relevance"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good score (10854) - broad gym category with decent search volume"
+    },
+    {
+      "keyword": "gym",
+      "zone": "ZONE_B",
+      "score": 10650.0,
+      "reason": "Good score (10650) - fundamental fitness category term"
+    },
+    {
+      "keyword": "womens weights",
+      "zone": "ZONE_B",
+      "score": 8208.0,
+      "reason": "Good score (8208) - alternative phrasing targeting women"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Good score (6734) - specific use case for home gyms"
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "Good score (5996) - specific home use case with high relevance"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Good score (6110) - hand weights category with decent volume"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 4kg, Sea Green Half Neoprene Coated Weight with Wide Textured Handle for Home Gym Equipment and Strength Training Workouts for Women and Men",
+    "char_count": 167,
+    "reasoning": {
+      "keyword_integration_strategy": "Integrated top-volume keywords naturally: 'kettlebell', 'weights', 'gym equipment', 'strength training', 'for women and men', and 'home gym'. Used product features like 'cast iron', 'half neoprene coated', 'wide textured handle' to create a flowing description that serves dual purpose as search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: sea green, black"
+    ],
+    "char_count": 194
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 4kg, Sea Green Half Neoprene Coated Weight with Wide Textured Handle for Home Gym Equipment and Strength Training Workouts for Women and Men, an ergonomic and non-slip",
+  "final_length": 194
+}

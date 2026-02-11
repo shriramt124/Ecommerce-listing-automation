@@ -1,0 +1,146 @@
+{
+  "original_title": "KAKSS Supreme Quality Steel Dumbbell With Stand (19kg(2.5kg+3kg+4kg Pair)",
+  "original_length": 73,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 3 concepts",
+    "Using 1798 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbell_sets",
+    "key_attributes": [
+      "weight_included",
+      "material",
+      "includes_rack"
+    ],
+    "search_priorities": [
+      "adjustable dumbbell set with rack",
+      "19kg dumbbell set",
+      "steel dumbbell rack combo"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1798
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (score: 448037), exact match for product type"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest volume (score: 215402), core product category term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (score: 143389), combines weights and dumbbells"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume (score: 94089), targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (score: 52761), direct product match"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (score: 36878), alternative search term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (score: 30339), common search variation"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Specific weight mention (score: 24626), matches product specs"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Specific weight mention (score: 22586), matches product specs"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Specific weight mention (score: 21664), matches product specs"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good volume (score: 16682), fitness context"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Targeted phrase (score: 7552), audience-specific"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Use case specific (score: 6734), home fitness focus"
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Specific category (score: 6568), free weights terminology"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad category (score: 10854), high relevance"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 2kg) – Purple Hex Dumbbells for Women, Men – Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training",
+    "reasoning": {
+      "keyword_integration": "Incorporated key search terms naturally into the title, including product type, weight, color, material, and use cases.",
+      "flow_and_readability": "Ensured the title reads smoothly while embedding high-volume keywords like 'home gym equipment' and 'fitness training'.",
+      "search_optimization": "Balanced keyword density with natural language to appeal to both search algorithms and human readers."
+    },
+    "char_count": 178
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 19kg (2.5kg+3kg+4kg Pair)",
+      "Missing color: silver, black"
+    ],
+    "char_count": 178
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 2kg) – Purple Hex Dumbbells for Women, Men – Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training",
+  "final_length": 178
+}

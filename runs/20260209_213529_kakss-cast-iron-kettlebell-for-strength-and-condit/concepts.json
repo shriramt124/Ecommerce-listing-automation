@@ -1,0 +1,29 @@
+{
+  "concepts": [
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "for Strength and Conditioning",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Cast Iron Kettlebell",
+      "type": "product",
+      "locked": true
+    },
+    {
+      "text": "Fitness",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Cross Training Assorted Colour Kettle Bell for Home Gym (18 KG) (Proudly Made in India)",
+      "type": "use_case",
+      "locked": false
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg",
+    "total_set_weight_kg",
+    "dumbbell_type_material",
+    "set_piece_count",
+    "brand"
+  ],
+  "search_priorities": [
+    "steel dumbbells 3kg set",
+    "1.5 kg dumbbells pair",
+    "KAKSS steel dumbbell set"
+  ],
+  "color_important": false
+}

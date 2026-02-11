@@ -1,0 +1,144 @@
+{
+  "original_title": "KAKSS Neoprene Dumbbell, Set of 2pcs",
+  "original_length": 36,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1773 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "1.5 kg dumbbells",
+      "pink dumbbells set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1773
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037) - primary search term"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389) - popular search combination"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High score (59794) - common misspelling with good volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High score (52761) - standard search term"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162) - targets female fitness market"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41200) - singular form with volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878) - alternative search phrasing"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386) - broad fitness category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339) - alternative phrasing"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) - specific use case targeting"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - gym-focused search term"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good score (11970) - misspelling with volume"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (7300) - matches product material feature"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg), Pink Hex Hand Weights with Non-Slip Coated Grip for Women, Home Gym Equipment and Fitness Training",
+    "char_count": 152,
+    "reasoning": {
+      "strategy": "Integrated top keywords 'dumbbells set', 'weights', 'hand weights for women', and 'home gym' by weaving them into a natural product description that highlights the brand, weight, color, and key features from the verified facts."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 194
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg), Pink Hex Hand Weights with Non-Slip Coated Grip for Women, Home Gym Equipment and Fitness Training, a versatile coated metal dumbell set for",
+  "final_length": 194
+}

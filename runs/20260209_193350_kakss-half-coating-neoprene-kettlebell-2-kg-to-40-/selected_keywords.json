@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Very high search volume phrase including use-case 'for women'; relevant to kettlebell as a type of weight and strong generic traffic driver."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term for the product category; broad match traffic for all strength equipment including kettlebells."
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Core plural product term with strong volume; matches how many shoppers search and complements singular form."
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Primary exact product type; essential for relevance and ranking on main query."
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Common spaced variant of the main product term; captures misspelling/alternate search behavior."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "High-intent multi-word phrase targeting female home-fitness shoppers; relevant as kettlebells are used as hand weights."
+    },
+    {
+      "keyword": "20kg kettlebells",
+      "zone": "ZONE_B",
+      "score": 17689.0,
+      "reason": "Strong volume size-specific phrase; directly matches the 20 kg variant and plural search behavior."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad but relevant category phrase; helps surface product in generic gym weight searches."
+    },
+    {
+      "keyword": "kettlebell 20kg",
+      "zone": "ZONE_B",
+      "score": 11337.0,
+      "reason": "High-intent size-specific phrase; aligns with how users type weight after product name."
+    },
+    {
+      "keyword": "20kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 10599.0,
+      "reason": "Core exact phrase combining product and key spec; critical for ranking on size-specific searches."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Multi-word phrase capturing home-gym use case; highly relevant to kettlebells used at home."
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_C",
+      "score": 5045.0,
+      "reason": "Material/finish descriptor phrase; valuable variant for shoppers specifically seeking cast iron kettlebells."
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Generic but relevant phrase for strength equipment; supports broader exercise-related searches."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High-relevance multi-word phrase for category context; helps appear in home gym bundle and equipment searches."
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Variant spelling plus size phrase; captures additional traffic from spaced spelling and size-specific searches."
+    }
+  ]
+}

@@ -22,7 +22,7 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from gemini_llm import GeminiLLM, extract_json_object
-from agentic_llm import OpenAILLM
+from agentic_llm import OllamaLLM
 
 
 # ---------------------------------------------------------------------------
@@ -123,30 +123,50 @@ JSON:"""
 
 SEARCH_TERMS_PROMPT = """You are an Amazon backend search terms expert.
 
-PRODUCT TITLE: "{title}"
-BULLET POINTS: {bullets_text}
+PRODUCT TITLE (already indexed by Amazon): "{title}"
+BULLET POINTS (already indexed by Amazon): {bullets_text}
 
-TOP KEYWORDS (from real Amazon search data):
+PRODUCT DETAILS:
+  Product Type: {product_type}
+  Brand: {brand}
+  Material: {material}
+  Color: {color}
+  Size/Weight: {size}
+  Target Audience: {target_audience}
+
+TOP 50 MOST SEARCHED KEYWORDS FOR THIS PRODUCT (ranked by real Amazon search volume):
 {keyword_list}
 
-TASK: Generate backend search terms for Amazon (max 200 characters total).
+TASK: Generate backend search terms as COMMA-SEPARATED keyword phrases.
+These are AI-suggested search terms based on keyword research data — include AS MANY relevant phrases as possible.
 
-RULES:
-1. Total length MUST be ≤ 200 characters (HARD LIMIT).
-2. Use ONLY lowercase words separated by spaces. No commas, no punctuation.
-3. Do NOT repeat any word that already appears in the title or bullet points above.
-4. Include synonyms, alternate spellings, and related search terms.
-5. Pull words from the keyword list that aren't already in the title/bullets.
-6. No brand names (Amazon policy). No competitor names.
-7. No offensive or misleading terms.
-8. Do NOT repeat any word — each word should appear only ONCE.
-9. Focus on words shoppers actually search for.
+HOW TO DO THIS — READ CAREFULLY:
+The keyword list above contains REAL customer search phrases for THIS product.
+Your job is to pick the MOST RELEVANT keyword phrases and list them as search terms.
 
-Example format: "heavy duty thick strong multipurpose household kitchen bathroom"
+Step 1: Go through ALL 50 keyword phrases above — these are what customers ACTUALLY type. and skip those which are not relevant to the current product and title 
+Step 2: Pick every phrase that is relevant to THIS specific product.
+step 3: you can use the existing keywords in title and bullets and make sure the search terms and phrases are relevant to the product okay
+Step 4: List them as COMMA-SEPARATED search phrases.
+Step 6: Keep going until you've included ALL relevant phrases — aim for at least 300 characters.
+
+EXAMPLE:
+  If keyword data shows: "dumbbell set adjustable", "home gym weights", "rubber hex dumbbells",
+  "exercise weights", "fitness training weights", "hand weights for women"
+
+CRITICAL RULES:
+1. Include AS MANY relevant phrases as possible — at least 300 characters, no upper limit.
+2. Output format: lowercase comma-separated phrases (e.g. "phrase one, phrase two, phrase three").
+3. Each phrase should be a meaningful 2-4 word search query from the keyword data above.
+4. Do NOT just list individual disconnected words — keep phrases together.
+6. Your phrases must come FROM the keyword data above that are relevant to the product  — do NOT invent random phrases.
+7. No brand names (Amazon policy).
+8. Every phrase must be relevant to THIS specific product.
+9. MORE relevant phrases = BETTER. Do not stop at just a few.
 
 Respond ONLY with valid JSON:
 {{
-  "search_terms": "your search terms here..."
+  "search_terms": "phrase one, phrase two, phrase three, ..."
 }}
 
 JSON:"""
@@ -167,7 +187,7 @@ class BulletPointAgent:
         # Build keyword list string — sort by search volume for better prioritization
         sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
         kw_lines = []
-        for kw in sorted_kw[:20]:
+        for kw in sorted_kw[:50]:
             vol = float(kw.get('score', 0))
             kw_lines.append(f"  - {kw['keyword']} (search volume: {vol:.0f})")
         keyword_list = "\n".join(kw_lines) if kw_lines else "  (no keywords available)"
@@ -232,7 +252,7 @@ class DescriptionAgent:
         keywords: List[Dict[str, Any]],
     ) -> str:
         sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
-        kw_lines = [f"  - {kw['keyword']} (search volume: {kw.get('score', 0):.0f})" for kw in sorted_kw[:15]]
+        kw_lines = [f"  - {kw['keyword']} (search volume: {kw.get('score', 0):.0f})" for kw in sorted_kw[:50]]
         keyword_list = "\n".join(kw_lines) if kw_lines else "  (no keywords available)"
 
         key_features = image_analysis.get('key_features') or []
@@ -290,17 +310,38 @@ class SearchTermsAgent:
         title: str,
         bullets: List[str],
         keywords: List[Dict[str, Any]],
+        image_analysis: Dict[str, Any] = None,
     ) -> str:
         sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
-        kw_lines = [f"  - {kw['keyword']}" for kw in sorted_kw[:25]]
+        # Give the LLM all top 50 keyword phrases to work with
+        kw_lines = [f"  - {kw['keyword']} (volume: {float(kw.get('score',0)):.0f})" for kw in sorted_kw[:50]]
         keyword_list = "\n".join(kw_lines) if kw_lines else "  (no keywords available)"
 
         bullets_text = " | ".join(b for b in bullets if b)
 
+        # Build set of words already in title + bullets (for post-processing cleanup)
+        already_indexed = set()
+        for w in title.lower().split():
+            clean = ''.join(c for c in w if c.isalnum())
+            if clean and len(clean) > 1:
+                already_indexed.add(clean)
+        for b in bullets:
+            for w in b.lower().split():
+                clean = ''.join(c for c in w if c.isalnum())
+                if clean and len(clean) > 1:
+                    already_indexed.add(clean)
+
+        ia = image_analysis or {}
         prompt = SEARCH_TERMS_PROMPT.format(
             title=title,
             bullets_text=bullets_text or "(none)",
             keyword_list=keyword_list,
+            product_type=ia.get('product_type', ''),
+            brand=ia.get('brand', ''),
+            material=ia.get('material', ''),
+            color=', '.join(ia.get('colors') or []) or '',
+            size=ia.get('size', ''),
+            target_audience=ia.get('target_audience', ''),
         )
 
         for attempt in range(3):
@@ -310,42 +351,143 @@ class SearchTermsAgent:
 
             if obj and 'search_terms' in obj:
                 terms = str(obj['search_terms']).strip().lower()
-                # Remove punctuation except spaces
-                terms = ''.join(c if c.isalnum() or c == ' ' else ' ' for c in terms)
-                terms = ' '.join(terms.split())  # normalize spaces
+                # Clean: allow alphanumeric, spaces, and commas only
+                terms = ''.join(c if c.isalnum() or c in (' ', ',') else ' ' for c in terms)
+                # Normalize: split into comma-separated phrases, clean each
+                raw_phrases = [p.strip() for p in terms.split(',') if p.strip()]
 
-                # Deduplicate words
-                seen = set()
-                unique = []
-                for word in terms.split():
-                    if word not in seen:
-                        seen.add(word)
-                        unique.append(word)
-                terms = ' '.join(unique)
+                # Filter out phrases where ALL words are already in title/bullets
+                filtered_phrases = []
+                for phrase in raw_phrases:
+                    phrase_words = phrase.split()
+                    new_words = [w for w in phrase_words if ''.join(c for c in w if c.isalnum()) not in already_indexed]
+                    if new_words:  # at least one new word in this phrase
+                        filtered_phrases.append(phrase)
 
-                # Enforce 200 char limit
-                if len(terms) > 200:
-                    words = terms.split()
-                    trimmed = []
-                    length = 0
-                    for w in words:
-                        if length + len(w) + 1 <= 200:
-                            trimmed.append(w)
-                            length += len(w) + 1
-                        else:
-                            break
-                    terms = ' '.join(trimmed)
+                # Deduplicate phrases
+                seen_phrases = set()
+                unique_phrases = []
+                for phrase in filtered_phrases:
+                    if phrase not in seen_phrases:
+                        seen_phrases.add(phrase)
+                        unique_phrases.append(phrase)
+
+                terms = ', '.join(unique_phrases)
 
                 if terms:
                     return terms
 
-            prompt += f"\n\nAttempt {attempt+1} failed. Return valid JSON with 'search_terms' ≤ 200 chars."
+            prompt += f"\n\nAttempt {attempt+1} failed. Return valid JSON with 'search_terms' key. Include as many relevant keyword phrases as possible."
 
-        # Fallback: extract unique words from keywords not in title
-        title_words = set(title.lower().split())
-        fallback_words = []
-        for kw in sorted_kw[:20]:
-            for word in kw['keyword'].lower().split():
-                if word not in title_words and word not in fallback_words and len(word) > 2:
-                    fallback_words.append(word)
-        return ' '.join(fallback_words[:30])[:200]
+        # Fallback: use keyword phrases directly (comma-separated), skip if all words in title/bullets
+        fallback_phrases = []
+        seen_fb = set()
+        for kw in sorted_kw[:50]:
+            phrase = kw['keyword'].lower().strip()
+            if phrase in seen_fb:
+                continue
+            seen_fb.add(phrase)
+            phrase_words = phrase.split()
+            new_words = [w for w in phrase_words if ''.join(c for c in w if c.isalnum()) not in already_indexed]
+            if new_words:
+                fallback_phrases.append(phrase)
+        return ', '.join(fallback_phrases)
+
+
+# ---------------------------------------------------------------------------
+#  How To Sell Agent
+# ---------------------------------------------------------------------------
+
+HOW_TO_SELL_PROMPT = """You are a senior Amazon marketplace strategist.
+
+PRODUCT: {title}
+BRAND: {brand}
+PRODUCT TYPE: {product_type}
+MATERIAL: {material}
+TARGET AUDIENCE: {target_audience}
+KEY FEATURES: {key_features}
+
+COMPETITIVE ADVANTAGES (from image analysis):
+{comparison_points}
+
+TOP SEARCH KEYWORDS (what customers search for):
+{keyword_list}
+
+TASK: Write a concise "How To Sell" strategy for this SPECIFIC product.
+This should be actionable advice for the seller in 3-5 bullet points.
+
+Cover:
+1. PRIMARY SELLING ANGLE — what makes this product stand out (based on the competitive advantages above)
+2. TARGET CUSTOMER — who to market to, based on the search keywords and audience data
+3. KEY DIFFERENTIATORS — what to emphasize in ads and A+ content vs competitors
+4. PRICING STRATEGY HINT — positioning (budget-friendly starter, mid-range, premium)
+5. SEASONAL/TREND NOTE — if relevant (e.g. "New Year fitness resolution season")
+
+Be SPECIFIC to this product. Do NOT give generic e-commerce advice.
+Keep total response under 500 characters.
+
+Respond ONLY with valid JSON:
+{{
+  "how_to_sell": "• Point 1\n• Point 2\n• Point 3\n• Point 4\n• Point 5"
+}}
+
+JSON:"""
+
+
+class HowToSellAgent:
+    """Generates product-specific selling strategy from real data."""
+
+    def __init__(self, llm):
+        self.llm = llm
+
+    def run(
+        self,
+        product: Dict[str, Any],
+        image_analysis: Dict[str, Any],
+        keywords: List[Dict[str, Any]],
+        optimized_title: str,
+    ) -> str:
+        sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
+        kw_lines = [f"  - {kw['keyword']} (volume: {float(kw.get('score',0)):.0f})" for kw in sorted_kw[:50]]
+        keyword_list = "\n".join(kw_lines) if kw_lines else "  (none)"
+
+        # Build comparison points text
+        comp_points = image_analysis.get('comparison_points') or []
+        comp_lines = []
+        for cp in comp_points[:4]:
+            our = cp.get('our_benefit', '')
+            their = cp.get('competitor_issue', '')
+            if our:
+                comp_lines.append(f"  ✅ Us: {our}")
+            if their:
+                comp_lines.append(f"  ❌ Them: {their}")
+        comparison_text = "\n".join(comp_lines) if comp_lines else "  (none available)"
+
+        key_features = image_analysis.get('key_features') or []
+
+        prompt = HOW_TO_SELL_PROMPT.format(
+            title=optimized_title,
+            brand=image_analysis.get('brand') or product.get('raw_row', {}).get('Brand', '') or '',
+            product_type=image_analysis.get('product_type', ''),
+            material=image_analysis.get('material', ''),
+            target_audience=image_analysis.get('target_audience', ''),
+            key_features=', '.join(key_features[:5]) or 'N/A',
+            comparison_points=comparison_text,
+            keyword_list=keyword_list,
+        )
+
+        for attempt in range(3):
+            temp = 0.2 + (attempt * 0.1)
+            raw = self.llm.generate(prompt, temperature=temp, max_tokens=1000)
+            obj = extract_json_object(raw or "")
+
+            if obj and 'how_to_sell' in obj:
+                text = str(obj['how_to_sell']).strip()
+                if len(text) >= 50:
+                    if len(text) > 500:
+                        text = text[:497] + "..."
+                    return text
+
+            prompt += f"\n\nAttempt {attempt+1} failed. Return valid JSON with 'how_to_sell' ≤ 500 chars."
+
+        return ""

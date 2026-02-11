@@ -1,0 +1,8 @@
+{
+  "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Red Hex Dumbbells with Color Coded Thick Vinyl Coating and Non-Slip Grip, Cast Iron Hand Weights for Women Home Gym Workouts",
+  "char_count": 174,
+  "reasoning": {
+    "keyword_integration": "Prioritized top-volume phrases: 'dumbbells set', 'dumbbells', 'weights dumbbells set' (via wording), plus gender and use-case terms 'dumbbells set women', 'weights for women', 'hand weights for women', 'gym weights', and material terms 'neoprene dumbbells set', 'neoprene dumbbells'. Embedded them into a natural descriptive flow while matching verified facts: KAKSS brand, neoprene and thick vinyl coating, cast-iron core, hex shape, 4kg pair, red color, non-slip grip, and home gym workouts.",
+    "pattern_alignment": "Followed Brand + Material + ProductType + WeightSpec + Color + DistinguishingFeature + 'with' FeaturePhrase + Material/Type + 'for' UsagePhrase. Kept title within 180–200 characters and avoided invented features."
+  }
+}

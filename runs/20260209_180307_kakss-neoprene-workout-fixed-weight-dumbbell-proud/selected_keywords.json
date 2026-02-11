@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume, core product phrase capturing set intent"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high volume generic product term essential for discovery"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining weights and dumbbells"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Strong volume phrase targeting women-specific demand"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling of dumbbell set with notable volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Relevant multi-word phrase for fixed-weight pairs"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-intent phrase for female users searching for weights"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with solid search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad but relevant phrase for sets of weights"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term that still matches product category"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Specific use-case phrase aligning with neoprene dumbbells"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant gym-focused phrase for dumbbells as free weights"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant material + product phrase matching actual item"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Home-use intent phrase suitable for fixed dumbbells"
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Descriptive multi-word phrase combining free weights and dumbbells set"
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest-volume multi-word phrase directly matching core product type; critical for main discovery."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume head term; broad match for shoppers searching generic dumbbells."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Strong-volume phrase combining 'weights' and 'dumbbells set', capturing both search intents."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume, full phrase targeting women-specific searches for dumbbell sets."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume close variant of main product phrase; customers often search this exact wording."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Strong-volume phrase capturing gender-targeted searches for fitness weights."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Important singular head term; supports broad matching and variant queries."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good-volume generic phrase for sets of weights, relevant to a dumbbell kit."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term; helps capture broad, non-specific weight training searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Relevant multi-word phrase with solid volume; aligns with full set offering including stand."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_A",
+      "score": 24626.0,
+      "reason": "High-volume size-specific phrase; matches included 3kg pair and supports spec-based searches."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_A",
+      "score": 22586.0,
+      "reason": "Strong-volume size phrase; directly matches included 2kg pair and weight breakdown."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good-volume phrase; many home users, especially women, search this wording for neoprene sets."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant multi-word phrase with decent volume; aligns with gym/home workout intent."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant material-specific phrase; directly matches neoprene/vinyl coated product and intent."
+    }
+  ]
+}

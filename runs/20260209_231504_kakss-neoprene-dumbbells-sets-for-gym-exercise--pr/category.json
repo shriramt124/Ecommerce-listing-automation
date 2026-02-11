@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "set_type"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "small dumbbells",
+    "home gym weights"
+  ],
+  "color_important": true
+}

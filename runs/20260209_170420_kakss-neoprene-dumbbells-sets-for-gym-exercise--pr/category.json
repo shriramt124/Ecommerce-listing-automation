@@ -1,0 +1,18 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg",
+    "total_weight_set_kg",
+    "dumbbell_material",
+    "coating_type",
+    "set_quantity",
+    "brand"
+  ],
+  "search_priorities": [
+    "4kg neoprene dumbbells set",
+    "4 kg dumbbells pair for home gym",
+    "neoprene coated dumbbells 4kg pack of 2"
+  ],
+  "color_important": true
+}

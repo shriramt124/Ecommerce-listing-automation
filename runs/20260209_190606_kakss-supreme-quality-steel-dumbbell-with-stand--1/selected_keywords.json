@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest-volume core product phrase for this category; directly matches intent like 'dumbbell set with stand' and 'dumbbells with rack'."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume generic product term; essential for broad discovery even with overlap."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining 'weights' and 'dumbbells set', capturing additional search traffic."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_C",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women; acts as a style/use-case variant while retaining core product term."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Key exact product phrase with strong volume; users often search this directly for sets with racks."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_C",
+      "score": 48162.0,
+      "reason": "High-volume demographic/use-case phrase; complements women-focused targeting beyond 'dumbbells' wording."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Singular core term with solid volume; covers generic searches where users don’t specify 'set'."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Relevant multi-word phrase for this product type; captures shoppers searching more generally for weight sets."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume category term; important for wide reach despite being generic."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Common alternative phrasing to 'weights set'; maintains relevance and adds coverage for variant queries."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Relevant size-specific phrase matching part of the product configuration; strong similarity and good volume."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Another size-specific phrase aligned with the product’s included weights; helps capture spec-based searches."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_C",
+      "score": 20210.0,
+      "reason": "Use-case/demographic phrase; many shoppers search 'hand weights' instead of 'dumbbells', especially women-focused."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Category-level phrase with good volume; relevant for home and gym use searches for this product type."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling variant of 'dumbbell set' with notable volume; helps capture misspelled queries."
+    }
+  ]
+}

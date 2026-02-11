@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_type"
+  ],
+  "search_priorities": [
+    "5kg dumbbell set",
+    "rubber grip dumbbells",
+    "2.5kg dumbbell pair"
+  ],
+  "color_important": false
+}

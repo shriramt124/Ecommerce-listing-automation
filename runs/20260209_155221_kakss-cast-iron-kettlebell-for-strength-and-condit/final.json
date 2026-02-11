@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Cast Iron Kettlebell for Strength and Conditioning/Fitness/Cross Training Assorted Colour Kettle Bell for Home Gym (6 KG)",
+  "original_length": 127,
+  "steps": [
+    "Parsed 5 concepts",
+    "Kept 5 concepts",
+    "Using 60 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "brand",
+      "handle design",
+      "coating_finish"
+    ],
+    "search_priorities": [
+      "6 kg kettlebell",
+      "cast iron kettlebell",
+      "home gym kettlebell"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 60
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High search volume, relevant generic strength training term that can attract female buyers for kettlebell use"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Very high volume generic strength training term; shoppers often search this when looking for free weights including kettlebells"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Core product term with strong volume; plural form captures broad kettlebell searches"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High-volume generic phrase for free weights used in home and commercial gyms"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad but relevant category phrase; helps visibility in general fitness and home gym searches"
+    },
+    {
+      "keyword": "kettlebell 12 kg",
+      "zone": "ZONE_B",
+      "score": 6735.0,
+      "reason": "Specific size phrase with good volume; matches common kettlebell weight search behavior"
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Relevant multi-word phrase for strength training products like kettlebells"
+    },
+    {
+      "keyword": "kettlebell set",
+      "zone": "ZONE_B",
+      "score": 4738.0,
+      "reason": "Popular phrase; even for single units, shoppers use this term when browsing kettlebells"
+    },
+    {
+      "keyword": "4kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 4520.0,
+      "reason": "Specific size search phrase; good to capture lighter kettlebell queries alongside 6 kg listing"
+    },
+    {
+      "keyword": "kettlebell 8 kg",
+      "zone": "ZONE_B",
+      "score": 4052.0,
+      "reason": "Another common size phrase; supports cross-weight discovery for the same product line"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Highly relevant product-type modifier; many users search this style even if item is cast iron"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Heavier size phrase with solid volume; helps if brand offers multiple weights under same detail page family"
+    },
+    {
+      "keyword": "16 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3065.0,
+      "reason": "Common intermediate kettlebell weight; strong intent phrase for kettlebell shoppers"
+    },
+    {
+      "keyword": "exercise weights for women",
+      "zone": "ZONE_B",
+      "score": 2778.0,
+      "reason": "Long-tail but relevant phrase combining exercise weights and female-focused targeting"
+    },
+    {
+      "keyword": "fitness equipment",
+      "zone": "ZONE_B",
+      "score": 1860.0,
+      "reason": "Broad but on-category phrase that improves reach in general fitness and home workout searches"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 6kg, Black Gym Weights with Smooth Wide Handle and Flat Base, Single-Piece Competition Style Kettlebells for Home Gym Equipment and Exercise Weights for women",
+    "char_count": 185,
+    "reasoning": {
+      "keyword_integration": "Prioritized high-volume roots like kettlebells, gym weights, gym equipment, exercise weights, and for women, embedding them in natural descriptive phrases. Kept focus on the verified 6kg cast iron spec while nodding to competition style to align with competition kettlebell searches without claiming unverified standards.",
+      "feature_usage": "Highlighted cast iron material, single-piece casting, smooth handle, and flat base as core differentiators, matching the product images and feature list while supporting search intent for stable, premium home gym weights.",
+      "character_strategy": "Aimed near the 200-character upper limit to maximize keyword coverage while preserving readability, resulting in a compact, flowing sentence that functions as both a product description and SEO-optimized title."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, white"
+    ],
+    "char_count": 185
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 6kg, Black Gym Weights with Smooth Wide Handle and Flat Base, Single-Piece Competition Style Kettlebells for Home Gym Equipment and Exercise Weights for women",
+  "final_length": 185
+}

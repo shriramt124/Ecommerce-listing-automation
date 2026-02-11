@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "set_count"
+  ],
+  "search_priorities": [
+    "2kg dumbbells",
+    "4kg dumbbell set",
+    "small dumbbells for women"
+  ],
+  "color_important": false
+}

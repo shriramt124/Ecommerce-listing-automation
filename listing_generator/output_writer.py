@@ -69,7 +69,7 @@ def build_output_row(
         "rcm kf4": _truncate(bp[3], 200),
         "rcm kf5": _truncate(bp[4], 200),
         "descrp": _truncate(description, 1500),
-        "search terms": _truncate(search_terms, 200),
+        "search terms": search_terms,
         "main_image": img.get("main_image", ""),
         "lifestyle_image": img.get("lifestyle", ""),
         "why_choose_us_image": img.get("why_choose_us", ""),
@@ -94,7 +94,7 @@ def write_excel(
 
     # Column order (text columns first, then image columns)
     text_cols = [
-        "date", "la-cat", "client_id", "Country",
+        "date", "ASIN", "la-cat", "client_id", "Country",
         "original_title", "rcm title", "ai descr",
         "rcm kf1", "rcm kf2", "rcm kf3", "rcm kf4", "rcm kf5",
         "descrp", "search terms",
@@ -225,3 +225,63 @@ def write_analysis_json(
         json.dump(data, f, indent=2, default=str)
 
     return str(path)
+
+
+def load_existing_excel(output_dir: str) -> List[Dict[str, Any]]:
+    """Load existing listing_output.xlsx rows so they can be preserved on resume.
+
+    Reads text columns via pandas AND reconstructs image file paths from
+    the images/ folder so they get re-embedded when the Excel is rewritten.
+    """
+    excel_path = os.path.join(output_dir, "listing_output.xlsx")
+    if not os.path.isfile(excel_path):
+        return []
+
+    try:
+        df = pd.read_excel(excel_path, sheet_name="Listings")
+    except Exception as e:
+        print(f"   ⚠️ Could not read existing Excel: {e}")
+        return []
+
+    text_cols = [
+        "date", "ASIN", "la-cat", "client_id", "Country",
+        "original_title", "rcm title", "ai descr",
+        "rcm kf1", "rcm kf2", "rcm kf3", "rcm kf4", "rcm kf5",
+        "descrp", "search terms",
+    ]
+
+    # Image file names mapping
+    image_file_map = {
+        "main_image": "main_product.png",
+        "lifestyle_image": "lifestyle.png",
+        "why_choose_us_image": "why_choose_us.png",
+    }
+
+    # Only read columns that actually exist in the file
+    existing_cols = set(df.columns)
+
+    rows: List[Dict[str, Any]] = []
+    for row_idx, df_row in df.iterrows():
+        row: Dict[str, Any] = {}
+        for col in text_cols:
+            if col in existing_cols:
+                val = df_row.get(col, "")
+                row[col] = str(val) if pd.notna(val) else ""
+            else:
+                row[col] = ""
+
+        # If old Excel has no ASIN column, copy from client_id
+        if not row.get("ASIN") and row.get("client_id"):
+            row["ASIN"] = row["client_id"]
+
+        # Reconstruct image paths from images/product_{row_idx}/ folder
+        img_dir = os.path.join(output_dir, "images", f"product_{row_idx}")
+        for col_name, file_name in image_file_map.items():
+            fpath = os.path.join(img_dir, file_name)
+            row[col_name] = fpath if os.path.isfile(fpath) else ""
+
+        rows.append(row)
+
+    img_count = sum(1 for r in rows if any(r.get(c) for c in image_file_map))
+    print(f"   📂 Read {len(rows)} existing rows from {excel_path} ({img_count} with images)")
+    return rows

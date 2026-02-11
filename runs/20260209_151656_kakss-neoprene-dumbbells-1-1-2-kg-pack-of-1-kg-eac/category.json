@@ -1,0 +1,20 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg:1",
+    "total_weight_kg:2",
+    "material:neoprene_coated",
+    "set_size:pair",
+    "intended_use:home_gym_fitness_training",
+    "grip_type:anti_slip",
+    "brand:KAKSS",
+    "color:pink"
+  ],
+  "search_priorities": [
+    "1 kg neoprene dumbbells pair",
+    "pink 1kg dumbbells for home workout",
+    "neoprene coated hand weights 1kg"
+  ],
+  "color_important": true
+}

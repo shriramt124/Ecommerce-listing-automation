@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (3KG GREEN PAIR)",
+  "original_length": 87,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1775 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "dumbbell_material_coating",
+      "set_includes_pair_or_single",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "3kg neoprene dumbbells pair",
+      "3 kg dumbbells for home gym",
+      "green neoprene dumbbell set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1775
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume phrase including core product type; strong generic query coverage."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume core product term; essential for broad match and relevance."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining 'weights' and 'dumbbells set', capturing additional generic traffic."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women-specific intent; aligns with light 3kg neoprene pair use case."
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "Common misspelling of core product with substantial volume; improves discoverability."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume close variant of 'dumbbells set'; customers search both singular and plural forms."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Strong multi-word phrase capturing gender-targeted search behavior for light home weights."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with significant volume; complements plural and set phrases."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good-volume generic phrase for sets of weights; relevant to a dumbbell pair."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume generic term; helps capture non-specific weight-training searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Additional generic phrase variant; users often search singular 'weight set' for dumbbells."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Highly relevant size-specific phrase matching the product (3kg pair); strong intent match."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good-volume, descriptive phrase; matches typical use of 3kg neoprene dumbbells for women."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant generic phrase for strength equipment; aligns with 'for gym exercise' positioning."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Misspelled but relevant multi-word phrase; captures additional search traffic from spelling variants."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene-Coated Cast Iron Dumbbells Set, 3kg Pair (2 x 3kg) Green Hex Gym Weights with Non-Slip Grip, Color Coded Hand Weights for Women and Men Home Workout",
+    "char_count": 163,
+    "reasoning": {
+      "keyword_integration": "Embedded primary phrases like 'dumbbells set', 'dumbbells', 'gym weights', 'hand weights', 'weights for women', and '3kg pair' into a natural descriptive flow while matching verified facts: neoprene-coated cast iron, 3kg each, pair, green hex shape, non-slip grip, color coded. Used 'for women and men home workout' to capture gender and use-case searches without keyword stuffing."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 3 kg each",
+      "Missing color: green, white"
+    ],
+    "char_count": 190
+  },
+  "optimized_title": "KAKSS Neoprene-Coated Cast Iron Dumbbells Set, 3kg Pair (2 x 3kg) Green Hex Gym Weights with Non-Slip Grip, Color Coded Hand Weights for Women and Men Home Workout, hexagonal neoprene-coated",
+  "final_length": 190
+}

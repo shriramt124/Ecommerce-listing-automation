@@ -1,0 +1,16 @@
+{
+  "concepts": [
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Dumbbell, Set of 2pcs",
+      "type": "count",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

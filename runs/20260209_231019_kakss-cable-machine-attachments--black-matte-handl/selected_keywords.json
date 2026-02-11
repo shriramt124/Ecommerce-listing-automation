@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest score (10854) and strong similarity (0.764) - core category term"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High score (3700) and strong similarity (0.739) - specific to home use context"
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "High score (5996) and good similarity (0.641) - emphasizes home gym usage"
+    },
+    {
+      "keyword": "home gym",
+      "zone": "ZONE_B",
+      "score": 3138.0,
+      "reason": "Good score (3138) and strong similarity (0.755) - primary use case"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good score (3299) and relevant similarity (0.583) - specific equipment type"
+    },
+    {
+      "keyword": "dumbbell sets for men",
+      "zone": "ZONE_B",
+      "score": 2884.0,
+      "reason": "Good score (2884) and relevant - targets male fitness audience"
+    },
+    {
+      "keyword": "ladies weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 3429.0,
+      "reason": "High score (3429) - targets female fitness audience despite lower similarity"
+    },
+    {
+      "keyword": "3 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3336.0,
+      "reason": "High score (3336) - weight-specific fitness equipment"
+    },
+    {
+      "keyword": "6kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 3322.0,
+      "reason": "High score (3322) - weight-specific fitness equipment"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "High score (3309) - related strength training equipment"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "High score (3308) - heavy weight training equipment"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "High score (3291) - general weight equipment category"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "High score (3263) - weight-specific training equipment"
+    },
+    {
+      "keyword": "1.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3249.0,
+      "reason": "High score (3249) - light weight training equipment"
+    },
+    {
+      "keyword": "amazon dumbbells",
+      "zone": "ZONE_B",
+      "score": 3228.0,
+      "reason": "Good score (3228) - platform-specific search term"
+    }
+  ]
+}

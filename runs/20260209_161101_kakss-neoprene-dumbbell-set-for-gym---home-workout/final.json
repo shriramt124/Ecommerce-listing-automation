@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Red | Made in India",
+  "original_length": 96,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 60 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell",
+      "dumbbell_material_and_coating",
+      "set_size_pair_or_single",
+      "intended_use_home_or_gym",
+      "brand"
+    ],
+    "search_priorities": [
+      "4kg neoprene dumbbells set",
+      "pair of 4kg dumbbells for home workout",
+      "neoprene coated dumbbells 4 kg each"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 60
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume phrase directly matching product type and common way users search"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core generic product term with very high search volume"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining weights and dumbbells, broad match for product"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Strong volume phrase targeting women segment, relevant to neoprene dumbbells"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume gender-targeted phrase; relevant as light dumbbells are often bought by women"
+    },
+    {
+      "keyword": "adjustable dumbbells pair",
+      "zone": "ZONE_C",
+      "score": 31955.0,
+      "reason": "Good volume and related to dumbbells; included as a variant search term even if product is fixed weight"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_C",
+      "score": 22586.0,
+      "reason": "Strong size-specific phrase; helps capture weight-based searches despite different actual weight"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Relevant multi-word phrase; many shoppers describe neoprene dumbbells as hand weights"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad but high-intent phrase for strength equipment, fits product category"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_C",
+      "score": 14771.0,
+      "reason": "Popular variant term for dumbbells; useful for visibility even if not exact spec"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Gender-targeted phrase closely matching product use and audience"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant material-specific phrase exactly matching product type"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Common alternative way to search for dumbbells, multi-word phrase"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural phrase with solid volume, closely aligned to product"
+    },
+    {
+      "keyword": "neoprene dumbbells",
+      "zone": "ZONE_B",
+      "score": 2791.0,
+      "reason": "Core material + product phrase; directly describes the item"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Red Hex Dumbbells with Color Coded Thick Vinyl Coating and Non-Slip Grip, Cast Iron Hand Weights for Women Home Gym Workouts",
+    "char_count": 174,
+    "reasoning": {
+      "keyword_integration": "Prioritized top-volume phrases: 'dumbbells set', 'dumbbells', 'weights dumbbells set' (via wording), plus gender and use-case terms 'dumbbells set women', 'weights for women', 'hand weights for women', 'gym weights', and material terms 'neoprene dumbbells set', 'neoprene dumbbells'. Embedded them into a natural descriptive flow while matching verified facts: KAKSS brand, neoprene and thick vinyl coating, cast-iron core, hex shape, 4kg pair, red color, non-slip grip, and home gym workouts.",
+      "pattern_alignment": "Followed Brand + Material + ProductType + WeightSpec + Color + DistinguishingFeature + 'with' FeaturePhrase + Material/Type + 'for' UsagePhrase. Kept title within 180–200 characters and avoided invented features."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 2 KG, 1 KG, 3 KG, 5 KG, 7 (unit not confirmed), 4kg Each (from listing title)",
+      "Missing color: orange, purple, red, blue, green"
+    ],
+    "char_count": 174
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Red Hex Dumbbells with Color Coded Thick Vinyl Coating and Non-Slip Grip, Cast Iron Hand Weights for Women Home Gym Workouts",
+  "final_length": 174
+}

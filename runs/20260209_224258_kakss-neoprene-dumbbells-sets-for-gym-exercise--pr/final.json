@@ -1,0 +1,146 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (4KG PAIR BLACK)",
+  "original_length": 87,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1684 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip"
+    ],
+    "search_priorities": [
+      "4kg dumbbells",
+      "neoprene dumbbells",
+      "pink dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1684
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (score: 448037), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest search volume (score: 215402), core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (score: 143389), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (score: 94089), targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good search volume (score: 52761), complete multi-word phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume (score: 48162), targets specific audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (score: 41200), core product term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (score: 36878), complete multi-word phrase"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (score: 30386), broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (score: 30339), complete multi-word phrase"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Specific weight mention (score: 21664), matches product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (score: 20210), targets specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (score: 16682), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Reasonable search volume (score: 7552), targets specific audience"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Matches product material feature (score: 7300), specific to product"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Black Hexagon Dumbbells with Vinyl Coated Grip, Cast Iron Core Weights for Home Gym Equipment and Fitness Training",
+    "char_count": 164,
+    "reasoning": {
+      "keyword_integration": "Integrated high-volume keywords like 'dumbbells set', '4kg pair', 'home gym equipment', and 'fitness training' while maintaining natural product description flow",
+      "feature_highlighting": "Emphasized vinyl coating, hexagon shape for storage, cast iron core, and gym exercise use case",
+      "search_optimization": "Woven in top-searched terms naturally while keeping brand prominence and product specifications clear"
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, black"
+    ],
+    "char_count": 194
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Black Hexagon Dumbbells with Vinyl Coated Grip, Cast Iron Core Weights for Home Gym Equipment and Fitness Training, Ideal Hand Weights for Women",
+  "final_length": 194
+}

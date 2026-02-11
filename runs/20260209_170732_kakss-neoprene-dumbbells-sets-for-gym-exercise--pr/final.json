@@ -1,0 +1,146 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells Sets for Gym Exercise (Proudly Made in India) (2 kg pack of 2, Blue)",
+  "original_length": 93,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 50 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_2kg",
+      "material_neoprene_coated",
+      "set_of_2",
+      "color_blue",
+      "intended_use_home_gym_workout"
+    ],
+    "search_priorities": [
+      "2 kg neoprene dumbbells set",
+      "pair of 2kg dumbbells for home gym",
+      "blue neoprene dumbbells 2kg pack of 2"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 50
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume, strong multi-word phrase directly matching product type and use."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Very relevant core product phrase with high volume and broad match potential."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Includes weight and pair specification, closely matching 2 kg pack of 2."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High-volume generic term customers use when searching for dumbbells and similar products."
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High-volume dumbbell phrase; relevant to shoppers even if product is fixed-weight."
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad, high-volume category phrase that helps capture generic fitness searches."
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Weight-specific phrase aligned with product size, good for targeted searches."
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "Popular dumbbell weight term; helps capture broader dumbbell traffic."
+    },
+    {
+      "keyword": "dumbbells 5kg",
+      "zone": "ZONE_B",
+      "score": 6937.0,
+      "reason": "Variant ordering of a high-intent weight-specific dumbbell query."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Strong multi-word phrase targeting home workout use case."
+    },
+    {
+      "keyword": "2.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 5465.0,
+      "reason": "Weight + pair phrase; relevant variant around the core 2 kg size."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase, capturing additional search traffic."
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Highly relevant size-specific phrase matching the actual product weight."
+    },
+    {
+      "keyword": "hex dumbbell",
+      "zone": "ZONE_C",
+      "score": 3811.0,
+      "reason": "Shape/style descriptor often used in searches; useful variant if design is similar."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Broad but relevant phrase for users building a home gym, aligned with use case."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 2kg Dumbbells Pair (2 x 2kg) Blue Hex Dumbbell Weights with Anti-Slip Coated Grip, Compact Gym Weights for Home Gym Equipment and Exercise, Proudly Made in India",
+    "char_count": 191,
+    "reasoning": {
+      "keyword_integration": "Embedded primary phrases like 'neoprene dumbbells set', '2kg dumbbells pair', 'hex dumbbell', 'weights', 'gym weights', and 'home gym equipment' into a natural descriptive flow while matching verified facts such as neoprene-coated metal, 2kg per dumbbell, blue color, hex design, anti-slip grip, compact size, and made in India.",
+      "constraints_handling": "Kept all details within a single readable sentence, used commas instead of pipes, preserved accurate product attributes only from provided facts, and formatted weight cleanly as '2kg Dumbbells Pair (2 x 2kg)' to align with the required style."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 2 kg per dumbbell"
+    ],
+    "char_count": 191
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 2kg Dumbbells Pair (2 x 2kg) Blue Hex Dumbbell Weights with Anti-Slip Coated Grip, Compact Gym Weights for Home Gym Equipment and Exercise, Proudly Made in India",
+  "final_length": 191
+}

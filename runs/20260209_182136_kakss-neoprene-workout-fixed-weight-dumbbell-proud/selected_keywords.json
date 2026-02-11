@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Very high search volume, core product phrase combining product type and set intent; directly relevant to neoprene fixed-weight dumbbells sold as a pair."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Extremely high-volume generic product term; essential for broad discovery in the dumbbell category."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase capturing both 'weights' and 'dumbbells set', aligning with how shoppers describe this product."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Strong volume phrase targeting a key segment (women) searching for dumbbell sets; highly relevant to light neoprene dumbbells."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume complete phrase; common way users search for fixed-weight pairs/sets of dumbbells."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume and targets a major use-case segment; relevant for lighter neoprene hand weights."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with solid volume; helps capture generic and long-tail queries including this word."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "High-volume phrase for people searching broadly for weight sets; applicable since product is sold as a pair."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, very high-volume category term; important for wide reach within sports/fitness weights searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Popular multi-word phrase; matches shopper language for buying a set/pair of weights."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good-volume, highly targeted phrase; accurately describes neoprene dumbbells as hand weights for female users."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant, solid-volume phrase capturing users searching for general gym weights, including dumbbells."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant long-tail phrase explicitly matching product material and format; strong for conversion-focused searches."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Multi-word phrase combining 'free weights' and 'dumbbells set'; aligns with how home gym shoppers search."
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Good-volume, intent-rich phrase; matches general use case of these dumbbells for exercise and workouts."
+    }
+  ]
+}

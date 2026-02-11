@@ -1,0 +1,144 @@
+{
+  "original_title": "KAKSS Neoprene Workout Fixed Weight Dumbbell(Proudly Made In India) (32-Pound Total - 3 Pairs(3Lb,5Lb,8Lb) With Stand)",
+  "original_length": 118,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1767 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_set_total_32_lb_with_3_pairs_3lb_5lb_8lb",
+      "fixed_weight_neoprene_coated",
+      "includes_dumbbell_stand_rack",
+      "intended_use_home_workout_strength_training",
+      "brand_KAKSS"
+    ],
+    "search_priorities": [
+      "neoprene dumbbell set with stand",
+      "32 lb dumbbell set 3 5 8 lb",
+      "fixed weight dumbbells for home workout"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1767
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume, core product phrase describing a set of dumbbells which matches the fixed-weight dumbbell set."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume generic product term that directly matches the item type."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining weights and dumbbells, relevant to a dumbbell set."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women, a key audience for neoprene fixed-weight sets."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling of dumbbell set with solid volume; captures additional search traffic."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Core multi-word product phrase accurately describing the product as a set."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "High-volume singular form of the main product type, important for broad matching."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Misspelled but searched phrase for dumbbell set, useful for incremental reach."
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Highly relevant long-tail phrase combining product type and target gender."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Very relevant phrase specifying neoprene material and set configuration."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Describes the product as free weights in a dumbbell set, aligning with home workout use."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Alternative way customers describe dumbbells; emphasizes hand weights in a set."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broader but still relevant phrase for a set of weights, applicable to dumbbells."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural phrase capturing searches for multiple dumbbell sets, closely matching the product."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 32 lb Fixed Weight Dumbbell Set with Stand, 3 Pairs (3 lb, 5 lb, 8 lb) Cast Iron Hex Hand Weights, Color Coded Free Weights Dumbbells Set for Home Gym Workout for women and men",
+    "char_count": 206,
+    "reasoning": {
+      "keyword_integration": "Prioritized highest-volume phrases like 'dumbbells set', 'dumbbell set', 'weights dumbbells set', 'free weights dumbbells set', 'hand weights set', and gender phrases via 'for women and men', embedding them into a natural description. Included material (cast iron, neoprene), product type (fixed weight dumbbells with stand), weight spec (32 lb, 3 pairs 3 lb 5 lb 8 lb), and use case (home gym workout) to align with verified facts while capturing broad and long-tail search queries.",
+      "character_strategy": "Aimed near the upper bound of 200 characters to fit key variants such as 'dumbbells set', 'dumbbell set', 'dumbbell sets', and 'free weights dumbbells set' without turning the title into a keyword list, maintaining readability and compliance with Amazon style.",
+      "relevance_checks": "All claims are grounded in provided facts: brand KAKSS, neoprene-coated cast iron, hex shape, stand included, color coding, and suitability for home gym workouts for both women and men."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Too long: 206 chars (max 200)",
+      "Missing size: Set totals 32 lb with 3 pairs (3 lb, 5 lb, 8 lb); individual dumbbells shown at 1 KG and 1.5 KG",
+      "Missing color: pink, purple, teal, black",
+      "Policy violation: contains 'free'"
+    ],
+    "char_count": 206
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 32 lb Fixed Weight Dumbbell Set with Stand, 3 Pairs (3 lb, 5 lb, 8 lb) Cast Iron Hex Hand Weights, Color Coded Free Weights Dumbbells Set for Home Gym Workout for women and men",
+  "final_length": 206
+}

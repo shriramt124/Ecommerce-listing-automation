@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest search volume term; broad but directly relevant to cable machine attachments used in gyms."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Very high volume multi-word phrase; strong match for buyers searching attachments for home cable machines."
+    },
+    {
+      "keyword": "fitness equipment",
+      "zone": "ZONE_B",
+      "score": 1860.0,
+      "reason": "High-volume generic phrase; commonly used umbrella term for items like cable machine handles."
+    },
+    {
+      "keyword": "gym accessories for men",
+      "zone": "ZONE_B",
+      "score": 1800.0,
+      "reason": "High-volume, multi-word phrase; relevant because cable attachments are typical gym accessories, especially in male-skewed searches."
+    },
+    {
+      "keyword": "workout equipment",
+      "zone": "ZONE_B",
+      "score": 1535.0,
+      "reason": "Strong volume and directly relevant to cable machine handle attachments as workout tools."
+    },
+    {
+      "keyword": "home workout equipment",
+      "zone": "ZONE_B",
+      "score": 1477.0,
+      "reason": "High-volume phrase capturing home-use intent for cable machine attachments."
+    },
+    {
+      "keyword": "exercise equipment",
+      "zone": "ZONE_B",
+      "score": 1448.0,
+      "reason": "Broad, high-volume category term that aligns with cable machine handles as exercise tools."
+    },
+    {
+      "keyword": "strength training equipment",
+      "zone": "ZONE_B",
+      "score": 1187.0,
+      "reason": "Good volume and tightly aligned with cable attachments used for strength training on cable machines."
+    },
+    {
+      "keyword": "gym equipment for home",
+      "zone": "ZONE_B",
+      "score": 1112.0,
+      "reason": "Multi-word phrase with solid volume; targets home users outfitting cable machines."
+    },
+    {
+      "keyword": "at home workout equipment",
+      "zone": "ZONE_B",
+      "score": 964.0,
+      "reason": "Captures at-home training searches; relevant for buyers adding cable handles to home setups."
+    },
+    {
+      "keyword": "at home gym equipment",
+      "zone": "ZONE_B",
+      "score": 324.0,
+      "reason": "Multi-word phrase with clear home-gym intent; fits cable machine attachments well."
+    },
+    {
+      "keyword": "sports equipment",
+      "zone": "ZONE_B",
+      "score": 246.0,
+      "reason": "Broader category term but still relevant to fitness/cable attachments and adds extra reach."
+    },
+    {
+      "keyword": "gym equipment for men",
+      "zone": "ZONE_B",
+      "score": 140.0,
+      "reason": "Gender-targeted gym equipment phrase; relevant to typical cable attachment shoppers and complements similar high-volume terms."
+    },
+    {
+      "keyword": "home gym equipment men",
+      "zone": "ZONE_B",
+      "score": 129.0,
+      "reason": "Multi-word, home + men focused phrase; overlaps with other strong terms but adds specific query coverage."
+    },
+    {
+      "keyword": "home fitness equipment",
+      "zone": "ZONE_B",
+      "score": 95.0,
+      "reason": "Relevant multi-word phrase for home users buying cable machine handles; good supporting volume."
+    }
+  ]
+}

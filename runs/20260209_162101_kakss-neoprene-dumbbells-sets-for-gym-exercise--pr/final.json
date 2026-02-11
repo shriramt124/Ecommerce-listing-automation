@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells Sets for Gym Exercise (Proudly Made in India) (4kg pack of 2, Grey)",
+  "original_length": 92,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 50 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "material_neoprene",
+      "set_quantity",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "4kg dumbbells set",
+      "neoprene dumbbells 4 kg",
+      "pair of 4kg dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 50
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume, core product phrase combining weights and dumbbells set"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Very high volume generic product term directly matching item type"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High volume size-specific dumbbell pair phrase; useful even if other weights exist in catalog"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Strong volume variant phrase; supports broader discovery for brand’s dumbbell pairs"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High volume size + pair phrase; relevant to dumbbell shoppers and catalog variants"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Directly matches product weight and pair format with strong search volume"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad, high-volume gym-related term capturing generic weight searches"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High volume dumbbell term; helps capture wider dumbbell traffic despite product not being adjustable"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad category-level term with good volume for sports & fitness products"
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Popular weight-specific query that aligns with dumbbell/weight training searches"
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "High volume size-specific dumbbell phrase; complements pair variants"
+    },
+    {
+      "keyword": "dumbbells 5kg",
+      "zone": "ZONE_B",
+      "score": 6937.0,
+      "reason": "Reordered high-volume variant of 5kg dumbbells to capture different query patterns"
+    },
+    {
+      "keyword": "5 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 6404.0,
+      "reason": "Another strong 5kg pair phrase; overlapping but valuable due to volume"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase with solid search volume"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_C",
+      "score": 5045.0,
+      "reason": "Decent volume adjacent strength-training term; can help capture related traffic within fitness category"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene-Coated Cast Iron Dumbbells Set, 4kg Dumbbells Pair (2 x 4kg), Grey Hex Gym Weights with Anti-Slip Grip, Hand Weights Dumbbells Set for Home Gym Equipment and Strength Training",
+    "char_count": 190,
+    "reasoning": {
+      "keyword_integration": "Integrated primary phrases like 'weights dumbbells set', 'dumbbells set', '4kg dumbbells pair', 'gym weights', 'hand weights', and 'home gym equipment' into a natural descriptive flow while highlighting neoprene-coated cast iron, hex design, and anti-slip grip.",
+      "title_structure": "Followed pattern Brand + Material + ProductType + WeightSpec + Color + DistinguishingFeature + with FeaturePhrase + for UsagePhrase, ensuring all verified product facts are present and no invented features.",
+      "relevance_balance": "Prioritized high-volume generic queries over unrelated ones (e.g., excluded 'adjustable dumbbells' and 'cast iron kettlebell') to maintain accuracy while maximizing search reach within the dumbbells category."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 4 kg each"
+    ],
+    "char_count": 190
+  },
+  "optimized_title": "KAKSS Neoprene-Coated Cast Iron Dumbbells Set, 4kg Dumbbells Pair (2 x 4kg), Grey Hex Gym Weights with Anti-Slip Grip, Hand Weights Dumbbells Set for Home Gym Equipment and Strength Training",
+  "final_length": 190
+}

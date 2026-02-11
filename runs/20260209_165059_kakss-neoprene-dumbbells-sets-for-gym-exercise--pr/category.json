@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg",
+    "dumbbell_material_and_coating",
+    "set_size_pair_or_single",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "2 kg neoprene dumbbells set",
+    "pair of 2kg dumbbells for home gym",
+    "blue neoprene dumbbells 2kg pack of 2"
+  ],
+  "color_important": true
+}

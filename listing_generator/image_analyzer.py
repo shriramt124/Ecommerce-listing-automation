@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from gemini_llm import GeminiConfig, GeminiLLM, extract_json_object
-from agentic_llm import OpenAIConfig, OpenAILLM
+from agentic_llm import OllamaConfig, OllamaLLM
 
 
 def _read_image_bytes(image_path: str) -> bytes:
@@ -94,12 +94,6 @@ Return a single JSON object consolidating ALL information. Use ONLY verified fac
     "usage": "what the product is used for",
     "target_audience": "who would buy this",
     "ai_description": "250-300 char vivid description of what you SEE in the images. Describe appearance, packaging, colors, shape.",
-    "comparison_points": [
-        {{"our_benefit": "advantage from images", "competitor_issue": "what a budget alternative lacks"}},
-        {{"our_benefit": "advantage from images", "competitor_issue": "typical budget compromise"}},
-        {{"our_benefit": "advantage from images", "competitor_issue": "common trade-off"}},
-        {{"our_benefit": "advantage from images", "competitor_issue": "standard version difference"}}
-    ],
     "confidence": "high/medium/low"
 }}
 
@@ -130,9 +124,11 @@ class ImageAnalyzer:
             vision_model=vision_model,
             timeout_s=timeout,
         ))
-        # Separate OpenAI LLM for text-only tasks (consolidation)
-        self.text_llm = OpenAILLM(OpenAIConfig(
-            model=os.getenv('OPENAI_MODEL', 'gpt-5.1'),
+        # Separate Ollama LLM for text-only tasks (consolidation)
+        self.text_llm = OllamaLLM(OllamaConfig(
+            model=os.getenv('OLLAMA_MODEL', 'deepseek-v3.1:671b-cloud'),
+            base_url=os.getenv('OLLAMA_BASE_URL', 'http://localhost:11434'),
+            timeout_s=120,
         ))
 
     def analyze_single_image(self, image_path: str) -> Dict[str, Any]:
@@ -260,7 +256,7 @@ class ImageAnalyzer:
                 "status": "ALL_FAILED",
             }
 
-        # Consolidate using text-only LLM call
+        # Consolidate using text-only LLM call (with retries)
         print(f"      🔄 Consolidating {len(per_image_results)} image analyses...")
 
         per_image_text = ""
@@ -278,32 +274,87 @@ class ImageAnalyzer:
             existing_bullets="\n".join(f"  - {b}" for b in existing_bullets) if existing_bullets else "(none)",
         )
 
-        raw = self.text_llm.generate(consolidation, temperature=0.15, max_tokens=3000)
-        if raw:
-            parsed = extract_json_object(raw)
-            if parsed:
-                parsed['status'] = 'SUCCESS'
-                parsed['images_analyzed'] = len(per_image_results)
-                parsed['local_image_paths'] = local_paths
-                return parsed
+        MAX_CONSOLIDATION_RETRIES = 3
+        prompt = consolidation
+        for attempt in range(MAX_CONSOLIDATION_RETRIES):
+            raw = self.text_llm.generate(prompt, temperature=0.15, max_tokens=3000)
+            if raw:
+                parsed = extract_json_object(raw)
+                if parsed:
+                    parsed['status'] = 'SUCCESS'
+                    parsed['images_analyzed'] = len(per_image_results)
+                    parsed['local_image_paths'] = local_paths
+                    return parsed
+                else:
+                    print(f"      ⚠️  Consolidation attempt {attempt + 1}/{MAX_CONSOLIDATION_RETRIES} JSON parse failed.")
+                    prompt = consolidation + (
+                        f"\n\nAttempt {attempt + 1} returned INVALID JSON. "
+                        "Return ONLY a valid JSON object — no markdown, no ```json blocks, no commentary."
+                    )
             else:
-                print(f"      ⚠️  Consolidation JSON parse failed. Raw response preview: {raw[:200]}...")
-        else:
-            print(f"      ⚠️  Consolidation returned empty response")
+                print(f"      ⚠️  Consolidation attempt {attempt + 1}/{MAX_CONSOLIDATION_RETRIES} returned empty response.")
+                import time
+                time.sleep(5)  # brief pause before retry on empty response
 
-        # Fallback: merge manually from single-image data
-        print(f"      ⚠️  Consolidation failed, using first image data")
-        fallback = per_image_results[0].copy()
-        fallback['ai_description'] = fallback.get('what_i_see') or f"Product: {title}"
-        fallback['key_features'] = fallback.get('features_on_packaging') or fallback.get('key_features') or []
-        fallback['colors'] = fallback.get('colors') or []
-        fallback['comparison_points'] = fallback.get('comparison_points') or []
-        fallback['product_type'] = fallback.get('product_type') or ''
-        fallback['brand'] = fallback.get('brand') or ''
-        fallback['size'] = fallback.get('size_info') or fallback.get('size') or ''
-        fallback['quantity'] = fallback.get('quantity') or ''
-        fallback['material'] = fallback.get('material_visible') or fallback.get('material') or ''
-        fallback['usage'] = fallback.get('usage') or ''
+        # Fallback: merge ALL per-image results (not just the first)
+        print(f"      ⚠️  Consolidation failed after {MAX_CONSOLIDATION_RETRIES} attempts, merging image data locally")
+        fallback = self._merge_per_image_results(per_image_results, title)
         fallback['images_analyzed'] = len(per_image_results)
         fallback['local_image_paths'] = local_paths
         return fallback
+
+    @staticmethod
+    def _merge_per_image_results(
+        results: List[Dict[str, Any]], title: str
+    ) -> Dict[str, Any]:
+        """Merge data from all per-image analyses into a single consolidated dict."""
+        brand = None
+        product_type = ""
+        colors: List[str] = []
+        features: List[str] = []
+        texts: List[str] = []
+        descriptions: List[str] = []
+        size = ""
+        quantity = ""
+        material = ""
+
+        for res in results:
+            if not brand and res.get('brand'):
+                brand = res['brand']
+            if not product_type and res.get('product_type'):
+                product_type = res['product_type']
+            for c in (res.get('colors') or []):
+                if c and c not in colors:
+                    colors.append(c)
+            for f in (res.get('features_on_packaging') or res.get('key_features') or []):
+                if f and f not in features:
+                    features.append(f)
+            for t in (res.get('text_on_packaging') or []):
+                if t and t not in texts:
+                    texts.append(t)
+            if res.get('what_i_see'):
+                descriptions.append(res['what_i_see'])
+            if not size:
+                size = res.get('size_info') or res.get('size') or ''
+            if not quantity:
+                quantity = res.get('quantity') or ''
+            if not material:
+                material = res.get('material_visible') or res.get('material') or ''
+
+        ai_desc = " ".join(descriptions)[:300] if descriptions else f"Product: {title}"
+
+        return {
+            "brand": brand,
+            "product_type": product_type,
+            "product_name": title,
+            "colors": colors,
+            "size": size,
+            "quantity": quantity,
+            "material": material,
+            "key_features": features,
+            "usage": "",
+            "target_audience": "",
+            "ai_description": ai_desc,
+            "confidence": "low",
+            "status": "FALLBACK_MERGE",
+        }

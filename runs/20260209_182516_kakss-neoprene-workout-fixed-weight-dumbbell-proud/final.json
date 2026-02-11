@@ -1,0 +1,147 @@
+{
+  "original_title": "KAKSS Neoprene Workout Fixed Weight Dumbbell(Proudly Made In India) (5-Pound, Set Of 2pc)",
+  "original_length": 89,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1767 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_5_lb",
+      "material_neoprene_coated",
+      "set_includes_2_dumbbells",
+      "brand_KAKSS",
+      "intended_use_home_workout_strength_training"
+    ],
+    "search_priorities": [
+      "5 lb neoprene dumbbells set of 2",
+      "pink neoprene dumbbells 5 pound",
+      "KAKSS fixed weight dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1767
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume phrase directly matching product type and set configuration"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core generic product term with very high search volume"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining weights and dumbbells for broader reach"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Strong phrase targeting women-specific searches for dumbbell sets"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling of dumbbell set that still carries notable search volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Highly relevant phrase for fixed-weight pairs sold as a set"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Captures gender-targeted searches for light training weights"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Singular core product keyword with substantial search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad weights-related phrase that can drive additional impressions"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Very broad, high-volume term relevant to dumbbells as free weights"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Variant of weights set capturing additional search traffic"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Specific phrase matching neoprene dumbbells commonly used as hand weights"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad gym-related search term relevant to dumbbells"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly targeted phrase matching material and product type exactly"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural phrase variation covering multiple dumbbell set searches"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 5lb Pair (2 x 5lb) Pink Hex Dumbbell Hand Weights, Cast Iron Gym Weights with Non-Slip Grip for Home Gym, Fitness Training and Weights for Women",
+    "char_count": 174,
+    "reasoning": {
+      "keyword_integration": "Used highest-volume roots early: 'Neoprene Dumbbells Set', 'Dumbbells', 'Dumbbell Hand Weights', 'Gym Weights', 'Weights for Women', plus 'Home Gym' and 'Fitness Training' as natural use cases.",
+      "product_accuracy": "Reflected verified facts: KAKSS brand, neoprene-coated cast iron, 5lb pair (2 x 5lb), pink color, hex shape, non-slip grip, hand weights for home gym and fitness.",
+      "readability": "Title flows as a natural description with commas and 'with/for' connectors, avoiding keyword stuffing while still embedding multiple high-volume search phrases."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 5 lb (listing), 1.5 kg printed on dumbbells in images"
+    ],
+    "char_count": 174
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 5lb Pair (2 x 5lb) Pink Hex Dumbbell Hand Weights, Cast Iron Gym Weights with Non-Slip Grip for Home Gym, Fitness Training and Weights for Women",
+  "final_length": 174
+}

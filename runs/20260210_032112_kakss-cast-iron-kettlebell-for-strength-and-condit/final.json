@@ -1,0 +1,146 @@
+{
+  "original_title": "Kakss Cast Iron Kettlebell for Strength and Conditioning/Fitness/Cross Training Assorted Colour Kettle Bell for Home Gym (Proudly Made in India)",
+  "original_length": 144,
+  "steps": [
+    "Parsed 5 concepts",
+    "Kept 5 concepts",
+    "Using 1724 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "handle_design"
+    ],
+    "search_priorities": [
+      "5kg kettlebell",
+      "pink kettlebell",
+      "cast iron kettlebell"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1724
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume score (27072), plural form of main product"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest score (26188), exact product name"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Third highest score (24880), alternative spelling format"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "High score (5045), matches current title concept and describes material"
+    },
+    {
+      "keyword": "kettlebell set",
+      "zone": "ZONE_B",
+      "score": 4738.0,
+      "reason": "High score (4738), indicates multiple units"
+    },
+    {
+      "keyword": "5kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 4169.0,
+      "reason": "High score (4169), specific weight specification"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Good score (3551), weight-specific search term"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Good score (3309), indicates professional/sport use"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Good score (3308), heavy weight option"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good score (3263), standard heavy weight"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Good score (3700), matches 'home gym' from current title"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Good score (3365), heavy weight alternative spelling"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good score (3299), related fitness equipment category"
+    },
+    {
+      "keyword": "dumbbells 3kg",
+      "zone": "ZONE_B",
+      "score": 3807.0,
+      "reason": "Good score (3807), related fitness equipment with weight spec"
+    },
+    {
+      "keyword": "3kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 3652.0,
+      "reason": "Good score (3652), alternative phrasing for dumbbells"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 5kg, Pink and Black Kettle Bell with Wide Grip Handle, Premium Strength Training Weights for Home Gym Equipment and Fitness Workouts",
+    "char_count": 159,
+    "reasoning": {
+      "keyword_integration": "Embedded 'kettlebell', 'kettle bell', 'cast iron kettlebell', '5kg kettlebell', and 'home gym equipment' naturally within descriptive phrases that flow as readable English.",
+      "feature_highlight": "Featured the distinctive pink and black color scheme, wide grip handle from product description, and premium material quality.",
+      "structure": "Followed Brand + Product Type + Weight + Features + Use Case pattern for optimal readability and search optimization."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, black"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 5kg, Pink and Black Kettle Bell with Wide Grip Handle, Premium Strength Training Weights for Home Gym Equipment and Fitness Workouts, Ideal for Building Your Kettlebell",
+  "final_length": 195
+}

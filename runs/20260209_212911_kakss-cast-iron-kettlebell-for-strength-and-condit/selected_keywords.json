@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Highest score (36878) - broad category with high search volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Second highest score (30386) - core fitness equipment term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Third highest score (30339) - high-volume search phrase"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) - plural form of main product"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "High score (26188) - exact product name"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) - alternative spelling format"
+    },
+    {
+      "keyword": "16kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 22761.0,
+      "reason": "High score (22761) - specific weight + product"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - location + product type"
+    },
+    {
+      "keyword": "kettlebell 16kg",
+      "zone": "ZONE_B",
+      "score": 13022.0,
+      "reason": "Good score (13022) - product + specific weight"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good score (10854) - broad category term"
+    },
+    {
+      "keyword": "gym",
+      "zone": "ZONE_B",
+      "score": 10650.0,
+      "reason": "Good score (10650) - core fitness location term"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Good score (6734) - location + use case"
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "Good score (5996) - use case focused"
+    },
+    {
+      "keyword": "weight sets",
+      "zone": "ZONE_B",
+      "score": 5665.0,
+      "reason": "Good score (5665) - plural form of high-volume term"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "Good score (5045) - material + product, matches existing title concept"
+    }
+  ]
+}

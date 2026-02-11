@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Half Coating Neoprene Kettlebell 2 KG to 40 KG (Black, 20 KG) (Proudly Made in India)",
+  "original_length": 91,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1619 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight_kg",
+      "coating_material",
+      "handle_design",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "20 kg kettlebell",
+      "neoprene kettlebell 20kg",
+      "KAKSS kettlebell 20 kg"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1619
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Very high search volume phrase including use-case 'for women'; relevant to kettlebell as a type of weight and strong generic traffic driver."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term for the product category; broad match traffic for all strength equipment including kettlebells."
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Core plural product term with strong volume; matches how many shoppers search and complements singular form."
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Primary exact product type; essential for relevance and ranking on main query."
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Common spaced variant of the main product term; captures misspelling/alternate search behavior."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "High-intent multi-word phrase targeting female home-fitness shoppers; relevant as kettlebells are used as hand weights."
+    },
+    {
+      "keyword": "20kg kettlebells",
+      "zone": "ZONE_B",
+      "score": 17689.0,
+      "reason": "Strong volume size-specific phrase; directly matches the 20 kg variant and plural search behavior."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad but relevant category phrase; helps surface product in generic gym weight searches."
+    },
+    {
+      "keyword": "kettlebell 20kg",
+      "zone": "ZONE_B",
+      "score": 11337.0,
+      "reason": "High-intent size-specific phrase; aligns with how users type weight after product name."
+    },
+    {
+      "keyword": "20kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 10599.0,
+      "reason": "Core exact phrase combining product and key spec; critical for ranking on size-specific searches."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Multi-word phrase capturing home-gym use case; highly relevant to kettlebells used at home."
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_C",
+      "score": 5045.0,
+      "reason": "Material/finish descriptor phrase; valuable variant for shoppers specifically seeking cast iron kettlebells."
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Generic but relevant phrase for strength equipment; supports broader exercise-related searches."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High-relevance multi-word phrase for category context; helps appear in home gym bundle and equipment searches."
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Variant spelling plus size phrase; captures additional traffic from spaced spelling and size-specific searches."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 20kg, Black Half Neoprene Coated Kettle Bell with Wide Grip Handle, Solid Gym Weights for Women and Men, Exercise Weights for Home Gym Equipment",
+    "char_count": 171,
+    "reasoning": {
+      "keyword_integration": "Used primary phrases kettlebells, kettlebell, kettle bell, 20kg kettlebell, kettlebell 20kg, cast iron kettlebell, weights, gym weights, exercise weights, home gym equipment, weights for women by embedding them into a natural descriptive flow about material, coating, handle and use cases for home and gym.",
+      "product_accuracy": "All details match verified facts: brand KAKSS, product type kettlebell, 20kg size, solid cast iron with half neoprene coating, black color, and intended for gym and home workouts for both women and men.",
+      "character_targeting": "Kept the title within the 180-200 character guideline while maintaining readability and maximizing inclusion of high-volume search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, dark grey, white"
+    ],
+    "char_count": 171
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 20kg, Black Half Neoprene Coated Kettle Bell with Wide Grip Handle, Solid Gym Weights for Women and Men, Exercise Weights for Home Gym Equipment",
+  "final_length": 171
+}

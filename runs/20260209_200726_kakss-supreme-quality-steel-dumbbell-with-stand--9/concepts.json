@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "text": "Quality",
+      "type": "quality",
+      "locked": false
+    },
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Steel",
+      "type": "material",
+      "locked": true
+    },
+    {
+      "text": "Supreme   Dumbbell With Stand (9kg(1kg+1.5kg+2kg Pair)",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

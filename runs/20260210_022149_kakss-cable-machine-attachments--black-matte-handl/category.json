@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "gym_equipment_accessories",
+  "key_attributes": [
+    "attachment type",
+    "compatibility",
+    "grip style"
+  ],
+  "search_priorities": [
+    "cable machine attachments",
+    "narrow grip handle",
+    "lat pulldown attachment"
+  ],
+  "color_important": false
+}

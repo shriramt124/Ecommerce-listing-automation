@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material_coating",
+    "dumbbell_type"
+  ],
+  "search_priorities": [
+    "16kg dumbbells",
+    "neoprene coated dumbbells",
+    "8kg dumbbell pair"
+  ],
+  "color_important": true
+}

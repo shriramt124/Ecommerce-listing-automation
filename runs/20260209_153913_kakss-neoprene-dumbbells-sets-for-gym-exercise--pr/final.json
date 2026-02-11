@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (5 kg set of 2 (blue), Blue)",
+  "original_length": 99,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 60 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "dumbbell_type_neoprene_coated",
+      "set_includes_pair_or_single",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "5 kg neoprene dumbbells set of 2",
+      "pair of 5kg dumbbells for home gym",
+      "KAKSS neoprene dumbbells 5kg blue"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 60
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High search volume generic product phrase highly relevant to dumbbells"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Top-intent exact weight + pair phrase matching product (5 kg set of 2)"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "High-volume close variant weight phrase for broader reach in same product line"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High-volume related weight pair phrase capturing adjacent size searches"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Strong volume variant weight pair phrase relevant to dumbbell sets"
+    },
+    {
+      "keyword": "6kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 19106.0,
+      "reason": "Good-volume heavier variant pair phrase for similar product searches"
+    },
+    {
+      "keyword": "7.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 7906.0,
+      "reason": "Captures additional mid-heavy dumbbell pair searches"
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "Core weight + product phrase without 'pair' that many users search"
+    },
+    {
+      "keyword": "dumbbells 5kg",
+      "zone": "ZONE_B",
+      "score": 6937.0,
+      "reason": "Word-order variant of main weight phrase to cover more query patterns"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "High-volume use-case phrase aligning with home workout intent"
+    },
+    {
+      "keyword": "5kg dumbbell",
+      "zone": "ZONE_B",
+      "score": 6698.0,
+      "reason": "Singular variant of main weight phrase still relevant to pair listing"
+    },
+    {
+      "keyword": "5 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 6404.0,
+      "reason": "Spacing variant of main 5kg pair phrase matching how users type weight"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Alternative product terminology many shoppers use for dumbbells"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of 'dumbbell set' capturing broader generic searches"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Category-level phrase that brings in broader fitness equipment traffic"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 5kg Pair (2 x 5kg) Blue Hex Dumbbells 5kg with Non-Slip Coated Grip, Washable Hand Weights Set Gym Weights for Home Gym Equipment and Exercise",
+    "char_count": 172,
+    "reasoning": {
+      "keyword_integration": "Prioritized highest-volume terms: included 'dumbbells set', '5kg dumbbells pair', '5kg dumbbells', 'dumbbells 5kg', '5kg dumbbell', '5 kg dumbbells pair', 'hand weights set', 'gym weights for home', and 'home gym equipment' in natural phrases.",
+      "product_accuracy": "Matched verified facts: brand KAKSS, neoprene-coated metal, 5kg each, pair of 2, blue color, hex shape implied from images, non-slip neoprene coating, washable, suitable for home and gym.",
+      "readability": "Structured as a flowing description using commas and 'with/for' connectors so the title reads naturally while still embedding search phrases efficiently."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: blue, white"
+    ],
+    "char_count": 172
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 5kg Pair (2 x 5kg) Blue Hex Dumbbells 5kg with Non-Slip Coated Grip, Washable Hand Weights Set Gym Weights for Home Gym Equipment and Exercise",
+  "final_length": 172
+}

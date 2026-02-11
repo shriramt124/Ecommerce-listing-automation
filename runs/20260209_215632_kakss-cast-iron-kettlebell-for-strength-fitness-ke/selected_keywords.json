@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume (score: 27072) - primary product category term"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest search volume (score: 26188) - core product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Third highest search volume (score: 24880) - alternative spelling with high volume"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "High search volume (score: 5045) and matches product material mentioned in title"
+    },
+    {
+      "keyword": "kettlebell set",
+      "zone": "ZONE_B",
+      "score": 4738.0,
+      "reason": "High search volume (score: 4738) - indicates multi-piece purchase intent"
+    },
+    {
+      "keyword": "5kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 4169.0,
+      "reason": "High search volume (score: 4169) - matches specific weight mentioned in title"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Good search volume (score: 3309) with high similarity (0.886) - professional use case"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Good search volume (score: 3308) with high similarity (0.918) - covers heavy weight option"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good search volume (score: 3263) with high similarity (0.936) - popular weight category"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Good search volume (score: 3551) - covers medium weight option"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Good search volume (score: 3365) - another heavy weight option"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Good search volume (score: 3700) - matches 'home gym' use case mentioned in title"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good search volume (score: 3299) - related fitness equipment category"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "Good search volume (score: 3291) - general fitness equipment search term"
+    },
+    {
+      "keyword": "dumbbells 3kg",
+      "zone": "ZONE_B",
+      "score": 3807.0,
+      "reason": "Good search volume (score: 3807) - related fitness equipment with decent similarity"
+    }
+  ]
+}

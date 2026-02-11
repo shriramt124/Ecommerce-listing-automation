@@ -1,0 +1,18 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbell_sets",
+  "key_attributes": [
+    "total_weight_kg",
+    "individual_dumbbell_weight_options",
+    "material_neoprene",
+    "includes_stand_or_rack",
+    "piece_count",
+    "brand"
+  ],
+  "search_priorities": [
+    "neoprene dumbbell set with stand",
+    "19kg dumbbell set for home gym",
+    "2.5kg 3kg 4kg dumbbell set"
+  ],
+  "color_important": false
+}

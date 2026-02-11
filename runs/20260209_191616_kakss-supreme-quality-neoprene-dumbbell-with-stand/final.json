@@ -1,0 +1,148 @@
+{
+  "original_title": "KAKSS Supreme Quality Neoprene Dumbbell With Stand 19Kg(2.5kg+3kg+4kg N Pair)",
+  "original_length": 77,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 2 concepts",
+    "Using 1783 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbell_sets",
+    "key_attributes": [
+      "total_weight_kg",
+      "individual_dumbbell_weight_options",
+      "material_neoprene",
+      "includes_stand_or_rack",
+      "piece_count",
+      "brand"
+    ],
+    "search_priorities": [
+      "neoprene dumbbell set with stand",
+      "19kg dumbbell set for home gym",
+      "2.5kg 3kg 4kg dumbbell set"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1783
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume core product phrase closely matching how users search for this type of product."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high volume generic product term that captures broad searches for this category."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume multi-word phrase combining both 'weights' and 'dumbbells' for strong relevance."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume phrase targeting women, a key buyer segment for neoprene sets."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High intent phrase for shoppers specifically looking for a set rather than single dumbbells."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Strong volume gender-targeted phrase relevant to light neoprene dumbbells."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad multi-word phrase for sets of weights, aligned with the product."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Close variant of 'weights set' capturing additional search traffic."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_A",
+      "score": 24626.0,
+      "reason": "Specific weight specification matching one of the included pairs in the set."
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_A",
+      "score": 21664.0,
+      "reason": "Specific weight specification matching one of the included pairs in the set."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Relevant multi-word phrase for neoprene hand weights targeted to women."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad but relevant phrase for home and gym strength equipment."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling variant of 'dumbbell set' that still drives meaningful volume."
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_A",
+      "score": 9873.0,
+      "reason": "Weight-specific phrase aligned with one of the set sizes, useful for spec-focused searches."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant exact material + product phrase directly matching user intent for this item."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set with Stand, 19kg Cast Iron Weights Set, 2.5kg, 3kg, 4kg Dumbbells Pair Colour Coded Hex Hand Weights for Women and Men Home Gym Workouts",
+    "char_count": 165,
+    "reasoning": {
+      "keyword_integration": "Front-loads 'Neoprene Dumbbells Set' and 'with Stand' to match product type and high-volume 'dumbbells set' queries. Includes '19kg Cast Iron Weights Set' to capture 'weights set' and 'weight set'. Specifies '2.5kg, 3kg, 4kg Dumbbells Pair' to hit '3kg dumbbells pair', '4kg dumbbells pair', and '3kg weights'. Uses 'Colour Coded Hex Hand Weights' to align with neoprene, hex shape, and 'hand weights for women'. Ends with 'for Women and Men Home Gym Workouts' to cover 'dumbbells set women', 'weights for women', 'gym weights', and home gym intent while keeping natural readability."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 2.5 kg, 3 kg, 4 kg dumbbell pairs (total 19 kg including all six dumbbells)",
+      "Missing color: green, orange, purple, black"
+    ],
+    "char_count": 193
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set with Stand, 19kg Cast Iron Weights Set, 2.5kg, 3kg, 4kg Dumbbells Pair Colour Coded Hex Hand Weights for Women and Men Home Gym Workouts, hexagonal dumbell set with",
+  "final_length": 193
+}

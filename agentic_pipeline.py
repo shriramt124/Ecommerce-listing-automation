@@ -19,7 +19,7 @@ from agentic_agents import (
     TitleExtenderAgent,
 )
 from gemini_llm import GeminiConfig, GeminiLLM
-from agentic_llm import OpenAIConfig, OpenAILLM
+from agentic_llm import OllamaConfig, OllamaLLM
 from agentic_runlog import RunLogger
 from keyword_db import KeywordDB
 from parser import parser
@@ -350,14 +350,19 @@ def validate_title(title: str, truth: Dict[str, Any]) -> Dict[str, Any]:
 class AgenticOptimizationPipeline:
     def __init__(self):
         self.enabled = os.getenv("ADKRUX_USE_AI", "true").lower() == "true"
-        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.1")
+        self.ollama_model = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
+        self.ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
         self.vector_debug = os.getenv("ADKRUX_VECTOR_DEBUG", "true").lower() == "true"
         self.ai_vector_rounds = int(os.getenv("ADKRUX_AI_VECTOR_ROUNDS", "1"))
         self.vector_limit_per_query = int(os.getenv("ADKRUX_VECTOR_LIMIT_PER_QUERY", "25"))
         self.vector_max_candidates = int(os.getenv("ADKRUX_VECTOR_MAX_CANDIDATES", "60"))
 
-        self.llm = OpenAILLM(OpenAIConfig(model=self.openai_model))
+        self.llm = OllamaLLM(OllamaConfig(
+            model=self.ollama_model,
+            base_url=self.ollama_base_url,
+            timeout_s=180,
+        ))
         self.keyword_db = KeywordDB()
 
         self.category_agent = CategoryDetectorAgent(self.llm)
@@ -370,7 +375,7 @@ class AgenticOptimizationPipeline:
         self.logger = RunLogger(root_dir=os.path.join(os.path.dirname(__file__), "runs"))
 
         if self.enabled and not self.llm.test_connection():
-            print("⚠️  OpenAI connection failed — AI agents will be disabled.")
+            print("⚠️  Ollama connection failed — AI agents will be disabled.")
             self.enabled = False
 
     def _retrieve_keywords(

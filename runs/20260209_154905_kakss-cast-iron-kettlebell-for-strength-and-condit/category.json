@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight_kg",
+    "material",
+    "coating_finish",
+    "handle_design",
+    "brand"
+  ],
+  "search_priorities": [
+    "10 kg kettlebell",
+    "cast iron kettlebell",
+    "kettlebell for home gym"
+  ],
+  "color_important": false
+}

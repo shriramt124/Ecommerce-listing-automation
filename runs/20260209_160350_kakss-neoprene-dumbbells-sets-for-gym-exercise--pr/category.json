@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_3kg",
+    "material_neoprene_coated",
+    "set_includes_pair",
+    "color_orange",
+    "intended_use_home_gym_workout"
+  ],
+  "search_priorities": [
+    "3kg neoprene dumbbells pair",
+    "3 kg dumbbells for home gym",
+    "orange neoprene dumbbell set"
+  ],
+  "color_important": true
+}

@@ -1,0 +1,148 @@
+{
+  "original_title": "KAKSS Neoprene Workout Fixed Weight Dumbbell(Proudly Made In India) (3-Pound, Set Of 2pc)",
+  "original_length": 89,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1748 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_3_lb",
+      "material_neoprene_coated",
+      "set_size_pair_of_2",
+      "intended_use_home_workout_strength_training",
+      "brand_KAKSS",
+      "color_pink"
+    ],
+    "search_priorities": [
+      "3 lb neoprene dumbbells set of 2",
+      "pink neoprene dumbbells 1.5 kg",
+      "fixed weight dumbbells for home workout"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1748
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume phrase including core product type and set intent; strong match to fixed-weight pair."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume core product term; essential for broad discovery."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining generic 'weights' with 'dumbbells set'; captures broader weight-training searches."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume use-case phrase targeting women; relevant for neoprene fixed-weight dumbbells often used by female buyers."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling of 'dumbbell set' with notable volume; helps capture typo traffic."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_C",
+      "score": 11970.0,
+      "reason": "Variant spelling descriptor supporting the main dumbbell set term; treated as an additional variant phrase."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Strong multi-word phrase directly matching product type and configuration (set)."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with substantial volume; covers generic searches."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad but relevant phrase for sets of weights; aligns with pair of fixed dumbbells."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume generic term; useful for broad reach within fitness weights category."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Another common generic phrase for grouped weights; complements 'weights set' and 'dumbbell set'."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant long-tail phrase specifying material and set configuration; matches product exactly."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Use-case phrase describing dumbbells as hand weights; aligns with home workout positioning."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Descriptive phrase combining 'free weights' with 'dumbbells set'; captures users searching for free-weight equipment."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Use-case/location phrase targeting home gym buyers; relevant for small neoprene dumbbells."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg) Pink Hex Dumbbell Hand Weights Set with Non-Slip Grip, Cast Iron Free Weights for Home Gym Weights Set and Fitness Training for women and men",
+    "char_count": 194,
+    "reasoning": {
+      "keyword_integration": "Embedded top-volume phrases like 'dumbbells set', 'dumbbells', 'dumbbell set', 'hand weights set', 'weights set', 'free weights', and 'gym weights for home' in natural descriptive clauses while keeping brand, material, weight, color, and features accurate.",
+      "readability": "Structured as a flowing description highlighting neoprene coating, cast iron core, hex shape, and non-slip grip, with 'for women and men' and 'for home gym' usage to match common search intent without sounding like a keyword list."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 1.5 kg / 3 lb per dumbbell",
+      "Policy violation: contains 'free'"
+    ],
+    "char_count": 194
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg) Pink Hex Dumbbell Hand Weights Set with Non-Slip Grip, Cast Iron Free Weights for Home Gym Weights Set and Fitness Training for women and men",
+  "final_length": 194
+}

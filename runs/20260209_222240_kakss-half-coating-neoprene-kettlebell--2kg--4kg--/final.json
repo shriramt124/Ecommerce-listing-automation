@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Half Coating Neoprene Kettlebell (2KG, 4KG, 6KG, 8 KG, 10KG, 12KG, 14 KG, 16KG, 18KG, 20KG, 22KG, 24KG, 26KG, 28 KG, 30KG, 32KG, 34KG, 36KG, 38KG, 40KG)(Proudly Made in India) (BLK, 5KG)",
+  "original_length": 192,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1704 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_comfort"
+    ],
+    "search_priorities": [
+      "5kg kettlebell",
+      "neoprene kettlebell",
+      "beginner kettlebell"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1704
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Highest score (48162) - targets specific demographic with high search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Second highest score (36878) - broad search term with high volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Third highest score (30386) - broad category term with high search volume"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "High score (30339) - popular search term for sets"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) - plural form of main product type"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "High score (26188) - primary product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) - common alternative spelling"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "High score (20210) - specific use case with good volume"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - fitness context term"
+    },
+    {
+      "keyword": "2kg weights for women",
+      "zone": "ZONE_B",
+      "score": 11110.0,
+      "reason": "Good score (11110) - specific weight targeting women"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good score (10854) - broad fitness category"
+    },
+    {
+      "keyword": "gym",
+      "zone": "ZONE_B",
+      "score": 10650.0,
+      "reason": "Good score (10650) - primary fitness context"
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Good score (9873) - specific weight search"
+    },
+    {
+      "keyword": "womens weights",
+      "zone": "ZONE_B",
+      "score": 8208.0,
+      "reason": "Good score (8208) - gender-specific targeting"
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Good score (8157) - specific weight option"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 5kg, Half Neoprene Coated Weights for Women & Men with Wide Grip Handle for Home Gym Equipment and Fitness Training",
+    "char_count": 142,
+    "reasoning": {
+      "keyword_integration_strategy": "Wove top keywords naturally into descriptive phrases: 'kettlebell' (26k searches) as product type, 'weights for women' (48k) and 'gym equipment' (11k) as use cases. Used 'cast iron' and 'neoprene coated' from verified features. Structured title to flow as natural description while embedding high-volume search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, white, dark gray"
+    ],
+    "char_count": 192
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 5kg, Half Neoprene Coated Weights for Women & Men with Wide Grip Handle for Home Gym Equipment and Fitness Training, Ideal as a Versatile Weight Set with 2kg and 3kg",
+  "final_length": 192
+}

@@ -1,0 +1,143 @@
+{
+  "original_title": "KAKSS Cable Machine Attachments. Black Matte Handles with Universal Attachment for Cable Machines. Pull Down, Press Down, Row, Triceps, Biceps & Lats. Available in 8 Varieties. (Narrow Bicep)",
+  "original_length": 191,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 978 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "gym_equipment_accessories",
+    "key_attributes": [
+      "attachment_type",
+      "compatibility",
+      "handle_style"
+    ],
+    "search_priorities": [
+      "cable machine attachments",
+      "triceps rope attachment",
+      "bicep curl bar"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 978
+  },
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest score (10854) with strong relevance to cable machine attachments"
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "High score (5996) and directly relevant to home cable machine usage"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High score (3700) with excellent relevance and similarity (0.715)"
+    },
+    {
+      "keyword": "home gym",
+      "zone": "ZONE_B",
+      "score": 3138.0,
+      "reason": "Good score (3138) and strong relevance for home fitness equipment"
+    },
+    {
+      "keyword": "fitness equipment",
+      "zone": "ZONE_B",
+      "score": 1860.0,
+      "reason": "High relevance (0.756 similarity) and good score (1860)"
+    },
+    {
+      "keyword": "gym accessories for men",
+      "zone": "ZONE_B",
+      "score": 1800.0,
+      "reason": "Good score (1800) and relevance for cable machine accessories"
+    },
+    {
+      "keyword": "hand weights",
+      "zone": "ZONE_B",
+      "score": 1727.0,
+      "reason": "Good score (1727) and relevance (0.579) for cable attachment handles"
+    },
+    {
+      "keyword": "workout equipment",
+      "zone": "ZONE_B",
+      "score": 1535.0,
+      "reason": "Good score (1535) and high relevance (0.658)"
+    },
+    {
+      "keyword": "weights dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 2102.0,
+      "reason": "High score (2102) - relevant as complementary fitness equipment"
+    },
+    {
+      "keyword": "small dumbbells set",
+      "zone": "ZONE_B",
+      "score": 2031.0,
+      "reason": "Good score (2031) - relevant fitness accessory category"
+    },
+    {
+      "keyword": "dumbbell neoprene set",
+      "zone": "ZONE_B",
+      "score": 2011.0,
+      "reason": "Good score (2011) - fitness equipment category"
+    },
+    {
+      "keyword": "dumbbell 5kg",
+      "zone": "ZONE_B",
+      "score": 1977.0,
+      "reason": "Good score (1977) - weight training equipment"
+    },
+    {
+      "keyword": "dumbbells set for women",
+      "zone": "ZONE_B",
+      "score": 1956.0,
+      "reason": "Good score (1956) - relevant fitness category"
+    },
+    {
+      "keyword": "1kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 1893.0,
+      "reason": "Good score (1893) - mentions brand in hit queries"
+    },
+    {
+      "keyword": "1kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 1889.0,
+      "reason": "Good score (1889) - mentions brand in hit queries"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cable Machine Attachment, Universal Gym Equipment with Steel Construction and Black Matte Finish for Home Gym Workouts, Triceps, Biceps, Lats, and Core Strength Training",
+    "char_count": 175,
+    "reasoning": {
+      "keyword_integration_strategy": "Integrated top keywords 'gym equipment' and 'home gym' naturally into the description. Focused on the product's universal application and key features (steel, matte finish) to appeal to users searching for durable fitness accessories."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, silver"
+    ],
+    "char_count": 175
+  },
+  "optimized_title": "KAKSS Cable Machine Attachment, Universal Gym Equipment with Steel Construction and Black Matte Finish for Home Gym Workouts, Triceps, Biceps, Lats, and Core Strength Training",
+  "final_length": 175
+}

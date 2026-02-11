@@ -18,7 +18,9 @@ Orchestrates the full Amazon listing generation flow:
 
 from __future__ import annotations
 
+import json
 import os
+import re
 import sys
 import time
 from datetime import datetime
@@ -31,7 +33,7 @@ if _PARENT_DIR not in sys.path:
     sys.path.insert(0, _PARENT_DIR)
 
 from gemini_llm import GeminiConfig, GeminiLLM
-from agentic_llm import OpenAIConfig, OpenAILLM
+from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object
 from agentic_pipeline import AgenticOptimizationPipeline
 from keyword_db import KeywordDB
 from parser import parser as title_parser
@@ -49,6 +51,7 @@ from listing_generator.output_writer import (
     write_excel,
     save_product_images,
     write_analysis_json,
+    load_existing_excel,
 )
 
 
@@ -76,12 +79,14 @@ class ListingPipeline:
         gemini_api_key: str = None,
         gemini_model: str = None,
         limit: int = None,
+        skip: int = 0,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
         self.generate_images_flag = generate_images
         self.ingest_keywords_flag = ingest_keywords
         self.limit = limit
+        self.skip = skip
 
         # Output directory with timestamp
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -94,12 +99,12 @@ class ListingPipeline:
         if not self.gemini_key:
             raise RuntimeError("GEMINI_API_KEY is required for vision/image tasks. Set it in .env or pass --gemini-key")
 
-        # OpenAI config (primary LLM for all text generation)
-        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-5.1")
-        self.openai_api_key = os.getenv("OPENAI_API_KEY", "")
+        # Ollama config (primary LLM for all text generation)
+        self.ollama_model = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
+        self.ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 
         # Will be initialized lazily
-        self._llm: Optional[OpenAILLM] = None
+        self._llm: Optional[OllamaLLM] = None
         self._keyword_db: Optional[KeywordDB] = None
         self._title_pipeline: Optional[AgenticOptimizationPipeline] = None
         self._image_analyzer: Optional[ImageAnalyzer] = None
@@ -113,11 +118,12 @@ class ListingPipeline:
     # ------------------------------------------------------------------
 
     @property
-    def llm(self) -> OpenAILLM:
+    def llm(self) -> OllamaLLM:
         if self._llm is None:
-            self._llm = OpenAILLM(OpenAIConfig(
-                api_key=self.openai_api_key,
-                model=self.openai_model,
+            self._llm = OllamaLLM(OllamaConfig(
+                model=self.ollama_model,
+                base_url=self.ollama_base_url,
+                timeout_s=180,
             ))
         return self._llm
 
@@ -194,194 +200,562 @@ class ListingPipeline:
     def _stage_keywords(
         self, product: Dict[str, Any], image_analysis: Dict[str, Any],
     ) -> List[Dict[str, Any]]:
-        """Stage 3b: Retrieve relevant keywords from vector DB.
-        
-        STRATEGY: Prioritize high-volume keywords NOT already in the title.
+        """Stage 3b: 3-round agentic keyword discovery (from listing_pipeline).
+
+        Round 1 — Wide sweep: LLM + programmatic queries → search_broad (no limit)
+                  + product relevance embedding filter
+        Round 2 — LLM judge: top 80 keywords judged relevant/not + gap-fill queries
+        Round 3 — Synonym expansion (conditional): only if gap-fill found >=3 new in top 60
         """
         title = product.get("title", "")
         title_lower = title.lower()
-        product_type = image_analysis.get("product_type", "")
-        brand = image_analysis.get("brand", "")
 
-        # Build multiple queries for broad coverage
-        queries = set()
-        if title:
-            queries.add(title[:80])
-        if product_type:
-            queries.add(product_type)
-        if brand and product_type:
-            queries.add(f"{brand} {product_type}")
-        # Add key features as queries
-        for feat in (image_analysis.get("key_features") or [])[:3]:
-            if feat:
-                queries.add(f"{product_type} {feat}" if product_type else feat)
+        # -- Product relevance embedding (single matmul, <1ms) --
+        product_desc = self._build_product_description(product, image_analysis)
+        product_relevance_threshold = 0.30
+        print(f"   📐 Computing product relevance embedding...")
+        product_relevance = self.keyword_db.compute_product_relevance(product_desc)
+        total_rel = sum(1 for v in product_relevance.values() if v >= product_relevance_threshold)
+        print(f"      {total_rel} keywords above relevance threshold ({product_relevance_threshold})")
 
-        # --- NEW: Extract queries from EXISTING BULLET POINTS ---
-        existing_bullets = product.get("bullet_points", [])
-        for bp in existing_bullets:
-            bp_text = str(bp).strip()
-            if bp_text and len(bp_text) > 10:
-                # Use bullet point text as a query (truncated)
-                queries.add(bp_text[:80])
-                # Also combine product_type + bullet for focused results
-                if product_type:
-                    queries.add(f"{product_type} {bp_text[:50]}")
+        # ============================================================
+        #  ROUND 1 — WIDE SWEEP
+        # ============================================================
+        print(f"\n   {'─'*50}")
+        print(f"   🔍 ROUND 1: Wide Sweep — generating queries...")
 
-        # --- NEW: Use Brand from Excel raw_row ---
-        excel_brand = product.get("raw_row", {}).get("Brand", "") or ""
-        if excel_brand and not brand:
-            brand = excel_brand
-        if excel_brand and product_type:
-            queries.add(f"{excel_brand} {product_type}")
+        ai_queries = self._round1_generate_queries(product, image_analysis)
+        fallback_queries = self._build_fallback_queries(product, image_analysis)
 
-        # --- NEW: Use la_cat (browse node) for better category coverage ---
-        la_cat = product.get("la_cat", "")
-        if la_cat and la_cat != product_type:
-            queries.add(la_cat)
-            if brand:
-                queries.add(f"{brand} {la_cat}")
+        # Dedup queries
+        seen_q: set = set()
+        round1_queries: List[str] = []
+        for q in ai_queries + fallback_queries:
+            ql = q.strip().lower()
+            if ql and ql not in seen_q:
+                seen_q.add(ql)
+                round1_queries.append(q.strip())
 
-        # --- NEW: Add usage/audience queries from image analysis ---
-        usage = image_analysis.get("usage", "")
-        if usage:
-            queries.add(usage[:60])
-        target_audience = image_analysis.get("target_audience", "")
-        if target_audience and product_type:
-            queries.add(f"{product_type} {target_audience[:40]}")
+        print(f"      LLM generated {len(ai_queries)} queries + {len(fallback_queries)} fallbacks "
+              f"= {len(round1_queries)} unique")
+        for i, q in enumerate(round1_queries[:8], 1):
+            print(f"        {i}. \"{q}\"")
+        if len(round1_queries) > 8:
+            print(f"        ... +{len(round1_queries) - 8} more")
 
-        # --- NEW: Add material + product_type combo ---
-        material = image_analysis.get("material", "")
-        if material and product_type:
-            queries.add(f"{material} {product_type}")
-
-        # --- NEW: Add color + product_type (customers search by color) ---
-        colors = image_analysis.get("colors") or []
-        for color in colors[:2]:
-            if color and product_type:
-                queries.add(f"{color} {product_type}")
-
-        # --- NEW: LLM-generated queries for smarter coverage ---
-        # Let the LLM think like a customer: "what would people search for?"
-        llm_queries = self._generate_llm_queries(product_type, brand, image_analysis)
-        for q in llm_queries:
-            queries.add(q)
-
-        # Merge results from all queries
+        # Sweep vector DB (NO limit cap — search_broad)
         merged: Dict[str, Dict[str, Any]] = {}
-        for q in queries:
-            results = self.keyword_db.get_top_keywords(str(q), limit=25)
+        for q in round1_queries:
+            results = self.keyword_db.search_broad(q, min_similarity=0.25)
             for r in results:
                 kw = str(r.get("keyword", "")).strip().lower()
                 if not kw:
                     continue
-                # Keep highest similarity + score for each keyword
                 if kw not in merged:
-                    merged[kw] = r
+                    merged[kw] = {**r, "hit_queries": [q], "hit_count": 1}
                 else:
-                    # If duplicate, keep the one with higher score (search volume)
-                    if float(r.get("score", 0)) > float(merged[kw].get("score", 0)):
-                        merged[kw] = r
+                    prev = merged[kw]
+                    if float(r.get("similarity", 0)) > float(prev.get("similarity", 0)):
+                        keep_hq = prev.get("hit_queries", [])
+                        keep_hc = prev.get("hit_count", 0)
+                        merged[kw] = {**r, "hit_queries": keep_hq, "hit_count": keep_hc}
+                    if q not in prev.get("hit_queries", []):
+                        merged[kw].setdefault("hit_queries", []).append(q)
+                    merged[kw]["hit_count"] = merged[kw].get("hit_count", 0) + 1
 
-        # CRITICAL: Separate keywords into "already in title" vs "new"
-        already_in_title = []
-        new_keywords = []
-        
-        for kw_data in merged.values():
-            kw_text = kw_data.get("keyword", "").lower()
-            # Check if keyword is substantially present in title
-            if kw_text in title_lower:
-                already_in_title.append(kw_data)
-            else:
-                # Check for partial word matches (e.g., "dumbbell" matches "dumbbells")
-                kw_words = set(kw_text.split())
-                title_words = set(title_lower.split())
-                overlap = len(kw_words & title_words) / len(kw_words) if kw_words else 0
-                if overlap > 0.7:  # 70% of keyword words already in title
-                    already_in_title.append(kw_data)
-                else:
-                    new_keywords.append(kw_data)
+        print(f"      Vector DB returned {len(merged)} unique keywords")
 
-        # Sort NEW keywords by search volume (score), not similarity
-        new_keywords_sorted = sorted(
-            new_keywords,
+        # Attach product relevance + filter low relevance
+        for kw in list(merged.keys()):
+            pr = product_relevance.get(kw, 0.0)
+            merged[kw]["product_relevance"] = pr
+            if pr < product_relevance_threshold:
+                del merged[kw]
+
+        pool = sorted(merged.values(), key=lambda x: float(x.get("score", 0)), reverse=True)
+        print(f"      After relevance filter: {len(pool)} keywords")
+        vol_1k = sum(1 for x in pool if float(x.get("score", 0)) >= 1000)
+        print(f"      Keywords with vol >= 1,000: {vol_1k}")
+
+        # ============================================================
+        #  ROUND 2 — LLM JUDGE + GAP FILL
+        # ============================================================
+        print(f"\n   {'─'*50}")
+        print(f"   🧑‍⚖️ ROUND 2: LLM Judge + Gap Fill...")
+
+        top_for_judge = pool[:80]
+        relevance_map, gap_queries = self._round2_judge_and_gap_fill(
+            product, image_analysis, top_for_judge,
+        )
+
+        relevant_count = sum(1 for v in relevance_map.values() if v)
+        not_relevant_count = sum(1 for v in relevance_map.values() if not v)
+        print(f"      LLM judged: {relevant_count} relevant, {not_relevant_count} not relevant")
+        print(f"      Gap-fill queries generated: {len(gap_queries)}")
+
+        # Remove NOT-relevant keywords
+        removed_by_llm: List[str] = []
+        for kw in list(merged.keys()):
+            if kw in relevance_map and not relevance_map[kw]:
+                del merged[kw]
+                removed_by_llm.append(kw)
+
+        if removed_by_llm:
+            print(f"      Removed {len(removed_by_llm)} irrelevant keywords:")
+            for kw in removed_by_llm[:10]:
+                print(f"        ✗ {kw}")
+
+        # Track pre-gap top 60 for convergence check
+        pre_gap_top60 = set(
+            kw for kw, _ in sorted(
+                ((k, float(v.get("score", 0))) for k, v in merged.items()),
+                key=lambda x: x[1], reverse=True,
+            )[:60]
+        )
+
+        # Run gap-fill queries
+        if gap_queries:
+            new_gap_queries: List[str] = []
+            for q in gap_queries:
+                ql = q.strip().lower()
+                if ql not in seen_q:
+                    seen_q.add(ql)
+                    new_gap_queries.append(q.strip())
+            if new_gap_queries:
+                print(f"      Running {len(new_gap_queries)} gap-fill queries...")
+                new_added = 0
+                for q in new_gap_queries:
+                    gap_results = self.keyword_db.search_broad(q, min_similarity=0.25)
+                    for r in gap_results:
+                        kw = str(r.get("keyword", "")).strip().lower()
+                        if not kw:
+                            continue
+                        pr = product_relevance.get(kw, 0.0)
+                        if pr < product_relevance_threshold:
+                            continue
+                        if kw in relevance_map and not relevance_map[kw]:
+                            continue
+                        r["product_relevance"] = pr
+                        r["round_discovered"] = 2
+                        if kw not in merged:
+                            merged[kw] = r
+                            new_added += 1
+                        else:
+                            merged[kw]["hit_count"] = merged[kw].get("hit_count", 0) + 1
+                print(f"      Gap-fill added {new_added} new keywords")
+
+        # Check convergence
+        pool = sorted(merged.values(), key=lambda x: float(x.get("score", 0)), reverse=True)
+        post_gap_top60 = set(str(x.get("keyword", "")).lower() for x in pool[:60])
+        new_in_top60 = post_gap_top60 - pre_gap_top60
+        print(f"      New keywords in top 60: {len(new_in_top60)}")
+
+        # ============================================================
+        #  ROUND 3 — SYNONYM EXPANSION (conditional)
+        # ============================================================
+        run_round3 = len(new_in_top60) >= 3
+
+        if run_round3:
+            print(f"\n   {'─'*50}")
+            print(f"   🔄 ROUND 3: Synonym Expansion (convergence not reached)...")
+            found_kw_names = [str(x.get("keyword", "")) for x in pool[:40]]
+            synonym_queries = self._round3_synonym_expansion(product, image_analysis, found_kw_names)
+
+            new_syn_queries: List[str] = []
+            for q in synonym_queries:
+                ql = q.strip().lower()
+                if ql not in seen_q:
+                    seen_q.add(ql)
+                    new_syn_queries.append(q.strip())
+
+            if new_syn_queries:
+                print(f"      Running {len(new_syn_queries)} synonym queries...")
+                syn_added = 0
+                for q in new_syn_queries:
+                    syn_results = self.keyword_db.search_broad(q, min_similarity=0.25)
+                    for r in syn_results:
+                        kw = str(r.get("keyword", "")).strip().lower()
+                        if not kw:
+                            continue
+                        pr = product_relevance.get(kw, 0.0)
+                        if pr < product_relevance_threshold:
+                            continue
+                        if kw in relevance_map and not relevance_map[kw]:
+                            continue
+                        r["product_relevance"] = pr
+                        r["round_discovered"] = 3
+                        if kw not in merged:
+                            merged[kw] = r
+                            syn_added += 1
+                        else:
+                            merged[kw]["hit_count"] = merged[kw].get("hit_count", 0) + 1
+                print(f"      Synonym expansion added {syn_added} new keywords")
+        else:
+            print(f"\n   ⏩ Skipping Round 3 (convergence reached — "
+                  f"only {len(new_in_top60)} new in top 60)")
+
+        # ============================================================
+        #  FINAL ASSEMBLY
+        # ============================================================
+        print(f"\n   {'─'*50}")
+        print(f"   📊 FINAL ASSEMBLY")
+
+        # Tag round_discovered for round 1 keywords
+        for data in merged.values():
+            if "round_discovered" not in data:
+                data["round_discovered"] = 1
+
+        all_candidates = sorted(
+            merged.values(),
             key=lambda x: float(x.get("score", 0)),
             reverse=True,
         )
 
-        # Sort existing keywords by similarity (for context)
-        existing_sorted = sorted(
-            already_in_title,
-            key=lambda x: float(x.get("similarity", 0)),
-            reverse=True,
-        )
+        # Tag "already in title"
+        for kw_data in all_candidates:
+            kw_text = kw_data.get("keyword", "").lower()
+            kw_words = set(kw_text.split())
+            t_words = set(title_lower.split())
+            overlap = len(kw_words & t_words) / len(kw_words) if kw_words else 0
+            kw_data["in_title"] = overlap > 0.7 or kw_text in title_lower
 
-        # PRIORITIZE: New high-volume keywords first, then existing for context
-        candidates = new_keywords_sorted[:40] + existing_sorted[:20]
+        # Report
+        new_kw = [k for k in all_candidates if not k.get("in_title")]
+        in_title = [k for k in all_candidates if k.get("in_title")]
+        r1 = sum(1 for k in all_candidates if k.get("round_discovered") == 1)
+        r2 = sum(1 for k in all_candidates if k.get("round_discovered") == 2)
+        r3 = sum(1 for k in all_candidates if k.get("round_discovered") == 3)
 
-        print(f"   🔑 Retrieved {len(candidates)} keyword candidates ({len(new_keywords_sorted)} new, {len(existing_sorted)} existing)")
-        print(f"      Top NEW keywords by search volume:")
-        for i, kw in enumerate(new_keywords_sorted[:5], 1):
-            score = float(kw.get("score", 0))
-            sim = float(kw.get("similarity", 0))
-            print(f"      {i}. {kw['keyword']} (volume={score:.0f}, sim={sim:.3f})")
+        print(f"      Total keywords: {len(all_candidates)} "
+              f"({len(new_kw)} new, {len(in_title)} in title)")
+        print(f"      By round: R1={r1}, R2={r2}, R3={r3}")
+        print(f"      LLM calls used: {'3' if run_round3 else '2'}")
+        print(f"\n      TOP 50 by volume:")
+        for i, kw in enumerate(all_candidates[:50], 1):
+            flag = "📌" if kw.get("in_title") else "🆕"
+            vol = float(kw.get("score", 0))
+            pr = float(kw.get("product_relevance", 0))
+            hc = int(kw.get("hit_count", 0))
+            rd = int(kw.get("round_discovered", 1))
+            print(f"      {flag} {i:>2}. {kw['keyword']:<40s} "
+                  f"vol={vol:>8.0f}  rel={pr:.2f}  hits={hc:>2}  R{rd}")
 
-        return candidates
+        return all_candidates
 
-    def _generate_llm_queries(
-        self, product_type: str, brand: str, image_analysis: Dict[str, Any],
+    # ------------------------------------------------------------------
+    # Keyword discovery helper methods (ported from listing_pipeline)
+    # ------------------------------------------------------------------
+
+    def _build_product_description(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any],
+    ) -> str:
+        """Build a rich product description for the relevance embedding."""
+        parts: List[str] = []
+        pt = (image_analysis.get("product_type") or "").strip()
+        if pt:
+            parts.append(pt)
+        brand = (image_analysis.get("brand") or "").strip()
+        if brand:
+            parts.append(brand)
+        size = (image_analysis.get("size") or "").strip()
+        if size:
+            parts.append(size)
+        material = (image_analysis.get("material") or "").strip()
+        if material:
+            parts.append(material)
+        colors = image_analysis.get("colors") or []
+        if colors:
+            parts.append(" ".join(colors))
+        usage = (image_analysis.get("usage") or "").strip()
+        if usage:
+            parts.append(usage)
+        audience = (image_analysis.get("target_audience") or "").strip()
+        if audience:
+            parts.append(audience)
+        qty = (image_analysis.get("quantity") or "").strip()
+        if qty:
+            parts.append(qty)
+        features = image_analysis.get("key_features") or []
+        if features:
+            parts.append(" ".join(features[:4]))
+        return " ".join(parts)
+
+    def _build_fallback_queries(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any],
     ) -> List[str]:
-        """Ask the LLM to think like a customer and generate search queries.
+        """Programmatic fallback queries that always run (no LLM needed)."""
+        title = product.get("title", "")
+        product_type = (image_analysis.get("product_type") or "").strip().lower()
+        brand = (image_analysis.get("brand")
+                 or product.get("raw_row", {}).get("Brand", "") or "").strip().lower()
 
-        This replaces hundreds of lines of hardcoded category dictionaries with
-        a single generic LLM call that works for ANY product category.
-        """
-        material = image_analysis.get("material", "")
+        fb: List[str] = []
+        if product_type:
+            fb.append(product_type)
+            if product_type.endswith("s"):
+                fb.append(product_type[:-1])
+            else:
+                fb.append(product_type + "s")
+        if brand and product_type:
+            fb.append(f"{brand} {product_type}")
+        if title:
+            clean = title.lower()
+            if brand:
+                clean = clean.replace(brand, "").strip()
+            clean = re.sub(r'[–—|/\\()\[\]{}]', ' ', clean)
+            clean = re.sub(r'\s+', ' ', clean).strip()
+            if clean and len(clean) > 10:
+                fb.append(clean[:70])
+
+        # Bullet points as queries
+        for bp in (product.get("bullet_points") or [])[:3]:
+            bp_text = str(bp).strip()
+            if bp_text and len(bp_text) > 10:
+                fb.append(bp_text[:80])
+
+        # la_cat browse node
+        la_cat = product.get("la_cat", "")
+        if la_cat and la_cat.lower() != product_type:
+            fb.append(la_cat)
+
+        # Material/color combos
+        material = (image_analysis.get("material") or "").strip().lower()
+        if material and product_type:
+            fb.append(f"{material} {product_type}")
+        for color in (image_analysis.get("colors") or [])[:2]:
+            if color and product_type:
+                fb.append(f"{color.lower()} {product_type}")
+
+        # Usage/audience
+        usage = (image_analysis.get("usage") or "").strip()
+        if usage:
+            fb.append(usage[:60])
+        audience = (image_analysis.get("target_audience") or "").strip()
+        if audience and product_type:
+            fb.append(f"{product_type} {audience[:40]}")
+
+        return fb
+
+    def _round1_generate_queries(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any],
+    ) -> List[str]:
+        """Round 1: LLM generates 30-40 structured search queries."""
+        title = product.get("title", "")
+        product_type = (image_analysis.get("product_type") or "").strip()
+        brand = (image_analysis.get("brand")
+                 or product.get("raw_row", {}).get("Brand", "") or "").strip()
+        size = (image_analysis.get("size") or "").strip()
+        material = (image_analysis.get("material") or "").strip()
         colors = ", ".join(image_analysis.get("colors") or [])
-        usage = image_analysis.get("usage", "")
-        target_audience = image_analysis.get("target_audience", "")
-        key_features = image_analysis.get("key_features") or []
+        usage = (image_analysis.get("usage") or "").strip()
+        target_audience = (image_analysis.get("target_audience") or "").strip()
+        key_features = ", ".join((image_analysis.get("key_features") or [])[:6])
+        quantity = (image_analysis.get("quantity") or "").strip()
+        la_cat = (product.get("la_cat") or "").strip()
 
-        prompt = f"""You are an Amazon search expert. Given this product, generate 8-12 search
-queries that REAL CUSTOMERS would type into the Amazon search bar to find it.
+        prompt = f"""You are an Amazon search expert. A customer wants to find this EXACT product on Amazon.
 
-Product Type : {product_type}
-Brand        : {brand}
-Material     : {material}
-Colors       : {colors}
-Usage        : {usage}
-Audience     : {target_audience}
-Features     : {'; '.join(key_features[:4])}
+PRODUCT:
+- Title: "{title}"
+- Type: {product_type}
+- Brand: {brand}
+- Size/Weight: {size}
+- Quantity: {quantity}
+- Material: {material}
+- Colors: {colors}
+- Features: {key_features}
+- Usage: {usage}
+- Target Audience: {target_audience}
+- Category: {la_cat}
 
-Think about:
-- What words do customers use? (e.g. "dumbbells for women", "hand weights")
-- Audience variations (for men, for women, for beginners, for home)
-- Material/feature combos ("neoprene dumbbells", "cast iron kettlebell")
-- Use-case phrases ("home gym equipment", "fitness training weights")
-- Common synonyms customers might search
+Generate 30-40 Amazon search queries that REAL customers would type to find this product.
 
-Return ONLY a JSON array of query strings, 2-6 words each:
-["query 1", "query 2", ...]
+REQUIRED CATEGORIES (generate queries for EACH):
+1. CORE PRODUCT: Just the product type, singular and plural forms
+2. PRODUCT + SPEC: Product with size, weight, count, or dimensions
+3. PRODUCT + MATERIAL: Product with material or coating
+4. SYNONYMS: Alternative names customers use for this product type
+5. USE-CASE: Product + where/how it's used
+6. AUDIENCE: Product + who it's for
+7. BRAND: Brand + product combinations
+8. COLOR/STYLE: Product + color or visual attributes
+9. MISSPELLINGS: Common typos customers make
+
+ORDER: Generate from broadest (1-2 words) to most specific (3-5 words).
+
+RULES:
+- Each query 1-5 words (real search bar behavior)
+- Only queries for THIS SPECIFIC product (correct size/weight/type)
+- Short search phrases only, no full sentences
+- No duplicates
+- Include both singular and plural forms where natural
+
+Return ONLY valid JSON:
+{{"queries": ["query1", "query2", ...]}}
 
 JSON:"""
 
         try:
-            raw = self.llm.generate(prompt, temperature=0.3, max_tokens=500)
+            raw = self.llm.generate(prompt, temperature=0.4, max_tokens=2000)
             if raw:
-                import json as _json
-                # Extract JSON array from response
-                raw = raw.strip()
-                if raw.startswith("```"):
-                    raw = raw.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
-                queries = _json.loads(raw)
-                if isinstance(queries, list):
-                    clean = [str(q).strip().lower() for q in queries if isinstance(q, str) and len(str(q).strip()) > 3]
-                    print(f"      🤖 LLM generated {len(clean)} search queries")
-                    for q in clean[:5]:
+                obj = extract_json_object(raw)
+                if obj and "queries" in obj:
+                    queries: List[str] = []
+                    for q in obj["queries"]:
+                        q = str(q).strip().lower()
+                        if q and len(q) > 1 and len(q.split()) <= 7:
+                            queries.append(q)
+                    print(f"      🤖 LLM generated {len(queries)} search queries")
+                    for q in queries[:8]:
                         print(f"         - {q}")
-                    return clean[:12]
+                    return queries
         except Exception as e:
             print(f"      ⚠️  LLM query generation failed: {e}")
 
+        return []
+
+    def _round2_judge_and_gap_fill(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any],
+        top_keywords: List[Dict[str, Any]],
+    ) -> Tuple[Dict[str, bool], List[str]]:
+        """Round 2: LLM judges relevance of top keywords + generates gap queries."""
+        title = product.get("title", "")
+        product_type = (image_analysis.get("product_type") or "").strip()
+        brand = (image_analysis.get("brand") or "").strip()
+        size = (image_analysis.get("size") or "").strip()
+        material = (image_analysis.get("material") or "").strip()
+        la_cat = (product.get("la_cat") or "").strip()
+
+        lines: List[str] = []
+        for i, kw in enumerate(top_keywords, 1):
+            keyword = kw.get("keyword", "")
+            vol = float(kw.get("score", 0))
+            sim = float(kw.get("product_relevance", kw.get("similarity", 0)))
+            lines.append(f"  {i:>3}. {keyword:<45s} vol={vol:>8.0f}  sim={sim:.2f}")
+        keyword_table = "\n".join(lines)
+
+        prompt = f"""You are an Amazon keyword expert reviewing search keywords for a SPECIFIC product.
+
+PRODUCT:
+- Title: "{title}"
+- Type: {product_type}
+- Brand: {brand}
+- Size/Weight: {size}
+- Material: {material}
+- Category: {la_cat}
+
+Here are the TOP {len(top_keywords)} keywords found by search volume:
+{keyword_table}
+
+TWO TASKS:
+
+TASK 1 — RELEVANCE JUDGMENT:
+For each keyword above, mark it "relevant" or "not_relevant".
+A keyword is NOT relevant if:
+- It's for a DIFFERENT product category (e.g. "kettlebell" for a dumbbell product)
+- It specifies a WRONG size/weight (e.g. "5kg dumbbells" for a 1kg product)
+- It's for a different form factor (e.g. "adjustable dumbbells" for fixed neoprene dumbbells)
+- It has nothing to do with this product
+
+A keyword IS relevant if:
+- It describes this product or a broader category it belongs to
+- It's a synonym customers use for this type of product
+- It matches the product's specs, material, use-case, or audience
+- It's the product type without specific size (e.g. "dumbbells set" for any dumbbell)
+
+TASK 2 — GAP ANALYSIS:
+Look at what search angles are MISSING from the keywords found.
+Generate 10-15 NEW search queries to find keywords we haven't covered yet.
+Think about: synonyms, slang, abbreviations, different phrasings, use-cases not covered.
+
+Return ONLY valid JSON:
+{{
+  "judgments": [
+    {{"keyword": "keyword1", "relevant": true}},
+    {{"keyword": "keyword2", "relevant": false, "reason": "wrong product type"}}
+  ],
+  "gap_queries": ["new query 1", "new query 2"]
+}}
+
+JSON:"""
+
+        relevance_map: Dict[str, bool] = {}
+        gap_queries: List[str] = []
+
+        try:
+            raw = self.llm.generate(prompt, temperature=0.1, max_tokens=4000)
+            if raw:
+                obj = extract_json_object(raw)
+                if obj:
+                    for j in (obj.get("judgments") or []):
+                        kw = str(j.get("keyword", "")).strip().lower()
+                        if kw:
+                            relevance_map[kw] = bool(j.get("relevant", True))
+                    for q in (obj.get("gap_queries") or []):
+                        q = str(q).strip().lower()
+                        if q and len(q) > 1 and len(q.split()) <= 7:
+                            gap_queries.append(q)
+        except Exception as e:
+            print(f"      ⚠️  LLM judge failed: {e}")
+
+        # Keywords not judged → assume relevant
+        for kw_data in top_keywords:
+            k = str(kw_data.get("keyword", "")).strip().lower()
+            if k and k not in relevance_map:
+                relevance_map[k] = True
+
+        return relevance_map, gap_queries
+
+    def _round3_synonym_expansion(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any],
+        found_keywords: List[str],
+    ) -> List[str]:
+        """Round 3: Generate synonym/misspelling/slang queries."""
+        title = product.get("title", "")
+        product_type = (image_analysis.get("product_type") or "").strip()
+        found_str = "\n".join(f"  - {kw}" for kw in found_keywords[:30])
+
+        prompt = f"""You are an Amazon search expert. We have already found the top keywords for this product.
+Now we need to find ADDITIONAL keywords through synonyms, slang, misspellings, and alternative phrasings.
+
+PRODUCT:
+- Title: "{title}"
+- Type: {product_type}
+
+TOP KEYWORDS ALREADY FOUND:
+{found_str}
+
+Generate 10-15 search queries that would find keywords we HAVEN'T found yet.
+Think about:
+- Common misspellings (e.g. "dumbells" for "dumbbells", "excercise" for "exercise")
+- Slang and informal terms customers use
+- Alternative product names from different regions
+- Different word orderings
+- Related accessories or complementary product terms
+
+RULES:
+- Do NOT repeat the keywords already found above
+- 1-5 words per query
+- Focus on genuinely new search angles
+
+Return ONLY valid JSON:
+{{"queries": ["query1", "query2", ...]}}
+
+JSON:"""
+
+        try:
+            raw = self.llm.generate(prompt, temperature=0.5, max_tokens=1000)
+            if raw:
+                obj = extract_json_object(raw)
+                if obj and "queries" in obj:
+                    queries: List[str] = []
+                    for q in obj["queries"]:
+                        q = str(q).strip().lower()
+                        if q and len(q) > 1 and len(q.split()) <= 7:
+                            queries.append(q)
+                    return queries
+        except Exception as e:
+            print(f"      ⚠️  Synonym expansion failed: {e}")
         return []
 
     def _stage_title(
@@ -564,11 +938,93 @@ Output ONLY the optimized title text (one line, no quotes):"""
         description = self.desc_agent.run(product, image_analysis, keywords)
         print(f"      ✅ Description: {len(description)} chars")
 
-        # Search terms
-        search_terms = self.search_agent.run(optimized_title, bullets, keywords)
+        # Search terms (now product-specific)
+        search_terms = self.search_agent.run(optimized_title, bullets, keywords, image_analysis)
         print(f"      ✅ Search terms: {len(search_terms)} chars")
 
         return bullets, description, search_terms
+
+    def _generate_comparison_points(
+        self,
+        product: Dict[str, Any],
+        image_analysis: Dict[str, Any],
+        optimized_title: str,
+        bullets: List[str],
+        description: str,
+    ) -> List[Dict[str, str]]:
+        """Generate comparison points using ALL available content.
+
+        Called AFTER title, bullets, description, search terms are ready
+        and BEFORE image generation — so the comparison is based on the
+        full picture of the product, not just raw image data.
+        """
+        print(f"   🆚 Generating comparison points...")
+
+        brand = image_analysis.get("brand") or ""
+        product_type = image_analysis.get("product_type") or ""
+        key_features = image_analysis.get("key_features") or []
+        material = image_analysis.get("material") or ""
+        colors = image_analysis.get("colors") or []
+        ai_desc = image_analysis.get("ai_description") or ""
+
+        prompt = f"""You are a senior Amazon listing strategist creating a "Why Choose Us vs Competitors" comparison.
+
+PRODUCT CONTEXT:
+- Brand: {brand}
+- Product Type: {product_type}
+- Title: {optimized_title}
+- Material: {material}
+- Colors: {", ".join(colors)}
+- Key Features (from images & listing): {json.dumps(key_features)}
+- Bullet Points: {json.dumps(bullets)}
+- Description: {description[:500]}
+- What AI sees in images: {ai_desc}
+
+TASK: Generate exactly 4 comparison points. Each point should highlight a REAL advantage
+of THIS product that CUSTOMERS genuinely care about, paired with a common issue in
+cheaper alternatives that shoppers actually complain about.
+
+Think from the CUSTOMER'S perspective:
+- What would make someone choose THIS product over a cheaper one?
+- What do negative reviews of budget alternatives commonly say?
+- Focus on: durability, comfort, safety, ease of use, value for money, design quality
+
+Return ONLY this JSON:
+{{
+  "comparison_points": [
+    {{"our_benefit": "specific advantage of THIS product", "competitor_issue": "real complaint about cheaper alternatives"}},
+    {{"our_benefit": "...", "competitor_issue": "..."}},
+    {{"our_benefit": "...", "competitor_issue": "..."}},
+    {{"our_benefit": "...", "competitor_issue": "..."}}
+  ]
+}}
+
+RULES:
+- Each point must be 1 clear sentence, max 120 chars
+- our_benefit must reference actual features/materials/design of THIS product
+- competitor_issue must reflect real customer frustrations with budget options
+- Do NOT be generic — be specific to this product category but if you got no information that is not specific then you can be generic
+- Return ONLY valid JSON"""
+
+        for attempt in range(3):
+            raw = self.llm.generate(prompt, temperature=0.2, max_tokens=1500)
+            if raw:
+                parsed = extract_json_object(raw)
+                if parsed and "comparison_points" in parsed:
+                    points = parsed["comparison_points"]
+                    if isinstance(points, list) and len(points) >= 3:
+                        print(f"      ✅ {len(points)} comparison points generated")
+                        return points[:4]
+            if attempt < 2:
+                prompt += f"\n\nAttempt {attempt+1} failed. Return ONLY valid JSON with 'comparison_points' array."
+
+        print(f"      ⚠️  Comparison points generation failed, using defaults")
+        return [
+            {"our_benefit": "Premium build quality and materials", "competitor_issue": "Budget alternatives often feel flimsy"},
+            {"our_benefit": "Designed for comfort and ease of use", "competitor_issue": "Cheaper options can be uncomfortable"},
+            {"our_benefit": "Durable construction built to last", "competitor_issue": "Low-cost versions wear out quickly"},
+            {"our_benefit": "Clear branding and quality packaging", "competitor_issue": "Generic products lack quality assurance"},
+        ]
 
     def _stage_images(
         self,
@@ -624,7 +1080,7 @@ Output ONLY the optimized title text (one line, no quotes):"""
         print(f"  Browse Nodes  : {self.browse_node_dir or '(none)'}")
         print(f"  Output Dir    : {self.output_dir}")
         print(f"  Generate Imgs : {self.generate_images_flag}")
-        print(f"  Text LLM     : OpenAI / {self.openai_model}")
+        print(f"  Text LLM     : Ollama / {self.ollama_model}")
         print(f"  Vision LLM   : Gemini / {os.getenv('GEMINI_VISION_MODEL', 'gemini-3-pro-image-preview')}")
         print("=" * 70)
 
@@ -649,18 +1105,36 @@ Output ONLY the optimized title text (one line, no quotes):"""
             category_map = build_category_map(self.browse_node_dir)
 
         # Stage 3: Process each product
-        output_rows: List[Dict[str, Any]] = []
+        # Load existing rows from previous run so they are preserved on resume
+        existing_rows: List[Dict[str, Any]] = []
+        if self.skip > 0:
+            products = products[self.skip:]
+            all_existing = load_existing_excel(self.output_dir)
+            existing_rows = all_existing[:self.skip]
+            discarded = len(all_existing) - len(existing_rows)
+            if existing_rows:
+                print(f"\n📂 Loaded {len(existing_rows)} existing rows from previous output.")
+                if discarded > 0:
+                    print(f"   🗑️  Discarded {discarded} extra rows (error/duplicate from previous crash).")
+            else:
+                print(f"\n⚠️  No existing output found in {self.output_dir} — starting fresh.")
+            print(f"\n⏩ Skipping first {self.skip} products (resume mode).")
+
+        output_rows: List[Dict[str, Any]] = list(existing_rows)
         total = len(products)
+        output_excel = os.path.join(self.output_dir, "listing_output.xlsx")
 
         for idx, product in enumerate(products):
+            display_idx = idx + self.skip
+            display_num = display_idx + 1
             print(f"\n{'━' * 70}")
-            print(f"  [{idx + 1}/{total}] {product.get('title', 'NO TITLE')[:60]}...")
+            print(f"  [{display_num}] {product.get('title', 'NO TITLE')[:60]}...")
             print(f"  ASIN: {product.get('asin', 'N/A')} | Country: {product.get('country', 'N/A')}")
             print(f"{'━' * 70}")
 
             try:
                 # 3a. Image analysis
-                image_analysis = self._stage_image_analysis(product, idx)
+                image_analysis = self._stage_image_analysis(product, display_idx)
 
                 # 3b. Keywords
                 keywords = self._stage_keywords(product, image_analysis)
@@ -670,21 +1144,29 @@ Output ONLY the optimized title text (one line, no quotes):"""
                 if not optimized_title:
                     optimized_title = product.get("title", "")
 
-                # 3d-f. Content generation
+# 3d-f. Content generation
                 bullets, description, search_terms = self._stage_content(
                     product, image_analysis, keywords, optimized_title,
                 )
 
+                # 3f-2. Generate comparison points (uses ALL content, not just images)
+                comparison_points = self._generate_comparison_points(
+                    product, image_analysis, optimized_title,
+                    bullets, description,
+                )
+                # Inject into image_analysis so image creator can use them
+                image_analysis["comparison_points"] = comparison_points
+
                 # 3g. Image generation using ALL analyzed content (no hallucination)
                 image_results = self._stage_images(
-                    product, image_analysis, idx,
+                    product, image_analysis, display_idx,
                     optimized_title=optimized_title,
                     bullets=bullets,
                     description=description,
                 )
 
                 # Build image file paths for embedding in Excel
-                img_dir = os.path.join(self.output_dir, "images", f"product_{idx}")
+                img_dir = os.path.join(self.output_dir, "images", f"product_{display_idx}")
                 image_paths = {}
                 if image_results:
                     for img_key, img_file in [
@@ -714,10 +1196,10 @@ Output ONLY the optimized title text (one line, no quotes):"""
                 # Save analysis JSON for debugging
                 write_analysis_json(product, image_analysis, optimized_title, self.output_dir)
 
-                print(f"   ✅ Product {idx + 1} complete")
+                print(f"   ✅ Product {display_num} complete")
 
             except Exception as e:
-                print(f"   ❌ Error processing product {idx + 1}: {e}")
+                print(f"   ❌ Error processing product {display_num}: {e}")
                 import traceback
                 traceback.print_exc()
                 # Still add a partial row
@@ -730,21 +1212,30 @@ Output ONLY the optimized title text (one line, no quotes):"""
                     search_terms="",
                 ))
 
-            # Brief pause between products
-            if idx < total - 1:
-                time.sleep(1)
+            # Incremental save after every product so progress is never lost
+            try:
+                write_excel(output_rows, output_excel)
+                print(f"   💾 Progress saved ({len(output_rows)} rows)")
+            except Exception as save_err:
+                print(f"   ⚠️  Incremental save failed: {save_err}")
 
-        # Stage 4: Write output
+            # 15-second pause between products to avoid API rate limits
+            if idx < total - 1:
+                print(f"   ⏳ Waiting 15s before next product...")
+                time.sleep(8)
+
+        # Stage 4: Write final output
         print(f"\n{'=' * 70}")
         print(f"  WRITING OUTPUT")
         print(f"{'=' * 70}")
 
-        output_excel = os.path.join(self.output_dir, "listing_output.xlsx")
         write_excel(output_rows, output_excel)
 
         print(f"\n{'=' * 70}")
         print(f"  ✨ LISTING GENERATION COMPLETE")
-        print(f"     Products processed: {total}")
+        print(f"     New products processed: {total}")
+        print(f"     Previously saved rows:  {len(existing_rows)}")
+        print(f"     Total rows in Excel:    {len(output_rows)}")
         print(f"     Successful: {sum(1 for r in output_rows if r.get('ai descr') != 'ERROR')}")
         print(f"     Output: {output_excel}")
         print(f"{'=' * 70}")

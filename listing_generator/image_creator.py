@@ -133,16 +133,16 @@ DESCRIPTION (our actual product):
 
 === LAYOUT: PREMIUM SIDE-BY-SIDE COMPARISON (Amazon Infographic Style) ===
 
-LEFT SIDE — "{brand}" (OUR PRODUCT):
+LEFT SIDE — "OUR BRAND" (OUR PRODUCT):
 - Background: Premium white with subtle gradient, professional lighting
-- Header: "{brand}" in bold premium typography (gold/purple accent)
+- Header: "OUR BRAND" in bold premium typography (gold/purple accent)
 - Show the EXACT product from the reference image in perfect lighting
 - Below the product, show FEATURE HIGHLIGHTS with ✓ checkmarks in vibrant green:
 {our_features}
 
-RIGHT SIDE — "COMPETITOR":
+RIGHT SIDE — "COMPETITORS":
 - Background: Neutral light gray (NOT ugly, just less premium feel)
-- Header: "COMPETITOR" in standard gray typography
+- Header: "COMPETITORS" in standard gray typography
 - Show a SIMILAR product type but with slightly less premium appearance:
   • Duller colors (NOT ugly, just less vibrant)
   • Standard packaging (NOT damaged, just plain)
@@ -363,12 +363,19 @@ class ImageCreator:
         bullets = image_analysis.get('bullets', [])
         bullets_text = "\n".join(f"• {b}" for b in bullets[:5]) if bullets else "Daily use"
 
+        # Use product's target audience to decide who to show, fall back to region default
+        target_audience = (image_analysis.get("target_audience") or "").strip()
+        if target_audience:
+            person_description = f"{region['person'].split(' ')[0]} {target_audience}"
+        else:
+            person_description = region["person"]
+
         prompt = LIFESTYLE_PROMPT.format(
             optimized_title=image_analysis.get("optimized_title") or image_analysis.get("product_name") or "Product",
             bullets=bullets_text,
             country=region["name"],
             setting=region["setting"],
-            person_description=region["person"],
+            person_description=person_description,
             use_case=image_analysis.get("usage") or "daily use as described in bullets",
             mood="positive, natural, authentic",
             country_cultural_notes=region["cultural"],

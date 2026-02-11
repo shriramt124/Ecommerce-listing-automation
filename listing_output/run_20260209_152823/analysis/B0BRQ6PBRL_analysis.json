@@ -1,0 +1,53 @@
+{
+  "asin": "B0BRQ6PBRL",
+  "original_title": "KAKSS Neoprene Workout Fixed Weight Dumbbell(Proudly Made In India) (2-Pound, Set Of 2pc)",
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg) Pink Hex Cast Iron Hand Weights Dumbbells Set with Non-Slip Grip for Home Gym Weights for Women and Men, cast iron with neoprene coating",
+  "country": "UK",
+  "la_cat": "Dumbbells",
+  "image_analysis": {
+    "brand": "KAKSS",
+    "product_type": "dumbbells",
+    "product_name": "KAKSS Neoprene Workout Fixed Weight Dumbbell (2-Pound, Set Of 2pc)",
+    "colors": [
+      "pink"
+    ],
+    "size": "1.5 KG / 2-Pound each",
+    "quantity": "2",
+    "material": "cast iron with neoprene coating",
+    "key_features": [
+      "Dumbbell hand weights for exercise and resistance training",
+      "Ideal for fitness classes, home gym, or workout area",
+      "Cast iron construction with neoprene coating for durability and safety",
+      "Non-slip grip",
+      "Printed weight number on each end cap",
+      "Color coded for quick identification",
+      "Hexagonal shape prevents dumbbells from rolling away",
+      "Set of 2 fixed-weight dumbbells"
+    ],
+    "usage": "Used for strength training, resistance workouts, and fitness exercises at home, in classes, or in a gym setting.",
+    "target_audience": "Home exercisers, fitness enthusiasts, and class participants looking for light fixed-weight dumbbells.",
+    "ai_description": "A pair of compact pink hexagonal dumbbells with a smooth neoprene-coated finish rests on a light surface. Each end cap clearly shows the KAKSS logo and 1.5 KG marking in white, indicating fixed weight. The matte coating suggests a secure, non-slip hand grip.",
+    "confidence": "high",
+    "status": "SUCCESS",
+    "images_analyzed": 5,
+    "comparison_points": [
+      {
+        "our_benefit": "Solid cast iron core keeps weight accurate and balanced for every rep",
+        "competitor_issue": "Cheap sand- or cement-filled dumbbells feel uneven and lose shape over time"
+      },
+      {
+        "our_benefit": "Neoprene coating gives a soft, non-slip grip even when your hands get sweaty",
+        "competitor_issue": "Bare metal or hard plastic handles slip easily and feel harsh on the hands"
+      },
+      {
+        "our_benefit": "Hexagonal design stops the dumbbells rolling and keeps your home gym safer",
+        "competitor_issue": "Round dumbbells roll away, causing tripping hazards and interrupting workouts"
+      },
+      {
+        "our_benefit": "Clear 1.5 KG print and pink colour make the right weight easy to grab quickly",
+        "competitor_issue": "Low-cost weights fade or lack markings, so users constantly guess the weight"
+      }
+    ]
+  },
+  "timestamp": "2026-02-09T18:05:06.875560"
+}

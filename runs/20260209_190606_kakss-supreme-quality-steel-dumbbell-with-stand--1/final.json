@@ -1,0 +1,147 @@
+{
+  "original_title": "KAKSS Supreme Quality Steel Dumbbell With Stand (15kg(2kg+2.5kg+3kg Pair)",
+  "original_length": 73,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 2 concepts",
+    "Using 1803 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbell_sets_with_rack",
+    "key_attributes": [
+      "total_weight_kg_15",
+      "individual_dumbbell_weights_2kg_2_5kg_3kg_pairs",
+      "material_steel_chrome",
+      "includes_rack_stand",
+      "intended_use_home_gym_fitness"
+    ],
+    "search_priorities": [
+      "steel dumbbell set with stand",
+      "15kg dumbbell set with rack",
+      "chrome dumbbells 2kg 2.5kg 3kg"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1803
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest-volume core product phrase for this category; directly matches intent like 'dumbbell set with stand' and 'dumbbells with rack'."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume generic product term; essential for broad discovery even with overlap."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining 'weights' and 'dumbbells set', capturing additional search traffic."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_C",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women; acts as a style/use-case variant while retaining core product term."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Key exact product phrase with strong volume; users often search this directly for sets with racks."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_C",
+      "score": 48162.0,
+      "reason": "High-volume demographic/use-case phrase; complements women-focused targeting beyond 'dumbbells' wording."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Singular core term with solid volume; covers generic searches where users don’t specify 'set'."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Relevant multi-word phrase for this product type; captures shoppers searching more generally for weight sets."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume category term; important for wide reach despite being generic."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Common alternative phrasing to 'weights set'; maintains relevance and adds coverage for variant queries."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Relevant size-specific phrase matching part of the product configuration; strong similarity and good volume."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Another size-specific phrase aligned with the product’s included weights; helps capture spec-based searches."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_C",
+      "score": 20210.0,
+      "reason": "Use-case/demographic phrase; many shoppers search 'hand weights' instead of 'dumbbells', especially women-focused."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Category-level phrase with good volume; relevant for home and gym use searches for this product type."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling variant of 'dumbbell set' with notable volume; helps capture misspelled queries."
+    }
+  ],
+  "title_result": {
+    "full_title": "HEALTH Steel Dumbbells Set with Rack, 15kg Weights Set, 2kg Pair, 2.5kg Pair, 3kg Dumbbells Pair, Chrome Silver Dumbbells with Black Handles, Compact Plastic Stand for Home Gym Weights for Women and Men",
+    "char_count": 202,
+    "reasoning": {
+      "keyword_integration": "Prioritized top-volume phrases like 'dumbbells set', 'weights dumbbells set', 'dumbbell set', 'weights set', 'weights for women', '3kg dumbbells pair', '2kg dumbbells pair', and 'gym weights' by embedding them as natural descriptive segments. Maintained clear weight breakdown (2kg pair, 2.5kg pair, 3kg pair, total 15kg) and core facts (steel dumbbells, plastic rack, chrome/silver with black handles, compact stand) while adding a broad use case 'home gym weights for women and men' to capture gender and home fitness intent without keyword stuffing."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Too long: 202 chars (max 200)",
+      "Missing size: 2kg pair, 2.5kg pair, 3kg pair (total 15kg)",
+      "Missing color: chrome, silver, black"
+    ],
+    "char_count": 202
+  },
+  "optimized_title": "HEALTH Steel Dumbbells Set with Rack, 15kg Weights Set, 2kg Pair, 2.5kg Pair, 3kg Dumbbells Pair, Chrome Silver Dumbbells with Black Handles, Compact Plastic Stand for Home Gym Weights for Women and Men",
+  "final_length": 202
+}

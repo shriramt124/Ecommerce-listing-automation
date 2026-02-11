@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "strength_training_kettlebells",
+  "key_attributes": [
+    "weight",
+    "coating_material",
+    "handle_design",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "20kg kettlebell",
+    "vinyl coated kettlebell",
+    "kettlebell for home gym"
+  ],
+  "color_important": false
+}

@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "2.5kg pack of 2, Turquoise Blue",
+      "type": "color",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "for Gym Exercise",
+      "type": "compatibility",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Dumbbells Sets  (Proudly Made in India)",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

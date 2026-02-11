@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "4KG PAIR BLACK",
+      "type": "color",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "for Gym Exercise",
+      "type": "compatibility",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Dumbbells sets  (Proudly Made in India)",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

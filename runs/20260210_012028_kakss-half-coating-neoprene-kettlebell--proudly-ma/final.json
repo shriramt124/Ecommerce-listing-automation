@@ -1,0 +1,142 @@
+{
+  "original_title": "Kakss Half Coating Neoprene Kettlebell (Proudly Made in India) (Black, 4kg)",
+  "original_length": 75,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1636 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_comfort"
+    ],
+    "search_priorities": [
+      "4kg kettlebell",
+      "neoprene kettlebell",
+      "beginner kettlebell"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1636
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume (score: 27072), plural form of main product type"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest search volume (score: 26188), core product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High search volume (score: 24880), alternative spelling variation"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "Good search volume (score: 5045), specifies material type"
+    },
+    {
+      "keyword": "4kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 4520.0,
+      "reason": "High relevance (score: 4520), matches product weight specification"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Good search volume (score: 3700), describes use case"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Good search volume (score: 3309), specifies kettlebell type"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Good search volume (score: 3308), weight-specific search term"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good search volume (score: 3263), weight-specific search term"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Good search volume (score: 3551), weight-specific alternative spelling"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Good search volume (score: 3365), weight-specific alternative spelling"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good search volume (score: 3299), related fitness equipment term"
+    },
+    {
+      "keyword": "fitness",
+      "zone": "ZONE_B",
+      "score": 3180.0,
+      "reason": "Good search volume (score: 3180), broad category term"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "Good search volume (score: 3291), describes product category"
+    },
+    {
+      "keyword": "amazon dumbbells",
+      "zone": "ZONE_B",
+      "score": 3228.0,
+      "reason": "Good search volume (score: 3228), related fitness equipment with platform specificity"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 4kg, Black Half Neoprene Coated Kettlebells with Wide Grip Handle, Strength Training Weights for Home Gym Equipment and Fitness Workout",
+    "char_count": 162,
+    "reasoning": {
+      "keyword_integration": "Embedded top keywords: 'kettlebell'/'kettlebells' (highest volume), 'cast iron kettlebell', '4kg kettlebell', and 'home gym equipment'. Used natural phrasing that reads as a complete product description while covering major search terms."
+    }
+  },
+  "validation": {
+    "is_valid": true,
+    "issues": [],
+    "char_count": 195
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 4kg, Black Half Neoprene Coated Kettlebells with Wide Grip Handle, Strength Training Weights for Home Gym Equipment and Fitness Workout, Ideal for a Set of Weights with",
+  "final_length": 195
+}

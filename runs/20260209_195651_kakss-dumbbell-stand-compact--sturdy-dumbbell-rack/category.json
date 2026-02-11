@@ -1,0 +1,18 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbell_racks",
+  "key_attributes": [
+    "rack_type: dumbbell_stand",
+    "capacity: number_of_dumbbells_it_holds",
+    "material_and_sturdiness",
+    "footprint_and_compact_size",
+    "assembly_ease",
+    "compatibility_with_dumbbell_types_and_sizes"
+  ],
+  "search_priorities": [
+    "dumbbell rack for home gym",
+    "compact dumbbell stand",
+    "weight rack for dumbbells"
+  ],
+  "color_important": false
+}

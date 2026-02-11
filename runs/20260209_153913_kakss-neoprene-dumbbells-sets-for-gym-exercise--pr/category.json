@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell_kg",
+    "dumbbell_type_neoprene_coated",
+    "set_includes_pair_or_single",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "5 kg neoprene dumbbells set of 2",
+    "pair of 5kg dumbbells for home gym",
+    "KAKSS neoprene dumbbells 5kg blue"
+  ],
+  "color_important": true
+}

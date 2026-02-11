@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume phrase directly matching core product type and purchase intent for a pair/set."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume generic product term essential for broad discovery."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Strong volume multi-word phrase combining both 'weights' and 'dumbbells set' for wider coverage."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women-specific searches for dumbbell sets."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Captures common misspelling of 'dumbbell set' with meaningful search volume."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Core multi-word product phrase aligned with how shoppers search for this item."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume gender-targeted phrase that broadens reach beyond strict dumbbell wording."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Relevant multi-word phrase for buyers searching generic weight sets for home workouts."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume category term that increases exposure in general weight searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Popular phrase variation similar to 'weights set' that shoppers commonly use."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Highly relevant size-specific phrase matching the 3kg pair configuration."
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Weight-specific search phrase for buyers filtering by 3kg resistance level."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Common phrase for home and gym users looking for free weights, including dumbbells."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Use-case phrase targeting home workout buyers searching for compact weights."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Descriptive multi-word phrase combining 'free weights' and 'dumbbells set' for strong relevance."
+    }
+  ]
+}

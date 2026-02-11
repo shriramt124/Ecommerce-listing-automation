@@ -1,0 +1,16 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "coating_material",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "5 kg kettlebell",
+    "neoprene kettlebell",
+    "pink kettlebell 5kg"
+  ],
+  "color_important": true
+}

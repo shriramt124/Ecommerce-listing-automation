@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (3KG GREEN PAIR)",
+  "original_length": 87,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 49 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "dumbbell_type_neoprene_coated",
+      "set_configuration_pair_or_single",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "3kg neoprene dumbbells pair",
+      "3 kg dumbbells for home gym",
+      "green neoprene dumbbells 3kg"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 49
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Highest search volume phrase directly describing the product type as a weights dumbbells set."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume core product phrase that shoppers commonly use when searching for dumbbells."
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Strong volume size-specific phrase; including multiple weight variants helps capture broader searches."
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Directly matches current 3kg positioning and captures pair-based searches."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High-volume size variant phrase that broadens reach for users searching for 2kg pairs."
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Another popular size variant phrase; keeps the full multi-word phrase intact."
+    },
+    {
+      "keyword": "6kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 19106.0,
+      "reason": "Captures heavier pair searches and complements other weight variants."
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Good-volume phrase for users searching by weight first rather than product type."
+    },
+    {
+      "keyword": "7.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 7906.0,
+      "reason": "Relevant size-based search phrase that can attract users looking for intermediate weights."
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "High-volume generic 5kg dumbbells phrase without 'pair', covering additional query patterns."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Use-case phrase targeting home workout shoppers, aligned with sports/fitness category."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Alternative way customers describe dumbbells; full phrase has solid volume."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase, capturing additional search traffic."
+    },
+    {
+      "keyword": "dumbbells 3kg",
+      "zone": "ZONE_B",
+      "score": 3807.0,
+      "reason": "Common query order for weight-specific searches; complements '3kg dumbbells pair'."
+    },
+    {
+      "keyword": "3kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 3652.0,
+      "reason": "Highly relevant exact weight + product phrase matching the current 3kg focus."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 3kg Dumbbells Pair (2 x 3kg) Green Hex Weights with Non-Slip Coated Grip, Cast Iron Hand Weights Dumbbells for Home Gym Exercise and Fitness Training",
+    "char_count": 179,
+    "reasoning": {
+      "keyword_integration": "Embedded primary phrases like 'dumbbells set', '3kg dumbbells pair', '3kg weights', 'dumbbells 3kg', 'hand weights', and 'gym weights for home' into a natural descriptive flow while highlighting verified features such as neoprene coating, non-slip grip, hex shape, and cast-iron core.",
+      "relevance": "All terms directly match the product: a green neoprene-coated cast-iron pair of 3kg hex dumbbells for home gym and fitness exercise, without referencing other weights like 2kg or 5kg that are not part of this SKU.",
+      "structure": "Followed the Brand + Material + ProductType + WeightSpec + Color + Feature + 'with' FeaturePhrase + Material/Type + 'for' UsagePhrase pattern to keep the title readable and optimized for high-volume search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 3 KG each"
+    ],
+    "char_count": 179
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 3kg Dumbbells Pair (2 x 3kg) Green Hex Weights with Non-Slip Coated Grip, Cast Iron Hand Weights Dumbbells for Home Gym Exercise and Fitness Training",
+  "final_length": 179
+}

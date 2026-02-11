@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_type"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "coated dumbbells",
+    "home gym dumbbells"
+  ],
+  "color_important": true
+}

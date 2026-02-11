@@ -1,0 +1,16 @@
+{
+  "concepts": [
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Coated Dumbbells for gym exercise (Made in India) 1 Pair (6 + 6 = 12 KG)",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

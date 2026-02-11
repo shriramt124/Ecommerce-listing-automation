@@ -98,6 +98,12 @@ Examples:
         default=None,
         help="Process only the first N products from the Excel file",
     )
+    parser.add_argument(
+        "--skip",
+        type=int,
+        default=0,
+        help="Skip the first N products (for resume after crash)",
+    )
 
     args = parser.parse_args()
 
@@ -114,6 +120,10 @@ Examples:
         print("❌ --ingest-keywords requires --browse-nodes")
         sys.exit(1)
 
+    if args.skip > 0 and not args.output:
+        print("⚠️  --skip without --output will create a new folder — previous rows won't be loaded.")
+        print("   Use --output <same_dir_as_first_run> to append to the existing Excel.")
+
     # Run pipeline
     pipeline = ListingPipeline(
         client_excel=args.client,
@@ -124,6 +134,7 @@ Examples:
         gemini_api_key=args.gemini_key,
         gemini_model=args.gemini_model,
         limit=args.limit,
+        skip=args.skip,
     )
 
     output_path = pipeline.run()

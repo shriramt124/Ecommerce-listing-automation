@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "original_length": 120,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 60 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "coating_material_neoprene",
+      "set_includes_pair_or_single",
+      "intended_use_home_gym_fitness",
+      "grip_type_anti_slip"
+    ],
+    "search_priorities": [
+      "1kg neoprene dumbbells pair",
+      "pink 1 kg dumbbells for home workout",
+      "neoprene coated hand weights 1kg"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 60
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "High search volume, core product phrase closely matching dumbbells category"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining weights and dumbbells, strong relevance"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume gender-targeted phrase, relevant for pink neoprene dumbbells often used by women"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Core generic product phrase with strong search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broad high-volume phrase for weight equipment, relevant to dumbbells"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Variant of weights set with solid volume, captures additional broad traffic"
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "High-volume dumbbells phrase; included for traffic even if product is fixed-weight"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Complete phrase targeting women, aligns with light neoprene hand weights use case"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant material-specific phrase matching existing title concept"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Common alternative way customers search for dumbbells, good volume"
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of dumbbell set, captures additional search traffic"
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Weight-specific phrase matching 1+1=2 kg pair, strong relevance"
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Broad but relevant fitness phrase, helps reach generic weight-training searches"
+    },
+    {
+      "keyword": "ladies dumbbell set",
+      "zone": "ZONE_B",
+      "score": 3521.0,
+      "reason": "Gender-specific phrase aligned with women/ladies targeting for light pink dumbbells"
+    },
+    {
+      "keyword": "2 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 3486.0,
+      "reason": "Highly specific phrase matching product configuration (pair totaling 2 kg)"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 1kg Pair (2 x 1kg) Pink Hand Weights Set with Anti-Slip Coated Grip, Exercise Weights Dumbbells Set for Home Gym Fitness Training and Dumbbell Set Women",
+    "char_count": 182,
+    "reasoning": {
+      "keyword_integration": "Prioritized highest-volume phrases like 'dumbbells set', 'weights dumbbells set', 'dumbbell set', 'hand weights set', 'exercise weights', and 'dumbbells set women' while keeping a natural descriptive flow.",
+      "product_accuracy": "Aligned with verified facts: KAKSS brand, neoprene-style coated metal dumbbells, 1kg each, pair of 2, pink color, anti-slip coated grip, for home gym and fitness training.",
+      "readability": "Structured as a single flowing description using commas and connectors like 'with' and 'for', avoiding keyword dumping while still embedding multiple search terms naturally."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 182
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 1kg Pair (2 x 1kg) Pink Hand Weights Set with Anti-Slip Coated Grip, Exercise Weights Dumbbells Set for Home Gym Fitness Training and Dumbbell Set Women",
+  "final_length": 182
+}

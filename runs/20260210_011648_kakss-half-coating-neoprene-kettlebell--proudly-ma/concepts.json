@@ -1,0 +1,19 @@
+{
+  "concepts": [
+    {
+      "text": "Black, 2kg",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Half Coating Neoprene Kettlebell (Proudly Made in India)",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

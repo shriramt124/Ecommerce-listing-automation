@@ -99,6 +99,8 @@ def validate_title_draft(obj: Any) -> Tuple[bool, List[str]]:
 
     if not isinstance(obj.get("full_title"), str) or not obj.get("full_title").strip():
         errors.append("missing/invalid 'full_title'")
+    elif len(obj.get("full_title")) > 200:
+        errors.append(f"full_title is too long ({len(obj.get('full_title'))} chars). STRICT LIMIT: 200 chars. Shorten it.")
 
     # zones optional but recommended
     for z in ["zone_a", "zone_b", "zone_c"]:

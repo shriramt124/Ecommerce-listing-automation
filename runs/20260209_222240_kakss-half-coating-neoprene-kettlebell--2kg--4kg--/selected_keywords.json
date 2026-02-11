@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Highest score (48162) - targets specific demographic with high search volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Second highest score (36878) - broad search term with high volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Third highest score (30386) - broad category term with high search volume"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "High score (30339) - popular search term for sets"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) - plural form of main product type"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "High score (26188) - primary product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) - common alternative spelling"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "High score (20210) - specific use case with good volume"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - fitness context term"
+    },
+    {
+      "keyword": "2kg weights for women",
+      "zone": "ZONE_B",
+      "score": 11110.0,
+      "reason": "Good score (11110) - specific weight targeting women"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good score (10854) - broad fitness category"
+    },
+    {
+      "keyword": "gym",
+      "zone": "ZONE_B",
+      "score": 10650.0,
+      "reason": "Good score (10650) - primary fitness context"
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Good score (9873) - specific weight search"
+    },
+    {
+      "keyword": "womens weights",
+      "zone": "ZONE_B",
+      "score": 8208.0,
+      "reason": "Good score (8208) - gender-specific targeting"
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Good score (8157) - specific weight option"
+    }
+  ]
+}

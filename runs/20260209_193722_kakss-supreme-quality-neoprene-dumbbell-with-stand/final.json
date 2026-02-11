@@ -1,0 +1,147 @@
+{
+  "original_title": "KAKSS Supreme Quality Neoprene Dumbbell With Stand 6Kg(0.5kg+1kg+1.5kg N Pair)",
+  "original_length": 78,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 2 concepts",
+    "Using 1783 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_set_configuration_0_5kg_1kg_1_5kg_pairs",
+      "total_weight_6kg",
+      "material_neoprene_coated",
+      "includes_stand_rack",
+      "brand_KAKSS"
+    ],
+    "search_priorities": [
+      "neoprene dumbbell set with stand",
+      "6kg dumbbell set 0.5kg 1kg 1.5kg",
+      "home workout dumbbells with rack"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1783
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Very high search volume phrase directly matching core product type; strong generic query coverage."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "High-volume head term for the category; essential for broad discovery even though shorter."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase combining both 'weights' and 'dumbbells set', capturing varied search intents."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women; aligns with light neoprene sets often bought by female users."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Common misspelling of 'dumbbell set'; preserves full phrase and captures frequent typo traffic."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Core exact product phrase; critical for relevance and matching specific set-based searches."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Strong multi-word phrase targeting women’s fitness weights; relevant to light neoprene dumbbell sets."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "High-volume singular head term; important for broad category coverage and query variations."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Popular generic phrase for grouped weights; applicable to a multi-pair dumbbell kit with stand."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume category term; helps capture generic weight-training searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Another common phrase for grouped weights; complements 'weights set' and 'dumbbell set' coverage."
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Highly relevant long-tail phrase exactly matching material and product type; strong conversion intent."
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Targeted multi-word phrase combining product type and gender; aligns with typical neoprene set buyers."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Longer phrase including 'free weights'; captures users searching for home free-weight solutions."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase; important for matching plural search behavior."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set with Stand, 6kg Weights Dumbbells Set, 3 Pairs Cast Iron Hand Weights 0.5kg 1kg 1.5kg, Color Coded Hex Dumbbell Set for Women Home Workout and Fitness Training",
+    "char_count": 188,
+    "reasoning": {
+      "keyword_integration": "Prioritized highest-volume terms: used 'Neoprene Dumbbells Set' and repeated core roots as 'dumbbells set', 'weights dumbbells set', 'dumbbell set', 'weights for women', and 'dumbbell' in natural phrases. Included 'with stand' and exact weights (0.5kg, 1kg, 1.5kg, 6kg) plus material (cast iron, neoprene) and use case 'for women home workout and fitness training' to align with women-focused queries while remaining readable.",
+      "style_choices": "Followed pattern Brand + Material + Product Type + Weight Spec + Distinguishing Features + with + Feature + for + Usage. Kept flow as a single descriptive sentence, avoided keyword dumping, and highlighted color coded hex shape and stand as differentiators for search and click-through."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 0.5 kg, 1 kg, 1.5 kg (pairs totaling 6 kg)",
+      "Missing color: purple, red, blue, black"
+    ],
+    "char_count": 188
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set with Stand, 6kg Weights Dumbbells Set, 3 Pairs Cast Iron Hand Weights 0.5kg 1kg 1.5kg, Color Coded Hex Dumbbell Set for Women Home Workout and Fitness Training",
+  "final_length": 188
+}

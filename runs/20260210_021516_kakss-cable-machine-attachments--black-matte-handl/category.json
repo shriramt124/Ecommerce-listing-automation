@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "gym_equipment_accessories",
+  "key_attributes": [
+    "attachment_type",
+    "compatibility",
+    "handle_style"
+  ],
+  "search_priorities": [
+    "cable machine attachments",
+    "triceps rope attachment",
+    "bicep curl bar"
+  ],
+  "color_important": false
+}

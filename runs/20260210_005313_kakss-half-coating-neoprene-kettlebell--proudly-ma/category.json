@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_comfort"
+  ],
+  "search_priorities": [
+    "10kg kettlebell",
+    "neoprene kettlebell",
+    "kettlebell for home workout"
+  ],
+  "color_important": false
+}

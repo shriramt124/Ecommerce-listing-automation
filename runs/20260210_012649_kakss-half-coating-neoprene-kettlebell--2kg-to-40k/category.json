@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "coating_type"
+  ],
+  "search_priorities": [
+    "neoprene kettlebell",
+    "coated kettlebell",
+    "beginner kettlebell"
+  ],
+  "color_important": true
+}

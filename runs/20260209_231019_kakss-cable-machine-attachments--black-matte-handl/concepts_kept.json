@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Universal",
+      "type": "tech_spec",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "for Cable Machines. Pull Down, Press Down, Row, Triceps, Biceps & Lats. Available",
+      "type": "compatibility",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Cable Machine Attachments. Black Matte Handles with  Attachment  in 8 Varieties. (Lat Bar Wide)",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

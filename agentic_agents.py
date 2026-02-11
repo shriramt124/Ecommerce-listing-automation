@@ -11,7 +11,7 @@ from dataclasses import dataclass
 from typing import Any, Dict, List, Optional, Tuple
 
 from gemini_llm import GeminiLLM, extract_json_object
-from agentic_llm import OpenAILLM
+from agentic_llm import OllamaLLM
 from agentic_validators import (
     validate_category_info,
     validate_concept_eval,
@@ -627,7 +627,7 @@ BASE SYSTEMATIC QUERIES:
 
 TASK: Propose 3-5 ADDITIONAL sophisticated search queries that:
 1. Use customer language and synonyms
-2. Include relevant long-tail variations
+2. Include relevant keywords
 3. Cover search intents not in base queries
 4. Stay within the same product category
 
@@ -635,7 +635,7 @@ STRICT RULES:
 - Only suggest queries relevant to this specific product type
 - Avoid generic terms like "best", "top", "quality"
 - Focus on specific search intents customers might use
-- Each query should be 2-5 words
+- Each query should be 1-4 words
 
 Respond ONLY JSON:
 {{"queries": ["query1", "query2", "query3"]}}
@@ -860,7 +860,7 @@ class TitleComposerAgent(BaseJsonAgent):
         )
 
         keyword_lines = []
-        for i, kw in enumerate(sorted_kw[:15], 1):
+        for i, kw in enumerate(sorted_kw[:50], 1):
             keyword_lines.append(
                 f"  {i}. \"{kw.get('keyword','')}\" (search volume: {float(kw.get('score',0)):,.0f})"
             )
@@ -920,9 +920,10 @@ both readable text AND a search keyword.
 
 STRATEGY: Look at the search keywords above. The words that appear in the
 HIGHEST volume keywords should appear in your title. If the top keywords
-contain "for women" or "for men", use those words. If they contain
+contain "for women" or "for men", use those words as complete men and women or men,women relevant
+use case phrases. If they contain "for men and women", use that phrase to the product if can be used by both. If they contain
 "home gym equipment", use that phrase. Let the keyword data DRIVE which
-words you pick for each part of the title.
+words you pick for each part of the title. and make sure that phrase you create should makes sense and think like how phrases by combining those you
 
 PATTERN:  Brand + Material + ProductType + WeightSpec + Color + DistinguishingFeature 
           + "with" FeaturePhrase + Material/Type + "for" UsagePhrase
@@ -930,10 +931,10 @@ PATTERN:  Brand + Material + ProductType + WeightSpec + Color + DistinguishingFe
 EXPERT EXAMPLES (study these patterns):
 
   Original: "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink"
-  Expert:   "KAKSS Neoprene Dumbbells Set, 1kg Pair (2 x 1kg), Pink Hex Dumbbells with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training for women"
+  Expert:   "KAKSS Neoprene Dumbbells Set, 1kg Pair (2 x 1kg), Pink Hex Dumbbells with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training for women and men"
 
   Original: "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Purple"  
-  Expert:   "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Purple Hex Dumbbells for women with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training"
+  Expert:   "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Purple Hex Dumbbells for women,men with Anti-Slip Coated Grip, Cast Iron Hand Weights for Home Gym Equipment and Fitness Training"
 
   Original: "Kakss Half Coating Neoprene Kettlebell (Pink, 5 KG)"
   Expert:   "KAKSS Cast Iron Kettlebell 5kg, Pink Half Neoprene Coated Kettlebells with Wide Grip Handle, Strength Training Weights for Home Gym Equipment and Fitness Workout for men and women"
@@ -963,7 +964,7 @@ RULES:
 6. Use "with" and "for" to connect features and use cases
 7. ONLY use words from: Original Title, Verified Facts, or Search Keywords list
 8. DO NOT invent features not listed above
-9. Target 180-200 characters
+9. Target 180-199 characters (STRICT LIMIT: Titles > 200 chars are REJECTED)
 10. No pipes (|), use commas for natural flow
 
 Output ONLY valid JSON:

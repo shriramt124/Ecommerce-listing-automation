@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Highest search volume phrase combining core product type and use as a set; strong generic discovery term."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume core product phrase; common way shoppers search for this type of item."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume gender-targeted query; relevant for 3kg neoprene dumbbells often used by women."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Highly relevant multi-word phrase with strong similarity to product use; captures specific intent segment."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, very high-volume root term that boosts generic visibility for all weight-training searches."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Common generic phrase tying product to gym use; aligns with current title concept 'for gym exercise'."
+    },
+    {
+      "keyword": "adjustable dumbbells set",
+      "zone": "ZONE_B",
+      "score": 15106.0,
+      "reason": "High-volume multi-word phrase around dumbbell sets; included for search coverage despite product not being adjustable."
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "Strong-volume phrase around dumbbells; supports broader discovery even with feature mismatch."
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Size-specific search phrase matching product weight; important for shoppers filtering by 3kg."
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Multi-word phrase capturing home-workout intent; highly relevant to small neoprene dumbbells."
+    },
+    {
+      "keyword": "free weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 6568.0,
+      "reason": "Complete phrase combining 'free weights' and 'dumbbells set'; strong for generic strength-training searches."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Multi-word phrase describing the product as a set of hand weights; matches typical customer language."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core product phrase; captures additional query patterns around sets."
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Generic but relevant phrase tying the product to exercise/fitness use cases."
+    },
+    {
+      "keyword": "small weights set for women",
+      "zone": "ZONE_B",
+      "score": 4001.0,
+      "reason": "Long-tail, intent-rich phrase matching light 3kg neoprene dumbbells targeted to women."
+    }
+  ]
+}

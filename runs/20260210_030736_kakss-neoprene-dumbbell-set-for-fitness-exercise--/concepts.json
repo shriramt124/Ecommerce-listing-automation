@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "text": "Red Pair 5kg",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "for Fitness Exercise",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Neoprene Dumbbell Set  (Made with pride in India)",
+      "type": "other",
+      "locked": false
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Highest search volume phrase, directly matches product type and intent for buying a dumbbell set."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Core high-volume generic term for this product type; essential for broad discovery."
+    },
+    {
+      "keyword": "adjustable dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 31955.0,
+      "reason": "High-volume multi-word phrase; although product is fixed-weight, this term is heavily searched for dumbbells pairs."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Strong volume size-specific phrase; relevant to shoppers comparing different weight pairs."
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Very high similarity and volume; directly matches 4kg pair product spec and user search behavior."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad, high-volume phrase capturing generic gym weight searches that include dumbbells."
+    },
+    {
+      "keyword": "adjustable dumbbells set",
+      "zone": "ZONE_B",
+      "score": 15106.0,
+      "reason": "High-volume complete phrase around dumbbell sets; overlaps with core product type searches."
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "Short, very popular phrase for dumbbells; important for visibility despite overlap."
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Good-volume size phrase; helps capture adjacent weight searches around light dumbbells."
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Relevant multi-word phrase with decent volume; aligns with light home workout weight searches."
+    },
+    {
+      "keyword": "5 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 6404.0,
+      "reason": "Captures shoppers browsing multiple dumbbell pair weights; strong multi-word phrase."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Alternative way users search for dumbbells; good-volume phrase for home fitness buyers."
+    },
+    {
+      "keyword": "dumbbell sets",
+      "zone": "ZONE_B",
+      "score": 5178.0,
+      "reason": "Plural variant of core term; adds coverage for common search phrasing."
+    },
+    {
+      "keyword": "2kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 5029.0,
+      "reason": "Compact, relevant size phrase; complements pair/weights variants for 2kg searches."
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Broad but relevant phrase for fitness equipment; helps capture generic exercise weight searches."
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest score; broad, high-volume phrase directly relevant to a jump rope as common gym equipment."
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "Very high score; strong multi-word phrase matching home-use intent, aligns with current 'home or gym' positioning."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High score and tightly relevant; captures shoppers building a home gym where jump ropes are a staple."
+    },
+    {
+      "keyword": "fitness equipment",
+      "zone": "ZONE_B",
+      "score": 1860.0,
+      "reason": "Good volume, broad but relevant category phrase frequently used with jump ropes."
+    },
+    {
+      "keyword": "gym accessories for men",
+      "zone": "ZONE_B",
+      "score": 1800.0,
+      "reason": "Strong score; multi-word phrase capturing male gym-goer segment, relevant as a common accessory."
+    },
+    {
+      "keyword": "workout equipment",
+      "zone": "ZONE_B",
+      "score": 1535.0,
+      "reason": "Solid volume; broad workout-focused phrase that matches jump rope use case."
+    },
+    {
+      "keyword": "home workout equipment",
+      "zone": "ZONE_B",
+      "score": 1477.0,
+      "reason": "Good score; multi-word phrase targeting at-home training, consistent with home workout positioning."
+    },
+    {
+      "keyword": "exercise equipment",
+      "zone": "ZONE_B",
+      "score": 1448.0,
+      "reason": "High-volume generic phrase; directly relevant and often paired with jump ropes in search."
+    },
+    {
+      "keyword": "strength training equipment",
+      "zone": "ZONE_B",
+      "score": 1187.0,
+      "reason": "Decent score; while broader, many users include jump rope in strength/conditioning routines."
+    },
+    {
+      "keyword": "gym equipment for home",
+      "zone": "ZONE_B",
+      "score": 1112.0,
+      "reason": "Good volume and very relevant; captures home-focused gym shoppers, overlapping beneficially with other home-gym phrases."
+    },
+    {
+      "keyword": "at home workout equipment",
+      "zone": "ZONE_B",
+      "score": 964.0,
+      "reason": "Strong multi-word phrase; targets explicit at-home workout intent, ideal for jump rope positioning."
+    },
+    {
+      "keyword": "home exercise equipment",
+      "zone": "ZONE_B",
+      "score": 585.0,
+      "reason": "Relevant multi-word phrase; aligns with home exercise use case and supports other home-focused terms."
+    },
+    {
+      "keyword": "at home gym equipment",
+      "zone": "ZONE_B",
+      "score": 324.0,
+      "reason": "Lower score but still relevant; complements 'home gym equipment' and 'gym equipment for home' with natural language variation."
+    },
+    {
+      "keyword": "kids gym equipment",
+      "zone": "ZONE_B",
+      "score": 289.0,
+      "reason": "Targets kids segment; relevant because current title already mentions kids as users."
+    },
+    {
+      "keyword": "sports equipment",
+      "zone": "ZONE_B",
+      "score": 246.0,
+      "reason": "Category-level phrase; directly relevant to a jump rope as common sports/fitness equipment and adds another broad search entry point."
+    }
+  ]
+}

@@ -188,6 +188,85 @@ class KeywordDB:
 
         return results
 
+    # ------------------------------------------------------------------
+    #  Broad search — returns ALL above threshold (no limit cap)
+    # ------------------------------------------------------------------
+
+    def search_broad(
+        self,
+        query: str,
+        min_similarity: float = 0.25,
+    ) -> List[Dict]:
+        """Return ALL keywords above min_similarity for a single query.
+
+        Unlike get_top_keywords, there is NO limit cap — every keyword
+        that passes the similarity threshold is returned.
+        """
+        if not self.index or not query or not str(query).strip():
+            return []
+
+        query_emb = encode_texts([str(query)])[0]
+
+        with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
+            sims = self.index.embeddings @ query_emb
+
+        mask = sims >= min_similarity
+        indices = np.where(mask)[0]
+        if len(indices) == 0:
+            return []
+
+        sim_vals = sims[indices]
+        order = np.argsort(-sim_vals)
+        sorted_idx = indices[order]
+
+        results: List[Dict] = []
+        seen: set = set()
+        for i in sorted_idx.tolist():
+            kw = str(self.index.keywords[i]).strip().lower()
+            if kw in seen:
+                continue
+            seen.add(kw)
+            results.append({
+                "keyword": str(self.index.keywords[i]),
+                "score": float(self.index.scores[i]),
+                "rank": int(self.index.ranks[i]),
+                "ad_units": float(self.index.ad_units[i]),
+                "ad_conv": float(self.index.ad_conv[i]),
+                "dataset_id": str(self.index.dataset_ids[i]) if self.index.dataset_ids[i] else None,
+                "source_format": str(self.index.source_formats[i]) if self.index.source_formats[i] else None,
+                "similarity": float(sims[i]),
+            })
+        return results
+
+    # ------------------------------------------------------------------
+    #  Product relevance — score every keyword against a product embedding
+    # ------------------------------------------------------------------
+
+    def compute_product_relevance(
+        self,
+        product_description: str,
+    ) -> Dict[str, float]:
+        """Compute cosine similarity of EVERY keyword to a product description.
+
+        Returns a dict: keyword_lower → similarity_score.
+        Single (N, D) @ (D,) matmul — sub-millisecond.
+        """
+        if not self.index or not product_description:
+            return {}
+
+        prod_emb = encode_texts([str(product_description)])[0]
+
+        with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
+            sims = self.index.embeddings @ prod_emb
+
+        relevance: Dict[str, float] = {}
+        for i, kw in enumerate(self.index.keywords):
+            key = str(kw).strip().lower()
+            sim_val = float(sims[i])
+            if key not in relevance or sim_val > relevance[key]:
+                relevance[key] = sim_val
+        return relevance
+
 
 if __name__ == "__main__":
     db = KeywordDB()

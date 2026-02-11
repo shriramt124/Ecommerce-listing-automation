@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells Sets for Gym Exercise (Proudly Made in India) (2 kg pack of 2, Blue)",
+  "original_length": 93,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 50 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg:2",
+      "material:neoprene_coated",
+      "set_includes:2_dumbbells",
+      "intended_use:home_gym_exercise",
+      "brand:KAKSS"
+    ],
+    "search_priorities": [
+      "2 kg neoprene dumbbells set",
+      "pair of 2kg dumbbells for home workout",
+      "blue neoprene dumbbells 2kg pack of 2"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 50
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Very high search volume, core product phrase combining weights + dumbbells + set, directly relevant to neoprene dumbbells."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High-volume generic product term that many shoppers use; complements existing 'dumbbells' wording."
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High-volume size-specific phrase; even if this ASIN is 2 kg, including popular weight variants helps discoverability for the series."
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Highly relevant exact-size phrase matching the product (2 kg pair), strong search volume."
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Good search volume and common variant size; supports broader visibility for the same model line."
+    },
+    {
+      "keyword": "6kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 19106.0,
+      "reason": "Solid search volume and relevant size variant for dumbbells; helps capture related searches."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High-volume generic term for this category; aligns with 'for gym exercise' concept already in title."
+    },
+    {
+      "keyword": "adjustable dumbbells",
+      "zone": "ZONE_B",
+      "score": 14771.0,
+      "reason": "Very high search volume phrase in the same product family; useful for visibility even if this specific SKU is fixed-weight."
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad, high-volume category phrase; relevant to sports & fitness and home gym shoppers."
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Good-volume size phrase; many users search by weight only rather than specifying dumbbells."
+    },
+    {
+      "keyword": "5kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 7367.0,
+      "reason": "Popular variant phrase; overlaps with other 5 kg terms and strengthens coverage for that weight range."
+    },
+    {
+      "keyword": "dumbbells 5kg",
+      "zone": "ZONE_B",
+      "score": 6937.0,
+      "reason": "Same intent as '5kg dumbbells' but different word order; captures additional query patterns."
+    },
+    {
+      "keyword": "5 kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 6404.0,
+      "reason": "Complete multi-word phrase including weight and pair; strong for users searching specific sets."
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Alternative way customers describe dumbbells; good volume and directly relevant to neoprene hand weights."
+    },
+    {
+      "keyword": "2.5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 5465.0,
+      "reason": "Decent-volume adjacent size phrase; helps the listing index for nearby weight options in the same product line."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 2kg Dumbbells Pair (2 x 2kg) Blue Hex Hand Weights with Anti-Slip Comfortable Grip, Compact Gym Weights for Home Gym Equipment, Aerobics and Strength Training",
+    "char_count": 188,
+    "reasoning": {
+      "keyword_integration": "Embedded primary phrases like 'dumbbells set', '2kg dumbbells pair', 'hand weights', 'gym weights', and 'home gym equipment' into natural descriptive clauses while accurately reflecting neoprene coating, hex shape, anti-slip grip, compact size, and training uses.",
+      "relevance_control": "Avoided non-relevant weight variants (5kg, 4kg, 6kg, 2.5kg, adjustable) to keep the title accurate to a fixed 2kg pair, while still maximizing coverage with high-density terms 'dumbbells', 'set', 'weights', 'pair', 'gym', and 'equipment'."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 2 kg per dumbbell",
+      "Missing color: blue, white text"
+    ],
+    "char_count": 188
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 2kg Dumbbells Pair (2 x 2kg) Blue Hex Hand Weights with Anti-Slip Comfortable Grip, Compact Gym Weights for Home Gym Equipment, Aerobics and Strength Training",
+  "final_length": 188
+}

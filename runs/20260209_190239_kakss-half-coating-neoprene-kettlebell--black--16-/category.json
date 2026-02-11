@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight_kg",
+    "coating_material",
+    "handle_design",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "16 kg kettlebell",
+    "neoprene kettlebell 16kg",
+    "kettlebell weight 16 kg"
+  ],
+  "color_important": true
+}

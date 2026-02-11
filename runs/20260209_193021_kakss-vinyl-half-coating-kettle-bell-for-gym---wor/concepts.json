@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "text": "20 KG (Black",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "for Gym & Workout",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Vinyl Half Coating Kettle Bell  (Size: (2KG, 4KG, 6KG, 8 KG, 10KG, 12KG, 14 KG, 16 KG, 18 KG, 20 KG, 24 KG, 28 KG, 32 KG, 36 KG, 40 KG) ) (Proudly Made in India)",
+      "type": "other",
+      "locked": false
+    }
+  ]
+}

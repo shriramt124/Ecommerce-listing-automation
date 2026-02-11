@@ -1,0 +1,148 @@
+{
+  "original_title": "KAKSS Steel Dumbbell Set Of 2pc (Proudly Made In India) (10kg(5kg*2pc))",
+  "original_length": 71,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1771 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell_kg",
+      "total_set_weight_kg",
+      "material_type",
+      "set_piece_count",
+      "brand"
+    ],
+    "search_priorities": [
+      "10 kg dumbbell set",
+      "5 kg steel dumbbells pair",
+      "KAKSS dumbbells 10kg"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1771
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest-volume core product phrase combining plural product type with 'set', strongly aligned with how shoppers search."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Very high-volume generic product term; essential for broad match coverage."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume multi-word phrase capturing both 'weights' and 'dumbbells set', expanding reach to weight-focused searches."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High-volume phrase targeting women-specific searches while retaining core 'dumbbells set' structure."
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "Common misspelling of 'dumbbells' with substantial volume; helps capture typo traffic."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Strong multi-word phrase variant; covers singular 'dumbbell' plus 'set' for additional query patterns."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume gender-targeted phrase; broadens reach to women searching more generically for weights."
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High-volume size-specific phrase matching the product spec (5kg x 2); very relevant for intent-driven searches."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular product term with solid volume; important for exact and phrase matches."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good-volume generic phrase; captures shoppers searching for sets of weights beyond just 'dumbbells'."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Broad, high-volume category term; useful for generic weight-training searches."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Another strong generic phrase variant; complements 'weights set' and supports additional query structures."
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Multi-word, intent-rich phrase targeting women looking specifically for hand weights."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Relevant, good-volume phrase for users searching broadly for weights used in the gym context."
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Misspelled but meaningful multi-word phrase; captures additional traffic from common spelling errors."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Steel Dumbbells Set, 10kg Pair (2 x 5kg) Chrome Plated Round Gym Weights, Silver Black Dumbbell Set with Anti-Slip Rubber Foam Grip, Compact Hand Weights for Home Gym for women and men",
+    "char_count": 190,
+    "reasoning": {
+      "keyword_integration": "Used highest-volume roots like 'dumbbells set', 'dumbbells', 'weights dumbbells set', 'dumbbell set', 'weights', 'gym weights', 'hand weights' and gender phrases 'for women and men' in natural descriptive clauses. Weight phrase '10kg Pair (2 x 5kg)' also targets '5kg dumbbells pair'.",
+      "product_facts_usage": "Included brand KAKSS, material solid steel with chrome plating, color silver black, anti-slip rubber foam grip, compact size, round heads, and home gym suitability, all drawn from verified facts.",
+      "readability": "Structured as a flowing description: brand + material + type + weight + color + key finish/shape + grip feature + usage, with commas and 'with/for' connectors instead of keyword lists."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 10 kg set (5 kg per dumbbell)",
+      "Missing color: silver, black"
+    ],
+    "char_count": 190
+  },
+  "optimized_title": "KAKSS Steel Dumbbells Set, 10kg Pair (2 x 5kg) Chrome Plated Round Gym Weights, Silver Black Dumbbell Set with Anti-Slip Rubber Foam Grip, Compact Hand Weights for Home Gym for women and men",
+  "final_length": 190
+}

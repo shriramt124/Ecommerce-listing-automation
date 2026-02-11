@@ -1,0 +1,143 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (2KG BLACK PAIR)",
+  "original_length": 87,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1695 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "2kg dumbbells",
+      "neoprene dumbbells",
+      "dumbbell set 2kg"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1695
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037), multi-word phrase, perfect match for product type"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402), core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389), multi-word phrase combining key terms"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089), targets specific audience with complete phrase"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52761), alternative phrasing of core product"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162), targets female audience with high search volume"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core product term (41200), singular form"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878), alternative product description"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume term (30386), broad category"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339), alternative phrasing"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "High similarity (0.984) and good score (22586), matches product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210), targets specific use case and audience"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682), combines use case with product"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good score (11970), common misspelling with high volume"
+    },
+    {
+      "keyword": "2kg weights for women",
+      "zone": "ZONE_B",
+      "score": 11110.0,
+      "reason": "Good score (11110), combines weight spec with target audience"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS 2kg Neoprene Dumbbells Set, Black Pair (2 x 2kg) Hex Hand Weights with Non-Slip Vinyl Coating and Cast-Iron Core for Home Gym Equipment and Women's Fitness Training",
+    "char_count": 170,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords by using 'dumbbells set' as primary descriptor, included 'weights', 'hand weights', 'gym', and specifically targeted 'for women' audience which appears in multiple high-volume searches. Maintained natural flow while embedding search terms."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, black"
+    ],
+    "char_count": 170
+  },
+  "optimized_title": "KAKSS 2kg Neoprene Dumbbells Set, Black Pair (2 x 2kg) Hex Hand Weights with Non-Slip Vinyl Coating and Cast-Iron Core for Home Gym Equipment and Women's Fitness Training",
+  "final_length": 170
+}

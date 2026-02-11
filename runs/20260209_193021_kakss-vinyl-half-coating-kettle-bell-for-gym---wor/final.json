@@ -1,0 +1,147 @@
+{
+  "original_title": "Kakss Vinyl Half Coating Kettle Bell for Gym & Workout (Size: (2KG, 4KG, 6KG, 8 KG, 10KG, 12KG, 14 KG, 16 KG, 18 KG, 20 KG, 24 KG, 28 KG, 32 KG, 36 KG, 40 KG) (20 KG (Black)) (Proudly Made in India)",
+  "original_length": 198,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1693 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "strength_training_kettlebells",
+    "key_attributes": [
+      "weight",
+      "coating_material",
+      "handle_design",
+      "brand",
+      "color"
+    ],
+    "search_priorities": [
+      "20kg kettlebell",
+      "vinyl coated kettlebell",
+      "kettlebell for home gym"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1693
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Highest score term; broad, high-volume generic for strength equipment and directly relevant to kettlebells."
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Core plural product term with very high score; matches how many shoppers search and complements singular form."
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Primary singular product keyword; essential exact match for main search intent."
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Common spaced variant of the main product term; captures additional search traffic."
+    },
+    {
+      "keyword": "16kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 22761.0,
+      "reason": "High-volume complete phrase combining weight and product; strong intent keyword for a popular size in the range."
+    },
+    {
+      "keyword": "12kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 20094.0,
+      "reason": "High-score size-specific phrase; matches one of the listed available weights and captures targeted searches."
+    },
+    {
+      "keyword": "10kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 18533.0,
+      "reason": "Popular mid-range weight phrase; strong search intent and directly relevant to the size options."
+    },
+    {
+      "keyword": "20kg kettlebells",
+      "zone": "ZONE_B",
+      "score": 17689.0,
+      "reason": "High-intent phrase for heavier weight; plural form broadens reach for users searching sets or multiple bells."
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Broad but relevant multi-word phrase; captures users searching general gym weight equipment including kettlebells."
+    },
+    {
+      "keyword": "8kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 13009.0,
+      "reason": "Common lighter size phrase; aligns with listed size options and targets specific buyer intent."
+    },
+    {
+      "keyword": "kettlebell 20kg",
+      "zone": "ZONE_B",
+      "score": 11337.0,
+      "reason": "High-intent exact phrase for the hero size (20 kg); order variant of the same strong keyword family."
+    },
+    {
+      "keyword": "20kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 10599.0,
+      "reason": "Direct, high-relevance phrase for the main showcased weight; critical for exact-match search coverage."
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad category-level phrase with solid volume; helps visibility in general fitness equipment searches."
+    },
+    {
+      "keyword": "24kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 8655.0,
+      "reason": "Heavier size phrase with good volume; matches one of the available weights and attracts advanced users."
+    },
+    {
+      "keyword": "kettlebell 12kg",
+      "zone": "ZONE_B",
+      "score": 8609.0,
+      "reason": "Order variant of a strong size-specific term; reinforces coverage for 12 kg searches in different word order."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 20kg Black, Solid Vinyl Coated Kettle Bell Weights with Wide Textured Handle and Flat Bottom, Gym Weights for Home Gym Equipment and Strength Training Workout",
+    "char_count": 185,
+    "reasoning": {
+      "keyword_integration": "Used core terms kettlebell, kettle bell, kettlebells, weights, gym weights, 20kg kettlebell, kettlebell 20kg, gym equipment, home gym equipment, strength training, workout. Wove them into a natural description highlighting cast iron, vinyl coating, wide textured handle, and flat bottom for stability while keeping within 200 characters.",
+      "feature_usage": "Emphasized verified facts: solid cast iron, vinyl coated, black color, wide textured handle, flat bottom, and use for gym and home strength training workouts to align with both product reality and search intent."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 20 KG (Black); other sizes shown: 4KG, 10KG",
+      "Missing color: black, green, blue, grey, white"
+    ],
+    "char_count": 185
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 20kg Black, Solid Vinyl Coated Kettle Bell Weights with Wide Textured Handle and Flat Bottom, Gym Weights for Home Gym Equipment and Strength Training Workout",
+  "final_length": 185
+}

@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "total_weight_kg_9",
+    "dumbbell_type_steel_fixed",
+    "weight_configuration_pairs_1kg_1_5kg_2kg",
+    "included_accessory_stand_rack",
+    "brand_KAKSS"
+  ],
+  "search_priorities": [
+    "steel dumbbell set with stand",
+    "9 kg dumbbell set 1kg 1.5kg 2kg",
+    "KAKSS dumbbells with rack"
+  ],
+  "color_important": false
+}

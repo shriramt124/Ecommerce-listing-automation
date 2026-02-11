@@ -1,0 +1,22 @@
+{
+  "concepts": [
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Steel",
+      "type": "material",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Dumbbell Set Of 2pc (Proudly Made In India) (6kg(3kg*2pc))",
+      "type": "count",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

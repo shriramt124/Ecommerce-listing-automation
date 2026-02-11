@@ -1,0 +1,17 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell",
+    "dumbbell_material_coating",
+    "set_configuration_pairs",
+    "brand",
+    "color"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells set",
+    "3kg dumbbells pair",
+    "home gym dumbbells"
+  ],
+  "color_important": true
+}

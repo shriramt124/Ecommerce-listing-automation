@@ -1,0 +1,18 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight_kg_5",
+    "material_neoprene",
+    "brand_kakss",
+    "single_piece",
+    "color_black_or_pink",
+    "made_in_india"
+  ],
+  "search_priorities": [
+    "5 kg kettlebell",
+    "neoprene kettlebell",
+    "kakss kettlebell 5kg"
+  ],
+  "color_important": true
+}

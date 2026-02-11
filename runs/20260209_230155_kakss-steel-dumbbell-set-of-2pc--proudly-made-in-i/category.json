@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell",
+    "set_count",
+    "material"
+  ],
+  "search_priorities": [
+    "1kg dumbbells",
+    "small dumbbell set",
+    "2pc dumbbell set"
+  ],
+  "color_important": false
+}

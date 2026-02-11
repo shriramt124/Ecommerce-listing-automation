@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume score (27072), plural form of main product"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest score (26188), primary product term with high search volume"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Third highest score (24880), alternative spelling with high volume"
+    },
+    {
+      "keyword": "8kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 13009.0,
+      "reason": "High score (13009), specific weight variant with strong search volume"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "Score 5045, matches current concept in title with good volume"
+    },
+    {
+      "keyword": "kettlebell set",
+      "zone": "ZONE_B",
+      "score": 4738.0,
+      "reason": "Score 4738, indicates multi-piece purchase intent"
+    },
+    {
+      "keyword": "kettlebell 8kg",
+      "zone": "ZONE_B",
+      "score": 4695.0,
+      "reason": "Score 4695, weight-specific search term"
+    },
+    {
+      "keyword": "kettlebell 8 kg",
+      "zone": "ZONE_B",
+      "score": 4052.0,
+      "reason": "Score 4052, alternative weight formatting"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Score 3551, higher weight variant with good volume"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Score 3365, matches product weight (20kg) with good search volume"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Score 3309, indicates professional/serious fitness use case"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Score 3308, heavy weight variant with strong search volume"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "Score 3700, matches product use case mentioned in title"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Score 3299, related fitness equipment with good search volume"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "Score 3291, general fitness equipment search term"
+    }
+  ]
+}

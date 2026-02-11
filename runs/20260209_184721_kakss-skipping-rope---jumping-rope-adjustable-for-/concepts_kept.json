@@ -1,0 +1,34 @@
+{
+  "concepts": [
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Skipping Rope",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Adjustable",
+      "type": "tech_spec",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Jumping Rope  For Men Women Kids",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Jump Rope For Exercise Fat burning Workout Home or Gym personal Training Rope",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

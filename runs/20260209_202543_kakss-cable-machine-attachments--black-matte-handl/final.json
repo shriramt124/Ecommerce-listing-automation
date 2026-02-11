@@ -1,0 +1,145 @@
+{
+  "original_title": "KAKSS Cable Machine Attachments. Black Matte Handles with Universal Attachment for Cable Machines. Pull Down, Press Down, Row, Triceps, Biceps & Lats. Available in 8 Varieties. (Pack Of 5 Pc (Combo))",
+  "original_length": 199,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 388 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "strength_training_cable_machine_attachments",
+    "key_attributes": [
+      "attachment_type_set (e.g., lat pulldown bar, tricep rope, row handle, pressdown bar)",
+      "compatibility_with_cable_machines (universal attachment)",
+      "piece_count (pack of 5)",
+      "material_and_finish (steel, black matte with silver hardware)",
+      "intended_use (lat pulldown, tricep pressdown, rows, biceps, lats)"
+    ],
+    "search_priorities": [
+      "cable machine attachments set",
+      "lat pulldown cable attachments",
+      "gym cable attachments combo"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 388
+  },
+  "selected_keywords": [
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Highest search volume, broad but directly relevant to cable machine attachments as strength gym equipment."
+    },
+    {
+      "keyword": "exercise equipment for home use",
+      "zone": "ZONE_B",
+      "score": 5996.0,
+      "reason": "Very high volume multi-word phrase; relevant for buyers using cable machines at home."
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High volume phrase; strong match for cable attachments used in home gyms."
+    },
+    {
+      "keyword": "fitness equipment",
+      "zone": "ZONE_B",
+      "score": 1860.0,
+      "reason": "High volume generic fitness term that commonly includes cable attachments."
+    },
+    {
+      "keyword": "gym accessories for men",
+      "zone": "ZONE_B",
+      "score": 1800.0,
+      "reason": "High volume accessories phrase; cable attachments are typical gym accessories."
+    },
+    {
+      "keyword": "workout equipment",
+      "zone": "ZONE_B",
+      "score": 1535.0,
+      "reason": "High volume, broad workout term that captures general strength accessories traffic."
+    },
+    {
+      "keyword": "home workout equipment",
+      "zone": "ZONE_B",
+      "score": 1477.0,
+      "reason": "High volume phrase targeting home users of cable machines and attachments."
+    },
+    {
+      "keyword": "exercise equipment",
+      "zone": "ZONE_B",
+      "score": 1448.0,
+      "reason": "Strong volume generic phrase; aligns with category and search behavior."
+    },
+    {
+      "keyword": "strength training equipment",
+      "zone": "ZONE_B",
+      "score": 1187.0,
+      "reason": "Directly relevant to cable attachments used for strength training; solid volume."
+    },
+    {
+      "keyword": "gym equipment for home",
+      "zone": "ZONE_B",
+      "score": 1112.0,
+      "reason": "Good volume multi-word phrase; highly relevant to home cable setups."
+    },
+    {
+      "keyword": "at home workout equipment",
+      "zone": "ZONE_B",
+      "score": 964.0,
+      "reason": "Good volume phrase; targets home users searching for cable accessories."
+    },
+    {
+      "keyword": "work out equipment for home",
+      "zone": "ZONE_B",
+      "score": 620.0,
+      "reason": "Relevant long-tail phrase for home cable attachment shoppers."
+    },
+    {
+      "keyword": "home exercise equipment",
+      "zone": "ZONE_B",
+      "score": 585.0,
+      "reason": "Captures home fitness traffic; appropriate for cable machine accessories."
+    },
+    {
+      "keyword": "at home gym equipment",
+      "zone": "ZONE_B",
+      "score": 324.0,
+      "reason": "Multi-word phrase with clear home gym intent; fits cable attachment use case."
+    },
+    {
+      "keyword": "home weights",
+      "zone": "ZONE_B",
+      "score": 294.0,
+      "reason": "Moderate volume but still relevant to home strength setups that include cable attachments."
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Steel Cable Machine Attachments Set, Pack of 5 Black Matte Handles with Rubber Grip and Universal Eyelet, Strength Training Exercise Equipment for Home Gym Equipment and Gym Equipment",
+    "char_count": 189,
+    "reasoning": {
+      "keyword_integration": "Opened with brand and core term 'Cable Machine Attachments Set' to match category. Wove in top-volume roots: 'strength training', 'exercise equipment', 'home gym equipment', and 'gym equipment' as natural descriptors. Used 'Pack of 5', 'steel', 'black matte', 'rubber grip', and 'universal eyelet' to reflect verified product facts while keeping phrasing readable and aligned with search intent for home and gym use."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, silver"
+    ],
+    "char_count": 189
+  },
+  "optimized_title": "KAKSS Steel Cable Machine Attachments Set, Pack of 5 Black Matte Handles with Rubber Grip and Universal Eyelet, Strength Training Exercise Equipment for Home Gym Equipment and Gym Equipment",
+  "final_length": 189
+}

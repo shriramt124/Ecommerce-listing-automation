@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "KAKSS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Workout Fixed Weight Dumbbell(Proudly Made In India) (20",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Pound Total",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "3 Pairs(2Lb,3Lb,5Lb) With Stand)",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}
