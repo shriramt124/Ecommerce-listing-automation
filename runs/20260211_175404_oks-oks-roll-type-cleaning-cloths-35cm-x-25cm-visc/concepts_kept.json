@@ -1,0 +1,22 @@
+{
+  "concepts": [
+    {
+      "text": "OKS",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "ROLL",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "TYPE Cleaning Cloths 35cm X 25cm Viscose Rayon 100% pink 30pcs",
+      "type": "count",
+      "locked": true,
+      "keep": true
+    }
+  ]
+}

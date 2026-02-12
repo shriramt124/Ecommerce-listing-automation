@@ -105,6 +105,12 @@ Examples:
         help="Skip the first N products (for resume after crash)",
     )
 
+    parser.add_argument(
+        "--keyword-index",
+        default=None,
+        help="Path to a specific keyword index file (.npz) to use",
+    )
+    
     args = parser.parse_args()
 
     # Validate inputs
@@ -135,6 +141,7 @@ Examples:
         gemini_model=args.gemini_model,
         limit=args.limit,
         skip=args.skip,
+        keyword_index_path=args.keyword_index,
     )
 
     output_path = pipeline.run()

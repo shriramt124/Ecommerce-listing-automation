@@ -71,7 +71,10 @@ def build_output_row(
         "descrp": _truncate(description, 1500),
         "search terms": search_terms,
         "main_image": img.get("main_image", ""),
-        "lifestyle_image": img.get("lifestyle", ""),
+        "lifestyle_image_1": img.get("lifestyle_1", ""),
+        "lifestyle_image_2": img.get("lifestyle_2", ""),
+        "lifestyle_image_3": img.get("lifestyle_3", ""),
+        "lifestyle_image_4": img.get("lifestyle_4", ""),
         "why_choose_us_image": img.get("why_choose_us", ""),
     }
     return row
@@ -99,7 +102,11 @@ def write_excel(
         "rcm kf1", "rcm kf2", "rcm kf3", "rcm kf4", "rcm kf5",
         "descrp", "search terms",
     ]
-    image_cols = ["main_image", "lifestyle_image", "why_choose_us_image"]
+    image_cols = [
+        "main_image",
+        "lifestyle_image_1", "lifestyle_image_2", "lifestyle_image_3", "lifestyle_image_4",
+        "why_choose_us_image"
+    ]
     all_cols = text_cols + image_cols
 
     wb = Workbook()
@@ -181,7 +188,15 @@ def save_product_images(
     # Copy/move generated images if they exist in the source
     source = Path(image_source_dir) if image_source_dir else None
     if source and source.exists():
-        for img_name in ["main_product.png", "lifestyle.png", "why_choose_us.png"]:
+        files_to_copy = [
+            "main_product.png",
+            "lifestyle_1.png",
+            "lifestyle_2.png",
+            "lifestyle_3.png",
+            "lifestyle_4.png",
+            "why_choose_us.png"
+        ]
+        for img_name in files_to_copy:
             src_file = source / img_name
             if src_file.exists():
                 dst_file = product_dir / img_name
@@ -253,7 +268,10 @@ def load_existing_excel(output_dir: str) -> List[Dict[str, Any]]:
     # Image file names mapping
     image_file_map = {
         "main_image": "main_product.png",
-        "lifestyle_image": "lifestyle.png",
+        "lifestyle_image_1": "lifestyle_1.png",
+        "lifestyle_image_2": "lifestyle_2.png",
+        "lifestyle_image_3": "lifestyle_3.png",
+        "lifestyle_image_4": "lifestyle_4.png",
         "why_choose_us_image": "why_choose_us.png",
     }
 

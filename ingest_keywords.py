@@ -236,10 +236,14 @@ def _iter_records_from_browsenode_xlsx(path: str) -> Iterator[Tuple[str, Dict]]:
         }
 
 
-def ingest_keywords(paths: List[str], reset: bool = False):
+def ingest_keywords(paths: List[str], reset: bool = False, output_path: str = None):
     """Load keywords from one or more files and store in the ST embedding index."""
+    target_index_path = output_path if output_path else INDEX_PATH
+    target_index_dir = os.path.dirname(target_index_path)
+
     print("=" * 60)
     print("  STRATEGY 2: KEYWORD INGESTION (SentenceTransformers)")
+    print(f"  Output Index: {target_index_path}")
     print("=" * 60)
     
     # Basic validation of inputs
@@ -265,18 +269,23 @@ def ingest_keywords(paths: List[str], reset: bool = False):
     
     # Reset handling
     if reset:
-        if os.path.exists(INDEX_DIR):
-            shutil.rmtree(INDEX_DIR, ignore_errors=True)
-            print(f"      -> Deleted existing ST index dir: {INDEX_DIR}")
+        if os.path.exists(target_index_dir) and target_index_dir != os.path.dirname(INDEX_PATH):
+             # Only delete dir if it's a custom one to be safe, or just delete the file
+             shutil.rmtree(target_index_dir, ignore_errors=True)
+        elif reset and target_index_path == INDEX_PATH:
+             # Default behavior
+            if os.path.exists(INDEX_DIR):
+                shutil.rmtree(INDEX_DIR, ignore_errors=True)
+                print(f"      -> Deleted existing ST index dir: {INDEX_DIR}")
 
-        # User requested deleting the previous vector DB; do it on reset.
-        if os.path.exists(OLD_CHROMA_PATH):
-            shutil.rmtree(OLD_CHROMA_PATH, ignore_errors=True)
-            print(f"      -> Deleted old ChromaDB dir: {OLD_CHROMA_PATH}")
+            # User requested deleting the previous vector DB; do it on reset.
+            if os.path.exists(OLD_CHROMA_PATH):
+                shutil.rmtree(OLD_CHROMA_PATH, ignore_errors=True)
+                print(f"      -> Deleted old ChromaDB dir: {OLD_CHROMA_PATH}")
 
-    os.makedirs(INDEX_DIR, exist_ok=True)
+    os.makedirs(target_index_dir, exist_ok=True)
 
-    print(f"\n[1/3] Loading existing index (if any): {INDEX_PATH}")
+    print(f"\n[1/3] Loading existing index (if any): {target_index_path}")
 
     existing_keys = set()
     keywords: List[str] = []
@@ -287,8 +296,8 @@ def ingest_keywords(paths: List[str], reset: bool = False):
     dataset_ids: List[str] = []
     source_formats: List[str] = []
 
-    if os.path.exists(INDEX_PATH):
-        data = np.load(INDEX_PATH, allow_pickle=False)
+    if os.path.exists(target_index_path):
+        data = np.load(target_index_path, allow_pickle=False)
         keywords = [str(x) for x in data["keywords"].tolist()]
         scores = [float(x) for x in data["scores"].tolist()]
         ad_units = [float(x) for x in data["ad_units"].tolist()]
@@ -394,7 +403,7 @@ def ingest_keywords(paths: List[str], reset: bool = False):
         emb_matrix = np.zeros((0, 384), dtype=np.float32)
 
     np.savez_compressed(
-        INDEX_PATH,
+        target_index_path,
         embeddings=emb_matrix,
         keywords=np.asarray(keywords, dtype=str),
         scores=score_arr,
@@ -413,18 +422,18 @@ def ingest_keywords(paths: List[str], reset: bool = False):
 
     print(f"\n" + "=" * 60)
     print(f"  SUCCESS: {len(keywords)} unique keywords indexed with ranks")
-    print(f"  Index path: {INDEX_PATH}")
+    print(f"  Index path: {target_index_path}")
     print("=" * 60)
     
     return True
 
 
-def test_query():
+def test_query(index_path=None):
     """Test query to verify ingestion."""
     print("\n--- Testing Query ---")
     from keyword_db import KeywordDB
 
-    db = KeywordDB()
+    db = KeywordDB(index_path=index_path)
     test_q = "neoprene dumbbells set home gym"
     results = db.get_top_keywords(test_q, limit=5)
     print(f"Query: '{test_q}'")
@@ -438,16 +447,19 @@ def test_query():
 
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    reset = False
-    if '--reset' in args:
-        reset = True
-
-    # Remaining args are treated as input file paths
-    paths = [a for a in args if not a.startswith('--')]
+    import argparse
+    parser = argparse.ArgumentParser(description="Ingest keywords into vector index")
+    parser.add_argument('inputs', nargs='*', help='Input CSV/Excel files')
+    parser.add_argument('--reset', action='store_true', help='Reset index before ingesting')
+    parser.add_argument('--output', default=None, help='Output path for .npz index')
+    
+    args = parser.parse_args()
+    
+    paths = args.inputs
     if not paths:
+        # Default behavior if no files provided
         paths = [DEFAULT_KEYWORDS_PATH]
 
-    ok = ingest_keywords(paths, reset=reset)
+    ok = ingest_keywords(paths, reset=args.reset, output_path=args.output)
     if ok:
-        test_query()
+        test_query(index_path=args.output)

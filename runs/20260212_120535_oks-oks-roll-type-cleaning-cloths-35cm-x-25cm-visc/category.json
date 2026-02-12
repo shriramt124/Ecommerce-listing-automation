@@ -1,0 +1,17 @@
+{
+  "category": "household_supplies",
+  "subcategory": "cleaning_cloths_and_rags",
+  "key_attributes": [
+    "material: viscose rayon",
+    "format: roll-type perforated cloths",
+    "dimensions: 35cm x 25cm",
+    "count: 30 sheets",
+    "color: pink/white"
+  ],
+  "search_priorities": [
+    "roll type cleaning cloths",
+    "viscose cleaning wipes roll",
+    "pink cleaning cloth roll 30pcs"
+  ],
+  "color_important": true
+}

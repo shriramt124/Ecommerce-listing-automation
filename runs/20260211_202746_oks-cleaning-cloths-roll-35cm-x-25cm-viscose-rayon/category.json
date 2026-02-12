@@ -1,0 +1,15 @@
+{
+  "category": "home_cleaning",
+  "subcategory": "cleaning_cloths",
+  "key_attributes": [
+    "material",
+    "count",
+    "size"
+  ],
+  "search_priorities": [
+    "viscose cleaning cloths",
+    "pink cleaning rags",
+    "35x25cm cloth roll"
+  ],
+  "color_important": true
+}

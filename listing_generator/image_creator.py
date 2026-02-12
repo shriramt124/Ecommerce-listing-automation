@@ -42,33 +42,38 @@ except ImportError:
 # ---------------------------------------------------------------------------
 
 MAIN_IMAGE_PROMPT = """I am providing you the ORIGINAL product image from the Amazon listing.
-Generate an IMPROVED, more professional version of THIS EXACT same product.
+Generate a high-resolution, studio-quality version of THIS EXACT PRODUCT.
+*** OUTPUT FORMAT: SQUARE (1:1) ASPECT RATIO ONLY ***
 
-PRODUCT TITLE: {optimized_title}
-BRAND: {brand}
-PRODUCT TYPE: {product_type}
+*** STRICT VISUAL LOYALTY REQUIRED ***
+You must NOT redesign or "imagine" a new product. You must render the EXACT SAME object from the reference image, just with better lighting and sharpness.
+- SAME Shape
+- SAME Color (Visuals override text)
+- SAME Label/Logo placement
+- SAME Packaging
 
-KEY FEATURES (from analysis):
-{key_features}
+PRODUCT CONTEXT:
+Title: {optimized_title}
+Brand: {brand}
+Type: {product_type}
+Features: {key_features}
+Colors: {colors}
 
-COLORS: {colors}
+CRITICAL EXECUTION RULES:
+1. ASPECT RATIO: The output image MUST act as a 1024x1024 square. Do not produce wide/landscape images.
+2. FIDELITY: The output must look like the reference image was photographed in a $10,000 studio.
+3. BACKGROUND: Pure white (#FFFFFF). Amazon compliant.
+4. FRAMING: Product fills 85% of the square canvas. Center aligned.
+5. CORRECTION: Fix blur/noise, but preserve all physical details of the reference.
+6. NO HALLUCINATIONS: Do not add extra buttons, change the handle shape, or alter the geometry.
+7. NO WATERMARKS or text overlays.
 
-CRITICAL RULES:
-1. The product in your generated image MUST be the SAME product as in the reference image I provided.
-2. Pure white (#FFFFFF) background — Amazon mandatory.
-3. NO props, NO text overlays, NO logos, NO watermarks.
-4. Product fills 80-85% of frame.
-5. Professional studio lighting with soft shadows.
-6. Colors MUST match the reference image exactly: {colors}
-7. High resolution, 1024×1024 square.
-8. Photorealistic quality — better than the original.
-9. Same packaging, same labels, same shape as the reference.
-10. DO NOT change the product design, only improve the photography quality.
-
-Generate a BETTER version of the reference product image now."""
+Generate the definitive professional square image of this specific product."""
 
 
 MAIN_IMAGE_PROMPT_NO_REF = """Generate a professional Amazon main product image.
+*** OUTPUT FORMAT: SQUARE (1:1) ASPECT RATIO ONLY ***
+*** STRICT ADHERENCE TO SPECS ***
 
 PRODUCT TITLE: {optimized_title}
 BRAND: {brand}
@@ -79,87 +84,96 @@ KEY FEATURES (from analysis):
 
 COLORS: {colors}
 
-REQUIREMENTS:
-1. Pure white (#FFFFFF) background — Amazon mandatory.
-2. Show ONLY the product matching the title and features above.
-3. NO props, NO text overlays, NO logos.
-4. Product fills 80-85% of frame.
-5. Professional studio lighting, crisp shadows.
-6. Colors must match exactly: {colors}
-7. High resolution, 1024×1024 square.
-8. Photorealistic quality.
-9. DO NOT add features not listed above.
+Requirements:
+1. Pure white (#FFFFFF) background.
+2. DISREGARD LANDSCAPE/PORTRAIT. Generate a SQUARE (1:1) image.
+3. Realistic render of the product described above.
+4. Colors MUST be exactly as specified: {colors}.
+5. High-end commercial photography style.
+6. 85% Frame fill within the square.
+7. No text, logos (except brand on product), or props.
 
-Generate the product image now."""
+Generate the square product image now."""
 
 
-LIFESTYLE_PROMPT = """I am providing you the ORIGINAL product image. Generate a lifestyle image showing THIS EXACT product in use.
+LIFESTYLE_PROMPT = """I am providing you the ORIGINAL product image.
+Generate a lifestyle image showing THIS EXACT PRODUCT being used.
+*** OUTPUT FORMAT: SQUARE (1:1) ASPECT RATIO ONLY ***
 
-PRODUCT TITLE: {optimized_title}
+*** STRICT VISUAL LOYALTY ***
+The product in the scene MUST be identical to the reference image I provided.
+- Do NOT change its color, shape, or size to match the "scene".
+- The scene adapts to the product, not vice versa.
 
-BULLET POINTS (actual listing content — use ONLY these features):
+CONTEXT:
+Title: {optimized_title}
+Bullet Points:
 {bullets}
 
-COUNTRY/MARKET: {country}
-
-SCENE:
+MARKET: {country}
+SCENE DETAILS:
 - Setting: {setting}
 - Person: {person_description}
 - Activity: {use_case}
 - Mood: {mood}
 
-CRITICAL RULES:
-1. The product in the scene MUST look exactly like the reference image I provided.
-2. Product MUST be clearly visible and in use.
-3. {country_cultural_notes}
-4. Natural lighting, warm atmosphere.
-5. Show product being used as described in bullets above.
-6. Professional quality, 1024×1024 square.
-7. Person looks authentic for {country}.
-8. NO text overlays or watermarks.
-9. Only show features mentioned in bullets — do NOT invent new features.
-10. The product design, colors, and packaging must match the reference.
+EXECUTION RULES:
+1. FORMAT: Strict 1:1 Square image.with 1021×1024 dimensions.
+2. INSERTION: Composite the reference product naturally into the scene.
+3. VISIBILITY: Product must be the clear hero of the shot.
+4. AUTHENTICITY: {country_cultural_notes}
+5. LIGHTING: Natural, matching the scene environment.
+6. NO TEXT/LOGOS: Clean photography only.
+7. CONSISTENCY: If the reference product is Pink, the product in this image MUST BE PINK.
 
-Generate the lifestyle image now."""
+Generate the authentic lifestyle square shot now."""
 
 
-WHY_CHOOSE_PROMPT = """I am providing you the ORIGINAL product image. Generate a professional Amazon-style comparison infographic featuring THIS EXACT product.
+WHY_CHOOSE_PROMPT = """I am providing you the ORIGINAL product image. Generate a professional Amazon-style comparison infographic.
+*** OUTPUT FORMAT: SQUARE (1:1) ASPECT RATIO ONLY ***
 
-PRODUCT TITLE: {optimized_title}
-BRAND: {brand}
+*** STRICT VISUAL LOYALTY FOR "OUR BRAND" ***
+The product shown under "OUR BRAND" must be the EXACT item from the reference image.
 
-DESCRIPTION (our actual product):
-{description}
+PRODUCT:
+Title: {optimized_title}
+Brand: {brand}
+Description: {description}
 
-=== LAYOUT: PREMIUM SIDE-BY-SIDE COMPARISON (Amazon Infographic Style) ===
-
-LEFT SIDE — "OUR BRAND" (OUR PRODUCT):
-- Background: Premium white with subtle gradient, professional lighting
-- Header: "OUR BRAND" in bold premium typography (gold/purple accent)
-- Show the EXACT product from the reference image in perfect lighting
-- Below the product, show FEATURE HIGHLIGHTS with ✓ checkmarks in vibrant green:
+LAYOUT: SPLIT SCREEN COMPARISON (Side-by-Side within a SQUARE)
+--------------------------------
+LEFT SIDE: "OUR BRAND" (Hero)
+- Image: The EXACT reference product in perfect lighting.
+- Vibe: Premium, High-End, Trustworthy.
+- Features: Checked (✓) in Green.
 {our_features}
 
-RIGHT SIDE — "COMPETITORS":
-- Background: Neutral light gray (NOT ugly, just less premium feel)
-- Header: "COMPETITORS" in standard gray typography
-- Show a SIMILAR product type but with slightly less premium appearance:
-  • Duller colors (NOT ugly, just less vibrant)
-  • Standard packaging (NOT damaged, just plain)
-  • Basic finish (NOT broken, just ordinary)
-- Below it, show comparison points with neutral ○ or standard dash marks:
+RIGHT SIDE: "OTHERS" (Generic)
+- Image: A standard, generic version of this product type (functional but ordinary).
+- Vibe: Standard, Basic, Plain.
+- Features: Crossed (X) in Red or muted Gray.
+- Faults: Standard material, basic quality, plain design.
+
+Visual Style:
+- Clean, modern infographic.
+- White/Light background for Our Brand.
+- Grey/Dim background for Others.
+- text should be readable.
+
+Generate the square comparison image.
+
 {competitor_issues}
 
 === CRITICAL DESIGN RULES (Amazon Premium Infographic Standards) ===
 1. This is a PROFESSIONAL Amazon product infographic used by top brands (Anker, Apple, Samsung)
-2. Competitor side shows a REAL alternative product — decent but less premium (like a budget brand)
-3. DO NOT make competitor ugly/broken/damaged — show a real budget alternative
+2. Competitor side shows a REAL alternative product — decent but basic (Standard Market Version)
+3. DO NOT make competitor ugly/broken/damaged — just ordinary/average quality.
 4. Use CLEAN professional typography, premium design, high-quality graphics
 5. Elegant vertical divider line (thin, subtle) between the two sides
 6. Our product MUST match the reference image EXACTLY in colors, design, branding
 7. Colors for our product: {colors}
 8. 1024×1024 square, photorealistic rendering, professional lighting
-9. Think: How would Apple/Nike/Amazon Basics present this comparison?
+9. Think: How would Apple/Nike/Amazon Basics present this comparison? (Ours = Apple, Others = Generic)
 10. ONLY use features from the description — NO hallucination or invented claims
 11. Both sides should look professional — ours just MORE premium
 
@@ -347,12 +361,72 @@ class ImageCreator:
             print(f"         ❌ Failed to generate main image")
         return success
 
+    def _brainstorm_lifestyle_scenarios(
+        self,
+        title: str,
+        product_type: str,
+        default_usage: str,
+        country: str,
+    ) -> List[Dict[str, str]]:
+        """
+        Use Gemini (Text) to brainstorm 4 DISTINCT usage scenarios/settings.
+        Returns list of dicts: {"activity": "...", "setting": "...", "mood": "..."}
+        """
+        prompt = f"""You are an expert Art Director for Amazon photography.
+PRODUCT: {title} ({product_type})
+DEFAULT USAGE: {default_usage}
+MARKET: {country}
+
+TASK: Brainstorm 4 DISTINCT, REALISTIC lifestyle photography scenarios for this product.
+Scenarios must be diverse (different rooms, different use-cases, different audiences).
+
+Return ONLY valid JSON:
+[
+  {{ "activity": "Specific action (e.g. packing lunch)", "setting": "Specific location (e.g. sunlit kitchen)", "mood": "Energetic" }},
+  {{ "activity": "...", "setting": "...", "mood": "..." }},
+  {{ "activity": "...", "setting": "...", "mood": "..." }},
+  {{ "activity": "...", "setting": "...", "mood": "..." }}
+]
+"""
+        max_retries = 2
+        for attempt in range(max_retries):
+            try:
+                # Use a lightweight text-capable model if possible, or fall back to the main model
+                # Assuming the main model (gemini-3-pro-image-preview) might handle text, 
+                # but safer to specify a known text model if available, or just rely on the API.
+                # Here we'll try the configured model first.
+                response = self.client.models.generate_content(
+                    model="gemini-2.0-flash", # Use fast text model for brainstorming
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        temperature=0.7,
+                    ),
+                )
+                
+                if response.text:
+                    scenarios = json.loads(response.text)
+                    if isinstance(scenarios, list) and len(scenarios) >= 4:
+                        return scenarios[:4]
+            except Exception as e:
+                print(f"         ⚠️  Brainstorming failed (attempt {attempt+1}): {e}")
+                time.sleep(1)
+
+        # Fallback scenarios if AI fails
+        return [
+            {"activity": f"Daily usage of {product_type}", "setting": "Modern Home Interior", "mood": "Natural"},
+            {"activity": f"Key feature demonstration of {product_type}", "setting": "Close-up Environment", "mood": "Focused"},
+            {"activity": f"Family enjoying {product_type}", "setting": "Living Space", "mood": "Warm"},
+            {"activity": f"Active use of {product_type}", "setting": "Dynamic Setting", "mood": "Energetic"},
+        ]
+
     def generate_lifestyle_image(
         self,
         image_analysis: Dict[str, Any],
         country: str,
         output_path: Path,
         reference_image: str = None,
+        scenario: Dict[str, str] = None,
     ) -> bool:
         """Generate lifestyle image using actual bullet points."""
         print(f"      🌍 Generating lifestyle image for {country}...")
@@ -369,15 +443,27 @@ class ImageCreator:
             person_description = f"{region['person'].split(' ')[0]} {target_audience}"
         else:
             person_description = region["person"]
+            
+        # Determine Scenario (Use-Case + Setting + Mood)
+        if scenario:
+            use_case = scenario.get("activity", image_analysis.get("usage") or "Daily Use")
+            setting = scenario.get("setting", region["setting"])
+            mood = scenario.get("mood", "Professional")
+            print(f"         🎬 Scene: {use_case} @ {setting}")
+        else:
+            use_case = image_analysis.get("usage") or "daily use as described in bullets"
+            setting = region["setting"]
+            import random
+            mood = random.choice(["positive, natural", "focused, professional", "warm, inviting", "energetic"])
 
         prompt = LIFESTYLE_PROMPT.format(
             optimized_title=image_analysis.get("optimized_title") or image_analysis.get("product_name") or "Product",
             bullets=bullets_text,
             country=region["name"],
-            setting=region["setting"],
+            setting=setting,
             person_description=person_description,
-            use_case=image_analysis.get("usage") or "daily use as described in bullets",
-            mood="positive, natural, authentic",
+            use_case=use_case,
+            mood=mood,
             country_cultural_notes=region["cultural"],
         )
 
@@ -473,10 +559,27 @@ class ImageCreator:
         time.sleep(pause_between)
 
         # 2. Lifestyle image
-        results["lifestyle"] = self.generate_lifestyle_image(
-            enriched_analysis, country, out / "lifestyle.png", reference_image,
+        # Ask for 4 variations with DISTINCT scenarios
+        print(f"      🌍 Brainstorming 4 distinct lifestyle scenarios...")
+        
+        scenarios = self._brainstorm_lifestyle_scenarios(
+            title=optimized_title,
+            product_type=image_analysis.get("product_type", "Product"),
+            default_usage=image_analysis.get("usage", ""),
+            country=country
         )
-        time.sleep(pause_between)
+        
+        print(f"      🌍 Generating lifestyle images (4 variations)...")
+        for i in range(1, 5):
+            # Use the i-1 th scenario (safe index access)
+            scenario = scenarios[i-1] if i-1 < len(scenarios) else None
+            
+            results[f"lifestyle_{i}"] = self.generate_lifestyle_image(
+                enriched_analysis, country, out / f"lifestyle_{i}.png", 
+                reference_image,
+                scenario=scenario
+            )
+            time.sleep(pause_between)
 
         # 3. Why choose us
         results["why_choose_us"] = self.generate_why_choose_us(

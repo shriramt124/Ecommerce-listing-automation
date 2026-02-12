@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "floor cleaner",
+      "zone": "ZONE_B",
+      "score": 3236.0,
+      "reason": "Highest score (3236) and strong similarity (0.623) - customers search for cleaning cloths with floor cleaners"
+    },
+    {
+      "keyword": "glass cleaner",
+      "zone": "ZONE_B",
+      "score": 2824.0,
+      "reason": "Second highest score (2824) with good similarity (0.623) - relevant for cleaning cloth applications"
+    },
+    {
+      "keyword": "mops for floor cleaning",
+      "zone": "ZONE_B",
+      "score": 2702.0,
+      "reason": "High score (2702) and contains 'cleaning cloths' in hit queries - complementary cleaning tool"
+    },
+    {
+      "keyword": "toilet cleaner",
+      "zone": "ZONE_B",
+      "score": 2654.0,
+      "reason": "High score (2654) and good similarity (0.621) - bathroom cleaning application"
+    },
+    {
+      "keyword": "dettol floor cleaner",
+      "zone": "ZONE_B",
+      "score": 2638.0,
+      "reason": "High score (2638) - brand association with cleaning products"
+    },
+    {
+      "keyword": "floor cleaner liquid",
+      "zone": "ZONE_B",
+      "score": 2409.0,
+      "reason": "High score (2409) - specific type of floor cleaner"
+    },
+    {
+      "keyword": "detergent liquid",
+      "zone": "ZONE_B",
+      "score": 2298.0,
+      "reason": "High score (2298) - general cleaning product category"
+    },
+    {
+      "keyword": "bathroom cleaner",
+      "zone": "ZONE_B",
+      "score": 1193.0,
+      "reason": "Good score (1193) and high similarity (0.619) - specific room application"
+    },
+    {
+      "keyword": "carpet cleaner",
+      "zone": "ZONE_B",
+      "score": 992.0,
+      "reason": "Good score (992) and decent similarity (0.563) - floor cleaning application"
+    },
+    {
+      "keyword": "dac floor cleaner",
+      "zone": "ZONE_B",
+      "score": 791.0,
+      "reason": "Good score (791) - brand-specific floor cleaner"
+    },
+    {
+      "keyword": "all purpose cleaner",
+      "zone": "ZONE_B",
+      "score": 226.0,
+      "reason": "Highest similarity (0.644) among remaining candidates - versatile cleaning application"
+    },
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "High similarity (0.642) and broad category match"
+    },
+    {
+      "keyword": "dettol wipes",
+      "zone": "ZONE_B",
+      "score": 155.0,
+      "reason": "Highest similarity (0.744) - closely related disposable cleaning product"
+    },
+    {
+      "keyword": "kitchen cleaner",
+      "zone": "ZONE_B",
+      "score": 145.0,
+      "reason": "High similarity (0.642) - specific room application"
+    },
+    {
+      "keyword": "surface cleaner",
+      "zone": "ZONE_B",
+      "score": 77.0,
+      "reason": "Highest similarity (0.872) - direct application match for cleaning cloths"
+    }
+  ]
+}

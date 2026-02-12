@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "kitchen towel",
+      "zone": "ZONE_B",
+      "score": 2944.0,
+      "reason": "Highest score; strong, common product phrase customers use for roll-type cleaning cloths in kitchen context."
+    },
+    {
+      "keyword": "cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 675.0,
+      "reason": "High score and core product term; directly matches shopper queries like 'cleaning cloth roll'."
+    },
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Good score and broad household category phrase; helps capture generic cleaning searches."
+    },
+    {
+      "keyword": "kitchen cloth",
+      "zone": "ZONE_B",
+      "score": 107.0,
+      "reason": "Relevant multi-word phrase with solid score; aligns with how buyers describe reusable kitchen cloths."
+    },
+    {
+      "keyword": "kitchen wipes",
+      "zone": "ZONE_B",
+      "score": 99.0,
+      "reason": "High similarity and good score; captures shoppers who search for wipe-style kitchen cleaning products."
+    },
+    {
+      "keyword": "cleaning wipes",
+      "zone": "ZONE_B",
+      "score": 91.0,
+      "reason": "Popular generic phrase for wipe-format cleaning products; complements 'kitchen wipes' and 'cleaning cloth'."
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "Broad but relevant term with decent score; supports long-tail combinations like 'cleaning cloth roll'."
+    },
+    {
+      "keyword": "cloth",
+      "zone": "ZONE_B",
+      "score": 39.0,
+      "reason": "Generic but still useful root term; appears in many shopper queries and supports phrase matching."
+    },
+    {
+      "keyword": "dusting cloth",
+      "zone": "ZONE_B",
+      "score": 26.0,
+      "reason": "Adds another common use case (dusting) for multi-surface cleaning cloths; relevant to household cleaning."
+    },
+    {
+      "keyword": "kitchen cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 23.0,
+      "reason": "Highly relevant multi-word phrase; combines kitchen + cleaning + cloth for strong intent targeting."
+    },
+    {
+      "keyword": "cloths",
+      "zone": "ZONE_B",
+      "score": 19.0,
+      "reason": "Plural variant of 'cloth'; helps match plural search queries and complements 'cleaning cloths'."
+    },
+    {
+      "keyword": "cleaning towel",
+      "zone": "ZONE_B",
+      "score": 17.0,
+      "reason": "Alternative phrasing some shoppers use instead of 'cleaning cloth'; supports additional query coverage."
+    },
+    {
+      "keyword": "cleaning cloths",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Core plural phrase with high similarity; directly matches key queries like 'roll cleaning cloths'."
+    },
+    {
+      "keyword": "cleaning towels",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Plural variant of 'cleaning towel'; captures additional towel-based search behavior for this product type."
+    },
+    {
+      "keyword": "kitchen cloth wipe",
+      "zone": "ZONE_B",
+      "score": 13.0,
+      "reason": "Highly specific multi-word phrase with strong similarity; combines kitchen + cloth + wipe for targeted intent."
+    }
+  ]
+}

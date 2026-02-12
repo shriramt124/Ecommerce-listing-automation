@@ -1,0 +1,84 @@
+{
+  "original_title": "OKS OKS ROLL-TYPE Cleaning Cloths 35cm X 25cm Viscose Rayon 100% pink 30pcs",
+  "original_length": 75,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 5 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "home_kitchen",
+    "subcategory": "cleaning_cloths_wipes",
+    "key_attributes": [
+      "material (viscose rayon)",
+      "size (35cm x 25cm)",
+      "count (30 pieces)"
+    ],
+    "search_priorities": [
+      "viscose cleaning cloths",
+      "rayon cleaning roll",
+      "pink cleaning cloths bulk"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 5
+  },
+  "selected_keywords": [
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Highest score (158.0) and relevant multi-word phrase"
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "Second highest score (63.0), core search term"
+    },
+    {
+      "keyword": "cleaner",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), relevant cleaning term"
+    },
+    {
+      "keyword": "household items",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), relevant category term"
+    },
+    {
+      "keyword": "floor cleaning",
+      "zone": "ZONE_B",
+      "score": 11.0,
+      "reason": "Good score (11.0), specific use case"
+    }
+  ],
+  "title_result": {
+    "full_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Non-Woven Cloths for Household Cleaning Supplies, Floor Cleaning and General Use",
+    "char_count": 158,
+    "reasoning": {
+      "keyword_integration": "Embedded 'cleaning supplies' (highest volume), 'cleaning', and 'household items' via 'Household Cleaning Supplies'. Included 'floor cleaning' as a specific use case. Wove 'cleaner' into the context of the product's purpose."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 190
+  },
+  "optimized_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Non-Woven Cloths for Household Cleaning Supplies, Floor Cleaning and General Use, with 100% Viscose Rayon for an",
+  "final_length": 190
+}

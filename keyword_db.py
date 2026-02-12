@@ -45,17 +45,18 @@ class _IndexData:
 class KeywordDB:
     """Query interface for the on-disk SentenceTransformer keyword index."""
 
-    def __init__(self):
+    def __init__(self, index_path: str = None):
+        self.index_path = index_path or INDEX_PATH
         self.index: Optional[_IndexData] = None
         self._load()
 
     def _load(self) -> None:
-        if not os.path.exists(INDEX_PATH):
-            print("   [KeywordDB] No index found. Run 'python3 ingest_keywords.py' first!")
+        if not os.path.exists(self.index_path):
+            print(f"   [KeywordDB] No index found at {self.index_path}. Run 'python3 ingest_keywords.py' first!")
             self.index = None
             return
 
-        data = np.load(INDEX_PATH, allow_pickle=False)
+        data = np.load(self.index_path, allow_pickle=False)
         # ranks may not exist in older indexes — compute on the fly if missing
         scores_arr = np.asarray(data["scores"], dtype=np.float32)
         if "ranks" in data:

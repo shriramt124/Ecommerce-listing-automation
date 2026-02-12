@@ -1,0 +1,147 @@
+{
+  "original_title": "OKS OKS ROLL-TYPE Cleaning Cloths 35cm X 25cm Viscose Rayon 100% pink 30pcs",
+  "original_length": 75,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 15 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "household_supplies",
+    "subcategory": "cleaning_cloths_and_rags",
+    "key_attributes": [
+      "material: viscose rayon",
+      "format: roll-type perforated cloths",
+      "dimensions: 35cm x 25cm",
+      "count: 30 sheets",
+      "color: pink/white"
+    ],
+    "search_priorities": [
+      "roll type cleaning cloths",
+      "viscose cleaning wipes roll",
+      "pink cleaning cloth roll 30pcs"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 15
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kitchen towel",
+      "zone": "ZONE_B",
+      "score": 2944.0,
+      "reason": "Highest score; strong, common product phrase customers use for roll-type cleaning cloths in kitchen context."
+    },
+    {
+      "keyword": "cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 675.0,
+      "reason": "High score and core product term; directly matches shopper queries like 'cleaning cloth roll'."
+    },
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Good score and broad household category phrase; helps capture generic cleaning searches."
+    },
+    {
+      "keyword": "kitchen cloth",
+      "zone": "ZONE_B",
+      "score": 107.0,
+      "reason": "Relevant multi-word phrase with solid score; aligns with how buyers describe reusable kitchen cloths."
+    },
+    {
+      "keyword": "kitchen wipes",
+      "zone": "ZONE_B",
+      "score": 99.0,
+      "reason": "High similarity and good score; captures shoppers who search for wipe-style kitchen cleaning products."
+    },
+    {
+      "keyword": "cleaning wipes",
+      "zone": "ZONE_B",
+      "score": 91.0,
+      "reason": "Popular generic phrase for wipe-format cleaning products; complements 'kitchen wipes' and 'cleaning cloth'."
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "Broad but relevant term with decent score; supports long-tail combinations like 'cleaning cloth roll'."
+    },
+    {
+      "keyword": "cloth",
+      "zone": "ZONE_B",
+      "score": 39.0,
+      "reason": "Generic but still useful root term; appears in many shopper queries and supports phrase matching."
+    },
+    {
+      "keyword": "dusting cloth",
+      "zone": "ZONE_B",
+      "score": 26.0,
+      "reason": "Adds another common use case (dusting) for multi-surface cleaning cloths; relevant to household cleaning."
+    },
+    {
+      "keyword": "kitchen cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 23.0,
+      "reason": "Highly relevant multi-word phrase; combines kitchen + cleaning + cloth for strong intent targeting."
+    },
+    {
+      "keyword": "cloths",
+      "zone": "ZONE_B",
+      "score": 19.0,
+      "reason": "Plural variant of 'cloth'; helps match plural search queries and complements 'cleaning cloths'."
+    },
+    {
+      "keyword": "cleaning towel",
+      "zone": "ZONE_B",
+      "score": 17.0,
+      "reason": "Alternative phrasing some shoppers use instead of 'cleaning cloth'; supports additional query coverage."
+    },
+    {
+      "keyword": "cleaning cloths",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Core plural phrase with high similarity; directly matches key queries like 'roll cleaning cloths'."
+    },
+    {
+      "keyword": "cleaning towels",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Plural variant of 'cleaning towel'; captures additional towel-based search behavior for this product type."
+    },
+    {
+      "keyword": "kitchen cloth wipe",
+      "zone": "ZONE_B",
+      "score": 13.0,
+      "reason": "Highly specific multi-word phrase with strong similarity; combines kitchen + cloth + wipe for targeted intent."
+    }
+  ],
+  "title_result": {
+    "full_title": "OKS Viscose Rayon Roll-Type Cleaning Cloths, 30pcs Pink and White Kitchen Towel Sheets 35cm x 25cm, Reusable Kitchen Cleaning Cloth and Dusting Cloth Wipes for Daily Cleaning Supplies",
+    "char_count": 183,
+    "reasoning": {
+      "keyword_integration": "Prioritized high-volume terms by embedding 'kitchen towel', 'cleaning cloth', 'cleaning supplies', 'kitchen cloth', 'kitchen wipes', 'cleaning wipes', 'dusting cloth', 'kitchen cleaning cloth' and 'cloths' as natural descriptive phrases while accurately reflecting material, size, color, quantity, and roll-type format.",
+      "title_structure": "Followed Brand + Material + ProductType + Quantity/Size + Color + Use Case pattern, using connectors like 'and' and 'for' so the title reads as a coherent product description instead of a keyword list.",
+      "compliance": "All details match verified product facts, no invented features, under 200 characters, brand capitalized, and quantity/size presented clearly for shopper clarity."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 183
+  },
+  "optimized_title": "OKS Viscose Rayon Roll-Type Cleaning Cloths, 30pcs Pink and White Kitchen Towel Sheets 35cm x 25cm, Reusable Kitchen Cleaning Cloth and Dusting Cloth Wipes for Daily Cleaning Supplies",
+  "final_length": 183
+}

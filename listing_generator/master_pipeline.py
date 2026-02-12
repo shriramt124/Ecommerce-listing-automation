@@ -80,6 +80,7 @@ class ListingPipeline:
         gemini_model: str = None,
         limit: int = None,
         skip: int = 0,
+        keyword_index_path: str = None,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
@@ -87,6 +88,7 @@ class ListingPipeline:
         self.ingest_keywords_flag = ingest_keywords
         self.limit = limit
         self.skip = skip
+        self.keyword_index_path = keyword_index_path
 
         # Output directory with timestamp
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -130,7 +132,7 @@ class ListingPipeline:
     @property
     def keyword_db(self) -> KeywordDB:
         if self._keyword_db is None:
-            self._keyword_db = KeywordDB()
+            self._keyword_db = KeywordDB(index_path=self.keyword_index_path)
         return self._keyword_db
 
     @property
@@ -764,8 +766,49 @@ JSON:"""
     ) -> Tuple[str, Dict[str, Any]]:
         """Stage 3c: Optimize title using the existing agentic pipeline."""
         base_title = product.get("title", "")
+        
+        # --- Synthesize title if missing (e.g. input is just ASIN/Images) ---
+        if not base_title or len(base_title.strip()) < 5:
+            print(f"      ⚠️  Title missing/too short. Synthesizing base title from image analysis...")
+            
+            # Extract components from image analysis
+            brand_s = image_analysis.get("brand") or "Generic"
+            p_type_s = image_analysis.get("product_type") or "Product"
+            name_s = image_analysis.get("product_name") or ""
+            
+            # Start with Brand
+            synth_parts = [brand_s]
+            
+            # Add Product Name or Type
+            if name_s and len(name_s) > 3 and "unknown" not in name_s.lower():
+                 synth_parts.append(name_s)
+            elif p_type_s and "unknown" not in p_type_s.lower():
+                 synth_parts.append(p_type_s)
+            else:
+                 synth_parts.append("Product")
+                 
+            # Add Specs to give the optimizer enough context
+            if image_analysis.get("size"):
+                synth_parts.append(str(image_analysis["size"]))
+            if image_analysis.get("material"):
+                synth_parts.append(str(image_analysis["material"]))
+            if image_analysis.get("colors") and isinstance(image_analysis["colors"], list):
+                if image_analysis["colors"]:
+                    synth_parts.append(image_analysis["colors"][0])
+            if image_analysis.get("quantity"):
+                synth_parts.append(str(image_analysis["quantity"]))
+                
+            # Check features for "Pack" count if not in quantity
+            features_text = " ".join((image_analysis.get("features_on_packaging") or []))
+            if "pack" in features_text.lower() and "pack" not in " ".join(synth_parts).lower():
+                # Try to extract pack size roughly if possible, or just leave it
+                pass
+
+            base_title = " ".join([p for p in synth_parts if p and p.lower() != "null"]).strip()
+            print(f"      ✨ Synthesized Start Title: {base_title}")
+
         if not base_title:
-            return "", {}
+            return "Product Title Unknown", {}
 
         # Build truth from image analysis + product data (FULL data for better optimization)
         # Use Excel Brand column as fallback for brand
@@ -859,6 +902,8 @@ ORIGINAL TITLE:
 "{base_title}"
 
 PRODUCT DATA (verified from images):
+*** CRITICAL: VISUAL FACTS OVERRIDE ORIGINAL TITLE ***
+If the Original Title contradicts these facts (e.g. wrong color, wrong count), you MUST use the facts below.
   Brand        : {brand_upper}
   Product Type : {product_type}
   Colors       : {colors}
@@ -1171,7 +1216,10 @@ RULES:
                 if image_results:
                     for img_key, img_file in [
                         ("main_image", "main_product.png"),
-                        ("lifestyle", "lifestyle.png"),
+                        ("lifestyle_1", "lifestyle_1.png"),
+                        ("lifestyle_2", "lifestyle_2.png"),
+                        ("lifestyle_3", "lifestyle_3.png"),
+                        ("lifestyle_4", "lifestyle_4.png"),
                         ("why_choose_us", "why_choose_us.png"),
                     ]:
                         fpath = os.path.join(img_dir, img_file)

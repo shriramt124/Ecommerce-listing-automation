@@ -1,0 +1,84 @@
+{
+  "original_title": "OKS OKS Cleaning Cloths Roll 35cm X 25cm 비스코스레이온 100% (Viscose Rayon 100%) pink 30pcs",
+  "original_length": 85,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 5 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "home_kitchen",
+    "subcategory": "cleaning_cloths",
+    "key_attributes": [
+      "material_composition",
+      "size_dimensions",
+      "quantity_count"
+    ],
+    "search_priorities": [
+      "viscose rayon cleaning cloths",
+      "pink cleaning cloths roll",
+      "35x25cm cleaning cloths"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 5
+  },
+  "selected_keywords": [
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Highest score (158.0) and represents the product category"
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "Second highest score (63.0), core product descriptor"
+    },
+    {
+      "keyword": "cleaner",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), relevant to cleaning cloth function"
+    },
+    {
+      "keyword": "household items",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), appropriate category classification"
+    },
+    {
+      "keyword": "floor cleaning",
+      "zone": "ZONE_B",
+      "score": 11.0,
+      "reason": "Good score (11.0), specific use case for cleaning cloths"
+    }
+  ],
+  "title_result": {
+    "full_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Non-Woven Wavy Texture Cloths for Household Cleaning Supplies and Floor Cleaning",
+    "char_count": 158,
+    "reasoning": {
+      "keyword_integration": "Embedded 'cleaning supplies' (highest volume), 'cleaning', and 'floor cleaning' naturally within descriptive phrases. Used 'household items' contextually as 'household cleaning'. Maintained verified product facts including dual color, material, size, and roll-type feature."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 189
+  },
+  "optimized_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Non-Woven Wavy Texture Cloths for Household Cleaning Supplies and Floor Cleaning, with 100% Viscose Rayon for a",
+  "final_length": 189
+}

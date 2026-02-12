@@ -1,0 +1,15 @@
+{
+  "category": "home_cleaning_supplies",
+  "subcategory": "cleaning_cloths_wipes",
+  "key_attributes": [
+    "material_composition",
+    "size_dimensions",
+    "quantity_count"
+  ],
+  "search_priorities": [
+    "viscose cleaning cloths",
+    "roll type cleaning cloths",
+    "pink cleaning rags"
+  ],
+  "color_important": true
+}

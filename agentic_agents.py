@@ -896,6 +896,10 @@ ORIGINAL TITLE:
 ═══════════════════════════════════════════════════
 
 VERIFIED PRODUCT FACTS (from image analysis — use ALL of these):
+*** CRITICAL INSTRUCTION: VISUAL FACTS OVERRIDE ORIGINAL TITLE ***
+If the Original Title contradicts these facts (e.g. wrong color, wrong material, wrong count), 
+you MUST use the facts below. They are verified from the actual product images.
+
   Brand: {brand_upper if brand_upper else '(none)'}
   Product Type: {truth.get('product', '')}
   Material: {material}
@@ -908,6 +912,7 @@ VERIFIED PRODUCT FACTS (from image analysis — use ALL of these):
 CATEGORY: {category_info.get('category', '')} / {category_info.get('subcategory', '')}
 
 HIGH-VOLUME SEARCH KEYWORDS (ranked by search volume — weave as many as possible):
+*** WARNING: IGNORE keywords that contradict the verified facts (e.g. wrong color/count) ***
 {keyword_text}
 
 ═══════════════════════════════════════════════════
@@ -1052,6 +1057,7 @@ CURRENT TITLE ({len(title)} chars):
 "{title}"
 
 UNUSED HIGH-VOLUME KEYWORDS (add these naturally):
+*** WARNING: Do NOT use keywords that contradict the current title's color/specs ***
 {kw_text}
 
 PRODUCT FEATURES NOT YET IN TITLE:

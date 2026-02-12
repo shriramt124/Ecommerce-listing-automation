@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "floor cleaner",
+      "zone": "ZONE_B",
+      "score": 3236.0,
+      "reason": "Highest score (3236.0) and strong similarity (0.623) - top search volume"
+    },
+    {
+      "keyword": "mops for floor cleaning",
+      "zone": "ZONE_B",
+      "score": 2702.0,
+      "reason": "High score (2702.0) - multi-word phrase with strong cleaning association"
+    },
+    {
+      "keyword": "toilet cleaner",
+      "zone": "ZONE_B",
+      "score": 2654.0,
+      "reason": "High score (2654.0) and strong similarity (0.621) - relevant cleaning application"
+    },
+    {
+      "keyword": "dettol floor cleaner",
+      "zone": "ZONE_B",
+      "score": 2638.0,
+      "reason": "High score (2638.0) - brand-specific cleaning product association"
+    },
+    {
+      "keyword": "floor cleaner liquid",
+      "zone": "ZONE_B",
+      "score": 2409.0,
+      "reason": "High score (2409.0) - specific cleaning product type"
+    },
+    {
+      "keyword": "bathroom cleaner",
+      "zone": "ZONE_B",
+      "score": 1193.0,
+      "reason": "Good score (1193.0) and strong similarity (0.619) - relevant cleaning application"
+    },
+    {
+      "keyword": "carpet cleaner",
+      "zone": "ZONE_B",
+      "score": 992.0,
+      "reason": "Good score (992.0) - relevant cleaning application for cloths"
+    },
+    {
+      "keyword": "dac floor cleaner",
+      "zone": "ZONE_B",
+      "score": 791.0,
+      "reason": "Good score (791.0) - brand-specific cleaning association"
+    },
+    {
+      "keyword": "all purpose cleaner",
+      "zone": "ZONE_B",
+      "score": 226.0,
+      "reason": "High similarity (0.644) - versatile cleaning application"
+    },
+    {
+      "keyword": "dettol all purpose cleaner",
+      "zone": "ZONE_B",
+      "score": 176.0,
+      "reason": "Brand-specific multi-purpose cleaning association"
+    },
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "High similarity (0.637) - broad category relevance"
+    },
+    {
+      "keyword": "dettol wipes",
+      "zone": "ZONE_B",
+      "score": 155.0,
+      "reason": "Highest similarity (0.744) - direct cloth/wipes association"
+    },
+    {
+      "keyword": "vinegar for cleaning",
+      "zone": "ZONE_B",
+      "score": 151.0,
+      "reason": "Good similarity (0.602) - natural cleaning solution association"
+    },
+    {
+      "keyword": "kitchen cleaner",
+      "zone": "ZONE_B",
+      "score": 145.0,
+      "reason": "High similarity (0.642) - relevant cleaning application"
+    },
+    {
+      "keyword": "surface cleaner",
+      "zone": "ZONE_B",
+      "score": 77.0,
+      "reason": "Highest similarity score (0.872) - perfect match for cloth usage"
+    }
+  ]
+}

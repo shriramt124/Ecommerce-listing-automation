@@ -1,0 +1,127 @@
+{
+  "original_title": "OKS OKS ROLL-TYPE Cleaning Cloths 35cm X 25cm Viscose Rayon 100% pink 30pcs",
+  "original_length": 75,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 12 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "home_cleaning_supplies",
+    "subcategory": "cleaning_cloths_wipes",
+    "key_attributes": [
+      "material_composition",
+      "size_dimensions",
+      "quantity_count"
+    ],
+    "search_priorities": [
+      "viscose cleaning cloths",
+      "roll type cleaning cloths",
+      "pink cleaning rags"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 12
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kitchen towel",
+      "zone": "ZONE_B",
+      "score": 2944.0,
+      "reason": "Highest search volume score (2944) despite moderate similarity"
+    },
+    {
+      "keyword": "cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 675.0,
+      "reason": "Perfect similarity match with high search volume (675)"
+    },
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Good search volume (158) and relevant category term"
+    },
+    {
+      "keyword": "kitchen cloth",
+      "zone": "ZONE_B",
+      "score": 107.0,
+      "reason": "High similarity (0.845) with decent search volume (107)"
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "High-volume broad term (score 63) that matches product category"
+    },
+    {
+      "keyword": "cloth",
+      "zone": "ZONE_B",
+      "score": 39.0,
+      "reason": "Core product descriptor with good search volume (39)"
+    },
+    {
+      "keyword": "dusting cloth",
+      "zone": "ZONE_B",
+      "score": 26.0,
+      "reason": "Specific use case with good search volume (26)"
+    },
+    {
+      "keyword": "kitchen cleaning cloth",
+      "zone": "ZONE_B",
+      "score": 23.0,
+      "reason": "Very high similarity (0.968) with specific use case"
+    },
+    {
+      "keyword": "cloths",
+      "zone": "ZONE_B",
+      "score": 19.0,
+      "reason": "Plural form of core term with search volume (19)"
+    },
+    {
+      "keyword": "cleaning towel",
+      "zone": "ZONE_B",
+      "score": 17.0,
+      "reason": "Alternative terminology with search volume (17)"
+    },
+    {
+      "keyword": "cleaning cloths",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Plural form of main product type with search volume (16)"
+    },
+    {
+      "keyword": "cleaning towels",
+      "zone": "ZONE_B",
+      "score": 16.0,
+      "reason": "Alternative terminology with search volume (16)"
+    }
+  ],
+  "title_result": {
+    "full_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Kitchen Towels for Cleaning Supplies, Dusting Cloths and Kitchen Cleaning",
+    "char_count": 151,
+    "reasoning": {
+      "keyword_integration": "Integrated 'kitchen towel' (highest volume), 'cleaning cloth', 'cleaning supplies', 'kitchen cloth', 'dusting cloth', and 'kitchen cleaning cloth' naturally into descriptive phrases that highlight the product's verified features and dual-color offering."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white",
+      "Policy violation: contains 'free'"
+    ],
+    "char_count": 193
+  },
+  "optimized_title": "OKS Viscose Rayon Cleaning Cloths Roll, 30-Pack (35cm x 25cm), Pink and White Kitchen Towels for Cleaning Supplies, Dusting Cloths and Kitchen Cleaning, Highly Absorbent and Lint-Free with 100%",
+  "final_length": 193
+}

@@ -1,0 +1,15 @@
+{
+  "category": "home_cleaning_supplies",
+  "subcategory": "cleaning_cloths_wipes",
+  "key_attributes": [
+    "material_composition",
+    "size_dimensions",
+    "quantity_count"
+  ],
+  "search_priorities": [
+    "viscose rayon cleaning cloths",
+    "roll type cleaning cloths",
+    "large cleaning cloths 35x25cm"
+  ],
+  "color_important": false
+}

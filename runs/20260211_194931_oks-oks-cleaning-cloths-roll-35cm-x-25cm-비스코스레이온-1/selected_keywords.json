@@ -1,0 +1,34 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "cleaning supplies",
+      "zone": "ZONE_B",
+      "score": 158.0,
+      "reason": "Highest score (158.0) and represents the product category"
+    },
+    {
+      "keyword": "cleaning",
+      "zone": "ZONE_B",
+      "score": 63.0,
+      "reason": "Second highest score (63.0), core product descriptor"
+    },
+    {
+      "keyword": "cleaner",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), relevant to cleaning cloth function"
+    },
+    {
+      "keyword": "household items",
+      "zone": "ZONE_B",
+      "score": 14.0,
+      "reason": "Good score (14.0), appropriate category classification"
+    },
+    {
+      "keyword": "floor cleaning",
+      "zone": "ZONE_B",
+      "score": 11.0,
+      "reason": "Good score (11.0), specific use case for cleaning cloths"
+    }
+  ]
+}

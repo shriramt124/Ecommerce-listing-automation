@@ -247,10 +247,10 @@ class ImageAnalyzer:
             return {
                 "brand": None,
                 "product_type": None,
-                "product_name": title,
+                "product_name": title or "Unknown Product",
                 "colors": [],
                 "key_features": [],
-                "ai_description": f"Product: {title}" if title else "Analysis failed.",
+                "ai_description": f"Product: {title}" if title else "Detailed visual analysis failed.",
                 "comparison_points": [],
                 "confidence": "low",
                 "status": "ALL_FAILED",
