@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "set_type"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "light dumbbells for women",
+    "small dumbbells for home gym"
+  ],
+  "color_important": true
+}

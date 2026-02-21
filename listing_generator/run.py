@@ -83,6 +83,11 @@ Examples:
         help="Generate product images (main, lifestyle, why-choose-us) via Gemini AI",
     )
     parser.add_argument(
+        "--images-only",
+        action="store_true",
+        help="Skip text optimization and only generate images (uses original title/bullets)",
+    )
+    parser.add_argument(
         "--gemini-key",
         default=None,
         help="Gemini API key override (default: from GEMINI_API_KEY env var)",
@@ -110,6 +115,22 @@ Examples:
         default=None,
         help="Path to a specific keyword index file (.npz) to use",
     )
+    parser.add_argument(
+        "--search-terms-only",
+        action="store_true",
+        help="Only regenerate search terms (skips image analysis, title, bullets, description, images). "
+             "Requires --analysis-dir pointing to cached analysis JSONs.",
+    )
+    parser.add_argument(
+        "--analysis-dir",
+        default=None,
+        help="Path to directory with cached {ASIN}_analysis.json files (from a previous run)",
+    )
+    parser.add_argument(
+        "--banner-image-only",
+        action="store_true",
+        help="Only generate the 1200x628px lifestyle banner image (skip main/lifestyle/infographic)",
+    )
     
     args = parser.parse_args()
 
@@ -126,6 +147,14 @@ Examples:
         print("❌ --ingest-keywords requires --browse-nodes")
         sys.exit(1)
 
+    if args.search_terms_only and not args.analysis_dir:
+        print("❌ --search-terms-only requires --analysis-dir pointing to cached analysis JSONs.")
+        sys.exit(1)
+
+    if args.analysis_dir and not os.path.isdir(args.analysis_dir):
+        print(f"❌ Analysis directory not found: {args.analysis_dir}")
+        sys.exit(1)
+
     if args.skip > 0 and not args.output:
         print("⚠️  --skip without --output will create a new folder — previous rows won't be loaded.")
         print("   Use --output <same_dir_as_first_run> to append to the existing Excel.")
@@ -136,12 +165,16 @@ Examples:
         browse_node_dir=args.browse_nodes,
         output_dir=args.output,
         generate_images=args.generate_images,
+        images_only=args.images_only,
         ingest_keywords=args.ingest_keywords,
         gemini_api_key=args.gemini_key,
         gemini_model=args.gemini_model,
         limit=args.limit,
         skip=args.skip,
         keyword_index_path=args.keyword_index,
+        search_terms_only=args.search_terms_only,
+        analysis_dir=args.analysis_dir,
+        banner_image_only=args.banner_image_only,
     )
 
     output_path = pipeline.run()

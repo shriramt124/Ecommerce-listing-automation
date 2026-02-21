@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_in_kg",
+    "material_coating",
+    "hex_shape"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "hex dumbbells",
+    "light dumbbell set"
+  ],
+  "color_important": true
+}

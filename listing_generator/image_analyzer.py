@@ -199,6 +199,10 @@ class ImageAnalyzer:
         title = product.get('title', '')
         description = product.get('description', '')
         usp = product.get('usp', '')
+        manual = product.get('manual', '')
+        # Merge manual into description/usp context for richer analysis
+        if manual:
+            usp = f"{usp}\n{manual}".strip() if usp else manual
         existing_bullets = product.get('bullet_points', [])
 
         print(f"\n   📸 Image Analysis ({len(images)} images)...")

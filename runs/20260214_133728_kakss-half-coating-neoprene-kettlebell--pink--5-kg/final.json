@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Half Coating Neoprene Kettlebell (Pink, 5 KG)",
+  "original_length": 51,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1391 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_type"
+    ],
+    "search_priorities": [
+      "5kg kettlebell",
+      "neoprene kettlebell",
+      "pink kettlebell"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1391
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Highest score (36878) despite moderate similarity - broad category with high search volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Second highest score (30386) - essential category term with high search volume"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Third highest score (30339) - high-volume search phrase"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) with perfect similarity - plural form of main product"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Core product term with high score (26188) and perfect similarity"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) with perfect similarity - alternative spelling"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) with decent similarity - targets specific audience"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) with decent similarity - usage context"
+    },
+    {
+      "keyword": "2kg weights for women",
+      "zone": "ZONE_B",
+      "score": 11110.0,
+      "reason": "Good score (11110) - targets women with specific weight"
+    },
+    {
+      "keyword": "20kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 10599.0,
+      "reason": "Good score (10599) with high similarity - specific weight variant"
+    },
+    {
+      "keyword": "3kg weights",
+      "zone": "ZONE_B",
+      "score": 9873.0,
+      "reason": "Good score (9873) with decent similarity - light weight category"
+    },
+    {
+      "keyword": "2kg weights",
+      "zone": "ZONE_B",
+      "score": 8157.0,
+      "reason": "Good score (8157) - light weight category"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Good score (6734) with decent similarity - home usage context"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Good score (6110) - hand weights category"
+    },
+    {
+      "keyword": "5kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 4169.0,
+      "reason": "Specific weight match (4169) with perfect similarity - exact product specification"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 5kg, Pink Half Neoprene Coated Kettlebell with Textured Metal Handle and Hex Base, Hand Weights for Home Gym Equipment and Fitness Training",
+    "char_count": 166,
+    "reasoning": {
+      "keyword_integration": "Integrated high-volume keywords: 'kettlebell' (26K+ searches), 'weights' (30K+), 'hand weights' (20K+), 'gym weights' (16K+), 'home gym equipment' (6.7K+). Used '5kg kettlebell' (4K+) as specific weight. Structured title to flow naturally while embedding search terms organically."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, black"
+    ],
+    "char_count": 192
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 5kg, Pink Half Neoprene Coated Kettlebell with Textured Metal Handle and Hex Base, Hand Weights for Home Gym Equipment and Fitness Training, Non-Toxic Cast Iron Hand",
+  "final_length": 192
+}

@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "handle_grip"
+  ],
+  "search_priorities": [
+    "kettlebell",
+    "cast iron kettlebell",
+    "home gym weights"
+  ],
+  "color_important": true
+}

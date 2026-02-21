@@ -1,0 +1,16 @@
+{
+  "concepts": [
+    {
+      "text": "Amazon Basics",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Dumbbell Pair",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

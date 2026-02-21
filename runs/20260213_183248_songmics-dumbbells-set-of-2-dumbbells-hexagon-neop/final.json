@@ -1,0 +1,141 @@
+{
+  "original_title": "SONGMICS Dumbbells Set of 2 Dumbbells Hexagon Neoprene Coating Strength Training Workout Fitness Training Home",
+  "original_length": 110,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1642 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "set_count",
+      "material_coating"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "hex dumbbells set",
+      "light dumbbells for women"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1642
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448,037) - core product descriptor with high search volume"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215,402) - primary product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143,389) - combines 'weights' with core product"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94,089) - targets specific user demographic"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High score (59,794) - common misspelling with significant volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52,761) - alternative phrasing for set"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48,162) - targets female fitness market"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41,200) - singular form with volume"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36,878) - alternative search term for sets"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30,386) - broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30,339) - alternative phrasing"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Specific weight mention (22,586) - matches product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20,210) - specific use case targeting women"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16,682) - gym-focused search term"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (7,300) - specifically mentions neoprene coating feature"
+    }
+  ],
+  "title_result": {
+    "full_title": "SONGMICS Neoprene Dumbbells Set, 2kg Pair (2 x 2kg), Light Blue Hex Dumbbells with Ergonomic Non-Slip Grip, Cast Iron Hand Weights for Home Gym Fitness Training for Women and Men",
+    "char_count": 178,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords 'dumbbells set', 'dumbbells', 'weights dumbbells set', 'dumbbells set women', 'weights for women', 'hand weights for women', 'neoprene dumbbells set', and '2kg dumbbells pair' naturally into a flowing description that highlights verified product features."
+    }
+  },
+  "validation": {
+    "is_valid": true,
+    "issues": [],
+    "char_count": 178
+  },
+  "optimized_title": "SONGMICS Neoprene Dumbbells Set, 2kg Pair (2 x 2kg), Light Blue Hex Dumbbells with Ergonomic Non-Slip Grip, Cast Iron Hand Weights for Home Gym Fitness Training for Women and Men",
+  "final_length": 178
+}

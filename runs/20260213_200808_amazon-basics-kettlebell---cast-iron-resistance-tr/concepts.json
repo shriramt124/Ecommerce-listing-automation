@@ -1,0 +1,29 @@
+{
+  "concepts": [
+    {
+      "text": "Amazon Basics",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Kettlebell",
+      "type": "product",
+      "locked": true
+    },
+    {
+      "text": "Cast Iron Resistance Training Weight with Textured Wide Grip Handle",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Painted Finish",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Black",
+      "type": "other",
+      "locked": false
+    }
+  ]
+}

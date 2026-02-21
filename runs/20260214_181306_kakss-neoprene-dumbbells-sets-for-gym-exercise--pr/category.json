@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "count"
+  ],
+  "search_priorities": [
+    "1kg dumbbells",
+    "pink dumbbells",
+    "neoprene dumbbell set"
+  ],
+  "color_important": true
+}

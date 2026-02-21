@@ -1,0 +1,34 @@
+{
+  "concepts": [
+    {
+      "text": "Cast Iron",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "for Strength and Conditioning",
+      "type": "compatibility",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Kakss  Kettlebell",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Fitness",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Cross Training Assorted Colour Kettle Bell for Home Gym (6 KG)",
+      "type": "use_case",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

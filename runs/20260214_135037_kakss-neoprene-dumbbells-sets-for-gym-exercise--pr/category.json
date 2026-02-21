@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell",
+    "material",
+    "set_count"
+  ],
+  "search_priorities": [
+    "4kg dumbbells",
+    "neoprene dumbbells set",
+    "red dumbbells 4kg"
+  ],
+  "color_important": true
+}

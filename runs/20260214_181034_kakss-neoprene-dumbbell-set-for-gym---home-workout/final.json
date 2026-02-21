@@ -1,0 +1,145 @@
+{
+  "original_title": "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Red | Made in India",
+  "original_length": 96,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1733 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "4kg dumbbells",
+      "neoprene dumbbell set",
+      "red dumbbells 2 pack"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1733
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448K) - core product category"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest volume (215K) - primary search term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143K) - complete search phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume (94K) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High volume (60K) - common misspelling coverage"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (53K) - alternative phrasing"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good volume (48K) - targets female audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good volume (41K) - singular form coverage"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (37K) - alternative search phrasing"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good volume (30K) - broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (30K) - alternative search phrasing"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High relevance (98% similarity) - specific to product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20K) - specific use case targeting"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good volume (17K) - usage context"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (92% similarity) - matches product material feature"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 2kg Pair (2 x 2kg), Orange & Red Hex Hand Weights with Non-Slip Coated Grip for Home Gym Equipment and Fitness Training for Women and Men",
+    "char_count": 167,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords: 'dumbbells set', 'weights', 'hand weights', 'weights for women', 'gym weights', 'weight set'. Corrected weight to verified 2kg and included both orange/red colors. Used 'for women and men' to capture broad audience keywords."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 2 KG / 4kg Each",
+      "Missing color: orange, red"
+    ],
+    "char_count": 191
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 2kg Pair (2 x 2kg), Orange & Red Hex Hand Weights with Non-Slip Coated Grip for Home Gym Equipment and Fitness Training for Women and Men, Non-Toxic Coated Metal",
+  "final_length": 191
+}

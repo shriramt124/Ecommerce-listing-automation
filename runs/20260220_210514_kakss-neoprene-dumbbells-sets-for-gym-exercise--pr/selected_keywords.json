@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume score (448037) and directly describes the product as a set."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core product name with very high search volume (215402). Essential for title."
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High-volume phrase (143389) that includes a key category term 'weights'."
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Targets a specific audience with good search volume (94089)."
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "High-volume variant/spelling (59794) to capture different search patterns."
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Singular form with strong volume (52761), important for match types."
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High-volume (48162) audience-targeting phrase."
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Specific weight and configuration (pair) with high volume (46660)."
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular keyword with high volume (41200)."
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Broader category term with high volume (36878)."
+    },
+    {
+      "keyword": "adjustable dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 31955.0,
+      "reason": "Describes a key feature (adjustable) with good volume (31955)."
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Essential top-level category term with high volume (30386)."
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Common search phrase with high volume (30339)."
+    },
+    {
+      "keyword": "barbell weights set",
+      "zone": "ZONE_B",
+      "score": 29713.0,
+      "reason": "Includes related equipment term, good volume (29713)."
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High-volume related product category (27072) to capture cross-shoppers."
+    }
+  ]
+}

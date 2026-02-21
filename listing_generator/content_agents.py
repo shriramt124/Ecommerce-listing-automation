@@ -43,6 +43,7 @@ PRODUCT INFORMATION (source of truth — DO NOT INVENT anything beyond this):
 - AI-observed features: {ai_features}
 - Existing bullet points: {existing_bullets}
 - USP / More info: {usp}
+- Manual / Product Details: {manual}
 
 TOP KEYWORDS (from real Amazon search data — weave these naturally):
 {keyword_list}
@@ -89,6 +90,7 @@ PRODUCT INFORMATION (source of truth — DO NOT INVENT anything beyond this):
 - Existing bullet points: {existing_bullets}
 - Existing description: {existing_description}
 - USP / More info: {usp}
+- Manual / Product Details: {manual}
 
 TOP KEYWORDS (from real Amazon search data — weave these naturally):
 {keyword_list}
@@ -207,6 +209,7 @@ class BulletPointAgent:
             ai_features=', '.join((image_analysis.get('key_features') or [])[:8]) or 'N/A',
             existing_bullets=bullets_str,
             usp=product.get('usp', '') or 'N/A',
+            manual=product.get('manual', '') or 'N/A',
             keyword_list=keyword_list,
         )
 
@@ -271,6 +274,7 @@ class DescriptionAgent:
             existing_bullets=bullets_str,
             existing_description=product.get('description', '')[:300] or 'N/A',
             usp=product.get('usp', '') or 'N/A',
+            manual=product.get('manual', '') or 'N/A',
             keyword_list=keyword_list,
         )
 
@@ -300,10 +304,66 @@ class DescriptionAgent:
 
 
 class SearchTermsAgent:
-    """Generates Amazon backend search terms — words NOT already in title/bullets."""
+    """Generates Amazon backend search terms using LLM-powered keyword chaining.
+    
+    Strategy: Keywords from vector DB are category-relevant but may include
+    other product variants (wrong weight/size/color). The LLM must:
+    1. Filter OUT keywords with specs that don't match THIS product
+    2. Chain the remaining keywords into meaningful phrases ≤200 chars
+    3. Weave in product-specific attributes (brand, material, color, size)
+    """
 
     def __init__(self, llm):
         self.llm = llm
+
+    def _extract_product_attributes(
+        self,
+        title: str,
+        bullets: List[str],
+        image_analysis: Dict[str, Any],
+    ) -> str:
+        """Pull every distinguishing product attribute from all available data."""
+        ia = image_analysis or {}
+        attrs: List[str] = []
+
+        brand = ia.get('brand') or ''
+        if brand and brand.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"Brand: {brand}")
+
+        material = ia.get('material') or ''
+        if material and material.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"Material: {material}")
+
+        colors = ia.get('colors') or []
+        if colors:
+            attrs.append(f"Colors: {', '.join(colors)}")
+
+        size = ia.get('size') or ''
+        if size and size.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"Size/Weight: {size}")
+
+        quantity = ia.get('quantity') or ''
+        if quantity and quantity.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"Quantity/Pack: {quantity}")
+
+        product_type = ia.get('product_type') or ''
+        if product_type and product_type.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"Product type: {product_type}")
+
+        key_features = ia.get('key_features') or []
+        if key_features:
+            attrs.append(f"Key features: {', '.join(key_features[:6])}")
+
+        usp = ia.get('usp') or ''
+        if usp and usp.lower() not in ('unknown', 'n/a', ''):
+            attrs.append(f"USP: {usp}")
+
+        # Extract distinguishing words from bullets (material, finish, use-case hints)
+        if bullets:
+            bullet_text = ' '.join(bullets[:5])
+            attrs.append(f"Bullet highlights: {bullet_text[:300]}")
+
+        return "\n".join(attrs) if attrs else "No additional attributes available."
 
     def run(
         self,
@@ -312,86 +372,151 @@ class SearchTermsAgent:
         keywords: List[Dict[str, Any]],
         image_analysis: Dict[str, Any] = None,
     ) -> str:
+        MAX_CHARS = 200
+
+        # Keywords come from a dedicated broader sweep (up to 150) already
+        # sorted by volume. Let LLM filter variant mismatches.
         sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
-        # Give the LLM all top 50 keyword phrases to work with
-        kw_lines = [f"  - {kw['keyword']} (volume: {float(kw.get('score',0)):.0f})" for kw in sorted_kw[:50]]
-        keyword_list = "\n".join(kw_lines) if kw_lines else "  (no keywords available)"
+        top_pool = sorted_kw[:150]
 
-        bullets_text = " | ".join(b for b in bullets if b)
+        if not top_pool:
+            return ""
 
-        # Build set of words already in title + bullets (for post-processing cleanup)
-        already_indexed = set()
-        for w in title.lower().split():
-            clean = ''.join(c for c in w if c.isalnum())
-            if clean and len(clean) > 1:
-                already_indexed.add(clean)
-        for b in bullets:
-            for w in b.lower().split():
-                clean = ''.join(c for c in w if c.isalnum())
-                if clean and len(clean) > 1:
-                    already_indexed.add(clean)
+        # Build keyword list for the LLM
+        kw_lines = []
+        for i, kw in enumerate(top_pool, 1):
+            phrase = str(kw.get('keyword', '')).strip()
+            vol = float(kw.get('score', 0))
+            kw_lines.append(f"{i}. {phrase} (vol: {vol:.0f})")
+        keyword_list = "\n".join(kw_lines)
 
-        ia = image_analysis or {}
-        prompt = SEARCH_TERMS_PROMPT.format(
-            title=title,
-            bullets_text=bullets_text or "(none)",
-            keyword_list=keyword_list,
-            product_type=ia.get('product_type', ''),
-            brand=ia.get('brand', ''),
-            material=ia.get('material', ''),
-            color=', '.join(ia.get('colors') or []) or '',
-            size=ia.get('size', ''),
-            target_audience=ia.get('target_audience', ''),
-        )
+        # Extract rich product context from image analysis + bullets
+        product_attributes = self._extract_product_attributes(title, bullets, image_analysis or {})
+
+        prompt = f"""You are an Amazon backend search term expert with deep listing optimization experience.
+
+═══ THIS PRODUCT ═══
+TITLE: "{title}"
+
+PRODUCT SPECIFICATIONS (from image analysis & listing data):
+{product_attributes}
+
+═══ KEYWORD POOL (from database, sorted by search volume) ═══
+{keyword_list}
+
+═══ YOUR TASK ═══
+Create a backend search term string (max {MAX_CHARS} characters) by:
+1. SELECTING only keywords that match THIS EXACT product (use specs above to filter out wrong variants)
+2. CHAINING selected keywords into meaningful search phrases using ONLY words from the keyword pool
+
+═══ CRITICAL: VARIANT FILTERING ═══
+The keyword pool above comes from a category-level database. It contains keywords for
+the ENTIRE category, including OTHER product variants that are NOT this product.
+
+You MUST EXCLUDE keywords that specify a DIFFERENT:
+- Weight/size: If this product is 3kg → EXCLUDE "2kg dumbbells", "4kg weights", "1kg", "5kg", "10kg"
+  (Only include THIS product's weight: 3kg)
+- Color: If this product is black → EXCLUDE "pink dumbbells", "red weights"
+  (Only include THIS product's color)
+- Material: If this product is neoprene → EXCLUDE "cast iron dumbbells" (unless it actually is cast iron)
+- Gender: If product is unisex → you CAN include both "women" and "men" terms
+- Count: If this is a pair → EXCLUDE "single dumbbell", "set of 6"
+
+KEEP keywords that are:
+✓ Generic (no conflicting spec): "dumbbells set", "hand weights", "gym equipment"
+✓ Matching THIS product's specs: "3kg dumbbells", "neoprene weights"  
+✓ Describing features/use: "non slip grip", "home gym", "exercise weights"
+✓ Alternate spellings: "dumb bells", "dumbells", "dumbell"
+✓ Brand-related: brand name + product type
+
+═══ HOW TO CHAIN ═══
+After filtering, chain the remaining keywords into flowing mini-phrases (2-5 words each):
+- Start from highest volume keywords
+- Connect related words into phrases a customer would actually search
+- ONLY use words that appear in the KEYWORD POOL above.
+  Do NOT inject brand, material, color, or any word that isn't already in a keyword.
+  If the keyword pool contains "neoprene dumbbells" → use it. If it doesn't → don't add "neoprene".
+- Words CAN repeat to form different meaningful phrases, but limit any single word
+  to at most 2-3 occurrences. The output should NOT look spammy or overly repetitive.
+- No commas, no punctuation — just space-separated flowing phrases
+- All lowercase
+
+GOOD example (for a 3kg neoprene dumbbell, assuming keyword pool contains "neoprene dumbbells", "kakss dumbbells" etc.):
+"dumbbells set 3kg pair neoprene dumbbells hexagonal non slip grip weights women home gym equipment exercise dumbbell 3kg weights ladies dumb bells hand weights fitness dumbell set gym"
+
+Notice:
+- ONLY 3kg appears (the actual product weight). NO 2kg/4kg/1kg/5kg.
+- "neoprene" and "kakss" appear ONLY because they were in the keyword pool.
+- "dumbbells" appears 2-3x max, forming different phrases each time — not spammy.
+- These are BACKEND search terms (hidden, not customer-facing) — focus on maximizing keyword coverage for Amazon's indexing algorithm.
+
+BAD example 1:
+"dumbbells set 3kg weights women 2kg 4kg 1kg 5kg dumbbells pair"
+↑ WRONG — includes 2kg, 4kg, 1kg, 5kg which are DIFFERENT products!
+
+BAD example 2:
+"dumbbells set dumbbells weights dumbbells pair dumbbells women dumbbells gym dumbbells"
+↑ WRONG — "dumbbells" repeated 6 times, looks spammy and wastes character space!
+
+CRITICAL: Must be ≤ {MAX_CHARS} characters total. Only lowercase.
+
+Return ONLY valid JSON:
+{{
+  "search_terms": "your chained search term string here"
+}}
+
+JSON:"""
 
         for attempt in range(3):
-            temp = 0.2 + (attempt * 0.1)
-            raw = self.llm.generate(prompt, temperature=temp, max_tokens=2000)
+            temp = 0.15 + (attempt * 0.1)
+            raw = self.llm.generate(prompt, temperature=temp, max_tokens=1000)
             obj = extract_json_object(raw or "")
 
             if obj and 'search_terms' in obj:
                 terms = str(obj['search_terms']).strip().lower()
-                # Clean: allow alphanumeric, spaces, and commas only
-                terms = ''.join(c if c.isalnum() or c in (' ', ',') else ' ' for c in terms)
-                # Normalize: split into comma-separated phrases, clean each
-                raw_phrases = [p.strip() for p in terms.split(',') if p.strip()]
+                # Clean: keep only alphanumeric and spaces
+                terms = ''.join(c if c.isalnum() or c == ' ' else ' ' for c in terms)
+                terms = ' '.join(terms.split())  # normalize whitespace
 
-                # Filter out phrases where ALL words are already in title/bullets
-                filtered_phrases = []
-                for phrase in raw_phrases:
-                    phrase_words = phrase.split()
-                    new_words = [w for w in phrase_words if ''.join(c for c in w if c.isalnum()) not in already_indexed]
-                    if new_words:  # at least one new word in this phrase
-                        filtered_phrases.append(phrase)
+                # Enforce 200 char limit — cut at last full word
+                if len(terms) > MAX_CHARS:
+                    cut = terms[:MAX_CHARS]
+                    last_space = cut.rfind(' ')
+                    if last_space > MAX_CHARS * 0.7:
+                        terms = cut[:last_space].strip()
+                    else:
+                        terms = cut.strip()
 
-                # Deduplicate phrases
-                seen_phrases = set()
-                unique_phrases = []
-                for phrase in filtered_phrases:
-                    if phrase not in seen_phrases:
-                        seen_phrases.add(phrase)
-                        unique_phrases.append(phrase)
-
-                terms = ', '.join(unique_phrases)
-
-                if terms:
+                if len(terms) >= 50:  # sanity check
                     return terms
 
-            prompt += f"\n\nAttempt {attempt+1} failed. Return valid JSON with 'search_terms' key. Include as many relevant keyword phrases as possible."
+            prompt += f"\n\nAttempt {attempt+1} failed. Return ONLY valid JSON with 'search_terms'. Must be ≤ {MAX_CHARS} chars, lowercase, meaningful phrases. EXCLUDE keywords with specs that don't match this product."
 
-        # Fallback: use keyword phrases directly (comma-separated), skip if all words in title/bullets
-        fallback_phrases = []
-        seen_fb = set()
-        for kw in sorted_kw[:50]:
-            phrase = kw['keyword'].lower().strip()
-            if phrase in seen_fb:
+        # Fallback: chain keyword phrases directly
+        return self._fallback_chain(top_pool, MAX_CHARS)
+
+    def _fallback_chain(
+        self, sorted_kw: List[Dict[str, Any]], max_chars: int,
+    ) -> str:
+        """Fallback: chain top keyword phrases directly, keeping meaningful groups."""
+        chain_parts: List[str] = []
+        current_len = 0
+
+        for kw in sorted_kw:
+            phrase = str(kw.get('keyword', '')).strip().lower()
+            phrase = ''.join(c if c.isalnum() or c == ' ' else ' ' for c in phrase)
+            phrase = ' '.join(phrase.split())
+            if not phrase:
                 continue
-            seen_fb.add(phrase)
-            phrase_words = phrase.split()
-            new_words = [w for w in phrase_words if ''.join(c for c in w if c.isalnum()) not in already_indexed]
-            if new_words:
-                fallback_phrases.append(phrase)
-        return ', '.join(fallback_phrases)
+
+            test_len = current_len + len(phrase) + (1 if chain_parts else 0)
+            if test_len > max_chars:
+                break
+
+            chain_parts.append(phrase)
+            current_len = test_len
+
+        return ' '.join(chain_parts)
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "set_count"
+  ],
+  "search_priorities": [
+    "5kg dumbbells set",
+    "neoprene dumbbells",
+    "blue dumbbells"
+  ],
+  "color_important": true
+}

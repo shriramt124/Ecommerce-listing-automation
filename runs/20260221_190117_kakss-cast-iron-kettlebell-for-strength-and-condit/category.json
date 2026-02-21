@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight_accuracy",
+    "grip_comfort",
+    "durability"
+  ],
+  "search_priorities": [
+    "6kg kettlebell",
+    "cast iron kettlebell",
+    "home gym kettlebell"
+  ],
+  "color_important": true
+}

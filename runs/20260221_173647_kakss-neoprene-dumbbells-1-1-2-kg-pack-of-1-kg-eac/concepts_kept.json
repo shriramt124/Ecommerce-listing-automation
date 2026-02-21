@@ -1,0 +1,28 @@
+{
+  "concepts": [
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Slip Coated Hand Weights for Home Gym & Fitness Training",
+      "type": "use_case",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Pink",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

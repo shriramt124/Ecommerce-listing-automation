@@ -1,0 +1,19 @@
+{
+  "concepts": [
+    {
+      "text": "Neoprene Dumbbell Hand Weights, Sweat",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Resistant Dumbellsweights Set, Home Gym Fitness",
+      "type": "use_case",
+      "locked": false
+    },
+    {
+      "text": "Set of 2 Dumbbells",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

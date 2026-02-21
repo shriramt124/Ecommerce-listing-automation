@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume score (27072), plural form of main product"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest score (26188), exact product name"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Third highest score (24880), common alternative spelling"
+    },
+    {
+      "keyword": "6kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 7592.0,
+      "reason": "High score (7592), includes weight specification"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "High score (5045), matches product material"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Good score (3551), weight-specific search term"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Good score (3365), weight-specific search term"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Good score (3309), specific use case"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Good score (3308), weight-specific search term"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good score (3263), weight-specific search term"
+    },
+    {
+      "keyword": "18kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3072.0,
+      "reason": "Good score (3072), weight-specific search term"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good score (3299), related fitness equipment term"
+    },
+    {
+      "keyword": "fitness",
+      "zone": "ZONE_B",
+      "score": 3180.0,
+      "reason": "Good score (3180), broad category term"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "Good score (3291), general fitness equipment term"
+    },
+    {
+      "keyword": "amazon dumbbells",
+      "zone": "ZONE_B",
+      "score": 3228.0,
+      "reason": "Good score (3228), brand-related fitness equipment"
+    }
+  ]
+}

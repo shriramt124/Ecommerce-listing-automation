@@ -1,0 +1,144 @@
+{
+  "original_title": "Myga Iron Kettlebell - Heavy Cast Iron Weight for Fitness and Strength Training, Bodybuilding, Muscle and Cardio - Workout Equipment ideal for Home, Gym and Studio - Various Weights, from 4kg - 18kg",
+  "original_length": 198,
+  "steps": [
+    "Parsed 8 concepts",
+    "Kept 8 concepts",
+    "Using 1461 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "handle_grip"
+    ],
+    "search_priorities": [
+      "kettlebell",
+      "cast iron kettlebell",
+      "home gym weights"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1461
+  },
+  "selected_keywords": [
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Highest score (36878) - broad category term with high search volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Second highest score (30386) - core fitness equipment term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Third highest score (30339) - high-volume search phrase"
+    },
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "High score (27072) - plural form of main product type"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "High score (26188) - primary product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "High score (24880) - common alternative spelling"
+    },
+    {
+      "keyword": "16kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 22761.0,
+      "reason": "High score (22761) - specific weight search term"
+    },
+    {
+      "keyword": "12kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 20094.0,
+      "reason": "High score (20094) - specific weight search term"
+    },
+    {
+      "keyword": "10kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 18533.0,
+      "reason": "High score (18533) - specific weight search term"
+    },
+    {
+      "keyword": "20kg kettlebells",
+      "zone": "ZONE_B",
+      "score": 17689.0,
+      "reason": "High score (17689) - specific weight search term"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High score (16682) - location-based search term"
+    },
+    {
+      "keyword": "kettlebell 16kg",
+      "zone": "ZONE_B",
+      "score": 13022.0,
+      "reason": "Good score (13022) - weight-specific search"
+    },
+    {
+      "keyword": "8kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 13009.0,
+      "reason": "Good score (13009) - specific weight search term"
+    },
+    {
+      "keyword": "kettlebell 20kg",
+      "zone": "ZONE_B",
+      "score": 11337.0,
+      "reason": "Good score (11337) - weight-specific search"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good score (10854) - broad category term"
+    }
+  ],
+  "title_result": {
+    "full_title": "MYGA Cast Iron Kettlebell, 6kg Peach with PVC Coating, Color-Coded Weights with Ergonomic Grip and Flattened Hex Base, Kettlebell Weights for Home Gym Equipment and Strength Training",
+    "char_count": 182,
+    "reasoning": {
+      "strategy": "Integrated top keywords 'kettlebell', 'weights', 'home gym equipment', and 'strength training' naturally. Prioritized the verified 6kg weight and peach color from the image over the original title's range. Wove in key features like PVC coating, color-coding, ergonomic grip, and flattened base to create a descriptive, flowing title."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 4kg-18kg (6KG shown)",
+      "Missing color: peach, black, yellow, orange, purple, light blue"
+    ],
+    "char_count": 182
+  },
+  "optimized_title": "MYGA Cast Iron Kettlebell, 6kg Peach with PVC Coating, Color-Coded Weights with Ergonomic Grip and Flattened Hex Base, Kettlebell Weights for Home Gym Equipment and Strength Training",
+  "final_length": 182
+}

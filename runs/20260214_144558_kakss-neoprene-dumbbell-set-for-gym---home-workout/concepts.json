@@ -1,0 +1,19 @@
+{
+  "concepts": [
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Red",
+      "type": "use_case",
+      "locked": false
+    },
+    {
+      "text": "Made in India",
+      "type": "other",
+      "locked": false
+    }
+  ]
+}

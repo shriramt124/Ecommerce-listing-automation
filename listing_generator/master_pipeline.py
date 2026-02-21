@@ -75,20 +75,37 @@ class ListingPipeline:
         output_dir: str = None,
         *,
         generate_images: bool = False,
+        images_only: bool = False,
         ingest_keywords: bool = False,
         gemini_api_key: str = None,
         gemini_model: str = None,
         limit: int = None,
         skip: int = 0,
         keyword_index_path: str = None,
+        search_terms_only: bool = False,
+        analysis_dir: str = None,
+        banner_image_only: bool = False,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
         self.generate_images_flag = generate_images
+        self.images_only = images_only
+        self.search_terms_only = search_terms_only
+        self.analysis_dir = analysis_dir
+        
+        # If images_only is requested, force generate_images ON
+        if self.images_only:
+            self.generate_images_flag = True
+
+        # If search_terms_only, disable images
+        if self.search_terms_only:
+            self.generate_images_flag = False
+            
         self.ingest_keywords_flag = ingest_keywords
         self.limit = limit
         self.skip = skip
         self.keyword_index_path = keyword_index_path
+        self.banner_image_only = banner_image_only
 
         # Output directory with timestamp
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -192,22 +209,60 @@ class ListingPipeline:
         """Stage 1: Parse client Excel."""
         return parse_client_excel(self.client_excel)
 
+    def _load_cached_analysis(self, product: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Try to load cached image analysis from analysis_dir."""
+        if not self.analysis_dir:
+            return None
+
+        asin = product.get("asin", "")
+        if not asin:
+            return None
+
+        safe_name = "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in asin)
+        json_path = os.path.join(self.analysis_dir, f"{safe_name}_analysis.json")
+
+        if not os.path.isfile(json_path):
+            print(f"      ⚠️  No cached analysis for {asin} at {json_path}")
+            return None
+
+        try:
+            with open(json_path, "r") as f:
+                data = json.load(f)
+            ia = data.get("image_analysis", {})
+            if ia and ia.get("status") == "SUCCESS":
+                print(f"      📂 Loaded cached image analysis for {asin}")
+                return ia
+            else:
+                print(f"      ⚠️  Cached analysis for {asin} has no successful image_analysis")
+                return None
+        except Exception as e:
+            print(f"      ⚠️  Failed to load cached analysis for {asin}: {e}")
+            return None
+
     def _stage_image_analysis(
         self, product: Dict[str, Any], product_idx: int,
     ) -> Dict[str, Any]:
-        """Stage 3a: Analyze product images."""
+        """Stage 3a: Analyze product images (or load from cache)."""
+        # Try cache first
+        cached = self._load_cached_analysis(product)
+        if cached is not None:
+            return cached
+
         temp_dir = os.path.join(self.output_dir, "temp_images", f"product_{product_idx}")
         return self.image_analyzer.analyze_product(product, temp_dir)
 
     def _stage_keywords(
         self, product: Dict[str, Any], image_analysis: Dict[str, Any],
-    ) -> List[Dict[str, Any]]:
+    ) -> Tuple[List[Dict[str, Any]], List[str], Dict[str, float], Dict[str, bool]]:
         """Stage 3b: 3-round agentic keyword discovery (from listing_pipeline).
 
         Round 1 — Wide sweep: LLM + programmatic queries → search_broad (no limit)
                   + product relevance embedding filter
         Round 2 — LLM judge: top 80 keywords judged relevant/not + gap-fill queries
         Round 3 — Synonym expansion (conditional): only if gap-fill found >=3 new in top 60
+
+        Returns:
+            (all_candidates, round1_queries, product_relevance, relevance_map)
         """
         title = product.get("title", "")
         title_lower = title.lower()
@@ -442,7 +497,7 @@ class ListingPipeline:
             print(f"      {flag} {i:>2}. {kw['keyword']:<40s} "
                   f"vol={vol:>8.0f}  rel={pr:.2f}  hits={hc:>2}  R{rd}")
 
-        return all_candidates
+        return all_candidates, round1_queries, product_relevance, relevance_map
 
     # ------------------------------------------------------------------
     # Keyword discovery helper methods (ported from listing_pipeline)
@@ -480,6 +535,9 @@ class ListingPipeline:
         features = image_analysis.get("key_features") or []
         if features:
             parts.append(" ".join(features[:4]))
+        manual = product.get("manual", "").strip()
+        if manual:
+            parts.append(manual[:200])
         return " ".join(parts)
 
     def _build_fallback_queries(
@@ -537,6 +595,104 @@ class ListingPipeline:
             fb.append(f"{product_type} {audience[:40]}")
 
         return fb
+
+    def _extract_title_used_rank_keywords(
+        self,
+        optimized_title: str,
+        keywords: List[Dict[str, Any]],
+        max_items: int = 12,
+    ) -> str:
+        """Return ranked keywords used in title (hybrid: deterministic + LLM refinement)."""
+        title = (optimized_title or "").strip().lower()
+        if not title or not keywords:
+            return ""
+
+        title_norm = re.sub(r"\s+", " ", title)
+        seen: set = set()
+        matched: List[Dict[str, Any]] = []
+        by_keyword: Dict[str, Dict[str, Any]] = {}
+
+        def _rank_key(item: Dict[str, Any]) -> int:
+            rank = item.get("rank")
+            try:
+                r = int(rank)
+                return r if r > 0 else 10**9
+            except Exception:
+                return 10**9
+
+        for kw in sorted(keywords, key=_rank_key):
+            phrase = str(kw.get("keyword", "") or "").strip().lower()
+            if not phrase or phrase in seen:
+                continue
+            by_keyword[phrase] = kw
+
+            pattern = rf"(?<![a-z0-9]){re.escape(phrase)}(?![a-z0-9])"
+            if re.search(pattern, title_norm):
+                matched.append(kw)
+                seen.add(phrase)
+                if len(matched) >= max_items:
+                    break
+
+        # LLM refinement: helps catch normalized variants while restricting to provided keyword list only.
+        try:
+            candidate_keywords = sorted(keywords, key=_rank_key)[:80]
+            candidate_lines = []
+            for kw in candidate_keywords:
+                p = str(kw.get("keyword", "") or "").strip().lower()
+                if not p:
+                    continue
+                r = kw.get("rank")
+                r_text = str(r) if r not in (None, "", 0) else "N/A"
+                candidate_lines.append(f"- {p} | rank={r_text}")
+
+            if candidate_lines:
+                prompt = f"""Find which ranked keywords are used in this Amazon title.
+
+TITLE:
+{optimized_title}
+
+CANDIDATE KEYWORDS (use only these):
+{chr(10).join(candidate_lines)}
+
+Rules:
+1) Return only keywords that appear in the title (exact phrase or obvious punctuation/spacing variant).
+2) Do NOT invent new keywords.
+3) Keep rank from the candidate list.
+4) Max {max_items} items.
+
+Return ONLY valid JSON:
+{{
+  "matched": [
+    {{"keyword": "...", "rank": "..."}}
+  ]
+}}
+JSON:"""
+
+                raw = self.llm.generate(prompt, temperature=0.0, max_tokens=700)
+                obj = extract_json_object(raw or "")
+                for item in (obj.get("matched", []) if isinstance(obj, dict) else []):
+                    phrase = str((item or {}).get("keyword", "") or "").strip().lower()
+                    if not phrase:
+                        continue
+                    if phrase not in by_keyword:
+                        continue
+                    if phrase in seen:
+                        continue
+                    matched.append(by_keyword[phrase])
+                    seen.add(phrase)
+                    if len(matched) >= max_items:
+                        break
+        except Exception:
+            pass
+
+        # Final canonical formatting sorted by rank
+        out = []
+        for kw in sorted(matched, key=_rank_key)[:max_items]:
+            phrase = str(kw.get("keyword", "") or "").strip().lower()
+            rank = kw.get("rank")
+            rank_text = str(rank) if rank not in (None, "", 0) else "N/A"
+            out.append(f"{phrase} (rank {rank_text})")
+        return "; ".join(out)
 
     def _round1_generate_queries(
         self, product: Dict[str, Any], image_analysis: Dict[str, Any],
@@ -828,6 +984,7 @@ JSON:"""
             "ai_description": image_analysis.get("ai_description") or "",
             "target_audience": image_analysis.get("target_audience") or "",
             "product_name": image_analysis.get("product_name") or "",
+            "manual": product.get("manual", ""),
         }
 
         print(f"   ✍️  Optimizing title...")
@@ -971,6 +1128,9 @@ Output ONLY the optimized title text (one line, no quotes):"""
         image_analysis: Dict[str, Any],
         keywords: List[Dict[str, Any]],
         optimized_title: str,
+        kw_queries: List[str] = None,
+        product_relevance: Dict[str, float] = None,
+        relevance_map: Dict[str, bool] = None,
     ) -> Tuple[List[str], str, str]:
         """Stage 3d-f: Generate bullets, description, search terms."""
         print(f"   📝 Generating content...")
@@ -983,11 +1143,73 @@ Output ONLY the optimized title text (one line, no quotes):"""
         description = self.desc_agent.run(product, image_analysis, keywords)
         print(f"      ✅ Description: {len(description)} chars")
 
-        # Search terms (now product-specific)
-        search_terms = self.search_agent.run(optimized_title, bullets, keywords, image_analysis)
+        # Dedicated broader keyword retrieval for search terms
+        if kw_queries and product_relevance is not None:
+            search_kw = self._get_search_term_keywords(
+                kw_queries, product_relevance, relevance_map or {},
+                top_n=150,
+            )
+            print(f"      🔍 Dedicated search term keywords: {len(search_kw)} (top 150 by volume)")
+        else:
+            search_kw = keywords
+            print(f"      ⚠️ No dedicated queries — using shared keyword pool ({len(search_kw)})")
+
+        # Search terms (now with dedicated broader keyword pool)
+        search_terms = self.search_agent.run(optimized_title, bullets, search_kw, image_analysis)
         print(f"      ✅ Search terms: {len(search_terms)} chars")
 
         return bullets, description, search_terms
+
+    def _get_search_term_keywords(
+        self,
+        queries: List[str],
+        product_relevance: Dict[str, float],
+        relevance_map: Dict[str, bool],
+        top_n: int = 150,
+        relevance_threshold: float = 0.30,
+    ) -> List[Dict[str, Any]]:
+        """Run a dedicated broader sweep for search term keywords.
+
+        Re-runs ALL the same queries from _stage_keywords against the vector DB
+        with a slightly lower similarity floor to cast a wider net, then applies
+        the same product relevance + LLM judge filters, and returns top N by volume.
+        """
+        merged: Dict[str, Dict[str, Any]] = {}
+
+        for q in queries:
+            results = self.keyword_db.search_broad(q, min_similarity=0.20)
+            for r in results:
+                kw = str(r.get("keyword", "")).strip().lower()
+                if not kw:
+                    continue
+
+                # Product relevance filter
+                pr = product_relevance.get(kw, 0.0)
+                if pr < relevance_threshold:
+                    continue
+
+                # LLM judge filter — skip keywords explicitly marked NOT relevant
+                if kw in relevance_map and not relevance_map[kw]:
+                    continue
+
+                r["product_relevance"] = pr
+
+                if kw not in merged:
+                    merged[kw] = r
+                else:
+                    # Keep highest similarity
+                    if float(r.get("similarity", 0)) > float(merged[kw].get("similarity", 0)):
+                        pr_old = merged[kw].get("product_relevance", 0)
+                        merged[kw] = {**r, "product_relevance": pr_old}
+
+        # Sort by volume descending, take top N
+        candidates = sorted(
+            merged.values(),
+            key=lambda x: float(x.get("score", 0)),
+            reverse=True,
+        )
+
+        return candidates[:top_n]
 
     def _generate_comparison_points(
         self,
@@ -1079,7 +1301,7 @@ RULES:
         optimized_title: str = "",
         bullets: List[str] = None,
         description: str = "",
-    ) -> Dict[str, bool]:
+    ) -> Dict[str, str]:
         """Stage 3g: Generate listing images using ALL analyzed content (no hallucination)."""
         if not self.generate_images_flag:
             return {}
@@ -1087,7 +1309,25 @@ RULES:
         print(f"   🎨 Generating listing images...")
         creator = self._get_image_creator()
 
-        img_dir = os.path.join(self.output_dir, "images", f"product_{product_idx}")
+        asin = product.get("asin", f"PRODUCT_{product_idx}")
+        safe_asin = "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in str(asin))
+        img_dir = os.path.join(self.output_dir, "images", safe_asin)
+
+        ts = datetime.now().strftime("%Y_%m_%d_%H%M%S_%f")
+        if self.banner_image_only:
+            output_filenames = {
+                "banner_image": f"banner_1_{ts}.png",
+            }
+        else:
+            output_filenames = {
+                "main_image": f"main_1_{ts}.png",
+                "lifestyle_1": f"ls_1_{ts}.png",
+                "lifestyle_2": f"ls_2_{ts}.png",
+                "lifestyle_3": f"ls_3_{ts}.png",
+                "lifestyle_4": f"ls_4_{ts}.png",
+                "why_choose_us": f"wcs_1_{ts}.png",
+                "banner_image": f"banner_1_{ts}.png",
+            }
 
         # Use first available local image as reference
         ref_image = None
@@ -1098,7 +1338,7 @@ RULES:
             ref_image = product["images"][0]
 
         # Pass ALL generated content to prevent hallucination
-        return creator.generate_all(
+        image_results = creator.generate_all(
             image_analysis=image_analysis,
             optimized_title=optimized_title,
             bullets=bullets or [],
@@ -1106,8 +1346,18 @@ RULES:
             country=product.get("country", "US"),
             output_dir=img_dir,
             reference_image=ref_image,
+            output_filenames=output_filenames,
+            banner_only=self.banner_image_only,
             pause_between=3,
         )
+
+        image_paths: Dict[str, str] = {}
+        for key, fname in output_filenames.items():
+            fpath = os.path.join(img_dir, fname)
+            if image_results.get(key) and os.path.isfile(fpath):
+                image_paths[key] = fpath
+
+        return image_paths
 
     # ------------------------------------------------------------------
     # Main run
@@ -1178,56 +1428,81 @@ RULES:
             print(f"{'━' * 70}")
 
             try:
-                # 3a. Image analysis
-                image_analysis = self._stage_image_analysis(product, display_idx)
-
-                # 3b. Keywords
-                keywords = self._stage_keywords(product, image_analysis)
-
-                # 3c. Title optimization (pass keywords for fallback)
-                optimized_title, title_report = self._stage_title(product, image_analysis, keywords)
-                if not optimized_title:
+                if self.images_only:
+                    print("   ⏩ IMAGES-ONLY MODE: Skipping text optimization...")
+                    image_analysis = self._stage_image_analysis(product, display_idx)
+                    keywords = [] # Not needed for image gen if we have description
                     optimized_title = product.get("title", "")
+                    bullets = product.get("bullet_points", [])
+                    description = product.get("description", "")
+                    search_terms = ""
+                elif self.search_terms_only:
+                    print("   🔍 SEARCH-TERMS-ONLY MODE: Using cached analysis...")
+                    # 3a. Load cached image analysis (no Gemini Vision call)
+                    image_analysis = self._stage_image_analysis(product, display_idx)
 
-# 3d-f. Content generation
-                bullets, description, search_terms = self._stage_content(
-                    product, image_analysis, keywords, optimized_title,
+                    # 3b. Keywords (needs image_analysis for relevance embedding)
+                    keywords, kw_queries, product_relevance, relevance_map = self._stage_keywords(product, image_analysis)
+
+                    # Skip title, bullets, description — use originals
+                    optimized_title = product.get("title", "")
+                    bullets = product.get("bullet_points", [])
+                    description = product.get("description", "")
+
+                    # Dedicated broader keyword retrieval for search terms
+                    search_kw = self._get_search_term_keywords(
+                        kw_queries, product_relevance, relevance_map,
+                        top_n=150,
+                    )
+                    print(f"      🔍 Dedicated search term keywords: {len(search_kw)} (top 150 by volume)")
+
+                    # Generate ONLY search terms
+                    search_terms = self.search_agent.run(optimized_title, bullets, search_kw, image_analysis)
+                    print(f"      ✅ Search terms: {len(search_terms)} chars")
+                else:
+                    # 3a. Image analysis
+                    image_analysis = self._stage_image_analysis(product, display_idx)
+
+                    # 3b. Keywords
+                    keywords, kw_queries, product_relevance, relevance_map = self._stage_keywords(product, image_analysis)
+
+                    # 3c. Title optimization (pass keywords for fallback)
+                    optimized_title, title_report = self._stage_title(product, image_analysis, keywords)
+                    if not optimized_title:
+                        optimized_title = product.get("title", "")
+
+                    # 3d-f. Content generation
+                    bullets, description, search_terms = self._stage_content(
+                        product, image_analysis, keywords, optimized_title,
+                        kw_queries, product_relevance, relevance_map,
                 )
 
-                # 3f-2. Generate comparison points (uses ALL content, not just images)
-                comparison_points = self._generate_comparison_points(
-                    product, image_analysis, optimized_title,
-                    bullets, description,
-                )
-                # Inject into image_analysis so image creator can use them
-                image_analysis["comparison_points"] = comparison_points
+                # 3f-2. Generate comparison points (skip in search-terms-only mode)
+                if not self.search_terms_only:
+                    comparison_points = self._generate_comparison_points(
+                        product, image_analysis, optimized_title,
+                        bullets, description,
+                    )
+                    # Inject into image_analysis so image creator can use them
+                    image_analysis["comparison_points"] = comparison_points
 
                 # 3g. Image generation using ALL analyzed content (no hallucination)
-                image_results = self._stage_images(
+                if not self.search_terms_only:
+                    image_paths = self._stage_images(
                     product, image_analysis, display_idx,
                     optimized_title=optimized_title,
                     bullets=bullets,
                     description=description,
                 )
-
-                # Build image file paths for embedding in Excel
-                img_dir = os.path.join(self.output_dir, "images", f"product_{display_idx}")
-                image_paths = {}
-                if image_results:
-                    for img_key, img_file in [
-                        ("main_image", "main_product.png"),
-                        ("lifestyle_1", "lifestyle_1.png"),
-                        ("lifestyle_2", "lifestyle_2.png"),
-                        ("lifestyle_3", "lifestyle_3.png"),
-                        ("lifestyle_4", "lifestyle_4.png"),
-                        ("why_choose_us", "why_choose_us.png"),
-                    ]:
-                        fpath = os.path.join(img_dir, img_file)
-                        if image_results.get(img_key) and os.path.isfile(fpath):
-                            image_paths[img_key] = fpath
+                else:
+                    image_paths = {}
 
                 # AI description from image analysis
                 ai_description = image_analysis.get("ai_description", "")
+                title_used_rank_keywords = self._extract_title_used_rank_keywords(
+                    optimized_title,
+                    keywords,
+                )
 
                 # Build output row
                 row = build_output_row(
@@ -1237,6 +1512,7 @@ RULES:
                     bullets=bullets,
                     description=description,
                     search_terms=search_terms,
+                    title_used_rank_keywords=title_used_rank_keywords,
                     image_paths=image_paths,
                 )
                 output_rows.append(row)

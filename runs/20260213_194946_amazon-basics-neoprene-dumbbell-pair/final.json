@@ -1,0 +1,143 @@
+{
+  "original_title": "Amazon Basics Neoprene Dumbbell Pair",
+  "original_length": 36,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1698 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_comfort"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "5kg dumbbell pair",
+      "rubber coated dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1698
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume score (448,037) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest search volume (215,402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (143,389) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (94,089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High search volume (59,794) - common misspelling variant"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High search volume (52,761) - complete phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume (48,162) - targets specific audience"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High search volume (46,660) - specific weight and configuration"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (41,200) - singular form"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (36,878) - alternative phrasing"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (30,386) - broader category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (30,339) - alternative phrasing"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (20,210) - specific use case"
+    },
+    {
+      "keyword": "dumbell",
+      "zone": "ZONE_B",
+      "score": 20125.0,
+      "reason": "Good search volume (20,125) - common misspelling"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (16,682) - usage context"
+    }
+  ],
+  "title_result": {
+    "full_title": "AMAZON BASICS Neoprene Dumbbells Set, 5kg Pair (2 x 5kg), Blue Hex Dumbbells with Anti-Roll Design & Easy-Grip Texture, Hand Weights for Home Gym Equipment and Fitness Training",
+    "char_count": 176,
+    "reasoning": {
+      "keyword_integration": "Integrated top keywords 'dumbbells set', 'dumbbells', 'weights dumbbells set', '5kg dumbbells pair', 'weights', 'hand weights', and 'gym weights' naturally into readable phrases. Used verified product facts (blue color, hexagonal anti-roll design, neoprene grip) to create a descriptive title that flows as natural English."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: blue, white"
+    ],
+    "char_count": 176
+  },
+  "optimized_title": "AMAZON BASICS Neoprene Dumbbells Set, 5kg Pair (2 x 5kg), Blue Hex Dumbbells with Anti-Roll Design & Easy-Grip Texture, Hand Weights for Home Gym Equipment and Fitness Training",
+  "final_length": 176
+}

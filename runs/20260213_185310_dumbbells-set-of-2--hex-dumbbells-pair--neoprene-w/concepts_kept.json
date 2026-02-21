@@ -1,0 +1,22 @@
+{
+  "concepts": [
+    {
+      "text": "Waterproof",
+      "type": "tech_spec",
+      "locked": false,
+      "keep": true
+    },
+    {
+      "text": "Dumbbells Set of 2, Hex Dumbbells Pair, Neoprene  Non",
+      "type": "product",
+      "locked": true,
+      "keep": true
+    },
+    {
+      "text": "slip Dumbells Set",
+      "type": "other",
+      "locked": false,
+      "keep": true
+    }
+  ]
+}

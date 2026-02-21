@@ -11,13 +11,20 @@ Wraps the existing Image_Creation module to reuse Gemini generation logic.
 
 from __future__ import annotations
 
+import io
 import os
 import sys
 import json
 import time
 import requests
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+
+try:
+    from PIL import Image as PILImage, ImageOps
+    HAS_PIL = True
+except ImportError:
+    HAS_PIL = False
 
 from dotenv import load_dotenv
 
@@ -104,9 +111,11 @@ Generate a lifestyle image showing THIS EXACT PRODUCT being used.
 The product in the scene MUST be identical to the reference image I provided.
 - Do NOT change its color, shape, or size to match the "scene".
 - The scene adapts to the product, not vice versa.
+- CRITICAL: The brand name, logos, labels, and all text/markings visible on the original product MUST be clearly visible and readable in the lifestyle image too. The product should look EXACTLY like the main product photo — same branding, same stickers, same printing on the product.
 
 CONTEXT:
 Title: {optimized_title}
+Brand: {brand}
 Bullet Points:
 {bullets}
 
@@ -121,10 +130,11 @@ EXECUTION RULES:
 1. FORMAT: Strict 1:1 Square image.with 1021×1024 dimensions.
 2. INSERTION: Composite the reference product naturally into the scene.
 3. VISIBILITY: Product must be the clear hero of the shot.
-4. AUTHENTICITY: {country_cultural_notes}
-5. LIGHTING: Natural, matching the scene environment.
-6. NO TEXT/LOGOS: Clean photography only.
-7. CONSISTENCY: If the reference product is Pink, the product in this image MUST BE PINK.
+4. BRAND VISIBLE: The brand name "{brand}" and any logos/labels on the product MUST be clearly visible and legible — just like in the main product image. Do NOT remove or obscure branding.
+5. AUTHENTICITY: {country_cultural_notes}
+6. LIGHTING: Natural, matching the scene environment.
+7. NO EXTRA TEXT: Do not add any overlaid text or watermarks. But keep all branding/text that is physically ON the product.
+8. CONSISTENCY: If the reference product is Pink, the product in this image MUST BE PINK.
 
 Generate the authentic lifestyle square shot now."""
 
@@ -178,6 +188,62 @@ Generate the square comparison image.
 11. Both sides should look professional — ours just MORE premium
 
 Generate the premium comparison infographic now."""
+
+
+BANNER_LIFESTYLE_PROMPT = """I am providing you the ORIGINAL product image as the reference.
+Generate a premium HERO PRODUCT SHOT — wide landscape banner (1200×628px, 16:9 aspect ratio).
+
+STYLE: Apple / Dyson / Anker product photography.
+The product rests on a surface. A human hand or forearm gently touches it from the right side.
+NO full-body action. NO exercise poses. NO person jumping or running.
+This is a STUDIO-QUALITY close-up — the product is the undisputed star.
+
+████████████████████████████████████████████████████████
+  ZERO TEXT RULE
+████████████████████████████████████████████████████████
+ZERO rendered text in the image:
+  ✗ No names, taglines, captions, labels, badges, or watermarks
+  ✓ ONLY exception: text/logo physically printed ON the product itself
+████████████████████████████████████████████████████████
+
+*** PRODUCT VISUAL ACCURACY — CRITICAL ***
+The product MUST match the reference image exactly:
+- Same colors: {colors}
+- Same shape, proportions, packaging, label
+- REAL PHYSICAL SIZE: {weight_context}
+  Render at true-to-life scale relative to the human hand.
+  A 1kg dumbbell is SMALL (fits in one palm). A 16kg kettlebell is LARGE and heavy.
+  DO NOT make the product bigger or smaller than real life.
+- Do NOT reshape or redesign the product
+
+PRODUCT:
+Title: {optimized_title}
+Brand: {brand}
+Type: {product_type}
+
+SCENE:
+- Surface the product rests on: {surface}
+- Background (soft bokeh): {background}
+- Lighting: {lighting}
+- Mood: {mood}
+- Human element: One hand or forearm enters from the RIGHT side of frame,
+  gently touching or steadying the product. Shows scale and human connection.
+
+COMPOSITION (follow exactly):
+1. 16:9 landscape, 1200×628px output
+2. Product: LEFT-OF-CENTER, sharp, large, filling 40-55% of frame HEIGHT
+3. Brand label/logo on product FACES the camera — must be clearly readable
+4. Hand/arm enters from right — relaxed, natural
+5. RIGHT THIRD of frame: clean, uncluttered background (Amazon ad text safe zone)
+6. Depth-of-field: product tack-sharp, surface slightly focused, background beautiful bokeh
+7. Lighting: clean, even on product label, cinematic warm fill on scene
+8. NO person's face, NO full body, NO action poses
+
+Generate the photorealistic hero product banner now.
+ZERO text overlays. Brand label ON the product must be sharp and readable."""
+
+# Banner target size
+BANNER_SIZE: Tuple[int, int] = (1200, 628)
 
 
 # ---------------------------------------------------------------------------
@@ -391,19 +457,14 @@ Return ONLY valid JSON:
         max_retries = 2
         for attempt in range(max_retries):
             try:
-                # Use a lightweight text-capable model if possible, or fall back to the main model
-                # Assuming the main model (gemini-3-pro-image-preview) might handle text, 
-                # but safer to specify a known text model if available, or just rely on the API.
-                # Here we'll try the configured model first.
                 response = self.client.models.generate_content(
-                    model="gemini-2.0-flash", # Use fast text model for brainstorming
+                    model=self.model,
                     contents=prompt,
                     config=types.GenerateContentConfig(
                         response_mime_type="application/json",
                         temperature=0.7,
                     ),
                 )
-                
                 if response.text:
                     scenarios = json.loads(response.text)
                     if isinstance(scenarios, list) and len(scenarios) >= 4:
@@ -419,6 +480,79 @@ Return ONLY valid JSON:
             {"activity": f"Family enjoying {product_type}", "setting": "Living Space", "mood": "Warm"},
             {"activity": f"Active use of {product_type}", "setting": "Dynamic Setting", "mood": "Energetic"},
         ]
+
+    def _brainstorm_banner_scenario(
+        self,
+        title: str,
+        product_type: str,
+        key_features: List[str],
+        usage: str,
+        country: str,
+    ) -> Dict[str, str]:
+        """
+        Use Gemini (text) to design the SINGLE best cinematic banner scenario for this product.
+        Returns a dict: {setting, action, mood, lighting, foreground, background}
+        """
+        features_text = "\n".join(f"- {f}" for f in key_features[:5]) if key_features else f"- {usage or 'daily use'}"
+        prompt = f"""You are a senior product photographer and Art Director for a premium e-commerce brand.
+Design the PERFECT hero product shot for a 1200×628px Amazon Sponsored Brand Ad.
+
+STYLE: Think Apple product photography, Dyson ad, Anker ad.
+The product rests on a surface. A hand gently touches it. Clean, blurred background.
+NO full-body lifestyle scenes. NO action shots. NO exercise poses.
+This is a STUDIO-QUALITY close-up hero shot.
+
+PRODUCT: {title}
+TYPE: {product_type}
+MARKET: {country}
+KEY FEATURES:
+{features_text}
+USAGE: {usage or 'everyday use'}
+
+Design the SINGLE BEST surface and background for this product. Think:
+- What surface makes the product look premium? (gym mat, marble counter, wooden desk, concrete floor, etc.)
+- What background tells the product's story in soft focus? (blurred gym, blurred kitchen, blurred home)
+- What lighting makes the product’s colors and label pop?
+- What mood feels premium and aspirational for this product category?
+
+Return ONLY valid JSON (no markdown, no explanation):
+{{
+  "surface": "Specific surface the product rests on (e.g. 'dark rubber gym mat, slightly textured')",
+  "background": "Soft-focus blurred background behind (e.g. 'blurred home gym, dumbbell rack visible')",
+  "lighting": "Lighting style (e.g. 'clean studio light from upper-left, warm fill from right')",
+  "mood": "Premium mood (e.g. 'clean, aspirational, motivational')",
+  "weight_context": "Realistic size note for Gemini (e.g. '1kg dumbbell: small, fits in one palm, about the size of a large apple')"
+}}"""
+
+        max_retries = 2
+        for attempt in range(max_retries):
+            try:
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        temperature=0.8,
+                    ),
+                )
+                if response.text:
+                    scenario = json.loads(response.text)
+                    if isinstance(scenario, dict) and "setting" in scenario:
+                        print(f"         🎨 Banner scene: {scenario.get('mood','')}, {scenario.get('setting','')[:60]}")
+                        return scenario
+            except Exception as e:
+                print(f"         ⚠️  Banner brainstorm failed (attempt {attempt+1}): {e}")
+                time.sleep(1)
+
+        # Hardcoded fallback
+        return {
+            "surface": f"Clean rubber mat or wooden surface",
+            "background": f"Soft-focus blurred gym or home interior",
+            "mood": "clean, aspirational, premium",
+            "lighting": "clean studio light from upper-left, warm fill from right",
+            "foreground": f"The {product_type}, sharp and close to camera",
+            "weight_context": f"Show in realistic proportion to a human hand",
+        }
 
     def generate_lifestyle_image(
         self,
@@ -458,6 +592,7 @@ Return ONLY valid JSON:
 
         prompt = LIFESTYLE_PROMPT.format(
             optimized_title=image_analysis.get("optimized_title") or image_analysis.get("product_name") or "Product",
+            brand=image_analysis.get("brand") or "Brand",
             bullets=bullets_text,
             country=region["name"],
             setting=setting,
@@ -521,6 +656,83 @@ Return ONLY valid JSON:
             print(f"         ❌ Failed to generate infographic")
         return success
 
+    def _resize_to_banner(self, output_path: Path) -> bool:
+        """Post-process a saved image to exact BANNER_SIZE (1200×628) using PIL center-crop."""
+        if not HAS_PIL:
+            print("         ⚠️  Pillow not installed — banner not resized. pip install Pillow")
+            return True  # file still saved at original size
+        try:
+            with open(output_path, "rb") as f:
+                raw = f.read()
+            img = PILImage.open(io.BytesIO(raw))
+            final = ImageOps.fit(img, BANNER_SIZE, method=PILImage.LANCZOS, centering=(0.5, 0.5))
+            final.save(output_path, "PNG")
+            print(f"         📌 Resized to {BANNER_SIZE[0]}×{BANNER_SIZE[1]}px")
+            return True
+        except Exception as e:
+            print(f"         ⚠️  Banner resize failed: {e}")
+            return True  # generation still succeeded even if resize failed
+
+    def generate_banner_image(
+        self,
+        image_analysis: Dict[str, Any],
+        country: str,
+        output_path: Path,
+        reference_image: str = None,
+        bullets: List[str] = None,
+        description: str = None,
+    ) -> bool:
+        """Generate a 1200×628px lifestyle banner — photorealistic, ZERO text overlays."""
+        print(f"      🏞️  Generating lifestyle banner (1200×628)...")
+
+        region = _get_region(country)
+
+        target_audience = (image_analysis.get("target_audience") or "").strip()
+        person_description = (
+            f"{region['person'].split(' ')[0]} {target_audience}"
+            if target_audience else region["person"]
+        )
+
+        bullet_list = bullets or image_analysis.get("bullets") or []
+        if bullet_list:
+            key_features = [b.split(".")[0][:90].strip() for b in bullet_list[:5] if b]
+        else:
+            raw_features = image_analysis.get("key_features") or image_analysis.get("features") or []
+            key_features = [str(f)[:90].strip() for f in raw_features[:5]] if isinstance(raw_features, list) else ([str(raw_features)[:90]] if raw_features else [])
+
+        usage = image_analysis.get("usage") or "daily use"
+        product_type = image_analysis.get("product_type") or "product"
+        title = image_analysis.get("optimized_title") or image_analysis.get("product_name") or "Product"
+        colors = ", ".join(image_analysis.get("colors") or []) or "as shown in reference image"
+
+        print(f"         🎨 Brainstorming best banner scene...")
+        scenario = self._brainstorm_banner_scenario(
+            title=title, product_type=product_type,
+            key_features=key_features, usage=usage, country=region["name"],
+        )
+
+        prompt = BANNER_LIFESTYLE_PROMPT.format(
+            optimized_title=title,
+            brand=image_analysis.get("brand") or "Brand",
+            product_type=product_type,
+            colors=colors,
+            surface=scenario.get("surface", "clean gym mat or wooden surface"),
+            background=scenario.get("background", "soft-focus blurred interior"),
+            lighting=scenario.get("lighting", "clean studio light, warm fill"),
+            mood=scenario.get("mood", "clean, aspirational, premium"),
+            weight_context=scenario.get("weight_context", f"Show {product_type} at realistic size relative to a human hand"),
+        )
+
+        ref_bytes = self._download_reference(reference_image)
+        success = self._generate(prompt, Path(output_path), reference_image_bytes=ref_bytes)
+
+        if success:
+            self._resize_to_banner(Path(output_path))
+            print(f"         ✅ Saved: {output_path}")
+        else:
+            print(f"         ❌ Failed to generate banner image")
+        return success
+
     def generate_all(
         self,
         image_analysis: Dict[str, Any],
@@ -530,7 +742,9 @@ Return ONLY valid JSON:
         country: str,
         output_dir: str,
         reference_image: str = None,
+        output_filenames: Dict[str, str] = None,
         pause_between: int = 3,
+        banner_only: bool = False,
     ) -> Dict[str, bool]:
         """
         Generate all three image types using ONLY the analyzed content.
@@ -550,11 +764,35 @@ Return ONLY valid JSON:
         enriched_analysis['bullets'] = bullets
         enriched_analysis['description'] = description
 
+        names = {
+            "main_image": "main_product.png",
+            "lifestyle_1": "lifestyle_1.png",
+            "lifestyle_2": "lifestyle_2.png",
+            "lifestyle_3": "lifestyle_3.png",
+            "lifestyle_4": "lifestyle_4.png",
+            "why_choose_us": "why_choose_us.png",
+            "banner_image": "banner_1.png",
+        }
+        if output_filenames:
+            names.update({k: v for k, v in output_filenames.items() if v})
+
         results: Dict[str, bool] = {}
 
         # 1. Main image
+        if banner_only:
+            # Only generate the 1200x628 banner and skip other images
+            print(f"      🌍 Banner-only mode: generating single lifestyle banner...")
+            results["banner_image"] = self.generate_banner_image(
+                enriched_analysis, country, out / names["banner_image"], reference_image,
+                bullets=bullets,
+                description=description,
+            )
+            print(f"      📸 Generated 1/1 banner image")
+            return results
+
+        # 1. Main image
         results["main_image"] = self.generate_main_image(
-            enriched_analysis, out / "main_product.png", reference_image,
+            enriched_analysis, out / names["main_image"], reference_image,
         )
         time.sleep(pause_between)
 
@@ -575,7 +813,7 @@ Return ONLY valid JSON:
             scenario = scenarios[i-1] if i-1 < len(scenarios) else None
             
             results[f"lifestyle_{i}"] = self.generate_lifestyle_image(
-                enriched_analysis, country, out / f"lifestyle_{i}.png", 
+                enriched_analysis, country, out / names[f"lifestyle_{i}"], 
                 reference_image,
                 scenario=scenario
             )
@@ -583,9 +821,17 @@ Return ONLY valid JSON:
 
         # 3. Why choose us
         results["why_choose_us"] = self.generate_why_choose_us(
-            enriched_analysis, out / "why_choose_us.png", reference_image,
+            enriched_analysis, out / names["why_choose_us"], reference_image,
+        )
+        time.sleep(pause_between)
+
+        # 4. Lifestyle banner (1200×628, no text) — pass full listing content
+        results["banner_image"] = self.generate_banner_image(
+            enriched_analysis, country, out / names["banner_image"], reference_image,
+            bullets=bullets,
+            description=description,
         )
 
         successes = sum(1 for v in results.values() if v)
-        print(f"      📸 Generated {successes}/3 images")
+        print(f"      📸 Generated {successes}/4 image types")
         return results

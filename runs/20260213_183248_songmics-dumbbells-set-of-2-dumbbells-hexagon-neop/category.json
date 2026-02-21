@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "set_count",
+    "material_coating"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "hex dumbbells set",
+    "light dumbbells for women"
+  ],
+  "color_important": true
+}

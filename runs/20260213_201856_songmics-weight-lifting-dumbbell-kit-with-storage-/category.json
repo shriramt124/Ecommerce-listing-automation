@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_included",
+    "storage_solution",
+    "dumbbell_type"
+  ],
+  "search_priorities": [
+    "light dumbbell set",
+    "dumbbell set with stand",
+    "vinyl coated dumbbells"
+  ],
+  "color_important": true
+}

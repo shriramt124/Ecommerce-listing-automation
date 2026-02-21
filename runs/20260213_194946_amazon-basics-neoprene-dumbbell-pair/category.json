@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight",
+    "material",
+    "grip_comfort"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "5kg dumbbell pair",
+    "rubber coated dumbbells"
+  ],
+  "color_important": true
+}

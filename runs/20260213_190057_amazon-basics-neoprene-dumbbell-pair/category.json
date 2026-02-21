@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell",
+    "material_construction",
+    "set_count"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "3kg dumbbells",
+    "dumbbell pair"
+  ],
+  "color_important": true
+}

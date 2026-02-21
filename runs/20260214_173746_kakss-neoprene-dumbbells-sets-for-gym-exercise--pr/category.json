@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_set_range",
+    "includes_stand",
+    "material_neoprene"
+  ],
+  "search_priorities": [
+    "neoprene dumbbell set",
+    "light dumbbells with rack",
+    "1kg 1.5kg 2kg dumbbells"
+  ],
+  "color_important": true
+}

@@ -1,0 +1,44 @@
+{
+  "concepts": [
+    {
+      "text": "Myga",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "Iron Kettlebell",
+      "type": "product",
+      "locked": true
+    },
+    {
+      "text": "for Fitness and Strength Training",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Heavy Cast Iron Weight , Bodybuilding, Muscle and Cardio",
+      "type": "use_case",
+      "locked": false
+    },
+    {
+      "text": "for Home, Gym and Studio",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Workout Equipment ideal",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "Various Weights, from 4kg",
+      "type": "other",
+      "locked": false
+    },
+    {
+      "text": "18kg",
+      "type": "other",
+      "locked": false
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_range",
+    "grip_comfort",
+    "non-slip_surface"
+  ],
+  "search_priorities": [
+    "neoprene dumbbell set",
+    "hex dumbbells",
+    "small weight dumbbells"
+  ],
+  "color_important": true
+}

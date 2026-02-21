@@ -1,0 +1,331 @@
+================================================================================
+  REINFORCEMENT LEARNING / FEEDBACK LEARNING STRATEGY
+  For: Amazon Listing Generator (agentic_strategy_2)
+  Date: February 2026
+================================================================================
+
+CORE IDEA
+---------
+Pure RL (like PPO/DQN) needs a simulator environment and thousands of rollouts --
+that's for game-playing AIs. What we need here is "learning from feedback" which
+is implemented via three practical approaches:
+
+  Tier 1 → Rule-based automatic rewards (no human needed, implement TODAY)
+  Tier 2 → Human feedback loop with memory (implement in a week)
+  Tier 3 → DSPy prompt auto-optimization (best third-party tool, implement in a month)
+
+Each tier layers on top of the previous one. You don't need all three at once.
+
+
+================================================================================
+TIER 1: AUTO-REWARDS (Computable Metrics, Zero Human Needed)
+================================================================================
+
+Every listing output can be scored automatically right now using rules we already
+know. This acts as the "reward signal" in RL terminology.
+
+HOW IT WORKS
+------------
+After each agent generates its output, a Scorer runs metrics. If score < threshold,
+the agent re-generates with the failure reason appended to its prompt. Max 2 retries.
+
+This is called "Self-Correcting Generation" and it's already proven in production
+(used by GPT-4 in OpenAI's own pipelines, and by Anthropic's Constitutional AI).
+
+METRICS TO COMPUTE (these are all automatable):
+
+For Title:
+  - keyword_coverage_score: what % of top-10 keywords appear in title? (want > 60%)
+  - char_length_ok: is it between 80-200 chars? (hard Amazon limit)
+  - brand_present: does the brand name appear at all?
+  - no_forbidden_words: does it contain "best", "#1", "guaranteed"? (Amazon TOS)
+
+For Bullets:
+  - all_under_200_chars: are all 5 bullets under 200 chars each? (hard limit)
+  - unique_keywords_across_bullets: do bullets spread keywords instead of repeating?
+  - no_hallucination: does each bullet's claims appear in image_analysis data?
+    (simple: check if numbers/specs in bullets appear in image_analysis fields)
+
+For Search Terms:
+  - under_200_chars: total under 200 chars?
+  - no_title_word_overlap: search terms should NOT repeat words already in title
+  - no_variant_contamination: does it contain wrong weights/sizes for this variant?
+    (compare against product specs -- we already have this logic in the agent)
+  - unique_word_count: ideally 25-35 unique words in 200 chars
+
+For Images:
+  - actual_pixel_dimensions: after PIL save, verify img.size == target_size
+  - file_size_ok: is PNG between 200KB and 2MB? (Amazon image requirements)
+
+WHERE TO ADD THIS IN YOUR CODE
+-------------------------------
+File: listing_generator/content_agents.py
+- Add a class: ListingScorer
+  - method: score_title(title, keywords, brand) -> dict with scores + pass/fail
+  - method: score_bullets(bullets, image_analysis) -> dict with scores + pass/fail
+  - method: score_search_terms(search_terms, title, product_specs) -> dict
+- In BulletPointAgent.run(): after generating, call scorer. If fail, re-call LLM
+  with: "Previous attempt failed because: {failure_reason}. Fix and retry."
+
+File: listing_generator/master_pipeline.py
+- After _stage_content(): collect all scores into a dict
+- Log scores to a JSON file: output/scores/{asin}_{timestamp}.json
+- These score logs become your TRAINING DATA for Tier 2 and Tier 3.
+
+EXAMPLE FAILURE FEEDBACK TO LLM:
+  "Your previous bullet point 3 was 217 characters (limit is 200). 
+   Also bullets 2 and 4 both used the keyword 'heavy duty' -- spread keywords more.
+   Rewrite ONLY bullets 3 and 4."
+
+This alone will improve quality significantly with zero extra tooling.
+
+
+================================================================================
+TIER 2: HUMAN FEEDBACK LOOP WITH VECTOR DB MEMORY
+================================================================================
+
+This is the closest thing to RLHF (Reinforcement Learning from Human Feedback)
+that's practical for a tool like this.
+
+HOW IT WORKS
+------------
+1. After pipeline runs, output Excel is reviewed by a human (you/your manager).
+2. Human rates each listing: GOOD (1) or BAD (0) + optional note.
+3. Good listings get stored in ChromaDB (you already have ChromaDB set up!).
+4. Next time the pipeline runs for a SIMILAR product, it retrieves the top 2-3 good
+   examples from memory and injects them as few-shot examples into the prompts.
+5. Over time, the pipeline "learns" what good outputs look like for each product type.
+
+This is essentially: reward signal (human rating) → update policy (few-shot examples
+in prompt) → better outputs. That IS reinforcement learning, just without gradients.
+
+WHAT TO BUILD
+--------------
+New file: listing_generator/feedback_store.py
+
+  class FeedbackStore:
+      Uses ChromaDB collection "listing_feedback"
+      
+      def save_good_example(asin, product_type, title, bullets, search_terms, 
+                             keywords_used, score_dict):
+          - Embed: product_type + top_keywords (semantic key)
+          - Store: the full good listing as metadata
+      
+      def get_similar_examples(product_type, top_keywords, n=2):
+          - Query by embedding of current product
+          - Returns top-2 most similar GOOD listings from history
+          - Used as few-shot examples in prompts
+
+Changes to content_agents.py:
+  - BulletPointAgent.run() gains param: few_shot_examples=[]
+  - Inject examples into prompt as:
+    "--- EXAMPLE OF A GOOD LISTING FOR SIMILAR PRODUCT ---
+     Title: {example.title}
+     Bullets: {example.bullets}
+     --- END EXAMPLE ---
+     Now write for THIS product:"
+
+Changes to master_pipeline.py:
+  - After write_excel(): print "Rate this listing: Good (g) / Bad (b) / Skip (s)"
+  - If g: call feedback_store.save_good_example(...)
+  - On next run: feedback_store.get_similar_examples() and pass to agents
+
+FEEDBACK COLLECTION UI (simple option)
+----------------------------------------
+Instead of CLI prompt in master_pipeline.py, create a tiny script:
+
+  File: rate_listings.py
+  - Reads output Excel
+  - Shows title + bullets for each ASIN
+  - Ask: "Good/Bad? (1/0): "
+  - Saves to feedback_store
+  - Run after each batch: python3 rate_listings.py --output output/listings.xlsx
+
+This way feedback collection is separate from generation. Your manager can even
+run this script and rate outputs without touching the main pipeline.
+
+THIRD PARTY TOOL OPTION FOR THIS TIER
+---------------------------------------
+LangSmith (by LangChain team) -- https://smith.langchain.com
+  - Free tier available
+  - Automatically traces every LLM call (prompt in, output out)
+  - Has a built-in human annotation UI in the browser
+  - You can build datasets of good/bad outputs visually
+  - Integrates with your existing Ollama and Gemini calls by wrapping them
+  - Install: pip install langsmith
+  - Usage: add @traceable decorator to your agent run() methods
+  - Your manager can annotate outputs at smith.langchain.com without any code
+
+This is the easiest third-party tool to add with minimal code changes.
+
+
+================================================================================
+TIER 3: DSPY — AUTOMATED PROMPT OPTIMIZATION (Best Third-Party Tool)
+================================================================================
+
+DSPy is from Stanford NLP Group. It treats your prompts as learnable parameters
+and automatically rewrites them to maximize your metric. Think of it as:
+  "Give me your inputs, outputs, and a scoring function -- I'll find the best prompt."
+
+Homepage: https://dspy.ai
+GitHub:   https://github.com/stanfordnlp/dspy
+Paper:    "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines"
+
+Install:  pip install dspy
+
+HOW IT WORKS IN YOUR PIPELINE
+-------------------------------
+1. You define a "Signature" (input fields → output fields):
+   
+   class TitleOptimizer(dspy.Signature):
+       """Write an Amazon product title."""
+       product_type: str = dspy.InputField()
+       keywords: str = dspy.InputField()
+       image_analysis: str = dspy.InputField()
+       title: str = dspy.OutputField()
+
+2. You define a "Metric" function (this is your reward signal):
+   
+   def title_metric(example, prediction, trace=None):
+       title = prediction.title
+       score = 0
+       if 80 <= len(title) <= 200: score += 30
+       for kw in example.top_keywords[:5]:
+           if kw.lower() in title.lower(): score += 10
+       if example.brand in title: score += 20
+       if not any(w in title.lower() for w in ["best","#1"]): score += 20
+       return score / 100.0  # normalize to 0-1
+
+3. You run the optimizer on your historical examples:
+   
+   optimizer = dspy.MIPROv2(metric=title_metric, auto="medium")
+   optimized_title_agent = optimizer.compile(TitleOptimizer(), trainset=your_examples)
+
+4. DSPy automatically rewrites the prompt instructions to maximize title_metric.
+   It runs hundreds of variations internally and picks the best one.
+   You then save the optimized prompt and use it in your pipeline.
+
+WHAT YOU NEED TO MAKE THIS WORK
+---------------------------------
+- At least 20-50 labeled examples (ASIN + inputs + good output) -- from Tier 2 feedback
+- A scoring function (the metric) -- computable from Tier 1 rules
+- About 2-4 hours of compute time for optimization (runs many LLM calls internally)
+- Can use your existing Ollama DeepSeek or Gemini as the backbone
+
+DSPy WORKS WITH OLLAMA
+------------------------
+import dspy
+lm = dspy.LM("ollama/deepseek-v3.1:671b-cloud", api_base="http://localhost:11434")
+dspy.configure(lm=lm)
+
+This is a HUGE advantage -- you don't need OpenAI. Your existing Ollama setup works.
+
+WHAT DSPy OPTIMIZES
+--------------------
+- The instruction text in your prompts (the "RULES:" sections in content_agents.py)
+- The few-shot examples shown to the LLM
+- The chain-of-thought reasoning structure
+- It does NOT change your code, only the prompt strings
+
+REALISTIC OUTCOME
+------------------
+In academic benchmarks, DSPy improves LLM task performance by 15-40% compared to
+hand-written prompts. For your use case, expect:
+  - Fewer bullet points over 200 chars (hard limit violations drop)
+  - Better keyword coverage in titles
+  - More natural search terms with less variant contamination
+  - Less need for manual re-runs
+
+
+================================================================================
+TIER 4 (ADVANCED / FUTURE): FINE-TUNING A SMALL MODEL
+================================================================================
+
+Once you have 200+ good labeled examples (from Tier 2), you can fine-tune a small
+model specifically for Amazon listing writing. This replaces DeepSeek for text tasks.
+
+Tools:
+  - Unsloth (https://github.com/unslothai/unsloth) -- 2x faster fine-tuning, 
+    runs on Mac with Metal acceleration
+  - Llama 3.1 8B or Llama 3.2 3B as base model (much faster than DeepSeek 671B)
+  - Training data: your collected good examples as instruction-tuning pairs
+
+Format for training data:
+  {
+    "instruction": "Write 5 Amazon bullet points for: {product_type}",
+    "input": "{keywords + image_analysis}",
+    "output": "{good_bullets}"
+  }
+
+After fine-tuning, your custom model will:
+  - Generate Amazon-compliant bullets almost always on first try
+  - Run 10x faster than DeepSeek 671B (3B parameter model vs 671B)
+  - Require zero API costs (fully local)
+  - Know your specific product categories deeply
+
+This is the "end state" -- a model that has learned specifically from YOUR data
+and YOUR quality standards.
+
+
+================================================================================
+RECOMMENDED IMPLEMENTATION ORDER
+================================================================================
+
+Week 1: Tier 1 -- Add ListingScorer with auto-metrics
+  - File: listing_generator/content_agents.py -- add ListingScorer class
+  - File: listing_generator/master_pipeline.py -- log scores to JSON
+  - Immediate quality improvement, zero new dependencies
+
+Week 2: Tier 2 -- Add FeedbackStore + rate_listings.py
+  - File: listing_generator/feedback_store.py -- ChromaDB-backed store
+  - File: rate_listings.py -- simple CLI rating script
+  - Optional: Add LangSmith tracing (pip install langsmith, 2 lines of code)
+  - Start accumulating good examples
+
+Month 2: Tier 3 -- DSPy optimization
+  - Requires 30+ labeled examples from Tier 2
+  - Run DSPy MIPROv2 optimizer on title, bullets, search_terms agents
+  - Save optimized prompts back to content_agents.py
+  - Re-run on new data, measure improvement
+
+Month 3+: Tier 4 -- Fine-tune if volume justifies it
+  - Requires 200+ examples
+  - Use Unsloth + Llama 3.2 3B for speed
+
+================================================================================
+THIRD-PARTY TOOLS SUMMARY
+================================================================================
+
+Tool         | What it does                          | Cost  | Complexity
+-------------|---------------------------------------|-------|------------
+LangSmith    | Trace LLM calls + human annotation UI | Free* | Very Low
+             | langchain.com/langsmith               |       | 2 lines
+-------------|---------------------------------------|-------|------------
+DSPy         | Auto-optimize prompts via metric       | Free  | Medium
+             | dspy.ai                               |       | 1-2 days
+-------------|---------------------------------------|-------|------------
+Unsloth      | Fast fine-tuning on Mac               | Free  | High
+             | github.com/unslothai/unsloth          |       | 1 week
+-------------|---------------------------------------|-------|------------
+Weights&Bias | Experiment tracking + comparison      | Free* | Low
+             | wandb.ai                              |       | 1 hour
+
+* Free tier available, paid for team/production use
+
+================================================================================
+HOW THIS CONNECTS TO YOUR EXISTING CODE
+================================================================================
+
+Your pipeline already has ChromaDB (chroma_db/) -- FeedbackStore uses same package.
+Your pipeline already has SentenceTransformers -- same model for feedback embeddings.
+Your pipeline already has Ollama + Gemini -- DSPy connects to both.
+Your score logs (output/scores/*.json) become DSPy training examples directly.
+Your analysis JSONs (--analysis-dir feature) already cache the inputs -- these are
+the "inputs" side of your training pairs.
+
+Nothing gets thrown away. Every piece built so far is a foundation for the learning
+layer on top.
+
+================================================================================
+END
+================================================================================

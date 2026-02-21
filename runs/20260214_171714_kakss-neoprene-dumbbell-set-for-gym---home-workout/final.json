@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Neoprene Dumbbell Set for Gym & Home Workouts – Pack of 2 (4kg Each) – Purple",
+  "original_length": 83,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1627 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell",
+      "material",
+      "grip_type"
+    ],
+    "search_priorities": [
+      "4kg dumbbells",
+      "neoprene dumbbells",
+      "purple dumbbells set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1627
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest search volume (215402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (143389) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High search volume (59794) - common misspelling variant"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "High search volume (52761) - complete product phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume (48162) - targets specific audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (41200) - singular form variant"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (36878) - alternative search term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (30386) - broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (30339) - alternative phrasing"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "Specific weight search (21664) - matches product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (20210) - specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (16682) - usage context"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "Matches product material feature (7300) - specific to product"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Purple Hex Hand Weights with Odor-Free, Fade-Resistant Coating for Home Gym Equipment and Fitness Training for Women",
+    "char_count": 166,
+    "reasoning": {
+      "strategy": "Integrated top keywords 'dumbbells set', 'weights for women', and 'hand weights' naturally. Highlighted verified features like 'hex' shape and 'odor-free, fade-resistant coating' to differentiate the product while targeting the high-volume 'for women' use case."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Policy violation: contains 'free'"
+    ],
+    "char_count": 200
+  },
+  "optimized_title": "We are given the current title: \"KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg), Purple Hex Hand Weights with Odor-Free, Fade-Resistant Coating for Home Gym Equipment and Fitness Training for Women\"",
+  "final_length": 200
+}

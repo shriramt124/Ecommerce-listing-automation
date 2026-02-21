@@ -38,6 +38,7 @@ def build_output_row(
     bullets: List[str],
     description: str,
     search_terms: str,
+    title_used_rank_keywords: str = "",
     image_paths: Optional[Dict[str, str]] = None,
 ) -> Dict[str, Any]:
     """
@@ -61,7 +62,9 @@ def build_output_row(
         "client_id": product.get("asin", ""),
         "Country": product.get("country", ""),
         "original_title": _truncate(product.get("title", ""), 300),
+        "Manual": product.get("manual", ""),
         "rcm title": _truncate(optimized_title, 200),
+        "title_used_rank_keywords": _truncate(title_used_rank_keywords, 1200),
         "ai descr": _truncate(ai_description, 300),
         "rcm kf1": _truncate(bp[0], 200),
         "rcm kf2": _truncate(bp[1], 200),
@@ -76,6 +79,7 @@ def build_output_row(
         "lifestyle_image_3": img.get("lifestyle_3", ""),
         "lifestyle_image_4": img.get("lifestyle_4", ""),
         "why_choose_us_image": img.get("why_choose_us", ""),
+        "banner_image": img.get("banner_image", ""),
     }
     return row
 
@@ -98,14 +102,15 @@ def write_excel(
     # Column order (text columns first, then image columns)
     text_cols = [
         "date", "ASIN", "la-cat", "client_id", "Country",
-        "original_title", "rcm title", "ai descr",
+        "original_title", "Manual", "rcm title", "title_used_rank_keywords", "ai descr",
         "rcm kf1", "rcm kf2", "rcm kf3", "rcm kf4", "rcm kf5",
         "descrp", "search terms",
     ]
     image_cols = [
         "main_image",
         "lifestyle_image_1", "lifestyle_image_2", "lifestyle_image_3", "lifestyle_image_4",
-        "why_choose_us_image"
+        "why_choose_us_image",
+        "banner_image",
     ]
     all_cols = text_cols + image_cols
 
@@ -121,7 +126,9 @@ def write_excel(
     # Set image column widths (wider for images)
     for col_idx, col_name in enumerate(all_cols, 1):
         col_letter = get_column_letter(col_idx)
-        if col_name in image_cols:
+        if col_name == "banner_image":
+            ws.column_dimensions[col_letter].width = 42  # ~300px wide for landscape banner
+        elif col_name in image_cols:
             ws.column_dimensions[col_letter].width = 22  # ~160px
         elif col_name in ("rcm title", "original_title", "descrp"):
             ws.column_dimensions[col_letter].width = 50
@@ -133,8 +140,10 @@ def write_excel(
             ws.column_dimensions[col_letter].width = 15
 
     # Write rows with images
-    IMAGE_HEIGHT = 120  # pixels
-    IMAGE_WIDTH = 120   # pixels
+    IMAGE_HEIGHT = 120  # pixels for square images
+    IMAGE_WIDTH  = 120  # pixels for square images
+    BANNER_HEIGHT = 80  # pixels for 1200x628 banner (keeps aspect ratio at display width)
+    BANNER_WIDTH  = 154 # pixels (~1.91:1 ratio scaled to 80px height)
 
     for row_idx, row_data in enumerate(rows, 2):
         has_image = False
@@ -146,8 +155,12 @@ def write_excel(
                 # Embed the image
                 try:
                     img = XlImage(str(value))
-                    img.width = IMAGE_WIDTH
-                    img.height = IMAGE_HEIGHT
+                    if col_name == "banner_image":
+                        img.width  = BANNER_WIDTH
+                        img.height = BANNER_HEIGHT
+                    else:
+                        img.width  = IMAGE_WIDTH
+                        img.height = IMAGE_HEIGHT
                     col_letter = get_column_letter(col_idx)
                     anchor = f"{col_letter}{row_idx}"
                     ws.add_image(img, anchor)
@@ -265,14 +278,15 @@ def load_existing_excel(output_dir: str) -> List[Dict[str, Any]]:
         "descrp", "search terms",
     ]
 
-    # Image file names mapping
-    image_file_map = {
-        "main_image": "main_product.png",
-        "lifestyle_image_1": "lifestyle_1.png",
-        "lifestyle_image_2": "lifestyle_2.png",
-        "lifestyle_image_3": "lifestyle_3.png",
-        "lifestyle_image_4": "lifestyle_4.png",
-        "why_choose_us_image": "why_choose_us.png",
+    # Image file patterns mapping (new timestamped naming + legacy fallback)
+    image_file_patterns = {
+        "main_image": ["main_1_*.png", "main_product.png"],
+        "lifestyle_image_1": ["ls_1_*.png", "lifestyle_1.png"],
+        "lifestyle_image_2": ["ls_2_*.png", "lifestyle_2.png"],
+        "lifestyle_image_3": ["ls_3_*.png", "lifestyle_3.png"],
+        "lifestyle_image_4": ["ls_4_*.png", "lifestyle_4.png"],
+        "why_choose_us_image": ["wcs_1_*.png", "why_choose_us.png"],
+        "banner_image": ["banner_1_*.png", "banner_1.png"],
     }
 
     # Only read columns that actually exist in the file
@@ -292,14 +306,35 @@ def load_existing_excel(output_dir: str) -> List[Dict[str, Any]]:
         if not row.get("ASIN") and row.get("client_id"):
             row["ASIN"] = row["client_id"]
 
-        # Reconstruct image paths from images/product_{row_idx}/ folder
-        img_dir = os.path.join(output_dir, "images", f"product_{row_idx}")
-        for col_name, file_name in image_file_map.items():
-            fpath = os.path.join(img_dir, file_name)
-            row[col_name] = fpath if os.path.isfile(fpath) else ""
+        # Reconstruct image paths from images/{ASIN}/ folder (new), then legacy product_{row_idx}
+        asin = row.get("ASIN") or row.get("client_id") or ""
+        safe_asin = "".join(c if c.isalnum() or c in ("-", "_") else "_" for c in str(asin))
+
+        candidate_dirs: List[Path] = []
+        if safe_asin:
+            candidate_dirs.append(Path(output_dir) / "images" / safe_asin)
+        candidate_dirs.append(Path(output_dir) / "images" / f"product_{row_idx}")
+
+        for col_name, patterns in image_file_patterns.items():
+            chosen = ""
+            for img_dir in candidate_dirs:
+                if not img_dir.exists():
+                    continue
+
+                matches: List[Path] = []
+                for pat in patterns:
+                    matches.extend(img_dir.glob(pat))
+
+                if matches:
+                    # Pick latest file so newest timestamped run wins
+                    latest = max(matches, key=lambda p: p.stat().st_mtime)
+                    chosen = str(latest)
+                    break
+
+            row[col_name] = chosen
 
         rows.append(row)
 
-    img_count = sum(1 for r in rows if any(r.get(c) for c in image_file_map))
+    img_count = sum(1 for r in rows if any(r.get(c) for c in image_file_patterns))
     print(f"   📂 Read {len(rows)} existing rows from {excel_path} ({img_count} with images)")
     return rows

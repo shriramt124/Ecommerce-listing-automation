@@ -1,0 +1,144 @@
+{
+  "original_title": "Kakss Cast Iron Kettlebell for Strength and Conditioning/Fitness/Cross Training Assorted Colour Kettle Bell for Home Gym (6 KG)",
+  "original_length": 127,
+  "steps": [
+    "Parsed 5 concepts",
+    "Kept 5 concepts",
+    "Using 1650 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight_accuracy",
+      "handle_comfort",
+      "durability"
+    ],
+    "search_priorities": [
+      "6kg kettlebell",
+      "cast iron kettlebell",
+      "home gym kettlebell"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1650
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest search volume score (27072), exact product category match"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Second highest score (26188), primary product term"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Third highest score (24880), alternative spelling with high volume"
+    },
+    {
+      "keyword": "6kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 7592.0,
+      "reason": "High score (7592) and matches product weight specification"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "Good score (5045) and matches product material"
+    },
+    {
+      "keyword": "home gym equipment",
+      "zone": "ZONE_B",
+      "score": 3700.0,
+      "reason": "High score (3700) and relevant use case"
+    },
+    {
+      "keyword": "kettle bells 10kg",
+      "zone": "ZONE_B",
+      "score": 3551.0,
+      "reason": "Good score (3551), related weight variant"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Good score (3309), specific use case"
+    },
+    {
+      "keyword": "32kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3308.0,
+      "reason": "Good score (3308), weight variant"
+    },
+    {
+      "keyword": "20 kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 3263.0,
+      "reason": "Good score (3263), weight variant"
+    },
+    {
+      "keyword": "kettle bells 20kg",
+      "zone": "ZONE_B",
+      "score": 3365.0,
+      "reason": "Good score (3365), weight variant"
+    },
+    {
+      "keyword": "6kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 3322.0,
+      "reason": "Good score (3322), related product category"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Good score (3299), related fitness equipment"
+    },
+    {
+      "keyword": "set of weights",
+      "zone": "ZONE_B",
+      "score": 3291.0,
+      "reason": "Good score (3291), general fitness category"
+    },
+    {
+      "keyword": "4kg dumbbells",
+      "zone": "ZONE_B",
+      "score": 3171.0,
+      "reason": "Good score (3171), related product category"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Cast Iron Kettlebell 6kg, Black & White Premium Kettle Bell with Smooth Seamless Handle & Stable Flat Base for Home Gym Equipment and Strength Training",
+    "char_count": 157,
+    "reasoning": {
+      "keyword_integration": "Woven 'kettlebell' (26K searches), 'cast iron kettlebell' (5K searches), '6kg kettlebell' (7.5K searches), and 'home gym equipment' (3.7K searches) naturally into descriptive phrases. Used verified color 'black, white' and key features like 'smooth seamless handle' and 'stable flat base' from product facts."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: black, white"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "KAKSS Cast Iron Kettlebell 6kg, Black & White Premium Kettle Bell with Smooth Seamless Handle & Stable Flat Base for Home Gym Equipment and Strength Training, Ideal for Kettlebell Workouts and as",
+  "final_length": 195
+}

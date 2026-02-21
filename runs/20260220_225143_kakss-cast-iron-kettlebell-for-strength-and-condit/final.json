@@ -1,0 +1,142 @@
+{
+  "original_title": "Kakss Cast Iron Kettlebell for Strength and Conditioning/Fitness/Cross Training Assorted Colour Kettle Bell for Home Gym (6 KG)",
+  "original_length": 127,
+  "steps": [
+    "Parsed 5 concepts",
+    "Kept 5 concepts",
+    "Using 1327 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "kettlebells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "durability"
+    ],
+    "search_priorities": [
+      "kettlebell",
+      "cast iron kettlebell",
+      "home gym kettlebell"
+    ],
+    "color_important": false
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1327
+  },
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest score among kettlebell variations, essential product term"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Core product term with high search volume"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Alternative spelling with high search volume"
+    },
+    {
+      "keyword": "6kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 7592.0,
+      "reason": "Specific weight matches product specification, high relevance"
+    },
+    {
+      "keyword": "cast iron kettlebell",
+      "zone": "ZONE_B",
+      "score": 5045.0,
+      "reason": "Combines brand/material with product type, high relevance"
+    },
+    {
+      "keyword": "kettlebell set",
+      "zone": "ZONE_B",
+      "score": 4738.0,
+      "reason": "High-volume phrase indicating purchase intent"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "High search volume, broad fitness category term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High-volume general fitness term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "High-volume search phrase"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "High relevance for home gym use case"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad category term with good search volume"
+    },
+    {
+      "keyword": "gym weights for home",
+      "zone": "ZONE_B",
+      "score": 6734.0,
+      "reason": "Specific use case matching product description"
+    },
+    {
+      "keyword": "exercise weights",
+      "zone": "ZONE_B",
+      "score": 4870.0,
+      "reason": "Relevant fitness category term"
+    },
+    {
+      "keyword": "barbell",
+      "zone": "ZONE_B",
+      "score": 3299.0,
+      "reason": "Related fitness equipment with good search volume"
+    },
+    {
+      "keyword": "competition kettlebell",
+      "zone": "ZONE_B",
+      "score": 3309.0,
+      "reason": "Specific kettlebell type with good search volume"
+    }
+  ],
+  "title_result": {
+    "full_title": "CAST IRON Kettlebell 6kg, Cast Iron Kettle Bell Weight for Strength Training, Home Gym Equipment and Fitness Workouts",
+    "char_count": 117,
+    "reasoning": {
+      "keyword_integration": "Prioritized high-volume keywords: 'kettlebell', '6kg', 'kettle bell', 'weights', 'gym equipment', 'home gym', 'strength training', 'fitness'. Used 'CAST IRON' as brand from verified facts and repeated 'cast iron' as material descriptor. Structured title to read as a natural product description while embedding search terms seamlessly."
+    }
+  },
+  "validation": {
+    "is_valid": true,
+    "issues": [],
+    "char_count": 194
+  },
+  "optimized_title": "CAST IRON Kettlebell 6kg, Cast Iron Kettle Bell Weight for Strength Training, Home Gym Equipment and Fitness Workouts, ideal as a standalone weight or as part of a larger kettlebell set, perfect",
+  "final_length": 194
+}

@@ -80,6 +80,7 @@ def parse_client_excel(excel_path: str) -> List[Dict[str, Any]]:
     ])
     col_desc = _find_column(columns, ['description', 'Description', 'descrp', 'product description'])
     col_usp = _find_column(columns, ['usp', 'USP', 'more info', 'More info eg USP', 'more_info'])
+    col_manual = _find_column(columns, ['manual', 'Manual', 'product manual', 'manual_info'])
 
     # Find image columns (img1, img2, ... OR image1, image2, ...)
     image_cols: List[str] = []
@@ -107,6 +108,7 @@ def parse_client_excel(excel_path: str) -> List[Dict[str, Any]]:
         la_cat = _safe_str(row.get(col_category, '')) if col_category else ""
         description = _safe_str(row.get(col_desc, '')) if col_desc else ""
         usp = _safe_str(row.get(col_usp, '')) if col_usp else ""
+        manual = _safe_str(row.get(col_manual, '')) if col_manual else ""
 
         if not asin and not title:
             continue  # Skip completely empty rows
@@ -141,6 +143,7 @@ def parse_client_excel(excel_path: str) -> List[Dict[str, Any]]:
             'la_cat': la_cat,
             'description': description,
             'usp': usp,
+            'manual': manual,
             'images': images,
             'bullet_points': bullet_points,
             'raw_row': raw_row,

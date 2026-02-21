@@ -1,0 +1,146 @@
+{
+  "original_title": "Amazon Basics Neoprene Dumbbell Pair",
+  "original_length": 36,
+  "steps": [
+    "Parsed 2 concepts",
+    "Kept 2 concepts",
+    "Using 1736 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_per_dumbbell",
+      "material_construction",
+      "set_count"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "3kg dumbbells",
+      "dumbbell pair"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1736
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core product term with high volume (215402), essential for search"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143389), combines 'weights' with core product"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume (94089), targets specific audience segment"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High volume (59794), common misspelling of core term"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (52761), alternative phrasing for sets"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good volume (48162), targets female audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core singular term (41200), essential for search"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (36878), broader category term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good volume (30386), general fitness category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (30339), alternative phrasing"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "High relevance (24626), matches product specification"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20210), specific use case"
+    },
+    {
+      "keyword": "dumbell",
+      "zone": "ZONE_B",
+      "score": 20125.0,
+      "reason": "Good volume (20125), common misspelling"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good volume (16682), contextual usage term"
+    }
+  ],
+  "title_result": {
+    "full_title": "AMAZON BASICS Neoprene Dumbbells Set, 3kg Pair (2 x 3kg), Orange Hex Dumbbells with Easy-Grip Neoprene Coating, Hand Weights for Home Gym Equipment and Fitness Training for women and men",
+    "char_count": 186,
+    "reasoning": {
+      "keyword_integration": "Embedded 'dumbbells set' (448K searches), 'dumbbells' (215K), 'weights' (30K), 'home gym equipment', and 'fitness training' naturally into readable description",
+      "feature_highlight": "Used verified facts: orange color, hexagonal shape, neoprene coating, 3kg weight, set of 2",
+      "readability_flow": "Brand + Product + Weight + Features + Use case structure flows naturally"
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 3KG per dumbbell",
+      "Missing color: orange, white"
+    ],
+    "char_count": 186
+  },
+  "optimized_title": "AMAZON BASICS Neoprene Dumbbells Set, 3kg Pair (2 x 3kg), Orange Hex Dumbbells with Easy-Grip Neoprene Coating, Hand Weights for Home Gym Equipment and Fitness Training for women and men",
+  "final_length": 186
+}

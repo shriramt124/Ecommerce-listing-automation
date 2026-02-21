@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "kettlebells",
+  "key_attributes": [
+    "weight",
+    "handle_grip",
+    "material"
+  ],
+  "search_priorities": [
+    "8kg kettlebell",
+    "cast iron kettlebell",
+    "kettlebell with wide grip"
+  ],
+  "color_important": false
+}
