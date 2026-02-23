@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "text": "5kg pack of 2, Black",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "for Gym Exercise",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Neoprene Dumbbells Sets  (Proudly Made in India)",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

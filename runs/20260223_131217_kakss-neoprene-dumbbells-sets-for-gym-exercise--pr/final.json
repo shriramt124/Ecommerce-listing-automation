@@ -1,0 +1,143 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells Sets for Gym Exercise (Proudly Made in India) (1.5 kg Pack of 2, Pink)",
+  "original_length": 95,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1605 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "1.5 kg dumbbells",
+      "pink dumbbells set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1605
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume score (448037.0) and complete phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest search volume (215402.0) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (143389.0) and complete phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (94089.0) and targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good search volume (52761.0) - complete product phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "High search volume (48162.0) - targets specific audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core product term with good search volume (41200.0)"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (36878.0) - complete phrase"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "High search volume (30386.0) - broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (30339.0) - complete phrase"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (20210.0) - specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (16682.0) - usage context"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good search volume (11970.0) - common misspelling"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Good search volume (10854.0) - broader category"
+    },
+    {
+      "keyword": "womens weights",
+      "zone": "ZONE_B",
+      "score": 8208.0,
+      "reason": "Good search volume (8208.0) - targets specific audience"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg), Pink & White Hex Hand Weights with Non-Roll Design and Comfort Grip for Home Gym Equipment and Fitness Training for Women",
+    "char_count": 175,
+    "reasoning": {
+      "strategy": "Integrated top keywords 'dumbbells set' and 'hand weights for women' by making them core phrases. Wove in 'hexagonal' as 'Hex' and 'weights for women' as 'for Women' to target high-volume searches. Used 'home gym equipment' and 'fitness training' as natural usage phrases."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: pink, white"
+    ],
+    "char_count": 175
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 1.5kg Pair (2 x 1.5kg), Pink & White Hex Hand Weights with Non-Roll Design and Comfort Grip for Home Gym Equipment and Fitness Training for Women",
+  "final_length": 175
+}

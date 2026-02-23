@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037 score) - complete phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest volume (215402 score) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143389 score) - complete descriptive phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Good volume (94089 score) - targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Solid volume (52761 score) - alternative phrasing"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "High relevance (46660 score) - matches product specs"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good volume (41200 score) - singular form"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Decent volume (36878 score) - broader category"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good volume (30386 score) - general fitness term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Similar volume (30339 score) - alternative phrasing"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20210 score) - specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Solid volume (16682 score) - fitness context"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good volume (11970 score) - common misspelling"
+    },
+    {
+      "keyword": "gym equipment",
+      "zone": "ZONE_B",
+      "score": 10854.0,
+      "reason": "Broad category (10854 score) - fitness context"
+    },
+    {
+      "keyword": "dumbbell sets for women",
+      "zone": "ZONE_B",
+      "score": 7552.0,
+      "reason": "Reasonable volume (7552 score) - targeted audience"
+    }
+  ]
+}

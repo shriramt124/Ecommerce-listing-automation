@@ -1,0 +1,15 @@
+{
+  "category": "sports_fitness",
+  "subcategory": "dumbbells",
+  "key_attributes": [
+    "weight_per_dumbbell",
+    "material",
+    "set_count"
+  ],
+  "search_priorities": [
+    "neoprene dumbbells",
+    "4kg dumbbell set",
+    "light dumbbells for women"
+  ],
+  "color_important": true
+}

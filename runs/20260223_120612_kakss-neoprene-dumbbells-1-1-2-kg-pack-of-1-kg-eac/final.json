@@ -1,0 +1,141 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells 1+1=2 KG Pack of 1 KG Each, Anti-Slip Coated Hand Weights for Home Gym & Fitness Training -Pink",
+  "original_length": 120,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1729 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "grip_type"
+    ],
+    "search_priorities": [
+      "1kg dumbbells",
+      "neoprene dumbbells",
+      "pink dumbbells set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1729
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037 score), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Core product term with high volume (215402 score)"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143389 score), complete phrase combining key terms"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume (94089 score), targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High volume (59794 score), common misspelling of core term"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (52761 score), complete phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good volume (48162 score), targets specific audience"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Good volume (46660 score), includes weight specification"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Core term (41200 score), singular form"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (36878 score), complete phrase"
+    },
+    {
+      "keyword": "adjustable dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 31955.0,
+      "reason": "Good volume (31955 score), describes product type"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Core category term (30386 score)"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (30339 score), complete phrase"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20210 score), matches product description"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Good volume (22586 score), matches actual product weight"
+    }
+  ],
+  "title_result": {
+    "full_title": "Women's & Men's Home Gym Equipment Hand Weights Dumbbell Set – Purple Hex Coated Dumbbells Anti-Roll Design 1kg Pair (2 x 1kg) – Neoprene Dumbbells for Home Workouts & Strength Training Equipment",
+    "char_count": 195
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing brand: KAKSS",
+      "Missing color: pink, white"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "Women's & Men's Home Gym Equipment Hand Weights Dumbbell Set – Purple Hex Coated Dumbbells Anti-Roll Design 1kg Pair (2 x 1kg) – Neoprene Dumbbells for Home Workouts & Strength Training Equipment",
+  "final_length": 195
+}

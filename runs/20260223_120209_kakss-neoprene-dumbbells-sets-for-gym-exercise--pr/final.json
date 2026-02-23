@@ -1,0 +1,145 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (1kg+1.5kg+2kg Pair, Dumbbell With Stand)(Multicolor)",
+  "original_length": 124,
+  "steps": [
+    "Parsed 3 concepts",
+    "Kept 3 concepts",
+    "Using 1695 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight_set_includes",
+      "material_neoprene",
+      "includes_stand_rack"
+    ],
+    "search_priorities": [
+      "neoprene dumbbell set with stand",
+      "lightweight dumbbell set 1kg 2kg",
+      "home gym dumbbells with rack"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1695
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (448037), exact match to product type"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest volume (215402), core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High volume (143389), combines 'weights' with core product"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High volume (94089), targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High volume (59794), common misspelling of core term"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good volume (52761), singular form of core product"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good volume (48162), targets female audience with general weights term"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good volume (41200), singular core term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good volume (36878), alternative phrasing for product type"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good volume (30386), broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good volume (30339), singular alternative phrasing"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Good volume (22586), includes specific weight from product"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good volume (20210), specific use case targeting women"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good volume (16682), combines gym use with weights"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (7300), includes 'neoprene' material mentioned in title"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set with Stand, 1kg, 1.5kg, 2kg Pairs (6 Dumbbells Total), Colorful Hex Hand Weights for Women & Men, Odor-Free Non-Toxic Coating for Home Gym Workouts",
+    "char_count": 176,
+    "reasoning": {
+      "strategy": "Integrated top keywords 'dumbbells set', 'dumbbells', 'weights dumbbells set', 'dumbbells set women', and 'hand weights for women' by framing the product as a versatile set for both women and men. Included material ('neoprene'), key features ('hex', 'odor-free', 'non-toxic'), and usage context ('home gym workouts') naturally within a flowing description."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 1 KG, 1.5 KG, 2 KG",
+      "Missing color: yellow, red, purple, black",
+      "Policy violation: contains 'free'"
+    ],
+    "char_count": 176
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set with Stand, 1kg, 1.5kg, 2kg Pairs (6 Dumbbells Total), Colorful Hex Hand Weights for Women & Men, Odor-Free Non-Toxic Coating for Home Gym Workouts",
+  "final_length": 176
+}

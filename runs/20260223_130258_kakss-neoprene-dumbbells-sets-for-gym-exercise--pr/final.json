@@ -1,0 +1,145 @@
+{
+  "original_title": "Kakss Neoprene Dumbbells sets for Gym Exercise (Proudly Made in India) (3KG ORANGE PAIR)",
+  "original_length": 88,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1753 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "neoprene dumbbells",
+      "3kg dumbbells",
+      "home gym dumbbells"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1753
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume (score: 448037) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "High search volume (score: 215402) - core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (score: 143389) - complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High search volume (score: 94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High search volume (score: 59794) - common misspelling with good volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good search volume (score: 52761) - complete product phrase"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good search volume (score: 48162) - targets female audience"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (score: 41200) - singular form of core term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good search volume (score: 36878) - alternative search phrase"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (score: 30386) - broader category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good search volume (score: 30339) - alternative phrasing"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "High relevance (score: 24626) - matches product weight specification"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Good search volume (score: 22586) - similar weight category"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good search volume (score: 20210) - specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good search volume (score: 16682) - usage context"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Vinyl Coated Dumbbells Set, 3kg Pair (2 x 3kg), Orange Hex Dumbbells with Non-Slip Grip & Cast-Iron Core, Hand Weights for Women and Home Gym Fitness Training",
+    "char_count": 164,
+    "reasoning": {
+      "strategy": "Integrated top-volume keywords 'dumbbells set', 'dumbbells', 'weights', 'hand weights for women', and 'gym weights' by weaving them into a natural description that highlights verified features like the vinyl coating, hexagonal shape, and cast-iron core."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing size: 3 KG, 5 KG, 1 KG, 2 KG",
+      "Missing color: orange, purple, red, blue, green"
+    ],
+    "char_count": 195
+  },
+  "optimized_title": "KAKSS Vinyl Coated Dumbbells Set, 3kg Pair (2 x 3kg), Orange Hex Dumbbells with Non-Slip Grip & Cast-Iron Core, Hand Weights for Women and Home Gym Fitness Training, dumbbells, 2kg dumbbells pair",
+  "final_length": 195
+}

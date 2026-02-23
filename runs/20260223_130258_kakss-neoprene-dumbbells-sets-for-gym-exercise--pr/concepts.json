@@ -1,0 +1,24 @@
+{
+  "concepts": [
+    {
+      "text": "3KG ORANGE PAIR",
+      "type": "color",
+      "locked": true
+    },
+    {
+      "text": "Kakss",
+      "type": "brand",
+      "locked": true
+    },
+    {
+      "text": "for Gym Exercise",
+      "type": "compatibility",
+      "locked": true
+    },
+    {
+      "text": "Neoprene Dumbbells sets  (Proudly Made in India)",
+      "type": "product",
+      "locked": true
+    }
+  ]
+}

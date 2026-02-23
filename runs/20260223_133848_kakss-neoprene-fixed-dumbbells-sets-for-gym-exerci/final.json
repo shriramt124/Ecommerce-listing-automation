@@ -1,0 +1,144 @@
+{
+  "original_title": "KAKSS Neoprene Fixed Dumbbells sets for Gym Exercise (4 kg set of 2, Blue)",
+  "original_length": 74,
+  "steps": [
+    "Parsed 4 concepts",
+    "Kept 4 concepts",
+    "Using 1729 pre-filtered keyword candidates (volume-ranked)"
+  ],
+  "agents_used": [
+    "CategoryDetector",
+    "ConceptEvaluator",
+    "KeywordSelector",
+    "TitleComposer",
+    "Validator",
+    "TitleExtender"
+  ],
+  "category": {
+    "category": "sports_fitness",
+    "subcategory": "dumbbells",
+    "key_attributes": [
+      "weight",
+      "material",
+      "set_count"
+    ],
+    "search_priorities": [
+      "4kg dumbbells",
+      "neoprene dumbbells",
+      "fixed dumbbell set"
+    ],
+    "color_important": true
+  },
+  "vector_retrieval": {
+    "source": "master_pipeline_pre_filtered",
+    "count": 1729
+  },
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402), core product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089), targets specific audience"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52761), complete multi-word phrase"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41200), core product term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878), complete multi-word phrase"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386), broad category term"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339), complete multi-word phrase"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High similarity (0.984), specific to product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210), targets specific use case"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682), relates to current 'for gym exercise' concept"
+    },
+    {
+      "keyword": "dumbell set",
+      "zone": "ZONE_B",
+      "score": 11970.0,
+      "reason": "Good score (11970), common misspelling with good volume"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High similarity (0.918), matches product feature"
+    },
+    {
+      "keyword": "hand weights set",
+      "zone": "ZONE_B",
+      "score": 6110.0,
+      "reason": "Good score (6110), complete multi-word phrase"
+    }
+  ],
+  "title_result": {
+    "full_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg) Blue Hexagonal Hand Weights with Textured Coating for Women, Home Gym Equipment and Fitness Training",
+    "char_count": 149,
+    "reasoning": {
+      "keyword_integration": "Embedded top keywords naturally: 'dumbbells set' (primary), 'dumbbells', 'weights', 'hand weights for women', 'gym weights', '4kg dumbbells pair'. Used verified facts: blue color, hexagonal shape, textured coating, 4kg weight. Structured for readability with 'with' and 'for' phrases."
+    }
+  },
+  "validation": {
+    "is_valid": false,
+    "issues": [
+      "Missing color: blue, white"
+    ],
+    "char_count": 193
+  },
+  "optimized_title": "KAKSS Neoprene Dumbbells Set, 4kg Pair (2 x 4kg) Blue Hexagonal Hand Weights with Textured Coating for Women, Home Gym Equipment and Fitness Training, a versatile dumbbell set with coated metal",
+  "final_length": 193
+}

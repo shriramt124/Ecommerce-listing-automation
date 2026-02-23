@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037) - core product category term"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402) - essential product term"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High score (143389) - popular search phrase"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089) - targets specific audience"
+    },
+    {
+      "keyword": "dumbells",
+      "zone": "ZONE_B",
+      "score": 59794.0,
+      "reason": "High score (59794) - common misspelling with good volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52761) - standard product terminology"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162) - targets female fitness market"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41200) - singular form of core term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878) - alternative search phrasing"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386) - broad fitness equipment category"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339) - common search variation"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High specificity (21664) - matches exact product specs"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) - specific use case targeting"
+    },
+    {
+      "keyword": "gym weights",
+      "zone": "ZONE_B",
+      "score": 16682.0,
+      "reason": "Good score (16682) - gym-focused search term"
+    },
+    {
+      "keyword": "neoprene dumbbells set",
+      "zone": "ZONE_B",
+      "score": 7300.0,
+      "reason": "High relevance (7300) - matches product material feature"
+    }
+  ]
+}

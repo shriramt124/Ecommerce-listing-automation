@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest score (448037) - multi-word phrase with maximum search volume"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "Second highest score (215402) - core product term with high search volume"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "Third highest score (143389) - multi-word phrase with high search volume"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "High score (94089) - specific target audience with good search volume"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good score (52761) - alternative phrasing of core product term"
+    },
+    {
+      "keyword": "weights for women",
+      "zone": "ZONE_B",
+      "score": 48162.0,
+      "reason": "Good score (48162) - targets specific user demographic"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Good score (46660) - specific weight variant with high similarity"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good score (41200) - singular form of core product term"
+    },
+    {
+      "keyword": "weights set",
+      "zone": "ZONE_B",
+      "score": 36878.0,
+      "reason": "Good score (36878) - alternative phrasing with decent search volume"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good score (30386) - broad category term with search volume"
+    },
+    {
+      "keyword": "weight set",
+      "zone": "ZONE_B",
+      "score": 30339.0,
+      "reason": "Good score (30339) - alternative phrasing with decent search volume"
+    },
+    {
+      "keyword": "3kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 24626.0,
+      "reason": "Good score (24626) - specific weight variant"
+    },
+    {
+      "keyword": "2kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 22586.0,
+      "reason": "Good score (22586) - specific weight variant"
+    },
+    {
+      "keyword": "4kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 21664.0,
+      "reason": "High similarity (0.984) and good score (21664) - matches product weight exactly"
+    },
+    {
+      "keyword": "hand weights for women",
+      "zone": "ZONE_B",
+      "score": 20210.0,
+      "reason": "Good score (20210) - specific use case and target audience"
+    }
+  ]
+}

@@ -745,15 +745,19 @@ Return ONLY valid JSON (no markdown, no explanation):
         output_filenames: Dict[str, str] = None,
         pause_between: int = 3,
         banner_only: bool = False,
+        lifestyle_only: bool = False,
+        main_only: bool = False,
+        why_choose_us_only: bool = False,
     ) -> Dict[str, bool]:
         """
-        Generate all three image types using ONLY the analyzed content.
-        
-        NO HALLUCINATION: All prompts use only data from:
-        - image_analysis (from actual product images)
-        - optimized_title (AI-generated from analysis)
-        - bullets (AI-generated from analysis)
-        - description (AI-generated from analysis)
+        Generate product images using ONLY the analyzed content.
+
+        Modes (mutually exclusive):
+          banner_only        → only the 1200×628 Sponsored Brand Ad banner
+          lifestyle_only     → only the 4 lifestyle images
+          main_only          → only the main studio product image
+          why_choose_us_only → only the Why Choose Us infographic
+          (default)          → all image types
         """
         out = Path(output_dir)
         out.mkdir(parents=True, exist_ok=True)
@@ -778,16 +782,54 @@ Return ONLY valid JSON (no markdown, no explanation):
 
         results: Dict[str, bool] = {}
 
-        # 1. Main image
+        # ── Banner-only mode ─────────────────────────────────────────────
         if banner_only:
-            # Only generate the 1200x628 banner and skip other images
-            print(f"      🌍 Banner-only mode: generating single lifestyle banner...")
+            print(f"      🏞️  Banner-only mode: generating 1200×628 Sponsored Brand Ad...")
             results["banner_image"] = self.generate_banner_image(
                 enriched_analysis, country, out / names["banner_image"], reference_image,
-                bullets=bullets,
-                description=description,
+                bullets=bullets, description=description,
             )
             print(f"      📸 Generated 1/1 banner image")
+            return results
+
+        # ── Main-image-only mode ─────────────────────────────────────────
+        if main_only:
+            print(f"      🖼️  Main-only mode: generating studio product image...")
+            results["main_image"] = self.generate_main_image(
+                enriched_analysis, out / names["main_image"], reference_image,
+            )
+            print(f"      📸 Generated 1/1 main image")
+            return results
+
+        # ── Why-choose-us-only mode ───────────────────────────────────────
+        if why_choose_us_only:
+            print(f"      🌟 Why-choose-us-only mode: generating infographic...")
+            results["why_choose_us"] = self.generate_why_choose_us(
+                enriched_analysis, out / names["why_choose_us"], reference_image,
+            )
+            print(f"      📸 Generated 1/1 why-choose-us infographic")
+            return results
+
+        # ── Lifestyle-only mode ──────────────────────────────────────────
+        if lifestyle_only:
+            print(f"      🌍 Lifestyle-only mode: brainstorming 4 distinct scenarios...")
+            scenarios = self._brainstorm_lifestyle_scenarios(
+                title=optimized_title,
+                product_type=image_analysis.get("product_type", "Product"),
+                default_usage=image_analysis.get("usage", ""),
+                country=country,
+            )
+            print(f"      🌍 Generating 4 lifestyle images...")
+            for i in range(1, 5):
+                scenario = scenarios[i - 1] if i - 1 < len(scenarios) else None
+                results[f"lifestyle_{i}"] = self.generate_lifestyle_image(
+                    enriched_analysis, country, out / names[f"lifestyle_{i}"],
+                    reference_image, scenario=scenario,
+                )
+                if i < 4:
+                    time.sleep(pause_between)
+            successes = sum(1 for v in results.values() if v)
+            print(f"      📸 Generated {successes}/4 lifestyle images")
             return results
 
         # 1. Main image

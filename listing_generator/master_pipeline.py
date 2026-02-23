@@ -85,6 +85,9 @@ class ListingPipeline:
         search_terms_only: bool = False,
         analysis_dir: str = None,
         banner_image_only: bool = False,
+        lifestyle_image_only: bool = False,
+        main_image_only: bool = False,
+        why_choose_us_only: bool = False,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
@@ -106,6 +109,9 @@ class ListingPipeline:
         self.skip = skip
         self.keyword_index_path = keyword_index_path
         self.banner_image_only = banner_image_only
+        self.lifestyle_image_only = lifestyle_image_only
+        self.main_image_only = main_image_only
+        self.why_choose_us_only = why_choose_us_only
 
         # Output directory with timestamp
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -1315,9 +1321,18 @@ RULES:
 
         ts = datetime.now().strftime("%Y_%m_%d_%H%M%S_%f")
         if self.banner_image_only:
+            output_filenames = {"banner_image": f"banner_1_{ts}.png"}
+        elif self.lifestyle_image_only:
             output_filenames = {
-                "banner_image": f"banner_1_{ts}.png",
+                "lifestyle_1": f"ls_1_{ts}.png",
+                "lifestyle_2": f"ls_2_{ts}.png",
+                "lifestyle_3": f"ls_3_{ts}.png",
+                "lifestyle_4": f"ls_4_{ts}.png",
             }
+        elif self.main_image_only:
+            output_filenames = {"main_image": f"main_1_{ts}.png"}
+        elif self.why_choose_us_only:
+            output_filenames = {"why_choose_us": f"wcs_1_{ts}.png"}
         else:
             output_filenames = {
                 "main_image": f"main_1_{ts}.png",
@@ -1348,6 +1363,9 @@ RULES:
             reference_image=ref_image,
             output_filenames=output_filenames,
             banner_only=self.banner_image_only,
+            lifestyle_only=self.lifestyle_image_only,
+            main_only=self.main_image_only,
+            why_choose_us_only=self.why_choose_us_only,
             pause_between=3,
         )
 

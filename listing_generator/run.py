@@ -129,9 +129,24 @@ Examples:
     parser.add_argument(
         "--banner-image-only",
         action="store_true",
-        help="Only generate the 1200x628px lifestyle banner image (skip main/lifestyle/infographic)",
+        help="Only generate the 1200x628px Sponsored Brand Ad banner (skip all other images)",
     )
-    
+    parser.add_argument(
+        "--lifestyle-image-only",
+        action="store_true",
+        help="Only generate the 4 lifestyle images (skip main/banner/infographic)",
+    )
+    parser.add_argument(
+        "--main-image-only",
+        action="store_true",
+        help="Only generate the main studio product image (skip lifestyle/banner/infographic)",
+    )
+    parser.add_argument(
+        "--why-choose-us-only",
+        action="store_true",
+        help="Only generate the Why Choose Us infographic (skip main/lifestyle/banner)",
+    )
+
     args = parser.parse_args()
 
     # Validate inputs
@@ -159,6 +174,12 @@ Examples:
         print("⚠️  --skip without --output will create a new folder — previous rows won't be loaded.")
         print("   Use --output <same_dir_as_first_run> to append to the existing Excel.")
 
+    # Validate: only one image-type flag at a time
+    image_only_flags = [args.banner_image_only, args.lifestyle_image_only, args.main_image_only, args.why_choose_us_only]
+    if sum(bool(f) for f in image_only_flags) > 1:
+        print("❌ Only one of --banner-image-only / --lifestyle-image-only / --main-image-only / --why-choose-us-only can be used at a time.")
+        sys.exit(1)
+
     # Run pipeline
     pipeline = ListingPipeline(
         client_excel=args.client,
@@ -175,6 +196,9 @@ Examples:
         search_terms_only=args.search_terms_only,
         analysis_dir=args.analysis_dir,
         banner_image_only=args.banner_image_only,
+        lifestyle_image_only=args.lifestyle_image_only,
+        main_image_only=args.main_image_only,
+        why_choose_us_only=args.why_choose_us_only,
     )
 
     output_path = pipeline.run()
