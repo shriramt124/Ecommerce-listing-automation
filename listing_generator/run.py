@@ -109,6 +109,29 @@ Examples:
         default=0,
         help="Skip the first N products (for resume after crash)",
     )
+    
+    # Text Generation LLM args
+    parser.add_argument(
+        "--llm-provider",
+        default="ollama",
+        choices=["ollama", "openai"],
+        help="Primary LLM provider for text generation (default: ollama)",
+    )
+    parser.add_argument(
+        "--llm-model",
+        default=None,
+        help="Primary LLM model name override (e.g. gpt-4o or deepseek-r1)",
+    )
+    parser.add_argument(
+        "--llm-base-url",
+        default=None,
+        help="Base URL for Ollama or OpenAI compatible endpoints",
+    )
+    parser.add_argument(
+        "--llm-api-key",
+        default=None,
+        help="API Key for the primary LLM (OpenAI etc)",
+    )
 
     parser.add_argument(
         "--keyword-index",
@@ -199,6 +222,10 @@ Examples:
         lifestyle_image_only=args.lifestyle_image_only,
         main_image_only=args.main_image_only,
         why_choose_us_only=args.why_choose_us_only,
+        llm_provider=args.llm_provider,
+        llm_model=args.llm_model,
+        llm_base_url=args.llm_base_url,
+        llm_api_key=args.llm_api_key,
     )
 
     output_path = pipeline.run()

@@ -348,7 +348,7 @@ def validate_title(title: str, truth: Dict[str, Any]) -> Dict[str, Any]:
 
 
 class AgenticOptimizationPipeline:
-    def __init__(self):
+    def __init__(self, llm=None):
         self.enabled = os.getenv("ADKRUX_USE_AI", "true").lower() == "true"
         self.ollama_model = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
         self.ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -358,11 +358,14 @@ class AgenticOptimizationPipeline:
         self.vector_limit_per_query = int(os.getenv("ADKRUX_VECTOR_LIMIT_PER_QUERY", "25"))
         self.vector_max_candidates = int(os.getenv("ADKRUX_VECTOR_MAX_CANDIDATES", "60"))
 
-        self.llm = OllamaLLM(OllamaConfig(
-            model=self.ollama_model,
-            base_url=self.ollama_base_url,
-            timeout_s=180,
-        ))
+        if llm:
+            self.llm = llm
+        else:
+            self.llm = OllamaLLM(OllamaConfig(
+                model=self.ollama_model,
+                base_url=self.ollama_base_url,
+                timeout_s=180,
+            ))
         self.keyword_db = KeywordDB()
 
         self.category_agent = CategoryDetectorAgent(self.llm)

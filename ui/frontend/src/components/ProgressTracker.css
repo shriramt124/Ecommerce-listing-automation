@@ -1,0 +1,143 @@
+.progress-tracker {
+    padding: 14px 16px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.progress-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.progress-product {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.progress-asin {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--bg3);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.progress-name {
+    font-size: 12px;
+    color: var(--text2);
+}
+
+.progress-empty {
+    color: var(--text2);
+    font-size: 13px;
+    padding: 4px 0;
+}
+
+.progress-bar-wrap {
+    position: relative;
+    background: var(--bg3);
+    border-radius: 4px;
+    height: 6px;
+    margin-bottom: 12px;
+    overflow: visible;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--green), #2ea043);
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+}
+
+.progress-pct {
+    position: absolute;
+    right: 0;
+    top: -18px;
+    font-size: 11px;
+    color: var(--text2);
+}
+
+.stage-steps {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.stage-step {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.stage-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.stage-step.done .stage-dot {
+    background: var(--green);
+}
+
+.stage-step.active .stage-dot {
+    background: var(--yellow);
+    box-shadow: 0 0 6px var(--yellow);
+    animation: pulse 1s infinite;
+}
+
+.stage-step.pending .stage-dot {
+    background: var(--border);
+}
+
+.stage-name {
+    font-size: 11px;
+    color: var(--text2);
+}
+
+.stage-step.done .stage-name {
+    color: var(--green);
+}
+
+.stage-step.active .stage-name {
+    color: var(--yellow);
+    font-weight: 500;
+}
+
+.view-gallery-btn {
+    margin-top: 12px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    width: 100%;
+    padding: 6px;
+    font-size: 13px;
+}
+
+.view-gallery-btn:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}

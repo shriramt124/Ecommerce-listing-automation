@@ -33,7 +33,7 @@ if _PARENT_DIR not in sys.path:
     sys.path.insert(0, _PARENT_DIR)
 
 from gemini_llm import GeminiConfig, GeminiLLM
-from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object
+from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object, OpenAIConfig, OpenAILLM
 from agentic_pipeline import AgenticOptimizationPipeline
 from keyword_db import KeywordDB
 from parser import parser as title_parser
@@ -88,6 +88,10 @@ class ListingPipeline:
         lifestyle_image_only: bool = False,
         main_image_only: bool = False,
         why_choose_us_only: bool = False,
+        llm_provider: str = "ollama",
+        llm_model: str = None,
+        llm_base_url: str = None,
+        llm_api_key: str = None,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
@@ -124,12 +128,15 @@ class ListingPipeline:
         if not self.gemini_key:
             raise RuntimeError("GEMINI_API_KEY is required for vision/image tasks. Set it in .env or pass --gemini-key")
 
-        # Ollama config (primary LLM for all text generation)
-        self.ollama_model = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
-        self.ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        # LLM config
+        self.llm_provider = (llm_provider or "ollama").lower()
+        self.ollama_model = llm_model or os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
+        self.ollama_base_url = llm_base_url or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+        self.openai_model = llm_model or os.getenv("OPENAI_MODEL", "gpt-4o")
+        self.llm_api_key = llm_api_key
 
         # Will be initialized lazily
-        self._llm: Optional[OllamaLLM] = None
+        self._llm = None
         self._keyword_db: Optional[KeywordDB] = None
         self._title_pipeline: Optional[AgenticOptimizationPipeline] = None
         self._image_analyzer: Optional[ImageAnalyzer] = None
@@ -143,13 +150,20 @@ class ListingPipeline:
     # ------------------------------------------------------------------
 
     @property
-    def llm(self) -> OllamaLLM:
+    def llm(self):
         if self._llm is None:
-            self._llm = OllamaLLM(OllamaConfig(
-                model=self.ollama_model,
-                base_url=self.ollama_base_url,
-                timeout_s=180,
-            ))
+            if self.llm_provider == "openai":
+                self._llm = OpenAILLM(OpenAIConfig(
+                    api_key=self.llm_api_key or os.getenv("OPENAI_API_KEY", ""),
+                    model=self.openai_model,
+                    timeout_s=180,
+                ))
+            else:
+                self._llm = OllamaLLM(OllamaConfig(
+                    model=self.ollama_model,
+                    base_url=self.ollama_base_url,
+                    timeout_s=180,
+                ))
         return self._llm
 
     @property
@@ -161,7 +175,7 @@ class ListingPipeline:
     @property
     def title_pipeline(self) -> AgenticOptimizationPipeline:
         if self._title_pipeline is None:
-            self._title_pipeline = AgenticOptimizationPipeline()
+            self._title_pipeline = AgenticOptimizationPipeline(llm=self.llm)
         return self._title_pipeline
 
     @property

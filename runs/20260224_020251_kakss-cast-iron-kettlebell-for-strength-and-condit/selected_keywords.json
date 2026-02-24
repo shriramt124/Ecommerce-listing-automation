@@ -1,0 +1,94 @@
+{
+  "selected_keywords": [
+    {
+      "keyword": "kettlebells",
+      "zone": "ZONE_B",
+      "score": 27072.0,
+      "reason": "Highest relevance (1.0 similarity) with good search volume (27072)"
+    },
+    {
+      "keyword": "kettlebell",
+      "zone": "ZONE_B",
+      "score": 26188.0,
+      "reason": "Perfect relevance (1.0 similarity) with high search volume (26188)"
+    },
+    {
+      "keyword": "kettle bell",
+      "zone": "ZONE_B",
+      "score": 24880.0,
+      "reason": "Perfect relevance (1.0 similarity) with good search volume (24880)"
+    },
+    {
+      "keyword": "16kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 22761.0,
+      "reason": "High relevance (0.92) with strong search volume (22761)"
+    },
+    {
+      "keyword": "12kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 20094.0,
+      "reason": "High relevance (0.93) with strong search volume (20094)"
+    },
+    {
+      "keyword": "10kg kettlebell",
+      "zone": "ZONE_B",
+      "score": 18533.0,
+      "reason": "High relevance (0.93) with strong search volume (18533)"
+    },
+    {
+      "keyword": "20kg kettlebells",
+      "zone": "ZONE_B",
+      "score": 17689.0,
+      "reason": "High relevance (0.908) with good search volume (17689)"
+    },
+    {
+      "keyword": "dumbbells",
+      "zone": "ZONE_B",
+      "score": 215402.0,
+      "reason": "High search volume (215402) despite lower relevance - customers search kettlebells with dumbbell terms"
+    },
+    {
+      "keyword": "dumbbells set",
+      "zone": "ZONE_B",
+      "score": 448037.0,
+      "reason": "Highest search volume overall (448037) - important for cross-searches"
+    },
+    {
+      "keyword": "weights dumbbells set",
+      "zone": "ZONE_B",
+      "score": 143389.0,
+      "reason": "High search volume (143389) - relevant fitness equipment category"
+    },
+    {
+      "keyword": "dumbbells set women",
+      "zone": "ZONE_B",
+      "score": 94089.0,
+      "reason": "Good search volume (94089) with target audience specification"
+    },
+    {
+      "keyword": "dumbbell set",
+      "zone": "ZONE_B",
+      "score": 52761.0,
+      "reason": "Good search volume (52761) - complete phrase"
+    },
+    {
+      "keyword": "5kg dumbbells pair",
+      "zone": "ZONE_B",
+      "score": 46660.0,
+      "reason": "Good search volume (46660) with weight specification"
+    },
+    {
+      "keyword": "dumbbell",
+      "zone": "ZONE_B",
+      "score": 41200.0,
+      "reason": "Good search volume (41200) - fundamental fitness term"
+    },
+    {
+      "keyword": "weights",
+      "zone": "ZONE_B",
+      "score": 30386.0,
+      "reason": "Good search volume (30386) - broad fitness category term"
+    }
+  ]
+}

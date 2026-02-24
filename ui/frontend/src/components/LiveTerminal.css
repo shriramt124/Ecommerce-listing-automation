@@ -1,0 +1,125 @@
+.terminal-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    border-top: 1px solid var(--border);
+}
+
+.terminal-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 14px;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+.terminal-title {
+    font-size: 12px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-green {
+    background: var(--green);
+    box-shadow: 0 0 6px var(--green);
+}
+
+.dot-grey {
+    background: var(--border);
+}
+
+.terminal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.autoscroll-toggle {
+    font-size: 12px;
+    color: var(--text2);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.autoscroll-toggle input {
+    width: auto;
+}
+
+.clear-btn {
+    background: none;
+    color: var(--text2);
+    font-size: 12px;
+    padding: 2px 8px;
+    border: 1px solid var(--border);
+}
+
+.clear-btn:hover {
+    color: var(--text);
+    border-color: var(--text2);
+}
+
+.terminal {
+    flex: 1;
+    overflow-y: auto;
+    background: #0d1117;
+    padding: 12px 16px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+}
+
+.terminal-empty {
+    color: var(--text2);
+    font-style: italic;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.log-line {
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #c9d1d9;
+}
+
+.log-green {
+    color: #3fb950;
+}
+
+.log-red {
+    color: #f85149;
+}
+
+.log-yellow {
+    color: #e3b341;
+}
+
+.log-cyan {
+    color: #79c0ff;
+}
+
+.log-purple {
+    color: #bc8cff;
+}
+
+.log-blue {
+    color: #58a6ff;
+}
+
+.log-header {
+    color: #e6edf3;
+    font-weight: 600;
+}

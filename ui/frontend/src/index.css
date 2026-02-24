@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    * {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        @apply bg-prime-bg text-prime-text font-sans text-[13px] leading-relaxed min-h-screen m-0 p-0 overflow-hidden;
+        /* Subtle radial gradient to make the solid black feel less flat */
+        background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.03) 0%, transparent 60%);
+    }
+
+    /* Elegant scrollbars */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-prime-border rounded-full border-2 border-transparent bg-clip-padding;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        @apply bg-[#404040];
+    }
+
+    /* Premium unified form elements */
+    input,
+    select,
+    textarea {
+        @apply bg-prime-input border border-prime-border text-prime-text rounded items-center px-3 py-1.5 text-[13px] font-sans outline-none w-full transition-all duration-200 placeholder-prime-label shadow-sm;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        @apply border-[#404040] bg-[#1E1E1E] ring-1 ring-white/10;
+    }
+
+    /* Number input styling */
+    input[type="number"] {
+        @apply w-20 text-center px-2;
+    }
+
+    /* Base button reset for sleek look */
+    button {
+        @apply font-sans text-[13px] font-medium border border-transparent rounded-md cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 tracking-wide;
+    }
+
+    button:active {
+        @apply scale-[0.98];
+    }
+}
+
+/* Custom utility components */
+@layer components {
+
+    /* Ultra-minimal badge */
+    .badge {
+        @apply inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold tracking-widest uppercase border;
+    }
+
+    /* Soft floating card */
+    .panel-card {
+        @apply bg-prime-surface border border-prime-border rounded-xl shadow-glow-subtle;
+    }
+
+    /* Linear-style glassy header */
+    .glass-header {
+        @apply bg-prime-surface/80 backdrop-blur-md border-b border-prime-border sticky top-0 z-10;
+    }
+}

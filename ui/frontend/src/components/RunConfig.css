@@ -1,0 +1,157 @@
+.run-config {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.config-section {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.config-section:last-child {
+    border-bottom: none;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.field input {
+    width: 100%;
+}
+
+.mt8 {
+    margin-top: 8px;
+}
+
+.radio-option {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin-bottom: 4px;
+    transition: all 0.1s;
+}
+
+.radio-option:hover {
+    background: var(--bg3);
+}
+
+.radio-option.selected {
+    border-color: var(--blue);
+    background: rgba(88, 166, 255, 0.05);
+}
+
+.radio-option input[type="radio"] {
+    display: none;
+}
+
+.radio-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.radio-desc {
+    font-size: 11px;
+    color: var(--text2);
+    margin-top: 1px;
+}
+
+.toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.toggle-row input {
+    width: auto;
+}
+
+.range-row {
+    display: flex;
+    gap: 12px;
+}
+
+.range-row .field {
+    flex: 1;
+}
+
+.range-row input[type="number"] {
+    width: 100%;
+}
+
+.toggle-btn {
+    background: none;
+    color: var(--text2);
+    font-size: 12px;
+    padding: 4px 0;
+    text-align: left;
+    width: 100%;
+}
+
+.toggle-btn:hover {
+    color: var(--text);
+}
+
+.advanced-fields {
+    margin-top: 4px;
+}
+
+.error-box {
+    background: rgba(248, 81, 73, 0.1);
+    border: 1px solid rgba(248, 81, 73, 0.3);
+    color: var(--red);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.run-actions {
+    display: flex;
+    gap: 8px;
+    padding-top: 14px;
+}
+
+.btn-run {
+    flex: 1;
+    background: var(--accent);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px;
+}
+
+.btn-run:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.btn-run:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-stop {
+    background: rgba(248, 81, 73, 0.15);
+    color: var(--red);
+    border: 1px solid rgba(248, 81, 73, 0.3);
+    padding: 9px 16px;
+}
+
+.btn-stop:hover:not(:disabled) {
+    background: rgba(248, 81, 73, 0.25);
+}
+
+.btn-stop:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
