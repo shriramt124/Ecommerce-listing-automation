@@ -37,7 +37,9 @@ from agentic_llm import OllamaConfig, OllamaLLM, extract_json_object, OpenAIConf
 from agentic_pipeline import AgenticOptimizationPipeline
 from keyword_db import KeywordDB
 from parser import parser as title_parser
+from telemetry import emit_telemetry
 
+from listing_generator.feedback_store import FeedbackStore
 from listing_generator.client_parser import parse_client_excel
 from listing_generator.browse_node_mapper import (
     ingest_browse_node_keywords,
@@ -92,6 +94,8 @@ class ListingPipeline:
         llm_model: str = None,
         llm_base_url: str = None,
         llm_api_key: str = None,
+        ingest_category: str = None,
+        query_category: str = None,
     ):
         self.client_excel = client_excel
         self.browse_node_dir = browse_node_dir
@@ -135,6 +139,9 @@ class ListingPipeline:
         self.openai_model = llm_model or os.getenv("OPENAI_MODEL", "gpt-4o")
         self.llm_api_key = llm_api_key
 
+        self.ingest_category = ingest_category
+        self.query_category = query_category
+
         # Will be initialized lazily
         self._llm = None
         self._keyword_db: Optional[KeywordDB] = None
@@ -144,6 +151,9 @@ class ListingPipeline:
         self._desc_agent: Optional[DescriptionAgent] = None
         self._search_agent: Optional[SearchTermsAgent] = None
         self._image_creator = None  # Optional[ImageCreator]
+        
+        # RL Memory Vault
+        self.feedback_store = FeedbackStore()
 
     # ------------------------------------------------------------------
     # Lazy initialization
@@ -223,7 +233,7 @@ class ListingPipeline:
         if not self.browse_node_dir:
             print("   ⚠️  No browse-node directory specified, skipping ingestion.")
             return
-        ingest_browse_node_keywords(self.browse_node_dir, reset=False)
+        ingest_browse_node_keywords(self.browse_node_dir, reset=False, dataset_id=self.ingest_category)
 
     def _stage_parse(self) -> List[Dict[str, Any]]:
         """Stage 1: Parse client Excel."""
@@ -291,7 +301,7 @@ class ListingPipeline:
         product_desc = self._build_product_description(product, image_analysis)
         product_relevance_threshold = 0.30
         print(f"   📐 Computing product relevance embedding...")
-        product_relevance = self.keyword_db.compute_product_relevance(product_desc)
+        product_relevance = self.keyword_db.compute_product_relevance(product_desc, dataset_id=self.query_category)
         total_rel = sum(1 for v in product_relevance.values() if v >= product_relevance_threshold)
         print(f"      {total_rel} keywords above relevance threshold ({product_relevance_threshold})")
 
@@ -301,6 +311,7 @@ class ListingPipeline:
         print(f"\n   {'─'*50}")
         print(f"   🔍 ROUND 1: Wide Sweep — generating queries...")
 
+        emit_telemetry("QueryPlannerAgent", "start", {"title": title})
         ai_queries = self._round1_generate_queries(product, image_analysis)
         fallback_queries = self._build_fallback_queries(product, image_analysis)
 
@@ -313,6 +324,8 @@ class ListingPipeline:
                 seen_q.add(ql)
                 round1_queries.append(q.strip())
 
+        emit_telemetry("QueryPlannerAgent", "complete", {"queries": round1_queries})
+
         print(f"      LLM generated {len(ai_queries)} queries + {len(fallback_queries)} fallbacks "
               f"= {len(round1_queries)} unique")
         for i, q in enumerate(round1_queries[:8], 1):
@@ -323,7 +336,7 @@ class ListingPipeline:
         # Sweep vector DB (NO limit cap — search_broad)
         merged: Dict[str, Dict[str, Any]] = {}
         for q in round1_queries:
-            results = self.keyword_db.search_broad(q, min_similarity=0.25)
+            results = self.keyword_db.search_broad(q, min_similarity=0.25, dataset_id=self.query_category)
             for r in results:
                 kw = str(r.get("keyword", "")).strip().lower()
                 if not kw:
@@ -402,7 +415,7 @@ class ListingPipeline:
                 print(f"      Running {len(new_gap_queries)} gap-fill queries...")
                 new_added = 0
                 for q in new_gap_queries:
-                    gap_results = self.keyword_db.search_broad(q, min_similarity=0.25)
+                    gap_results = self.keyword_db.search_broad(q, min_similarity=0.25, dataset_id=self.query_category)
                     for r in gap_results:
                         kw = str(r.get("keyword", "")).strip().lower()
                         if not kw:
@@ -449,7 +462,7 @@ class ListingPipeline:
                 print(f"      Running {len(new_syn_queries)} synonym queries...")
                 syn_added = 0
                 for q in new_syn_queries:
-                    syn_results = self.keyword_db.search_broad(q, min_similarity=0.25)
+                    syn_results = self.keyword_db.search_broad(q, min_similarity=0.25, dataset_id=self.query_category)
                     for r in syn_results:
                         kw = str(r.get("keyword", "")).strip().lower()
                         if not kw:
@@ -1009,7 +1022,7 @@ JSON:"""
 
         print(f"   ✍️  Optimizing title...")
         # Pass the pre-filtered high-volume keywords to the agentic pipeline
-        optimized, report = self.title_pipeline.optimize(base_title, truth, pre_filtered_keywords=keywords)
+        optimized, report = self.title_pipeline.optimize(base_title, truth, pre_filtered_keywords=keywords, target_dataset_id=self.query_category)
 
         # If the pipeline returned the same title, do a direct Gemini fallback
         if optimized.strip() == base_title.strip() or len(optimized) < 170:
@@ -1022,10 +1035,57 @@ JSON:"""
 
         return optimized, report
 
+    def _stage_title(
+        self, product: Dict[str, Any], image_analysis: Dict[str, Any], keywords: List[Dict[str, Any]],
+        few_shot_examples: List[Dict[str, Any]] = None
+    ) -> Tuple[str, Dict[str, Any]]:
+        """Stage 3c: Orchestrate the 5-agent title pipeline with optional memory injection."""
+        base_title = product.get("title", "")
+        if not base_title:
+            base_title = image_analysis.get("product_name") or product.get("raw_row", {}).get("Title", "") or ""
+
+        excel_brand = product.get("raw_row", {}).get("Brand", "") or ""
+        analysis_brand = image_analysis.get("brand") or ""
+        resolved_brand = analysis_brand or excel_brand
+
+        truth = {
+            "brand": resolved_brand,
+            "product": image_analysis.get("product_type") or "",
+            "size": image_analysis.get("size") or "",
+            "color": ", ".join(image_analysis.get("colors") or []) or "",
+            "count": image_analysis.get("quantity") or "",
+            "material": image_analysis.get("material") or "",
+            "usage": image_analysis.get("usage") or "",
+            "key_features": image_analysis.get("key_features") or [],
+            "ai_description": image_analysis.get("ai_description") or "",
+            "target_audience": image_analysis.get("target_audience") or "",
+            "product_name": image_analysis.get("product_name") or "",
+            "manual": product.get("manual", ""),
+        }
+
+        print(f"   ✍️  Optimizing title...")
+        # Pass the pre-filtered high-volume keywords to the agentic pipeline
+        optimized, report = self.title_pipeline.optimize(
+            base_title, truth, pre_filtered_keywords=keywords, target_dataset_id=self.query_category,
+            few_shot_examples=few_shot_examples
+        )
+
+        # If the pipeline returned the same title, do a direct Gemini fallback
+        if optimized.strip() == base_title.strip() or len(optimized) < 170:
+            print(f"      ⚠️  Title unchanged or too short ({len(optimized)} chars), using direct optimization...")
+            optimized = self._direct_title_optimize(base_title, image_analysis, keywords or [], product=product, few_shot_examples=few_shot_examples)
+
+        print(f"      Original : {base_title[:80]}...")
+        print(f"      Optimized: {optimized[:80]}...")
+        print(f"      Length   : {len(optimized)} chars")
+
+        return optimized, report
+
     def _direct_title_optimize(
         self, base_title: str, image_analysis: Dict[str, Any],
         keywords: List[Dict[str, Any]],
         product: Dict[str, Any] = None,
+        few_shot_examples: List[Dict[str, Any]] = None,
     ) -> str:
         """Fallback: directly ask Gemini to optimize the title with keyword data."""
         # Use brand from multiple sources
@@ -1151,12 +1211,13 @@ Output ONLY the optimized title text (one line, no quotes):"""
         kw_queries: List[str] = None,
         product_relevance: Dict[str, float] = None,
         relevance_map: Dict[str, bool] = None,
+        few_shot_examples: List[Dict[str, Any]] = None,
     ) -> Tuple[List[str], str, str]:
         """Stage 3d-f: Generate bullets, description, search terms."""
         print(f"   📝 Generating content...")
 
         # Bullet points
-        bullets = self.bullet_agent.run(product, image_analysis, keywords)
+        bullets = self.bullet_agent.run(product, image_analysis, keywords, few_shot_examples)
         print(f"      ✅ 5 bullet points generated")
 
         # Description
@@ -1171,6 +1232,14 @@ Output ONLY the optimized title text (one line, no quotes):"""
             )
             print(f"      🔍 Dedicated search term keywords: {len(search_kw)} (top 150 by volume)")
         else:
+            # Ask the DB for keywords, filtered by user category if provided
+            broad_matches = self.keyword_db.search_broad(
+                query=f"{product['title']} {product.get('la_cat', '')}",
+                min_similarity=0.20, # Slightly lower min_similarity for broader search
+                dataset_id=self.query_category,
+            )
+            
+            # Additional fallback check...
             search_kw = keywords
             print(f"      ⚠️ No dedicated queries — using shared keyword pool ({len(search_kw)})")
 
@@ -1197,7 +1266,7 @@ Output ONLY the optimized title text (one line, no quotes):"""
         merged: Dict[str, Dict[str, Any]] = {}
 
         for q in queries:
-            results = self.keyword_db.search_broad(q, min_similarity=0.20)
+            results = self.keyword_db.search_broad(q, min_similarity=0.20, dataset_id=self.query_category)
             for r in results:
                 kw = str(r.get("keyword", "")).strip().lower()
                 if not kw:
@@ -1498,15 +1567,30 @@ RULES:
                     # 3b. Keywords
                     keywords, kw_queries, product_relevance, relevance_map = self._stage_keywords(product, image_analysis)
 
+                    # Tier 2 RL: Neural Memory Injection
+                    few_shot_examples = []
+                    context_str = f"{product.get('title', '')} {image_analysis.get('product_type', '')}".strip()
+                    few_shot_examples = self.feedback_store.get_similar_examples(
+                        product_context=context_str,
+                        category=self.query_category,
+                        n=2
+                    )
+                    if few_shot_examples:
+                        emit_telemetry(
+                            agent="NeuralMemory",
+                            action="memory_injection",
+                            data={"examples_found": len(few_shot_examples), "category": self.query_category}
+                        )
+
                     # 3c. Title optimization (pass keywords for fallback)
-                    optimized_title, title_report = self._stage_title(product, image_analysis, keywords)
+                    optimized_title, title_report = self._stage_title(product, image_analysis, keywords, few_shot_examples)
                     if not optimized_title:
                         optimized_title = product.get("title", "")
 
                     # 3d-f. Content generation
                     bullets, description, search_terms = self._stage_content(
                         product, image_analysis, keywords, optimized_title,
-                        kw_queries, product_relevance, relevance_map,
+                        kw_queries, product_relevance, relevance_map, few_shot_examples
                 )
 
                 # 3f-2. Generate comparison points (skip in search-terms-only mode)
@@ -1551,6 +1635,27 @@ RULES:
 
                 # Save analysis JSON for debugging
                 write_analysis_json(product, image_analysis, optimized_title, self.output_dir)
+
+                # 3h. RL Tier 1 Auto-Scoring Logger
+                if not self.images_only:
+                    from listing_generator.content_agents import ListingScorer
+                    import json
+                    
+                    scores_dir = os.path.join(self.output_dir, "scores")
+                    os.makedirs(scores_dir, exist_ok=True)
+                    
+                    score_data = {
+                        "asin": product.get("asin", f"PRODUCT_{display_idx}"),
+                        "title": optimized_title,
+                        "bullets_score": ListingScorer.score_bullets(bullets),
+                        "search_terms_score": ListingScorer.score_search_terms(search_terms, optimized_title),
+                        "timestamp": datetime.now().isoformat()
+                    }
+                    
+                    s_file = os.path.join(scores_dir, f"{score_data['asin']}_{int(datetime.now().timestamp())}.json")
+                    with open(s_file, "w", encoding="utf-8") as sf:
+                        json.dump(score_data, sf, indent=2)
+                    print(f"   📊 Saved Tier 1 RL auto-scores to {os.path.basename(s_file)}")
 
                 print(f"   ✅ Product {display_num} complete")
 

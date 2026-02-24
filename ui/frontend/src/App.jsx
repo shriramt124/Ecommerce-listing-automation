@@ -1,10 +1,12 @@
 import { useState, useCallback, useEffect } from 'react'
-import { Tag, Zap, Image as ImageIcon, History } from 'lucide-react'
+import { Tag, Zap, Image as ImageIcon, History, PanelLeft, Brain } from 'lucide-react'
 import RunConfig from './components/RunConfig'
 import LiveTerminal from './components/LiveTerminal'
 import ProgressTracker from './components/ProgressTracker'
 import OutputGallery from './components/OutputGallery'
 import RunHistory from './components/RunHistory'
+import AIVisualizer from './components/AIVisualizer'
+import RLTraining from './components/RLTraining'
 import './index.css'
 
 export default function App() {
@@ -14,6 +16,8 @@ export default function App() {
   const [jobStatus, setJobStatus] = useState(null)
   const [galleryRunId, setGalleryRunId] = useState(null)
   const [completedOutputDir, setCompletedOutputDir] = useState(null)
+  const [isTerminalOpen, setIsTerminalOpen] = useState(true)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   const handleJobStarted = useCallback((jobId, outputDir) => {
     setJob({ jobId, outputDir })
@@ -51,6 +55,7 @@ export default function App() {
     { id: 'run', icon: Zap, label: 'Run Pipeline' },
     { id: 'gallery', icon: ImageIcon, label: 'Gallery' },
     { id: 'history', icon: History, label: 'History' },
+    { id: 'rl', icon: Brain, label: 'RL Training' },
   ]
 
   return (
@@ -58,6 +63,13 @@ export default function App() {
       {/* Header - Glassy Minimalist */}
       <header className="flex flex-col sm:flex-row items-center justify-between px-6 py-3 border-b border-prime-divider bg-prime-bg/80 backdrop-blur-md shrink-0 z-20">
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-1.5 hover:bg-prime-hover rounded-md transition-colors text-prime-muted hover:text-prime-text"
+            title="Toggle Sidebar"
+          >
+            <PanelLeft size={18} />
+          </button>
           <div className="p-1.5 bg-prime-primary/10 rounded-lg border border-prime-primary/20 shadow-[0_0_15px_-3px_rgba(59,130,246,0.3)]">
             <Tag size={18} className="text-prime-primary" />
           </div>
@@ -91,29 +103,38 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1 overflow-hidden relative">
         {activeTab === 'run' && (
-          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] h-full overflow-hidden">
+          <div className="flex h-full overflow-hidden">
             {/* Left Sidebar: Form */}
-            <div className="bg-prime-surface/50 border-r border-prime-divider overflow-y-auto z-10 custom-scrollbar">
-              <RunConfig
-                onJobStarted={handleJobStarted}
-                jobStatus={jobStatus}
-                jobId={job?.jobId}
-              />
+            <div className={`bg-prime-surface/50 border-r border-prime-divider overflow-y-auto z-10 custom-scrollbar transition-all duration-300 ease-in-out shrink-0 ${isSidebarOpen ? 'w-[380px] opacity-100' : 'w-0 opacity-0 overflow-hidden border-r-0'}`}>
+              <div className="w-[380px]">
+                <RunConfig
+                  onJobStarted={handleJobStarted}
+                  jobStatus={jobStatus}
+                  jobId={job?.jobId}
+                />
+              </div>
             </div>
 
             {/* Right Pane: Logs & Progress */}
-            <div className="flex flex-col overflow-hidden bg-prime-bg">
+            <div className="flex flex-col flex-1 min-w-0 overflow-y-auto custom-scrollbar bg-prime-bg h-full transition-all duration-300">
               <ProgressTracker
                 progress={progress}
                 jobStatus={jobStatus}
                 outputDir={completedOutputDir || job?.outputDir}
                 onOpenGallery={() => handleOpenGallery(job?.jobId)}
               />
-              <LiveTerminal
-                jobId={job?.jobId}
-                onProgress={handleProgress}
-                onDone={handleDone}
-              />
+              <div className="flex-1 min-h-[350px] bg-prime-surface/30 flex flex-col">
+                <AIVisualizer jobId={job?.jobId} />
+              </div>
+              <div className={`${isTerminalOpen ? 'h-64' : 'h-[50px]'} shrink-0 border-t border-prime-divider flex flex-col transition-all duration-300 ease-in-out`}>
+                <LiveTerminal
+                  jobId={job?.jobId}
+                  onProgress={handleProgress}
+                  onDone={handleDone}
+                  isCollapsed={!isTerminalOpen}
+                  onToggleCollapse={() => setIsTerminalOpen(!isTerminalOpen)}
+                />
+              </div>
             </div>
           </div>
         )}
@@ -125,6 +146,10 @@ export default function App() {
 
         <div className={`absolute inset-0 bg-prime-bg transition-opacity duration-300 ${activeTab === 'history' ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none'}`}>
           <RunHistory onOpenGallery={handleOpenGallery} />
+        </div>
+
+        <div className={`absolute inset-0 bg-prime-bg transition-opacity duration-300 ${activeTab === 'rl' ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none'}`}>
+          <RLTraining />
         </div>
       </main>
     </div>

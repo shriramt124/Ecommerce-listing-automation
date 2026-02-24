@@ -850,6 +850,7 @@ class TitleComposerAgent(BaseJsonAgent):
         concepts: List[Dict[str, Any]],
         selected_keywords: List[Dict[str, Any]],
         category_info: Dict[str, Any],
+        few_shot_examples: List[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
 
         # --- Build keyword list sorted by search volume (highest first) ---
@@ -923,6 +924,7 @@ The title must read as ONE flowing product description, NOT a keyword dump.
 Keywords are woven INTO the description — every phrase serves double duty as
 both readable text AND a search keyword.
 
+
 STRATEGY: Look at the search keywords above. The words that appear in the
 HIGHEST volume keywords should appear in your title. If the top keywords
 contain "for women" or "for men", use those words as complete men and women or men,women relevant
@@ -943,6 +945,7 @@ EXPERT EXAMPLES (study these patterns):
 
   Original: "Kakss Half Coating Neoprene Kettlebell (Pink, 5 KG)"
   Expert:   "KAKSS Cast Iron Kettlebell 5kg, Pink Half Neoprene Coated Kettlebells with Wide Grip Handle, Strength Training Weights for Home Gym Equipment and Fitness Workout for men and women"
+
 
 NOTICE THE PATTERNS:
   ✅ Brand is UPPERCASE

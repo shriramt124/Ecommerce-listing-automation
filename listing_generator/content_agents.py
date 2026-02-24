@@ -23,6 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from gemini_llm import GeminiLLM, extract_json_object
 from agentic_llm import OllamaLLM
+from telemetry import emit_telemetry
 
 
 # ---------------------------------------------------------------------------
@@ -174,6 +175,52 @@ Respond ONLY with valid JSON:
 JSON:"""
 
 
+class ListingScorer:
+    """Tier 1 RL Auto-Scorer. Computes automated pass/fail metrics.
+    
+    If these metrics fail during generation, the failure reason is 
+    fed back to the LLM for a self-correction retry.
+    """
+    
+    @staticmethod
+    def score_bullets(bullets: List[str]) -> Dict[str, Any]:
+        metrics = {"pass": True, "reasons": []}
+        
+        for i, b in enumerate(bullets):
+            if len(b) > 200:
+                metrics["pass"] = False
+                metrics["reasons"].append(f"Bullet {i+1} is {len(b)} chars (limit is 200).")
+            if len(b) < 10:
+                metrics["pass"] = False
+                metrics["reasons"].append(f"Bullet {i+1} is suspiciously short ({len(b)} chars).")
+        
+        # Check uniqueness / repetition (simple rough check across all bullets to discourage keyword stuffing)
+        all_words = []
+        for b in bullets:
+            all_words.extend([w.lower() for w in b.replace(':', ' ').replace(',', ' ').split() if len(w) > 4])
+        
+        from collections import Counter
+        repeats = [word for word, count in Counter(all_words).items() if count > 5]
+        if repeats:
+            metrics["reasons"].append(f"Try to spread out keywords more. Avoid repeating words like: {', '.join(repeats)} across multiple bullets.")
+            
+        return metrics
+
+    @staticmethod
+    def score_search_terms(search_terms: str, title: str) -> Dict[str, Any]:
+        metrics = {"pass": True, "reasons": []}
+        
+        if len(search_terms) > 200:
+            metrics["pass"] = False
+            metrics["reasons"].append(f"Search terms total length is {len(search_terms)} chars (hard limit is 200).")
+        if len(search_terms) < 50:
+            metrics["reasons"].append(f"Search terms length is only {len(search_terms)}. Try to include more relevant phrases to maximize the 200 char limit.")
+            
+        # We do not penalize title overlap anymore, per requirements.
+
+        return metrics
+
+
 class BulletPointAgent:
     """Generates 5 Amazon bullet points from real product data + keywords."""
 
@@ -185,6 +232,7 @@ class BulletPointAgent:
         product: Dict[str, Any],
         image_analysis: Dict[str, Any],
         keywords: List[Dict[str, Any]],
+        few_shot_examples: List[Dict[str, Any]] = None,
     ) -> List[str]:
         # Build keyword list string — sort by search volume for better prioritization
         sorted_kw = sorted(keywords, key=lambda k: float(k.get('score', 0)), reverse=True)
@@ -193,6 +241,11 @@ class BulletPointAgent:
             vol = float(kw.get('score', 0))
             kw_lines.append(f"  - {kw['keyword']} (search volume: {vol:.0f})")
         keyword_list = "\n".join(kw_lines) if kw_lines else "  (no keywords available)"
+
+        emit_telemetry("BulletPointAgent", "start", {
+            "title": product.get("title", ""),
+            "keyword_count": len(sorted_kw)
+        })
 
         existing_bullets = product.get('bullet_points', [])
         bullets_str = "\n".join(f"  {i+1}. {b}" for i, b in enumerate(existing_bullets)) if existing_bullets else "  (none)"
@@ -213,6 +266,18 @@ class BulletPointAgent:
             keyword_list=keyword_list,
         )
 
+        if few_shot_examples:
+            memory_str = "\n\n--- NEURAL MEMORY: HISTORICALLY SUCCESSFUL EXAMPLES ---\n"
+            for ex in few_shot_examples:
+                memory_str += f"Example Product Title: {ex.get('title', '')}\n"
+                memory_str += "Successful Bullets:\n"
+                for i, b in enumerate(ex.get('bullets', [])):
+                    if b:
+                        memory_str += f"  {i+1}. {b}\n"
+                memory_str += "---\n"
+            memory_str += "\nUse the stylistic patterns and formatting from these highly-rated examples as inspiration for THIS product.\n"
+            prompt += memory_str
+
         for attempt in range(3):
             temp = 0.2 + (attempt * 0.1)
             raw = self.llm.generate(prompt, temperature=temp, max_tokens=2000)
@@ -221,17 +286,21 @@ class BulletPointAgent:
             if obj and 'bullet_points' in obj:
                 bullets = obj['bullet_points']
                 if isinstance(bullets, list) and len(bullets) >= 3:
-                    # Enforce 200 char limit
-                    clean = []
-                    for b in bullets[:5]:
-                        b = str(b).strip()
-                        if len(b) > 200:
-                            b = b[:197] + "..."
-                        clean.append(b)
-                    # Pad to 5 if needed
+                    # Enforce 200 char limit via the AutoScorer
+                    clean = [str(b).strip() for b in bullets[:5]]
                     while len(clean) < 5:
                         clean.append("")
-                    return clean
+                        
+                        score = ListingScorer.score_bullets(clean)
+                        if score["pass"]:
+                            emit_telemetry("BulletPointAgent", "complete", {"bullets": clean})
+                            return clean
+                        else:
+                            fail_reason = " ".join(score["reasons"])
+                            print(f"      ⚠️  BulletPointAgent self-correcting: {fail_reason}")
+                            emit_telemetry("BulletPointAgent", "retry", {"reason": fail_reason, "attempt": attempt + 1})
+                            prompt += f"\n\nAttempt {attempt+1} failed because: {fail_reason}. Fix this and try again."
+                            continue
 
             prompt += f"\n\nAttempt {attempt+1} failed. Return ONLY valid JSON with exactly 5 bullet points."
 
@@ -260,6 +329,8 @@ class DescriptionAgent:
 
         key_features = image_analysis.get('key_features') or []
         features_str = ", ".join(key_features[:6]) if key_features else "N/A"
+
+        emit_telemetry("DescriptionAgent", "start", {"title": product.get("title", "")})
 
         existing_bullets = product.get('bullet_points', [])
         bullets_str = "\n".join(f"  {i+1}. {b}" for i, b in enumerate(existing_bullets)) if existing_bullets else "  (none)"
@@ -295,6 +366,7 @@ class DescriptionAgent:
                             desc = cut[:last_period + 1]
                         else:
                             desc = cut
+                    emit_telemetry("DescriptionAgent", "complete", {"length": len(desc)})
                     return desc
 
             prompt += f"\n\nAttempt {attempt+1} failed. Return valid JSON with 'description' that is 800-1500 characters long. Current was too short."
@@ -393,6 +465,8 @@ class SearchTermsAgent:
         # Extract rich product context from image analysis + bullets
         product_attributes = self._extract_product_attributes(title, bullets, image_analysis or {})
 
+        emit_telemetry("SearchTermsAgent", "start", {"title": title, "pool_size": len(top_pool)})
+
         prompt = f"""You are an Amazon backend search term expert with deep listing optimization experience.
 
 ═══ THIS PRODUCT ═══
@@ -409,14 +483,18 @@ Create a backend search term string (max {MAX_CHARS} characters) by:
 1. SELECTING only keywords that match THIS EXACT product (use specs above to filter out wrong variants)
 2. CHAINING selected keywords into meaningful search phrases using ONLY words from the keyword pool
 
-═══ CRITICAL: VARIANT FILTERING ═══
+═══ CRITICAL: VARIANT & SPECIFICATION STRICTNESS ═══
 The keyword pool above comes from a category-level database. It contains keywords for
 the ENTIRE category, including OTHER product variants that are NOT this product.
 
+YOU MUST BE EXTREMELY STRICT ABOUT PRODUCT SPECIFICATIONS (Weight, Size, Count, etc).
+DO NOT INCLUDE ANY WEIGHTS, SIZES, OR COUNTS THAT DO NOT MATCH THE PRODUCT EXACTLY.
+For example, if this product is exactly 6kg → YOU MUST STRICTLY EXCLUDE keywords containing "10kg", "3kg", "5kg", "2kg dumbbells", "4kg weights", "1kg", etc.
+Even if a wrong-weight keyword has massive search volume, EXCLUDE IT COMPLETELY.
+
 You MUST EXCLUDE keywords that specify a DIFFERENT:
-- Weight/size: If this product is 3kg → EXCLUDE "2kg dumbbells", "4kg weights", "1kg", "5kg", "10kg"
-  (Only include THIS product's weight: 3kg)
-- Color: If this product is black → EXCLUDE "pink dumbbells", "red weights"
+- Weight/size: Only include THIS product's exact weight/size. Do NOT mix and match.
+- Color: If this product is black → EXCLUDE "pink", "red"
   (Only include THIS product's color)
 - Material: If this product is neoprene → EXCLUDE "cast iron dumbbells" (unless it actually is cast iron)
 - Gender: If product is unisex → you CAN include both "women" and "men" terms
@@ -452,7 +530,7 @@ Notice:
 
 BAD example 1:
 "dumbbells set 3kg weights women 2kg 4kg 1kg 5kg dumbbells pair"
-↑ WRONG — includes 2kg, 4kg, 1kg, 5kg which are DIFFERENT products!
+↑ WRONG — includes 2kg, 4kg, 1kg, 5kg which are DIFFERENT products! Never include incorrect specs!
 
 BAD example 2:
 "dumbbells set dumbbells weights dumbbells pair dumbbells women dumbbells gym dumbbells"
@@ -478,19 +556,18 @@ JSON:"""
                 terms = ''.join(c if c.isalnum() or c == ' ' else ' ' for c in terms)
                 terms = ' '.join(terms.split())  # normalize whitespace
 
-                # Enforce 200 char limit — cut at last full word
-                if len(terms) > MAX_CHARS:
-                    cut = terms[:MAX_CHARS]
-                    last_space = cut.rfind(' ')
-                    if last_space > MAX_CHARS * 0.7:
-                        terms = cut[:last_space].strip()
-                    else:
-                        terms = cut.strip()
-
-                if len(terms) >= 50:  # sanity check
+                score = ListingScorer.score_search_terms(terms, title)
+                if score["pass"]:
+                    emit_telemetry("SearchTermsAgent", "complete", {"terms": terms, "length": len(terms)})
                     return terms
+                else:
+                    fail_reason = " ".join(score["reasons"])
+                    print(f"      ⚠️  SearchTermsAgent self-correcting: {fail_reason}")
+                    emit_telemetry("SearchTermsAgent", "retry", {"reason": fail_reason, "attempt": attempt + 1})
+                    prompt += f"\n\nAttempt {attempt+1} failed because: {fail_reason}. Fix this and try again. Remember, max 200 chars and EXCLUDE ALL incorrect specifications like wrong weights (e.g., do not output 10kg if product is 6kg)."
+                    continue
 
-            prompt += f"\n\nAttempt {attempt+1} failed. Return ONLY valid JSON with 'search_terms'. Must be ≤ {MAX_CHARS} chars, lowercase, meaningful phrases. EXCLUDE keywords with specs that don't match this product."
+            prompt += f"\n\nAttempt {attempt+1} failed. Return ONLY valid JSON with 'search_terms'. Must be ≤ {MAX_CHARS} chars, lowercase, meaningful phrases. EXCLUDE keywords with specs that don't match this product exactly."
 
         # Fallback: chain keyword phrases directly
         return self._fallback_chain(top_pool, MAX_CHARS)

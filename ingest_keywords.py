@@ -236,8 +236,12 @@ def _iter_records_from_browsenode_xlsx(path: str) -> Iterator[Tuple[str, Dict]]:
         }
 
 
-def ingest_keywords(paths: List[str], reset: bool = False, output_path: str = None):
-    """Load keywords from one or more files and store in the ST embedding index."""
+def ingest_keywords(paths: List[str], reset: bool = False, output_path: str = None, dataset_id: str = None):
+    """Load keywords from one or more files and store in the ST embedding index.
+    
+    If dataset_id is provided, all ingested files will be tagged with that explicit 
+    category string instead of inferring it from the filename.
+    """
     target_index_path = output_path if output_path else INDEX_PATH
     target_index_dir = os.path.dirname(target_index_path)
 
@@ -314,8 +318,8 @@ def ingest_keywords(paths: List[str], reset: bool = False, output_path: str = No
 
     total_added = 0
     for input_path in valid_paths:
-        dataset_id = _dataset_id_from_path(input_path)
-        print(f"\n   -> Ingesting dataset: {dataset_id}")
+        current_dataset_id = dataset_id if dataset_id else _dataset_id_from_path(input_path)
+        print(f"\n   -> Ingesting dataset: {current_dataset_id}")
 
         # Batch embed for speed
         batch_texts: List[str] = []
@@ -346,7 +350,7 @@ def ingest_keywords(paths: List[str], reset: bool = False, output_path: str = No
 
         for keyword, meta in _iter_records(input_path):
             meta = dict(meta)
-            meta['dataset_id'] = dataset_id
+            meta['dataset_id'] = current_dataset_id
             meta['source_file'] = os.path.basename(input_path)
 
             kw = str(keyword).strip()
@@ -452,6 +456,7 @@ if __name__ == "__main__":
     parser.add_argument('inputs', nargs='*', help='Input CSV/Excel files')
     parser.add_argument('--reset', action='store_true', help='Reset index before ingesting')
     parser.add_argument('--output', default=None, help='Output path for .npz index')
+    parser.add_argument('--dataset-id', default=None, help='Explicit category string to tag these keywords with')
     
     args = parser.parse_args()
     
@@ -460,6 +465,6 @@ if __name__ == "__main__":
         # Default behavior if no files provided
         paths = [DEFAULT_KEYWORDS_PATH]
 
-    ok = ingest_keywords(paths, reset=args.reset, output_path=args.output)
+    ok = ingest_keywords(paths, reset=args.reset, output_path=args.output, dataset_id=args.dataset_id)
     if ok:
         test_query(index_path=args.output)

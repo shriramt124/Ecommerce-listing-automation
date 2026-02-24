@@ -109,6 +109,12 @@ def build_command(params: dict) -> List[str]:
         cmd += ["--llm-base-url", params["llmBaseUrl"]]
     if params.get("llmApiKey"):
         cmd += ["--llm-api-key", params["llmApiKey"]]
+        
+    # Category Filtering
+    if params.get("ingestCategory"):
+        cmd += ["--ingest-category", params["ingestCategory"]]
+    if params.get("queryCategory"):
+        cmd += ["--query-category", params["queryCategory"]]
 
     # Range
     skip = params.get("skip", 0)
@@ -173,7 +179,7 @@ async def _run_job(job: Job, params: dict):
     job.status = "running"
     job.started_at = datetime.now().isoformat()
 
-    env = {**os.environ, "PYTHONUNBUFFERED": "1"}
+    env = {**os.environ, "PYTHONUNBUFFERED": "1", "ADKRUX_TELEMETRY_IPC": "1"}
     if params.get("geminiKey"):
         env["GEMINI_API_KEY"] = params["geminiKey"]
 
@@ -187,8 +193,21 @@ async def _run_job(job: Job, params: dict):
         )
         job._process = proc
 
+        from telemetry import emitter
+
         async for raw_line in proc.stdout:
             line = raw_line.decode("utf-8", errors="replace").rstrip()
+            
+            # Intercept Telemetry IPC from subprocess
+            if line.startswith("__TELEMETRY__:"):
+                try:
+                    telemetry_json = line.split("__TELEMETRY__:", 1)[1]
+                    for q in emitter.queues:
+                        q.put_nowait(telemetry_json)
+                except Exception:
+                    pass
+                continue
+
             job.logs.append(line)
 
             # Parse structured info

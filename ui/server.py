@@ -23,6 +23,18 @@ from ui.job_manager import (
     start_job, stop_job, get_job, get_all_jobs,
     subscribe, build_cli_preview, PROJECT_ROOT
 )
+import sys
+sys.path.append(str(PROJECT_ROOT))
+from telemetry import emitter
+
+# RL Memory Vault — lazy import so server starts even without chromadb
+try:
+    sys.path.insert(0, str(PROJECT_ROOT / "listing_generator"))
+    from listing_generator.feedback_store import FeedbackStore
+    _feedback_store = FeedbackStore()
+except Exception as _fs_err:
+    print(f"[server] FeedbackStore unavailable: {_fs_err}")
+    _feedback_store = None
 
 app = FastAPI(title="Amazon Listing Generator UI")
 
@@ -54,12 +66,21 @@ class RunParams(BaseModel):
     llmModel: Optional[str] = None
     llmBaseUrl: Optional[str] = None
     llmApiKey: Optional[str] = None
+    ingestCategory: Optional[str] = None
+    queryCategory: Optional[str] = None
     skip: int = 0
     limit: Optional[int] = None
 
 
 class StopParams(BaseModel):
     jobId: str
+
+
+class FeedbackRateParams(BaseModel):
+    asin: str
+    runId: str
+    category: str = "general"
+    action: str  # 'approve' | 'reject'
 
 
 # ─── REST endpoints ───────────────────────────────────────────────────────────
@@ -73,7 +94,7 @@ async def api_run(params: RunParams):
     if not params.outputDir:
         from datetime import datetime
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        params.outputDir = str(PROJECT_ROOT / "output" / f"run_{ts}")
+        params.outputDir = str(PROJECT_ROOT / "listing_output" / f"run_{ts}")
 
     job_id = await start_job(params.dict())
     return {"jobId": job_id, "outputDir": params.outputDir}
@@ -105,7 +126,7 @@ async def api_runs():
         })
 
     # Scan output/ directory for all run folders on disk
-    output_dir = PROJECT_ROOT / "output"
+    output_dir = PROJECT_ROOT / "listing_output"
     if output_dir.exists():
         for d in sorted(output_dir.iterdir(), reverse=True):
             if not d.is_dir() or str(d) in known_dirs or d.name.endswith('.xlsx'):
@@ -135,7 +156,7 @@ async def api_run_detail(run_id: str):
     output_dir = job.output_dir if job else None
 
     if not output_dir:
-        candidate = PROJECT_ROOT / "output" / run_id
+        candidate = PROJECT_ROOT / "listing_output" / run_id
         if candidate.is_dir():
             output_dir = str(candidate)
 
@@ -214,6 +235,89 @@ async def api_run_detail(run_id: str):
     }
 
 
+@app.get("/api/feedback/stats")
+async def api_feedback_stats():
+    """Return how many examples are stored in the Neural Memory Vault."""
+    if not _feedback_store:
+        return {"count": 0, "available": False}
+    try:
+        count = _feedback_store.collection.count()
+        return {"count": count, "available": True}
+    except Exception as e:
+        return {"count": 0, "available": False, "error": str(e)}
+
+
+@app.get("/api/keyword-categories")
+async def api_keyword_categories():
+    """Return the unique dataset/category IDs already ingested into the keyword vector index."""
+    import numpy as np
+    index_path = PROJECT_ROOT / "st_keywords_index" / "keywords_index.npz"
+    if not index_path.exists():
+        return {"categories": []}
+    try:
+        data = np.load(str(index_path), allow_pickle=False)
+        ids = [str(x) for x in data["dataset_ids"].tolist()]
+        unique = sorted(set(i for i in ids if i and i.strip()))
+        return {"categories": unique}
+    except Exception as e:
+        return {"categories": [], "error": str(e)}
+
+
+@app.post("/api/feedback/rate")
+async def api_feedback_rate(params: FeedbackRateParams):
+    """Save an approved listing to the Neural Memory Vault."""
+    if params.action != 'approve':
+        return {"status": "skipped", "reason": "action is not approve"}
+
+    if not _feedback_store:
+        raise HTTPException(503, "FeedbackStore not available (check ChromaDB installation)")
+
+    # Find product analysis on disk
+    output_dir = None
+    job = get_job(params.runId)
+    if job:
+        output_dir = job.output_dir
+    if not output_dir:
+        candidate = PROJECT_ROOT / "listing_output" / params.runId
+        if candidate.is_dir():
+            output_dir = str(candidate)
+
+    if not output_dir:
+        raise HTTPException(404, f"Run not found: {params.runId}")
+
+    analysis_path = Path(output_dir) / "analysis" / f"{params.asin}_analysis.json"
+    if not analysis_path.exists():
+        raise HTTPException(404, f"Analysis file not found for ASIN: {params.asin}")
+
+    try:
+        data = json.loads(analysis_path.read_text())
+    except Exception as e:
+        raise HTTPException(500, f"Failed to read analysis: {e}")
+
+    title = data.get("optimized_title") or data.get("original_title", "")
+    bullets = data.get("bullet_points", [])
+    search_terms = data.get("search_terms", "")
+    ia = data.get("image_analysis", {})
+    truth_data = {
+        "brand": ia.get("brand", ""),
+        "product_type": ia.get("product_type", ""),
+        "size": ia.get("size", ""),
+        "colors": ia.get("colors", []),
+        "key_features": ia.get("key_features", []),
+    }
+
+    _feedback_store.save_good_example(
+        asin=params.asin,
+        category=params.category,
+        title=title,
+        bullets=bullets,
+        search_terms=search_terms if isinstance(search_terms, str) else ", ".join(search_terms or []),
+        truth_data=truth_data,
+    )
+
+    return {"status": "saved", "asin": params.asin, "category": params.category}
+
+
 @app.get("/api/cli-preview")
 async def api_cli_preview(params_json: str):
     try:
@@ -266,6 +370,21 @@ async def api_excel(encoded_path: str):
 
 
 # ─── WebSocket ────────────────────────────────────────────────────────────────
+
+@app.websocket("/ws/telemetry")
+async def ws_telemetry(websocket: WebSocket):
+    """Streams live AI Agent telemetry for the Neural Dashboard Visualizer."""
+    await websocket.accept()
+    queue = emitter.subscribe()
+    try:
+        while True:
+            # Wait for events from the AI agents running in background threads
+            msg = await queue.get()
+            await websocket.send_text(msg)
+    except WebSocketDisconnect:
+        pass
+    finally:
+        emitter.unsubscribe(queue)
 
 @app.websocket("/ws/logs")
 async def ws_logs(websocket: WebSocket, jobId: str):

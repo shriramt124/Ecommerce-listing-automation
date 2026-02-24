@@ -24,6 +24,8 @@ from agentic_runlog import RunLogger
 from keyword_db import KeywordDB
 from parser import parser
 from token_types import TokenType
+from telemetry import emit_telemetry
+from telemetry import emit_telemetry
 
 
 def _normalize_pack_string(text: str) -> str:
@@ -387,90 +389,64 @@ class AgenticOptimizationPipeline:
         truth: Dict[str, Any],
         category_info: Dict[str, Any],
         concepts: List[Dict[str, Any]],
+        target_dataset_id: str = None
     ) -> Tuple[List[Dict[str, Any]], Dict[str, Any]]:
+        """Query vector DB with intelligent de-duplication."""
         report: Dict[str, Any] = {"queries": [], "results_by_query": {}}
 
-        queries = build_vector_queries(base_title, truth, category_info, concepts=concepts)
-        anchors = get_vector_query_anchors(base_title, truth, category_info)
-
-        for _ in range(max(self.ai_vector_rounds, 0)):
-            more = self.query_agent.run(
-                base_title=base_title,
-                truth=truth,
-                category_info=category_info,
-                anchors=anchors,
-                existing_queries=queries,
-            )
-            for q in more:
-                if q.lower() not in {x.lower() for x in queries}:
-                    queries.append(q)
-
-        merged: Dict[str, Dict[str, Any]] = {}
-        for q in queries:
-            results = self.keyword_db.get_top_keywords(q, limit=self.vector_limit_per_query)
-            report["results_by_query"][q] = results[:10]
-            report["queries"].append(q)
-
-            for r in results:
-                kw = str(r.get("keyword", "") or "").strip()
-                if not kw:
-                    continue
-                key = kw.lower()
-                prev = merged.get(key)
-                if not prev:
-                    merged[key] = {**r, "hit_queries": [q]}
-                else:
-                    prev_sim = float(prev.get("similarity", 0.0) or 0.0)
-                    new_sim = float(r.get("similarity", 0.0) or 0.0)
-                    if new_sim > prev_sim:
-                        keep_queries = prev.get("hit_queries", [])
-                        merged[key] = {**r, "hit_queries": keep_queries}
-                    if q not in prev.get("hit_queries", []):
-                        prev.setdefault("hit_queries", []).append(q)
-
-        candidates = list(merged.values())
-        candidates.sort(
-            key=lambda x: (
-                float(x.get("similarity", 0.0) or 0.0),
-                float(x.get("score", 0.0) or 0.0),
-            ),
-            reverse=True,
+        emit_telemetry("QueryPlannerAgent", "start", {"title": base_title})
+        queries = self.query_agent.run(
+            base_title=base_title,
+            truth=truth,
+            category_info=category_info,
+            anchors=[],
+            existing_queries=[]
         )
-        candidates = candidates[: self.vector_max_candidates]
+        emit_telemetry("QueryPlannerAgent", "complete", {"queries": queries})
+        report["queries"] = queries
 
-        if self.vector_debug:
-            print("   Vector queries used:")
-            for q in queries[:20]:
-                print(f"      - {q}")
-            print(f"   Merged candidates: {len(candidates)}")
-            for i, r in enumerate(candidates[:10], 1):
-                sim = float(r.get("similarity", 0.0) or 0.0)
-                sc = float(r.get("score", 0.0) or 0.0)
-                au = float(r.get("ad_units", 0.0) or 0.0)
-                print(f"      {i}. {r.get('keyword')} | sim={sim:.3f} | score={sc:.4f} | ad_units={au:.1f}")
-
-        return candidates, report
-
-    def optimize(self, base_title: str, truth: Dict[str, Any], pre_filtered_keywords: List[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
-        """Optimize title using 6-agent pipeline.
+        print(f"   [Pipeline] Retrieving keywords for {len(queries)} queries...")
+        all_results = []
+        seen = set()
         
-        If pre_filtered_keywords are provided (from master_pipeline with volume-based ranking),
-        use those instead of doing our own vector retrieval.
-        """
+        per_query = self.vector_limit_per_query
+        
+        for q in queries:
+            if self.vector_debug:
+                print(f"      Q: '{q}'")
+            res = self.keyword_db.get_top_keywords(q, limit=per_query, dataset_id=target_dataset_id)
+            report["results_by_query"][q] = len(res)
+            for r in res:
+                kw = r["keyword"].lower()
+                if kw not in seen:
+                    seen.add(kw)
+                    all_results.append(r)
+                    
+        # Sort by search volume/score
+        all_results.sort(key=lambda x: x.get("score", 0), reverse=True)
+        top_n = all_results[:self.vector_max_candidates]
+        print(f"   [Pipeline] Retrieved {len(top_n)} unique candidates.")
+        return top_n, report
+
+    def optimize(self, current_title: str, product_truth: Dict[str, Any], pre_filtered_keywords: List[Dict] = None, target_dataset_id: str = None, few_shot_examples: List[Dict[str, Any]] = None) -> Tuple[str, Dict[str, Any]]:
+        """Run the multi-agent pipeline to generate an optimized title."""
+        if not self.enabled:
+            print("   [Pipeline] AI disabled, returning current title.")
+            return current_title, {}
+
+        self.logger.init_run(current_title)
+        self.logger.log("product_truth", product_truth)
+        
+
         report: Dict[str, Any] = {
-            "original_title": base_title,
-            "original_length": len(base_title or ""),
+            "original_title": current_title,
+            "original_length": len(current_title or ""),
             "steps": [],
             "agents_used": [],
         }
 
-        if not self.enabled:
-            return base_title, report
-
-        self.logger.init_run(base_title)
-
-        truth = dict(truth or {})
-        truth["_locked"] = extract_locked_truth_from_title(base_title)
+        truth = dict(product_truth or {})
+        truth["_locked"] = extract_locked_truth_from_title(current_title)
         locked_pack = truth.get("_locked", {}).get("count_exact")
         locked_dim = truth.get("_locked", {}).get("dimension_exact")
         if locked_pack and not truth.get("count"):
@@ -480,7 +456,7 @@ class AgenticOptimizationPipeline:
 
         self.logger.log("truth_locked", truth)
 
-        tokens = parser.parse_title(base_title, truth)
+        tokens = parser.parse_title(current_title, truth)
         concepts: List[Dict[str, Any]] = []
         for t in tokens:
             if t.token_type != TokenType.SEPARATOR:
@@ -489,13 +465,16 @@ class AgenticOptimizationPipeline:
         report["steps"].append(f"Parsed {len(concepts)} concepts")
         self.logger.log("concepts", {"concepts": concepts})
 
-        category_info = self.category_agent.run(base_title, truth)
+        emit_telemetry("CategoryDetectorAgent", "start", {"title": current_title})
+        category_info = self.category_agent.run(current_title, truth)
+        emit_telemetry("CategoryDetectorAgent", "complete", {"category": category_info.get("category"), "subcategory": category_info.get("subcategory")})
         report["agents_used"].append("CategoryDetector")
         report["category"] = category_info
         self.logger.log("category", category_info)
 
         needs_eval = ["premium", "scented", "deluxe", "superior", "quality"]
         evaluated: List[Dict[str, Any]] = []
+        emit_telemetry("ConceptEvaluatorAgent", "start", {"concepts_to_eval": len([c for c in concepts if any(term in str(c.get("text", "")).lower() for term in needs_eval)])})
         for c in concepts:
             text_lower = str(c.get("text", "")).lower()
             should = any(term in text_lower for term in needs_eval)
@@ -518,6 +497,8 @@ class AgenticOptimizationPipeline:
             if c.get("keep"):
                 evaluated.append(c)
 
+        emit_telemetry("ConceptEvaluatorAgent", "complete", {"evaluated": len(evaluated)})
+
         report["agents_used"].append("ConceptEvaluator")
         report["steps"].append(f"Kept {len(evaluated)} concepts")
         self.logger.log("concepts_kept", {"concepts": evaluated})
@@ -528,7 +509,7 @@ class AgenticOptimizationPipeline:
             report["steps"].append(f"Using {len(candidates)} pre-filtered keyword candidates (volume-ranked)")
             report["vector_retrieval"] = {"source": "master_pipeline_pre_filtered", "count": len(candidates)}
         else:
-            candidates, retrieval_report = self._retrieve_keywords(base_title, truth, category_info, concepts=evaluated)
+            candidates, retrieval_report = self._retrieve_keywords(current_title, truth, category_info, concepts=evaluated, target_dataset_id=target_dataset_id)
             report["steps"].append(f"Retrieved {len(candidates)} keyword candidates")
             report["vector_retrieval"] = {
                 "queries": (retrieval_report.get("queries") or [])[:30],
@@ -537,6 +518,7 @@ class AgenticOptimizationPipeline:
         self.logger.log("retrieval", report["vector_retrieval"])
 
         existing_texts = [str(c.get("text", "")).lower() for c in evaluated]
+        emit_telemetry("KeywordSelectorAgent", "start", {"candidates": len(candidates)})
         selected = self.selector_agent.run(
             existing_concepts=existing_texts,
             candidates=candidates,
@@ -549,26 +531,31 @@ class AgenticOptimizationPipeline:
         report["agents_used"].append("KeywordSelector")
         report["selected_keywords"] = selected
         self.logger.log("selected_keywords", {"selected_keywords": selected})
+        emit_telemetry("KeywordSelectorAgent", "complete", {"selected": len(selected)})
 
+        emit_telemetry("TitleComposerAgent", "start", {})
         draft = self.composer_agent.run(
-            original_title=base_title,
+            original_title=current_title,
             truth=truth,
             concepts=evaluated,
             selected_keywords=selected,
             category_info=category_info,
+            few_shot_examples=few_shot_examples,
         )
         report["agents_used"].append("TitleComposer")
         self.logger.log("draft", draft)
 
-        optimized = str(draft.get("full_title", base_title) or base_title).strip()
+        optimized = str(draft.get("full_title", current_title) or current_title).strip()
         optimized = enforce_locked_substrings(optimized, truth.get("_locked", {}) or {})
         report["title_result"] = draft
 
         validation = validate_title(optimized, truth)
         report["validation"] = validation
         report["agents_used"].append("Validator")
+        emit_telemetry("TitleComposerAgent", "complete", {"title": optimized})
 
         if len(optimized) < 170:
+            emit_telemetry("TitleExtenderAgent", "start", {"current_length": len(optimized)})
             extended = self.extender_agent.run(
                 title=optimized,
                 truth=truth,
@@ -580,6 +567,7 @@ class AgenticOptimizationPipeline:
             validation = validate_title(optimized, truth)
             report["validation"] = validation
             report["agents_used"].append("TitleExtender")
+            emit_telemetry("TitleExtenderAgent", "complete", {"length": len(optimized)})
 
         report["optimized_title"] = optimized
         report["final_length"] = len(optimized)

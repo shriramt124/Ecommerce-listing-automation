@@ -197,19 +197,43 @@ class KeywordDB:
         self,
         query: str,
         min_similarity: float = 0.25,
+        dataset_id: str = None,
     ) -> List[Dict]:
         """Return ALL keywords above min_similarity for a single query.
 
         Unlike get_top_keywords, there is NO limit cap — every keyword
-        that passes the similarity threshold is returned.
+        that passes the similarity threshold is returned. Optionally filter by dataset_id.
         """
         if not self.index or not query or not str(query).strip():
             return []
 
         query_emb = encode_texts([str(query)])[0]
 
+        # Apply dataset filter if requested
+        if dataset_id:
+            mask = self.index.dataset_ids == str(dataset_id)
+            if not np.any(mask):
+                return []
+            emb = self.index.embeddings[mask]
+            keywords = self.index.keywords[mask]
+            scores = self.index.scores[mask]
+            ranks = self.index.ranks[mask]
+            ad_units = self.index.ad_units[mask]
+            ad_conv = self.index.ad_conv[mask]
+            dataset_ids = self.index.dataset_ids[mask]
+            source_formats = self.index.source_formats[mask]
+        else:
+            emb = self.index.embeddings
+            keywords = self.index.keywords
+            scores = self.index.scores
+            ranks = self.index.ranks
+            ad_units = self.index.ad_units
+            ad_conv = self.index.ad_conv
+            dataset_ids = self.index.dataset_ids
+            source_formats = self.index.source_formats
+
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
-            sims = self.index.embeddings @ query_emb
+            sims = emb @ query_emb
 
         mask = sims >= min_similarity
         indices = np.where(mask)[0]
@@ -223,18 +247,18 @@ class KeywordDB:
         results: List[Dict] = []
         seen: set = set()
         for i in sorted_idx.tolist():
-            kw = str(self.index.keywords[i]).strip().lower()
+            kw = str(keywords[i]).strip().lower()
             if kw in seen:
                 continue
             seen.add(kw)
             results.append({
-                "keyword": str(self.index.keywords[i]),
-                "score": float(self.index.scores[i]),
-                "rank": int(self.index.ranks[i]),
-                "ad_units": float(self.index.ad_units[i]),
-                "ad_conv": float(self.index.ad_conv[i]),
-                "dataset_id": str(self.index.dataset_ids[i]) if self.index.dataset_ids[i] else None,
-                "source_format": str(self.index.source_formats[i]) if self.index.source_formats[i] else None,
+                "keyword": str(keywords[i]),
+                "score": float(scores[i]),
+                "rank": int(ranks[i]),
+                "ad_units": float(ad_units[i]),
+                "ad_conv": float(ad_conv[i]),
+                "dataset_id": str(dataset_ids[i]) if dataset_ids[i] is not None else None,
+                "source_format": str(source_formats[i]) if source_formats[i] is not None else None,
                 "similarity": float(sims[i]),
             })
         return results
@@ -246,6 +270,7 @@ class KeywordDB:
     def compute_product_relevance(
         self,
         product_description: str,
+        dataset_id: str = None,
     ) -> Dict[str, float]:
         """Compute cosine similarity of EVERY keyword to a product description.
 
@@ -257,11 +282,22 @@ class KeywordDB:
 
         prod_emb = encode_texts([str(product_description)])[0]
 
+        # Apply dataset filter if requested
+        if dataset_id:
+            mask = self.index.dataset_ids == str(dataset_id)
+            if not np.any(mask):
+                return {}
+            emb = self.index.embeddings[mask]
+            keywords = self.index.keywords[mask]
+        else:
+            emb = self.index.embeddings
+            keywords = self.index.keywords
+
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
-            sims = self.index.embeddings @ prod_emb
+            sims = emb @ prod_emb
 
         relevance: Dict[str, float] = {}
-        for i, kw in enumerate(self.index.keywords):
+        for i, kw in enumerate(keywords):
             key = str(kw).strip().lower()
             sim_val = float(sims[i])
             if key not in relevance or sim_val > relevance[key]:

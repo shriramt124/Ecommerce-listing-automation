@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { startRun, stopRun } from '../api/client'
 import FilePicker from './FilePicker'
 import CLIPreview from './CLIPreview'
-import { Play, Square, Settings2, Image as ImageIcon, FileText, CheckCircle2, Type, ChevronDown, ChevronRight } from 'lucide-react'
+import { Play, Square, Settings2, Image as ImageIcon, FileText, CheckCircle2, Type, ChevronDown, ChevronRight, Database } from 'lucide-react'
 
 const MODES = [
     { id: 'full', label: 'Full Pipeline', desc: 'Titles + Content + Images', icon: CheckCircle2 },
@@ -25,10 +25,20 @@ export default function RunConfig({ onJobStarted, jobStatus, jobId }) {
         ingestKeywords: false, browseNodes: '', analysisDir: '',
         keywordIndex: '', geminiKey: '', geminiModel: '', skip: 0, limit: '',
         llmProvider: 'ollama', llmModel: '', llmBaseUrl: '', llmApiKey: '',
+        ingestCategory: '', queryCategory: '',
     })
     const [showAdvanced, setShowAdvanced] = useState(false)
     const [error, setError] = useState(null)
     const [starting, setStarting] = useState(false)
+    const [availableCategories, setAvailableCategories] = useState([])
+    const [categoriesLoading, setCategoriesLoading] = useState(true)
+
+    useEffect(() => {
+        fetch('http://localhost:8000/api/keyword-categories')
+            .then(r => r.json())
+            .then(d => { setAvailableCategories(d.categories || []); setCategoriesLoading(false); })
+            .catch(() => setCategoriesLoading(false))
+    }, [])
 
     const set = (k, v) => setParams(p => ({ ...p, [k]: v }))
     const isRunning = jobStatus === 'running'
@@ -79,6 +89,35 @@ export default function RunConfig({ onJobStarted, jobStatus, jobId }) {
                     <div>
                         <SectionHeader title="Output Destination" />
                         <FilePicker value={params.outputDir} onChange={v => set('outputDir', v)} placeholder="Defaults to 'output' folder" isDir />
+                    </div>
+                    <div>
+                        <SectionHeader title="Category Targeting" />
+                        <div className="relative">
+                            <select
+                                value={params.queryCategory}
+                                onChange={e => set('queryCategory', e.target.value)}
+                                className="w-full font-mono text-[12px] p-2 pr-8 rounded-md bg-prime-surface border border-prime-border focus:border-prime-primary outline-none focus:shadow-glow-primary transition-all text-prime-text appearance-none cursor-pointer"
+                            >
+                                <option value="">
+                                    {categoriesLoading ? '⏳ Loading categories...' : availableCategories.length === 0 ? '⚠️  No categories ingested yet' : '— Select a category —'}
+                                </option>
+                                {availableCategories.map(cat => (
+                                    <option key={cat} value={cat}>{cat}</option>
+                                ))}
+                            </select>
+                            <ChevronDown size={12} className="absolute right-2.5 top-1/2 -translate-y-1/2 text-prime-muted pointer-events-none" />
+                        </div>
+                        {availableCategories.length === 0 && !categoriesLoading && (
+                            <p className="text-[10px] text-amber-400/70 mt-1.5 flex items-center gap-1">
+                                <Database size={10} />
+                                Ingest keywords first using the Browse Nodes path in Advanced Settings.
+                            </p>
+                        )}
+                        {params.queryCategory && (
+                            <p className="text-[10px] text-prime-muted mt-1">
+                                The AI will only retrieve keywords tagged <span className="font-mono text-prime-primary">{params.queryCategory}</span> from the vector DB.
+                            </p>
+                        )}
                     </div>
                 </div>
 
@@ -180,13 +219,27 @@ export default function RunConfig({ onJobStarted, jobStatus, jobId }) {
                             <label className="text-[11px] text-prime-label mb-1.5 block">Keyword Search Index (.pkl)</label>
                             <FilePicker value={params.keywordIndex} onChange={v => set('keywordIndex', v)} placeholder="keyword_index.pkl" />
                         </div>
-                        <label className="flex items-center justify-between cursor-pointer group mt-2">
-                            <span className="text-[12px] text-prime-muted group-hover:text-prime-text transition-colors">Ingest New Keywords to DB</span>
-                            <div className={`w-8 h-4.5 flex items-center rounded-full p-0.5 transition-colors ${params.ingestKeywords ? 'bg-prime-info shadow-glow-primary' : 'bg-prime-hover border border-prime-border'}`}>
-                                <div className={`bg-white w-3.5 h-3.5 rounded-full shadow-md transform transition-transform ${params.ingestKeywords ? 'translate-x-[14px]' : 'translate-x-0'}`} />
-                            </div>
-                            <input type="checkbox" className="hidden" checked={params.ingestKeywords} onChange={e => set('ingestKeywords', e.target.checked)} />
-                        </label>
+                        <div className="p-3 bg-prime-surface/40 rounded-lg border border-prime-border">
+                            <label className="flex items-center justify-between cursor-pointer group">
+                                <span className="text-[12px] text-prime-muted group-hover:text-prime-text transition-colors font-medium">Ingest New Keywords to DB</span>
+                                <div className={`w-8 h-4.5 flex items-center rounded-full p-0.5 transition-colors ${params.ingestKeywords ? 'bg-prime-info shadow-glow-primary' : 'bg-prime-hover border border-prime-border'}`}>
+                                    <div className={`bg-white w-3.5 h-3.5 rounded-full shadow-md transform transition-transform ${params.ingestKeywords ? 'translate-x-[14px]' : 'translate-x-0'}`} />
+                                </div>
+                                <input type="checkbox" className="hidden" checked={params.ingestKeywords} onChange={e => set('ingestKeywords', e.target.checked)} />
+                            </label>
+
+                            {params.ingestKeywords && (
+                                <div className="mt-3 space-y-3 animate-in fade-in slide-in-from-top-1 duration-200">
+                                    <div className="h-px bg-prime-border w-full" />
+                                    <div>
+                                        <label className="text-[10px] text-prime-label mb-1.5 block uppercase tracking-wide">Category to Ingest As</label>
+                                        <input type="text" value={params.ingestCategory} onChange={e => set('ingestCategory', e.target.value)}
+                                            placeholder="e.g. 'Dumbbells' (Overrides filename)"
+                                            className="w-full font-mono text-[11px] p-2 rounded-md bg-prime-bg border border-prime-border focus:border-prime-info outline-none focus:shadow-glow-primary transition-all text-prime-text placeholder-prime-muted/40" />
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                         <div className="h-px bg-prime-divider my-3" />
                         <div className="text-[11px] font-bold text-prime-label uppercase tracking-widest mb-1.5">Text Generation LLM</div>
                         <div>

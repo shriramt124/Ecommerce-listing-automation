@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Terminal, Trash2, ArrowDownToLine } from 'lucide-react'
+import { Terminal, Trash2, ArrowDownToLine, ChevronDown, ChevronUp } from 'lucide-react'
 import { WS_URL } from '../api/client'
 
 // Enhanced regex-based colorizer that outputs actual HTML spans for precise coloring
@@ -33,7 +33,7 @@ function colorize(line) {
     return { __html: `<span class="text-prime-muted">${html}</span>` }
 }
 
-export default function LiveTerminal({ jobId, onProgress, onDone }) {
+export default function LiveTerminal({ jobId, onProgress, onDone, isCollapsed, onToggleCollapse }) {
     const [lines, setLines] = useState([])
     const [autoScroll, setAutoScroll] = useState(true)
     const [connected, setConnected] = useState(false)
@@ -100,38 +100,40 @@ export default function LiveTerminal({ jobId, onProgress, onDone }) {
                             <ArrowDownToLine size={13} />
                         </button>
                         <button
-                            onClick={() => setLines([])}
-                            className="p-1.5 rounded text-[#666] hover:bg-[#2A1515] hover:text-prime-danger transition-colors"
-                            title="Clear Console">
-                            <Trash2 size={13} />
+                            onClick={onToggleCollapse}
+                            className={`p-1.5 rounded flex items-center gap-1 text-[11px] transition-colors ${!isCollapsed ? 'bg-[#222] text-prime-accent' : 'text-[#666] hover:bg-[#1A1A1A] hover:text-[#999]'}`}
+                            title={isCollapsed ? "Expand Console" : "Collapse Console"}>
+                            {isCollapsed ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
                         </button>
                     </div>
                 </div>
             </div>
 
             {/* Terminal Output Area */}
-            <div ref={termRef} className="flex-1 overflow-y-auto px-5 py-4 font-mono text-[12px] leading-relaxed relative isolate">
+            {!isCollapsed && (
+                <div ref={termRef} className="flex-1 overflow-y-auto px-5 py-4 font-mono text-[12px] leading-relaxed relative isolate">
 
-                {/* Subtle background glow */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-prime-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
+                    {/* Subtle background glow */}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-prime-primary/5 rounded-full blur-[100px] -z-10 pointer-events-none" />
 
-                {lines.length === 0 ? (
-                    <div className="h-full flex flex-col items-center justify-center text-[#444] space-y-3 font-sans">
-                        <Terminal size={32} />
-                        <p className="text-[13px]">Awaiting master pipeline execution...</p>
-                    </div>
-                ) : (
-                    <div className="flex flex-col">
-                        {lines.map((line, i) => (
-                            <div
-                                key={i}
-                                className="whitespace-pre-wrap break-words hover:bg-white/[0.02] -mx-5 px-5 py-0.5"
-                                dangerouslySetInnerHTML={colorize(line)}
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
+                    {lines.length === 0 ? (
+                        <div className="h-full flex flex-col items-center justify-center text-[#444] space-y-3 font-sans">
+                            <Terminal size={32} />
+                            <p className="text-[13px]">Awaiting master pipeline execution...</p>
+                        </div>
+                    ) : (
+                        <div className="flex flex-col">
+                            {lines.map((line, i) => (
+                                <div
+                                    key={i}
+                                    className="whitespace-pre-wrap break-words hover:bg-white/[0.02] -mx-5 px-5 py-0.5"
+                                    dangerouslySetInnerHTML={colorize(line)}
+                                />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     )
 }
