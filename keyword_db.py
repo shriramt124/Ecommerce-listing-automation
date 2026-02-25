@@ -117,11 +117,24 @@ class KeywordDB:
     def get_high_volume_keywords(self, min_units: float = 50) -> List[Dict]:
         return [kw for kw in self.get_all_keywords() if float(kw.get("ad_units", 0.0) or 0.0) >= min_units]
 
-    def get_top_keywords(self, title: str, limit: int = 10, dataset_id: str = None) -> List[Dict]:
-        """Return top-N keywords by cosine similarity using SentenceTransformers.
+    def get_top_keywords(
+        self,
+        title: str,
+        limit: int = 10,
+        dataset_id: str = None,
+        sim_weight: float = 0.6,
+        vol_weight: float = 0.4,
+    ) -> List[Dict]:
+        """Return top-N keywords by HYBRID score: semantic similarity + search volume.
 
-        - embeddings are L2-normalized, so dot() is cosine similarity
-        - optionally filter by dataset_id
+        hybrid_score = sim_weight × cosine_similarity + vol_weight × volume_score
+
+        volume_score is the normalized inverse rank so that rank-1 (highest search
+        volume) maps to 1.0 and the lowest-rank keyword maps to 0.0:
+            volume_score = 1 - (rank - 1) / (max_rank - 1)
+
+        This stops the AI from picking semantically close but zero-traffic keywords
+        over slightly-less-similar but high-volume ones.
         """
         if not self.index:
             return []
@@ -153,18 +166,25 @@ class KeywordDB:
             dataset_ids = self.index.dataset_ids
             source_formats = self.index.source_formats
 
-        # On some macOS numpy/Accelerate builds, matmul may emit spurious RuntimeWarnings
-        # even when the numeric results are fine. Silence those to avoid confusing output.
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
-            sims = emb @ query_emb  # (N,)
+            sims = emb @ query_emb  # (N,) cosine similarity
+
+        # Normalize rank to [0, 1]: rank 1 (best) → 1.0, rank N (worst) → 0.0
+        max_rank = int(ranks.max()) if len(ranks) > 0 else 1
+        if max_rank > 1:
+            vol_scores = 1.0 - (ranks.astype(np.float32) - 1.0) / (max_rank - 1.0)
+        else:
+            vol_scores = np.ones(len(ranks), dtype=np.float32)
+
+        # Hybrid score
+        hybrid = sim_weight * sims + vol_weight * vol_scores
 
         # Retrieve more than limit to account for duplicates
-        n_fetch = int(min(max(limit * 5, 50), sims.shape[0]))
-        # argpartition for speed, then exact sort
-        idx = np.argpartition(-sims, n_fetch - 1)[:n_fetch]
-        idx = idx[np.argsort(-sims[idx])]
+        n_fetch = int(min(max(limit * 5, 50), hybrid.shape[0]))
+        idx = np.argpartition(-hybrid, n_fetch - 1)[:n_fetch]
+        idx = idx[np.argsort(-hybrid[idx])]
 
-        # Deduplicate: keep the highest-similarity entry for each unique keyword
+        # Deduplicate: keep the highest hybrid-score entry for each unique keyword
         results: List[Dict] = []
         seen_keywords: set = set()
         for i in idx.tolist():
@@ -182,6 +202,7 @@ class KeywordDB:
                     "dataset_id": str(dataset_ids[i]) if dataset_ids[i] is not None else None,
                     "source_format": str(source_formats[i]) if source_formats[i] is not None else None,
                     "similarity": float(sims[i]),
+                    "hybrid_score": float(hybrid[i]),
                 }
             )
             if len(results) >= limit:
@@ -198,11 +219,15 @@ class KeywordDB:
         query: str,
         min_similarity: float = 0.25,
         dataset_id: str = None,
+        sim_weight: float = 0.6,
+        vol_weight: float = 0.4,
     ) -> List[Dict]:
-        """Return ALL keywords above min_similarity for a single query.
+        """Return ALL keywords above min_similarity, sorted by HYBRID score.
 
         Unlike get_top_keywords, there is NO limit cap — every keyword
-        that passes the similarity threshold is returned. Optionally filter by dataset_id.
+        that passes the similarity threshold is returned, then re-ranked by
+        hybrid_score = sim_weight × similarity + vol_weight × volume_score.
+        Optionally filter by dataset_id.
         """
         if not self.index or not query or not str(query).strip():
             return []
@@ -235,13 +260,21 @@ class KeywordDB:
         with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
             sims = emb @ query_emb
 
-        mask = sims >= min_similarity
-        indices = np.where(mask)[0]
+        sim_mask = sims >= min_similarity
+        indices = np.where(sim_mask)[0]
         if len(indices) == 0:
             return []
 
-        sim_vals = sims[indices]
-        order = np.argsort(-sim_vals)
+        # Normalize rank to [0, 1]
+        max_rank = int(ranks.max()) if len(ranks) > 0 else 1
+        if max_rank > 1:
+            vol_scores = 1.0 - (ranks.astype(np.float32) - 1.0) / (max_rank - 1.0)
+        else:
+            vol_scores = np.ones(len(ranks), dtype=np.float32)
+
+        hybrid = sim_weight * sims + vol_weight * vol_scores
+        hybrid_vals = hybrid[indices]
+        order = np.argsort(-hybrid_vals)
         sorted_idx = indices[order]
 
         results: List[Dict] = []
@@ -260,6 +293,7 @@ class KeywordDB:
                 "dataset_id": str(dataset_ids[i]) if dataset_ids[i] is not None else None,
                 "source_format": str(source_formats[i]) if source_formats[i] is not None else None,
                 "similarity": float(sims[i]),
+                "hybrid_score": float(hybrid[i]),
             })
         return results
 

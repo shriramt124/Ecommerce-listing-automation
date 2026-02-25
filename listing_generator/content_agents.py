@@ -54,7 +54,8 @@ TASK: Write exactly 5 bullet points for an Amazon listing.
 RULES:
 1. Each bullet point MUST be ≤ 200 characters (HARD LIMIT).
 2. Start each bullet with a SHORT CAPS PHRASE (2-4 words) followed by a colon, then details.
-   Example: "HEAVY DUTY CONSTRUCTION: Made from thick, tear-resistant polyethylene..."
+   FORMAT: "FEATURE NAME: Benefit that matters to the customer..."
+   EXAMPLE: "ANTI-SLIP GRIP: Neoprene coating prevents hand fatigue during long workouts."
 3. Include relevant keywords from the list naturally — do NOT keyword-stuff.
 4. ONLY mention features/specs that appear in the data above. Do NOT invent features.
 5. Cover different angles: material/quality, size/quantity, use cases, durability, value.
@@ -267,15 +268,30 @@ class BulletPointAgent:
         )
 
         if few_shot_examples:
-            memory_str = "\n\n--- NEURAL MEMORY: HISTORICALLY SUCCESSFUL EXAMPLES ---\n"
-            for ex in few_shot_examples:
-                memory_str += f"Example Product Title: {ex.get('title', '')}\n"
-                memory_str += "Successful Bullets:\n"
+            memory_str = "\n\n═══════════════════════════════════════════════════\n"
+            memory_str += "🏆 NEURAL MEMORY VAULT (APPROVED EXAMPLES)\n"
+            memory_str += "═══════════════════════════════════════════════════\n"
+            memory_str += "The user explicitly approved the following bullet structures for this category.\n"
+            memory_str += "You MUST mimic their length, tone, and formatting style.\n\n"
+            
+            for index, ex in enumerate(few_shot_examples, 1):
+                notes = ex.get('pattern_notes', {})
+                constraints = []
+                if notes.get('avg_bullet_length'):
+                    constraints.append(f"   - Target Bullet Length: {notes['avg_bullet_length']}")
+                if notes.get('feature_benefit_bullets'):
+                    constraints.append(f"   - Starts with FEATURE NAME: Benefit format: YES")
+                    
+                constraint_str = "\n".join(constraints) if constraints else "   - Follow general Amazon best practices"
+
+                memory_str += f"APPROVED EXAMPLE {index} (Product: {ex.get('title', 'Unknown')}):\n"
+                memory_str += f"  Why this was approved (copy these patterns):\n{constraint_str}\n\n"
+                memory_str += "  Bullets:\n"
                 for i, b in enumerate(ex.get('bullets', [])):
                     if b:
-                        memory_str += f"  {i+1}. {b}\n"
-                memory_str += "---\n"
-            memory_str += "\nUse the stylistic patterns and formatting from these highly-rated examples as inspiration for THIS product.\n"
+                        memory_str += f"    {i+1}. {b}\n"
+                memory_str += "\n"
+                
             prompt += memory_str
 
         for attempt in range(3):

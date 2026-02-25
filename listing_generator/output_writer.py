@@ -224,6 +224,7 @@ def write_analysis_json(
     product: Dict[str, Any],
     image_analysis: Dict[str, Any],
     optimized_title: str,
+    keywords: List[Dict[str, Any]],
     output_dir: str,
 ) -> str:
     """Save debug/analysis JSON for a product."""
@@ -245,6 +246,7 @@ def write_analysis_json(
             k: v for k, v in (image_analysis or {}).items()
             if k not in ("local_image_paths",)  # skip large fields
         },
+        "keywords": keywords,  # Crucial for RL pattern extraction
         "timestamp": datetime.now().isoformat(),
     }
 

@@ -1634,7 +1634,7 @@ RULES:
                 output_rows.append(row)
 
                 # Save analysis JSON for debugging
-                write_analysis_json(product, image_analysis, optimized_title, self.output_dir)
+                write_analysis_json(product, image_analysis, optimized_title, keywords, self.output_dir)
 
                 # 3h. RL Tier 1 Auto-Scoring Logger
                 if not self.images_only:

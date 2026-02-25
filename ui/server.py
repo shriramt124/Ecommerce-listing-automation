@@ -298,6 +298,9 @@ async def api_feedback_rate(params: FeedbackRateParams):
     bullets = data.get("bullet_points", [])
     search_terms = data.get("search_terms", "")
     ia = data.get("image_analysis", {})
+    keywords = data.get("keywords", [])
+    manual = data.get("manual", "")
+
     truth_data = {
         "brand": ia.get("brand", ""),
         "product_type": ia.get("product_type", ""),
@@ -306,6 +309,24 @@ async def api_feedback_rate(params: FeedbackRateParams):
         "key_features": ia.get("key_features", []),
     }
 
+    # 1. Run the PatternExtractorAgent to deduce stylistic rules
+    from agentic_agents import PatternExtractorAgent
+    from agentic_llm import OllamaLLM
+    from gemini_llm import GeminiLLM
+    
+    # We use Ollama so the entire RL training loop remains fully local
+    model = os.getenv("OLLAMA_MODEL", "deepseek-v3.1:671b-cloud")
+    llm = OllamaLLM(model=model)
+    
+    extractor = PatternExtractorAgent(llm)
+    extracted_rules = extractor.run(
+        approved_title=title,
+        approved_bullets=bullets,
+        keywords=keywords,
+        image_analysis=ia,
+        manual=manual,
+    )
+
     _feedback_store.save_good_example(
         asin=params.asin,
         category=params.category,
@@ -313,6 +334,7 @@ async def api_feedback_rate(params: FeedbackRateParams):
         bullets=bullets,
         search_terms=search_terms if isinstance(search_terms, str) else ", ".join(search_terms or []),
         truth_data=truth_data,
+        ai_rules=extracted_rules,  # Pass the new AI-deduced rules to the vault
     )
 
     return {"status": "saved", "asin": params.asin, "category": params.category}

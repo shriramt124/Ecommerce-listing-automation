@@ -888,6 +888,42 @@ class TitleComposerAgent(BaseJsonAgent):
         count = str(truth.get("count", "") or "").strip()
         color = str(truth.get("color", "") or "").strip()
 
+        # --- Inject Neural Memory Vault Examples ---
+        vault_injection = ""
+        if few_shot_examples:
+            ex_texts = []
+            for i, ex in enumerate(few_shot_examples, 1):
+                title_ex = ex.get('title', '')
+                notes = ex.get('pattern_notes', {})
+                if title_ex:
+                    # Construct the structured constraint block
+                    constraints = []
+                    if notes.get("title_length"):
+                        constraints.append(f"   - Target Length: {notes['title_length']}")
+                    if notes.get("title_starts_with_brand"):
+                        constraints.append(f"   - BRAND PLACEMENT: Must be the very first word")
+
+                    constraint_str = "\n".join(constraints) if constraints else "   - Follow general Amazon best practices"
+
+                    ex_texts.append(
+                        f"APPROVED EXAMPLE {i}:\n"
+                        f"  Title: \"{title_ex}\"\n"
+                        f"  Why this was approved (copy these patterns):\n"
+                        f"{constraint_str}"
+                    )
+            
+            if ex_texts:
+                vault_joined = "\n\n".join(ex_texts)
+                vault_injection = f"""
+═══════════════════════════════════════════════════
+🏆 NEURAL MEMORY VAULT (APPROVED EXAMPLES)
+═══════════════════════════════════════════════════
+The user explicitly approved the following titles for this category.
+You MUST mimic their length, brand placement, and feature density.
+
+{vault_joined}
+"""
+
         prompt = f"""You are a senior Amazon listing copywriter. Write a title that reads like a 
 NATURAL PRODUCT DESCRIPTION while embedding high-volume search keywords seamlessly.
 
@@ -895,7 +931,7 @@ NATURAL PRODUCT DESCRIPTION while embedding high-volume search keywords seamless
 ORIGINAL TITLE:
 "{original_title}"
 ═══════════════════════════════════════════════════
-
+{vault_injection}
 VERIFIED PRODUCT FACTS (from image analysis — use ALL of these):
 *** CRITICAL INSTRUCTION: VISUAL FACTS OVERRIDE ORIGINAL TITLE ***
 If the Original Title contradicts these facts (e.g. wrong color, wrong material, wrong count), 
@@ -1103,3 +1139,73 @@ Extended title:"""
             return extended
 
         return title
+
+
+class PatternExtractorAgent:
+    """Tier 2 RL Pattern Extractor.
+    When a user approves a listing, this agent compares the original inputs (keywords, facts) 
+    to the final approved output to deduce the *stylistic rules* and *strategic choices*.
+    """
+    def __init__(self, llm: GeminiLLM):
+        self.llm = llm
+
+    def run(
+        self,
+        approved_title: str,
+        approved_bullets: List[str],
+        keywords: List[Dict[str, Any]],
+        image_analysis: Dict[str, Any],
+        manual: str,
+    ) -> Dict[str, Any]:
+        """Extract explicit writing rules from the approved listing."""
+        
+        # Build prompt inputs
+        sorted_kw = sorted(keywords, key=lambda x: float(x.get('score', 0) or 0), reverse=True)[:50]
+        kw_text = ", ".join(k.get("keyword", "") for k in sorted_kw)
+        
+        bullets_text = "\n".join(f"  - {b}" for b in approved_bullets if b)
+        
+        prompt = f"""You are a Master Copywriting Analyst. 
+The user just APPROVED this Amazon listing. Your job is to analyze the listing alongside 
+the raw inputs that were available, and extract the writing RULES the user likes.
+
+═══════════════════════════════════════════════════
+APPROVED OUTPUT:
+Title: {approved_title}
+Bullets:
+{bullets_text}
+═══════════════════════════════════════════════════
+
+RAW INPUTS AVAILABLE:
+Top Search Keywords: {kw_text}
+Product Facts: {image_analysis.get('product_type')} / {image_analysis.get('material')} / {image_analysis.get('colors')}
+Manual/Features: {manual[:300]}
+
+TASK:
+Identify 1 specific rule for the TITLE and 1 specific rule for the BULLETS.
+Ask yourself: "How did they cleverly combine the keywords and facts to make this?"
+
+Example rules:
+- "The title splits long keywords ('dumbbells set home gym') by placing 'dumbbells set' first and 'home gym' at the end."
+- "The title prioritizes material ('Cast Iron') over color."
+- "The bullets focus heavily on durability and safety rather than aesthetics."
+
+Return ONLY valid JSON:
+{{
+  "title_rule": "Detailed observation about title structure",
+  "bullet_rule": "Detailed observation about bullet focus or style"
+}}
+
+JSON:"""
+
+        try:
+            raw = self.llm.generate(prompt, temperature=0.2, max_tokens=1000)
+            if raw:
+                import json
+                obj = extract_json_object(raw)
+                if obj and isinstance(obj, dict):
+                    return obj
+        except Exception as e:
+            print(f"      ⚠️  PatternExtractorAgent failed: {e}")
+            
+        return {"title_rule": "", "bullet_rule": ""}
